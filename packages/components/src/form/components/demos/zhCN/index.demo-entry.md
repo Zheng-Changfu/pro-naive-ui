@@ -401,3 +401,15 @@ upload.vue
   />
 </template>
 ```
+
+### ProProgress
+基于 [NProgress](https://www.naiveui.com/zh-CN/light/components/progress) 封装，如果你不小心传递了字符串的数字或包含字符串的数组，内部会尝试转成数字，如果是一个不合法的数字(NaN)，会放弃转换
+```html
+<template>
+  <pro-progress
+    title="进度"
+    path="progress"
+    :field-props="nProgressProps"
+  />
+</template>
+```

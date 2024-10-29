@@ -16,6 +16,7 @@ export const zhCN = createLocale({
         case ValueTypeEnum.DIGIT:
         case ValueTypeEnum.MENTION:
         case ValueTypeEnum.PASSWORD:
+        case ValueTypeEnum.PROGRESS:
         case ValueTypeEnum.AUTO_COMPLETE:
           return `请输入${title}`
         case ValueTypeEnum.DATE:

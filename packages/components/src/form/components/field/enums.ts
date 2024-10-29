@@ -12,6 +12,7 @@ export enum ValueTypeEnum {
   TEXTAREA = 'textarea',
   CHECKBOX = 'checkbox',
   TRANSFER = 'transfer',
+  PROGRESS = 'progress',
   TREE_SELECT = 'tree-select',
   RADIO_GROUP = 'radio-group',
   COLOR_PICKER = 'color-picker',

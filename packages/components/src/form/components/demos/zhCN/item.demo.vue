@@ -14,8 +14,8 @@ export default defineComponent({
     const [proFormInst, { submit, restoreFieldsValue }] = useProFormInst()
 
     return {
-      readonly,
       submit,
+      readonly,
       proFormInst,
       restoreFieldsValue,
     }
@@ -40,6 +40,7 @@ export default defineComponent({
       'name': 'zcf',
       'password': 'zcf',
       'select': 0,
+      'progress': '20',
       'select-multiple': [0, 2],
       'tree-select': 'Wait',
       'radio-group': 0,
@@ -326,6 +327,10 @@ export default defineComponent({
         <pro-rate
           title="Rate"
           path="rate"
+        />
+        <pro-progress
+          title="Progress"
+          path="progress"
         />
         <pro-dynamic-tags
           title="动态标签"
