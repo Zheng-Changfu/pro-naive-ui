@@ -14,6 +14,7 @@ export const zhCN = createLocale({
       switch (valueType) {
         case ValueTypeEnum.INPUT:
         case ValueTypeEnum.DIGIT:
+        case ValueTypeEnum.IMAGE:
         case ValueTypeEnum.MENTION:
         case ValueTypeEnum.PASSWORD:
         case ValueTypeEnum.AUTO_COMPLETE:

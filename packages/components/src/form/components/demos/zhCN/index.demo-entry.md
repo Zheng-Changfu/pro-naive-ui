@@ -401,3 +401,22 @@ upload.vue
   />
 </template>
 ```
+### ProImage
+基于 [NImage](https://www.naiveui.com/zh-CN/light/components/image) 封装，可以传递数组或字符串数据，当传入字符串包含换行符时内部会默认以 `\n` 分割符自动变为多张图片，当图片数量大于1，内部自动使`NImageGroup`包裹，
+在`fieldProps` 中新增了一个属性`imageGroupProps`用于图片组配置
+- imageGroupProps：传递给 `NImageGroup` 的属性
+
+```html
+<template>
+  <pro-image
+     title="图片"
+     path="image"
+     :field-props="{
+       ...nImageProps
+       imageGroupProps: {
+         ..nImageGroupProps
+       },
+     }"
+   />
+</template>
+```

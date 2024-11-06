@@ -2,6 +2,7 @@ export enum ValueTypeEnum {
   RATE = 'rate',
   INPUT = 'input',
   DIGIT = 'digit',
+  IMAGE = 'image',
   SLIDER = 'slider',
   SWITCH = 'switch',
   UPLOAD = 'upload',

@@ -12,7 +12,6 @@ export default defineComponent({
   setup() {
     const readonly = ref(false)
     const [proFormInst, { submit, restoreFieldsValue }] = useProFormInst()
-
     return {
       readonly,
       submit,
@@ -37,6 +36,8 @@ export default defineComponent({
     :readonly="readonly"
     label-width="auto"
     :initial-values="{
+      'image': ['https://img1.baidu.com/=253&fmt=auto&app=138&f=JPEG?w=800&h=106',
+                'https://img0.baidu.com/it/u=614311030,847963260&fm=253&fmt=auto&app=120&f=JPEG?w=700&h=701'],
       'name': 'zcf',
       'password': 'zcf',
       'select': 0,
@@ -58,6 +59,15 @@ export default defineComponent({
   >
     <n-card title="文本类" embedded>
       <n-flex>
+        <pro-image
+          title="image"
+          path="image"
+          :field-props="{
+            imageGroupProps: {
+              showToolbar: false,
+            },
+          }"
+        />
         <pro-input
           title="name"
           path="name"
