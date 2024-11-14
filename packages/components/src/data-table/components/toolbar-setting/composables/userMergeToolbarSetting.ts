@@ -1,17 +1,18 @@
+import type { Simplify } from 'type-fest'
 import type { VNodeChild } from 'vue'
-import type { ProDataTableToolbarSetting } from '../../../types'
+import type { ProDataTableToolbarSetting, ToolbarColumnSetting, ToolbarDensitySetting } from '../../../types'
 import { useInjectProDataTableProps } from '../../../context'
 
 type RenderIcon = () => VNodeChild
-export type MergedToolbarReload = (ProDataTableToolbarSetting['reload'] & {}) | false
-export type MergedToolbarDensity = ((Required<Omit<ProDataTableToolbarSetting['density'] & {}, 'renderIcon'>>) & { renderIcon?: RenderIcon }) | false
-export type MergedToolbarColumnSetting = (Required<Omit<ProDataTableToolbarSetting['columnSetting'] & {}, 'renderIcon'>> & { renderIcon: RenderIcon }) | false
+export type MergedToolbarReload = Simplify<(ProDataTableToolbarSetting['reload'] & {}) | false>
+export type MergedToolbarDensity = Simplify<((Required<Omit<ToolbarDensitySetting & {}, 'renderIcon'>>) & { renderIcon?: RenderIcon }) | false>
+export type MergedToolbarColumnSetting = Simplify<(Required<Omit<ToolbarColumnSetting & {}, 'renderIcon'>> & { renderIcon?: RenderIcon }) | false>
 
 export function useMergeToolbarSetting() {
   const proDataTableProps = useInjectProDataTableProps()!
 
   const mergedToolbarSetting = computed(() => {
-    const normlaize = (val: any) => {
+    const normalize = (val: any) => {
       if (val === false) {
         return false
       }
@@ -22,14 +23,14 @@ export function useMergeToolbarSetting() {
     }
 
     const setting = proDataTableProps.value.toolbarSetting
-    const normalizedSetting = normlaize(setting) as ProDataTableToolbarSetting | false
+    const normalizedSetting = normalize(setting) as ProDataTableToolbarSetting | false
     if (normalizedSetting === false) {
       return false
     }
     return {
-      reload: normlaize(normalizedSetting.reload) as MergedToolbarReload,
-      density: normlaize(normalizedSetting.density) as MergedToolbarDensity,
-      columnSetting: normlaize(normalizedSetting.columnSetting) as MergedToolbarColumnSetting,
+      reload: normalize(normalizedSetting.reload) as MergedToolbarReload,
+      density: normalize(normalizedSetting.density) as MergedToolbarDensity,
+      columnSetting: normalize(normalizedSetting.columnSetting) as MergedToolbarColumnSetting,
     }
   })
 
