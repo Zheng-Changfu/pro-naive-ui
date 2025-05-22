@@ -231,6 +231,12 @@ export function createComponentMenuOptions({ lang, theme }) {
           path: '/edit-data-table',
           isNew: true,
         },
+        {
+          en: 'ProLayout',
+          zh: '布局',
+          enSuffix: true,
+          path: '/layout',
+        },
         // {
         //   en: 'ProTree',
         //   zh: '树',

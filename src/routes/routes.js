@@ -87,6 +87,10 @@ export const zhComponentRoutes = [
     component: () => import('../../packages/components/src/edit-data-table/demos/zhCN/index.demo-entry.md'),
   },
   {
+    path: 'layout',
+    component: () => import('../../packages/components/src/layout/demos/zhCN/index.demo-entry.md'),
+  },
+  {
     path: 'use-request',
     component: () => import('../../packages/components/src/composables/demos/use-request/zhCN/index.demo-entry.md'),
   },
