@@ -5,6 +5,7 @@
 
 ```demo
 vertical-layout.vue
+horizontal-layout.vue
 ```
 
 ## API
