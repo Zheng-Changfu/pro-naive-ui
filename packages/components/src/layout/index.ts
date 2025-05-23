@@ -1,1 +1,2 @@
-export { default as ProLayout } from './layout.vue'
+// export { default as ProLayout } from './layout'
+export * from './components'
