@@ -67,6 +67,7 @@ declare module 'vue' {
     ProFormList: typeof import('pro-naive-ui')['ProFormList']
     ProHorizontalLayout: typeof import('pro-naive-ui')['ProHorizontalLayout']
     ProInput: typeof import('pro-naive-ui')['ProInput']
+    ProMixedSidebarLayout: typeof import('pro-naive-ui')['ProMixedSidebarLayout']
     ProModalForm: typeof import('pro-naive-ui')['ProModalForm']
     ProPassword: typeof import('pro-naive-ui')['ProPassword']
     ProRate: typeof import('pro-naive-ui')['ProRate']
