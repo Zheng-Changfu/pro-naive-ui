@@ -6,6 +6,7 @@ import { useNaiveClsPrefix } from '../../../_internal/useClsPrefix'
 import { useMountStyle } from '../../../_internal/useMountStyle'
 import { useOverrideProps } from '../../../composables'
 import { sharedLayoutProps } from '../../props'
+import { useMergeConfig } from '../composables/useMergeConfig'
 import style from './index.cssr'
 
 const name = 'ProSidebarLayout'
@@ -14,12 +15,19 @@ export default defineComponent({
   props: sharedLayoutProps,
   slots: Object as SlotsType<SharedLayoutSlots>,
   setup(props) {
+    const mergedClsPrefix = useNaiveClsPrefix()
     const overridedProps = useOverrideProps(
       name,
       props,
     )
 
-    const mergedClsPrefix = useNaiveClsPrefix()
+    const {
+      mergedHeader,
+      mergedTabbar,
+      mergedFooter,
+      mergedSidebar,
+      mergedCssVars,
+    } = useMergeConfig(overridedProps)
 
     useMountStyle(
       name,
@@ -28,72 +36,122 @@ export default defineComponent({
     )
 
     return {
+      mergedHeader,
+      mergedTabbar,
+      mergedFooter,
+      mergedSidebar,
+      mergedCssVars,
       mergedClsPrefix,
     }
   },
   render() {
-    return (
-      <div class={[
-        `${this.mergedClsPrefix}-pro-layout`,
-        `${this.mergedClsPrefix}-pro-layout--sidebar`,
-      ]}
-      >
-        <header class={[
-          `${this.mergedClsPrefix}-pro-layout__header`,
-        ]}
+    const renderHeader = () => {
+      if (this.mergedHeader === false) {
+        return null
+      }
+      return [
+        <header
+          class={[
+            `${this.mergedClsPrefix}-pro-layout__header`,
+            `${this.mergedClsPrefix}-pro-layout__header--fixed`,
+          ]}
         >
           header...
-        </header>
-        <div class={[
-          `${this.mergedClsPrefix}-pro-layout__main-wrapper`,
-        ]}
+        </header>,
+        <header
+          class={[
+            `${this.mergedClsPrefix}-pro-layout__header`,
+            `${this.mergedClsPrefix}-pro-layout__header--placeholder`,
+          ]}
         >
-          <aside class={[
-            `${this.mergedClsPrefix}-pro-layout__aside`,
+        </header>,
+      ]
+    }
+
+    const renderTabbar = () => {
+      if (this.mergedTabbar === false) {
+        return null
+      }
+      return [
+        <section
+          class={[
+            `${this.mergedClsPrefix}-pro-layout__main__tabbar`,
+            `${this.mergedClsPrefix}-pro-layout__main__tabbar--fixed`,
+          ]}
+        >
+          main__tabbar
+        </section>,
+        <section
+          class={[
+            `${this.mergedClsPrefix}-pro-layout__main__tabbar`,
+            `${this.mergedClsPrefix}-pro-layout__main__tabbar--placeholder`,
+          ]}
+        >
+        </section>,
+      ]
+    }
+
+    const renderFooter = () => {
+      if (this.mergedFooter === false) {
+        return null
+      }
+      const { fixed } = this.mergedFooter
+      return [
+        <footer
+          class={[
+            `${this.mergedClsPrefix}-pro-layout__main__footer`,
+            { [`${this.mergedClsPrefix}-pro-layout__main__footer--fixed`]: fixed },
+          ]}
+        >
+          main__footer
+        </footer>,
+        fixed && (
+          <footer
+            class={[
+              `${this.mergedClsPrefix}-pro-layout__main__footer`,
+              `${this.mergedClsPrefix}-pro-layout__main__footer--placeholder`,
+            ]}
+          >
+          </footer>
+        ),
+      ]
+    }
+
+    return (
+      <div
+        class={[
+          `${this.mergedClsPrefix}-pro-layout`,
+          `${this.mergedClsPrefix}-pro-layout--sidebar`,
+        ]}
+        style={this.mergedCssVars}
+      >
+        <NScrollbar
+          class={[
+            `${this.mergedClsPrefix}-pro-layout__scrollbar`,
+          ]}
+          contentClass={`${this.mergedClsPrefix}-pro-layout__wrapper`}
+        >
+          {renderHeader()}
+          <div class={[
+            `${this.mergedClsPrefix}-pro-layout__main-wrapper`,
           ]}
           >
-            <NScrollbar>
+            <aside class={[
+              `${this.mergedClsPrefix}-pro-layout__aside`,
+            ]}
+            >
               <div class={[
                 `${this.mergedClsPrefix}-pro-layout__aside__main`,
               ]}
               >
-                <div>aside__content</div>
-                {/* <div>aside__main</div>
-              <div>aside__main</div>
-              <div>aside__main</div>
-              <div>aside__main</div>
-              <div>aside__main</div>
-              <div>aside__main</div>
-              <div>aside__main</div>
-              <div>aside__main</div>
-              <div>aside__main</div>
-              <div>aside__main</div>
-              <div>aside__main</div>
-              <div>aside__main</div>
-              <div>aside__main</div>
-              <div>aside__main</div>
-              <div>aside__main</div>
-              <div>aside__main</div>
-              <div>aside__main</div>
-              <div>aside__main</div>
-              <div>aside__main</div>
-              <div>aside__main</div>
-              <div>aside__main</div>
-              <div>aside__main</div> */}
+                <div>aside__main</div>
               </div>
-            </NScrollbar>
-            <div class={[
-              `${this.mergedClsPrefix}-pro-layout__aside__footer`,
+            </aside>
+            <main class={[
+              `${this.mergedClsPrefix}-pro-layout__main`,
             ]}
             >
-              aside__footer
-            </div>
-          </aside>
-          <div class={[`${this.mergedClsPrefix}-pro-layout__main`]}>
-            <section class={[`${this.mergedClsPrefix}-pro-layout__main__tabs`]}>
-              main__tabs
-            </section>
-            <NScrollbar>
+              {renderTabbar()}
               <main class={[`${this.mergedClsPrefix}-pro-layout__main__content`]}>
                 <div>main__content</div>
                 <div>main__content</div>
@@ -119,12 +177,10 @@ export default defineComponent({
                 <div>main__content</div>
                 <div>main__content</div>
               </main>
-            </NScrollbar>
-            <footer class={[`${this.mergedClsPrefix}-pro-layout__main__footer`]}>
-              main__footer
-            </footer>
+              {renderFooter()}
+            </main>
           </div>
-        </div>
+        </NScrollbar>
       </div>
     )
   },

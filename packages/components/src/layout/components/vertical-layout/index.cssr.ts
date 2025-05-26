@@ -13,8 +13,12 @@ export default cB('pro-layout', `
       flex-shrink: 0;
       display: flex;
       flex-direction: column;
+      box-sizing: border-box;
+      background: var(--pro-layout-color);
       border-right: 1px solid var(--pro-layout-border-color);
-      transition: border-color .3s var(--pro-bezier);
+      transition: 
+        background .3s var(--pro-bezier),
+        border-color .3s var(--pro-bezier);
     `, [
       cE('header', `
         height: var(--pro-layout-header-height);
