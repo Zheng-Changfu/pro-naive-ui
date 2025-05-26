@@ -7,6 +7,7 @@
 vertical-layout.vue
 horizontal-layout.vue
 sidebar-layout.vue
+mixed-sidebar-layout.vue
 ```
 
 ## API
