@@ -72,6 +72,7 @@ declare module 'vue' {
     ProRate: typeof import('pro-naive-ui')['ProRate']
     ProSearchForm: typeof import('pro-naive-ui')['ProSearchForm']
     ProSelect: typeof import('pro-naive-ui')['ProSelect']
+    ProSidebarLayout: typeof import('pro-naive-ui')['ProSidebarLayout']
     ProTextarea: typeof import('pro-naive-ui')['ProTextarea']
     ProTime: typeof import('pro-naive-ui')['ProTime']
     ProTreeSelect: typeof import('pro-naive-ui')['ProTreeSelect']

@@ -6,6 +6,7 @@ import { useNaiveClsPrefix } from '../../../_internal/useClsPrefix'
 import { useMountStyle } from '../../../_internal/useMountStyle'
 import { useOverrideProps } from '../../../composables'
 import { sharedLayoutProps } from '../../props'
+import { useMergeConfig } from '../composables/useMergeConfig'
 import style from './index.cssr'
 
 const name = 'ProHorizontalLayout'
@@ -14,12 +15,19 @@ export default defineComponent({
   props: sharedLayoutProps,
   slots: Object as SlotsType<SharedLayoutSlots>,
   setup(props) {
+    const mergedClsPrefix = useNaiveClsPrefix()
     const overridedProps = useOverrideProps(
       name,
       props,
     )
 
-    const mergedClsPrefix = useNaiveClsPrefix()
+    const {
+      mergedHeader,
+      mergedTabbar,
+      mergedFooter,
+      mergedSidebar,
+      mergedCssVars,
+    } = useMergeConfig(overridedProps)
 
     useMountStyle(
       name,
@@ -28,49 +36,134 @@ export default defineComponent({
     )
 
     return {
+      mergedHeader,
+      mergedTabbar,
+      mergedFooter,
+      mergedSidebar,
+      mergedCssVars,
       mergedClsPrefix,
     }
   },
   render() {
-    return (
-      <div class={[
-        `${this.mergedClsPrefix}-pro-layout`,
-        `${this.mergedClsPrefix}-pro-layout--horizontal`,
-      ]}
-      >
-        <div class={[`${this.mergedClsPrefix}-pro-layout__main`]}>
-          <header class={[`${this.mergedClsPrefix}-pro-layout__main__header`]}>
-            main__header
+    const renderHeader = () => {
+      if (this.mergedHeader === false) {
+        return null
+      }
+      const { fixed } = this.mergedHeader
+      return [
+        <header
+          class={[
+            `${this.mergedClsPrefix}-pro-layout__main__header`,
+            { [`${this.mergedClsPrefix}-pro-layout__main__header--fixed`]: fixed },
+          ]}
+        >
+          header...
+        </header>,
+        fixed && (
+          <header
+            class={[
+              `${this.mergedClsPrefix}-pro-layout__main__header`,
+              `${this.mergedClsPrefix}-pro-layout__main__header--placeholder`,
+            ]}
+          >
           </header>
-          <section class={[`${this.mergedClsPrefix}-pro-layout__main__tabs`]}>
-            main__tabs
+        ),
+      ]
+    }
+
+    const renderTabbar = () => {
+      if (this.mergedTabbar === false) {
+        return null
+      }
+      const fixed = this.mergedHeader === false || this.mergedHeader.fixed
+      return [
+        <section
+          class={[
+            `${this.mergedClsPrefix}-pro-layout__main__tabbar`,
+            { [`${this.mergedClsPrefix}-pro-layout__main__tabbar--fixed`]: fixed },
+          ]}
+        >
+          main__tabbar
+        </section>,
+        fixed && (
+          <section
+            class={[
+              `${this.mergedClsPrefix}-pro-layout__main__tabbar`,
+              `${this.mergedClsPrefix}-pro-layout__main__tabbar--placeholder`,
+            ]}
+          >
           </section>
-          <NScrollbar>
-            <main class={[`${this.mergedClsPrefix}-pro-layout__main__content`]}>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-            </main>
-          </NScrollbar>
-          <footer class={[`${this.mergedClsPrefix}-pro-layout__main__footer`]}>
-            main__footer
+        ),
+      ]
+    }
+
+    const renderFooter = () => {
+      if (this.mergedFooter === false) {
+        return null
+      }
+      const { fixed } = this.mergedFooter
+      return [
+        <footer
+          class={[
+            `${this.mergedClsPrefix}-pro-layout__main__footer`,
+            { [`${this.mergedClsPrefix}-pro-layout__main__footer--fixed`]: fixed },
+          ]}
+        >
+          main__footer
+        </footer>,
+        fixed && (
+          <footer
+            class={[
+              `${this.mergedClsPrefix}-pro-layout__main__footer`,
+              `${this.mergedClsPrefix}-pro-layout__main__footer--placeholder`,
+            ]}
+          >
           </footer>
-        </div>
+        ),
+      ]
+    }
+
+    return (
+      <div
+        class={[
+          `${this.mergedClsPrefix}-pro-layout`,
+          `${this.mergedClsPrefix}-pro-layout--horizontal`,
+        ]}
+        style={this.mergedCssVars}
+      >
+        <NScrollbar
+          class={[
+            `${this.mergedClsPrefix}-pro-layout__scrollbar`,
+          ]}
+          contentClass={`${this.mergedClsPrefix}-pro-layout__main`}
+        >
+          {renderHeader()}
+          {renderTabbar()}
+          <main class={[`${this.mergedClsPrefix}-pro-layout__main__content`]}>
+            <div>main__content</div>
+            <div>main__content</div>
+            <div>main__content</div>
+            <div>main__content</div>
+            <div>main__content</div>
+            <div>main__content</div>
+            <div>main__content</div>
+            <div>main__content</div>
+            <div>main__content</div>
+            <div>main__content</div>
+            <div>main__content</div>
+            <div>main__content</div>
+            <div>main__content</div>
+            <div>main__content</div>
+            <div>main__content</div>
+            <div>main__content</div>
+            <div>main__content</div>
+            <div>main__content</div>
+            <div>main__content</div>
+            <div>main__content</div>
+            <div>main__content</div>
+          </main>
+          {renderFooter()}
+        </NScrollbar>
       </div>
     )
   },

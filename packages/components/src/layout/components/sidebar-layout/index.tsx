@@ -38,23 +38,27 @@ export default defineComponent({
         `${this.mergedClsPrefix}-pro-layout--sidebar`,
       ]}
       >
-        <aside class={[
-          `${this.mergedClsPrefix}-pro-layout__aside`,
+        <header class={[
+          `${this.mergedClsPrefix}-pro-layout__header`,
         ]}
         >
-          <div class={[
-            `${this.mergedClsPrefix}-pro-layout__aside__header`,
+          header...
+        </header>
+        <div class={[
+          `${this.mergedClsPrefix}-pro-layout__main-wrapper`,
+        ]}
+        >
+          <aside class={[
+            `${this.mergedClsPrefix}-pro-layout__aside`,
           ]}
           >
-            aside__header
-          </div>
-          <NScrollbar>
-            <div class={[
-              `${this.mergedClsPrefix}-pro-layout__aside__main`,
-            ]}
-            >
-              <div>aside__main</div>
-              {/* <div>aside__main</div>
+            <NScrollbar>
+              <div class={[
+                `${this.mergedClsPrefix}-pro-layout__aside__main`,
+              ]}
+              >
+                <div>aside__content</div>
+                {/* <div>aside__main</div>
               <div>aside__main</div>
               <div>aside__main</div>
               <div>aside__main</div>
@@ -76,47 +80,50 @@ export default defineComponent({
               <div>aside__main</div>
               <div>aside__main</div>
               <div>aside__main</div> */}
+              </div>
+            </NScrollbar>
+            <div class={[
+              `${this.mergedClsPrefix}-pro-layout__aside__footer`,
+            ]}
+            >
+              aside__footer
             </div>
-          </NScrollbar>
-          <div class={[
-            `${this.mergedClsPrefix}-pro-layout__aside__footer`,
-          ]}
-          >
-            aside__footer
+          </aside>
+          <div class={[`${this.mergedClsPrefix}-pro-layout__main`]}>
+            <section class={[`${this.mergedClsPrefix}-pro-layout__main__tabs`]}>
+              main__tabs
+            </section>
+            <NScrollbar>
+              <main class={[`${this.mergedClsPrefix}-pro-layout__main__content`]}>
+                <div>main__content</div>
+                <div>main__content</div>
+                <div>main__content</div>
+                <div>main__content</div>
+                <div>main__content</div>
+                <div>main__content</div>
+                <div>main__content</div>
+                <div>main__content</div>
+                <div>main__content</div>
+                <div>main__content</div>
+                <div>main__content</div>
+                <div>main__content</div>
+                <div>main__content</div>
+                <div>main__content</div>
+                <div>main__content</div>
+                <div>main__content</div>
+                <div>main__content</div>
+                <div>main__content</div>
+                <div>main__content</div>
+                <div>main__content</div>
+                <div>main__content</div>
+                <div>main__content</div>
+                <div>main__content</div>
+              </main>
+            </NScrollbar>
+            <footer class={[`${this.mergedClsPrefix}-pro-layout__main__footer`]}>
+              main__footer
+            </footer>
           </div>
-        </aside>
-        <div class={[`${this.mergedClsPrefix}-pro-layout__main`]}>
-          <header class={[`${this.mergedClsPrefix}-pro-layout__main__header`]}>
-            main__header
-          </header>
-          <section class={[`${this.mergedClsPrefix}-pro-layout__main__tabs`]}>
-            main__tabs
-          </section>
-          <NScrollbar>
-            <main class={[`${this.mergedClsPrefix}-pro-layout__main__content`]}>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-              <div>main__content</div>
-            </main>
-          </NScrollbar>
-          <footer class={[`${this.mergedClsPrefix}-pro-layout__main__footer`]}>
-            main__footer
-          </footer>
         </div>
       </div>
     )
