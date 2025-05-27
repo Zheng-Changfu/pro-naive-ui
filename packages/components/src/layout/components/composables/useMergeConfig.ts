@@ -11,6 +11,7 @@ export function useMergeConfig(props: ComputedRef<SharedLayoutProps>) {
       return false
     return {
       width: 224,
+      mixedWidth: 80,
       ...(props.value.sidebar ?? {}),
     }
   })
@@ -63,6 +64,7 @@ export function useMergeConfig(props: ComputedRef<SharedLayoutProps>) {
     }
     if (mergedSidebar.value !== false) {
       vars['--pro-layout-sidebar-width'] = `${mergedSidebar.value.width}px`
+      vars['--pro-layout-sidebar-mixed-width'] = `${mergedSidebar.value.mixedWidth}px`
     }
     return vars
   })
