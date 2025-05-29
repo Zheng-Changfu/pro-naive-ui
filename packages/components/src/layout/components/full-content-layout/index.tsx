@@ -57,36 +57,10 @@ export default defineComponent({
           class={[
             `${this.mergedClsPrefix}-pro-layout__scrollbar`,
           ]}
-          contentClass={`${this.mergedClsPrefix}-pro-layout__main`}
+          contentClass={`${this.mergedClsPrefix}-pro-layout__scrollbar__inner`}
         >
-          <main class={[`${this.mergedClsPrefix}-pro-layout__main__content`]}>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
+          <main class={[`${this.mergedClsPrefix}-pro-layout__main`]}>
+            {this.$slots.default?.()}
           </main>
         </NScrollbar>
       </div>

@@ -15,6 +15,52 @@ export default defineComponent({
 
 <template>
   <div class="h-500px">
-    <pro-vertical-layout />
+    <pro-vertical-layout>
+      <!-- <template #logo>
+        <div>logo</div>
+      </template>
+      <template #header-left>
+        <div>header-left</div>
+      </template>
+      <template #header-center>
+        <div>header-center</div>
+      </template>
+      <template #header-menu>
+        <div>header-menu</div>
+      </template>
+      <template #header-right>
+        <div>header-right</div>
+      </template> -->
+      <!-- <template #sidebar>
+        <div>sidebar</div>
+      </template> -->
+      <template #tabbar>
+        <div>tabbar</div>
+      </template>
+      <template #footer>
+        <div>footer</div>
+      </template>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+    </pro-vertical-layout>
   </div>
 </template>

@@ -4,6 +4,7 @@ import { NScrollbar } from 'naive-ui'
 import { defineComponent } from 'vue'
 import { useNaiveClsPrefix } from '../../../_internal/useClsPrefix'
 import { useMountStyle } from '../../../_internal/useMountStyle'
+import { resolveWrappedSlot } from '../../../_utils/resolveSlot'
 import { useOverrideProps } from '../../../composables'
 import { sharedLayoutProps } from '../../props'
 import { useMergeConfig } from '../composables/useMergeConfig'
@@ -49,52 +50,67 @@ export default defineComponent({
       if (this.mergedHeader === false) {
         return null
       }
-      const { fixed } = this.mergedHeader
-      return [
-        <header
-          class={[
-            `${this.mergedClsPrefix}-pro-layout__main__header`,
-            { [`${this.mergedClsPrefix}-pro-layout__main__header--fixed`]: fixed },
-          ]}
-        >
-          header...
-        </header>,
-        fixed && (
-          <header
-            class={[
-              `${this.mergedClsPrefix}-pro-layout__main__header`,
-              `${this.mergedClsPrefix}-pro-layout__main__header--placeholder`,
-            ]}
-          >
-          </header>
-        ),
-      ]
+
+      const headerLeftDom = resolveWrappedSlot(this.$slots['header-left'], (children) => {
+        if (!children) {
+          return null
+        }
+        return <div class={`${this.mergedClsPrefix}-pro-layout__header__left`}>{children}</div>
+      })
+
+      const headerMenuDom = resolveWrappedSlot(this.$slots['header-menu'], (children) => {
+        if (!children) {
+          return null
+        }
+        return <div class={`${this.mergedClsPrefix}-pro-layout__header__menu`}>{children}</div>
+      })
+
+      const headerCenterDom = resolveWrappedSlot(this.$slots['header-center'], (children) => {
+        if (!children) {
+          return null
+        }
+        return <div class={`${this.mergedClsPrefix}-pro-layout__header__center`}>{children}</div>
+      })
+
+      const headerRightDom = resolveWrappedSlot(this.$slots['header-right'], (children) => {
+        if (!children) {
+          return null
+        }
+        return <div class={`${this.mergedClsPrefix}-pro-layout__header__right`}>{children}</div>
+      })
+
+      if (
+        !headerLeftDom
+        && !headerMenuDom
+        && !headerCenterDom
+        && !headerRightDom
+      ) {
+        return null
+      }
+      return (
+        <header class={`${this.mergedClsPrefix}-pro-layout__header`}>
+          {headerLeftDom}
+          {headerMenuDom}
+          {headerCenterDom}
+          {headerRightDom}
+        </header>
+      )
     }
 
     const renderTabbar = () => {
       if (this.mergedTabbar === false) {
         return null
       }
-      const fixed = this.mergedHeader === false || this.mergedHeader.fixed
-      return [
-        <section
-          class={[
-            `${this.mergedClsPrefix}-pro-layout__main__tabbar`,
-            { [`${this.mergedClsPrefix}-pro-layout__main__tabbar--fixed`]: fixed },
-          ]}
-        >
-          main__tabbar
-        </section>,
-        fixed && (
-          <section
-            class={[
-              `${this.mergedClsPrefix}-pro-layout__main__tabbar`,
-              `${this.mergedClsPrefix}-pro-layout__main__tabbar--placeholder`,
-            ]}
-          >
+      return resolveWrappedSlot(this.$slots.tabbar, (children) => {
+        if (!children) {
+          return null
+        }
+        return (
+          <section class={`${this.mergedClsPrefix}-pro-layout__tabbar`}>
+            {children}
           </section>
-        ),
-      ]
+        )
+      })
     }
 
     const renderFooter = () => {
@@ -102,25 +118,95 @@ export default defineComponent({
         return null
       }
       const { fixed } = this.mergedFooter
-      return [
-        <footer
-          class={[
-            `${this.mergedClsPrefix}-pro-layout__main__footer`,
-            { [`${this.mergedClsPrefix}-pro-layout__main__footer--fixed`]: fixed },
-          ]}
-        >
-          main__footer
-        </footer>,
-        fixed && (
+      return resolveWrappedSlot(this.$slots.footer, (children) => {
+        if (!children) {
+          return null
+        }
+        return [
           <footer
             class={[
-              `${this.mergedClsPrefix}-pro-layout__main__footer`,
-              `${this.mergedClsPrefix}-pro-layout__main__footer--placeholder`,
+              `${this.mergedClsPrefix}-pro-layout__footer`,
+              { [`${this.mergedClsPrefix}-pro-layout__footer--fixed`]: fixed },
             ]}
           >
-          </footer>
-        ),
+            {children}
+          </footer>,
+          fixed && (
+            <footer
+              class={[
+                `${this.mergedClsPrefix}-pro-layout__footer`,
+                `${this.mergedClsPrefix}-pro-layout__footer--placeholder`,
+              ]}
+            />
+          ),
+        ]
+      })
+    }
+
+    const resolveScrollHeader = () => {
+      if (this.mergedHeader === false && this.mergedTabbar === false) {
+        return null
+      }
+      const headerDom = renderHeader()
+      const tabbarDom = renderTabbar()
+      if (!headerDom && !tabbarDom) {
+        return null
+      }
+      const fixed = this.mergedHeader === false || this.mergedHeader.fixed || !headerDom
+      return [
+        <div class={[
+          `${this.mergedClsPrefix}-pro-layout__scroll-behavior`,
+          { [`${this.mergedClsPrefix}-pro-layout__scroll-behavior--fixed`]: fixed },
+        ]}
+        >
+          {headerDom}
+          {tabbarDom}
+        </div>,
+        fixed && [
+          headerDom && (
+            <div class={[
+              `${this.mergedClsPrefix}-pro-layout__header`,
+              `${this.mergedClsPrefix}-pro-layout__header--placeholder`,
+            ]}
+            >
+            </div>
+          ),
+          tabbarDom && (
+            <div class={[
+              `${this.mergedClsPrefix}-pro-layout__tabbar`,
+              `${this.mergedClsPrefix}-pro-layout__tabbar--placeholder`,
+            ]}
+            >
+            </div>
+          ),
+        ],
       ]
+    }
+
+    const renderAside = () => {
+      const logoDom = resolveWrappedSlot(this.$slots.logo, (children) => {
+        if (!children) {
+          return null
+        }
+        return <div class={`${this.mergedClsPrefix}-pro-layout__aside__logo`}>{children}</div>
+      })
+
+      const sidebarDom = resolveWrappedSlot(this.$slots.sidebar, (children) => {
+        if (!children) {
+          return null
+        }
+        return <div class={`${this.mergedClsPrefix}-pro-layout__aside__main`}>{children}</div>
+      })
+
+      if (!logoDom && !sidebarDom) {
+        return null
+      }
+      return (
+        <aside class={[`${this.mergedClsPrefix}-pro-layout__aside`]}>
+          {logoDom }
+          {sidebarDom}
+        </aside>
+      )
     }
 
     return (
@@ -131,54 +217,15 @@ export default defineComponent({
         ]}
         style={this.mergedCssVars}
       >
-        <aside class={[
-          `${this.mergedClsPrefix}-pro-layout__aside`,
-        ]}
-        >
-          <div class={[
-            `${this.mergedClsPrefix}-pro-layout__aside__header`,
-          ]}
-          >
-            aside__header
-          </div>
-          <div class={[
-            `${this.mergedClsPrefix}-pro-layout__aside__main`,
-          ]}
-          >
-            <div>aside__main</div>
-          </div>
-        </aside>
+        {renderAside()}
         <NScrollbar
           class={[
             `${this.mergedClsPrefix}-pro-layout__scrollbar`,
           ]}
-          contentClass={`${this.mergedClsPrefix}-pro-layout__main`}
+          contentClass={`${this.mergedClsPrefix}-pro-layout__scrollbar__inner`}
         >
-          {renderHeader()}
-          {renderTabbar()}
-          <main class={[`${this.mergedClsPrefix}-pro-layout__main__content`]}>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-            <div>main__content</div>
-          </main>
+          {resolveScrollHeader()}
+          <main class={`${this.mergedClsPrefix}-pro-layout__main`}>{this.$slots.default?.()}</main>
           {renderFooter()}
         </NScrollbar>
       </div>

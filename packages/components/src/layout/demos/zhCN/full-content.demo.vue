@@ -15,6 +15,36 @@ export default defineComponent({
 
 <template>
   <div class="h-500px">
-    <pro-full-content-layout />
+    <pro-full-content-layout>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+    </pro-full-content-layout>
   </div>
 </template>

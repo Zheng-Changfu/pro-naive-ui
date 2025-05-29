@@ -6,7 +6,44 @@ export default cB('pro-layout', `
     width: 100%;
     height: 100%;
   `, [
-  cM('horizontal', [
+  cM('mixed-two-column', [
+    cB('pro-layout__aside', `
+      height: 100%;
+      flex-shrink: 0;
+      display: flex;
+    `, [
+      cB('pro-layout__aside__one-column', `
+        width: var(--pro-layout-sidebar-mixed-width);
+        display: flex;
+        flex-direction: column;
+      `, [
+        cE('logo', `
+          height: var(--pro-layout-header-height);
+          width: 100%;
+          flex-shrink: 0;
+        `),
+        cE('main', `
+          flex-grow: 1;
+          flex-basis: 0;
+        `),
+      ]),
+      cB('pro-layout__aside__extra', `
+        width: var(--pro-layout-sidebar-width);
+        display: flex;
+        box-sizing: border-box;
+        background: var(--pro-layout-color);
+        border-left: 1px solid var(--pro-layout-border-color);
+        border-right: 1px solid var(--pro-layout-border-color);
+        transition: 
+          background .3s var(--pro-bezier),
+          border-color .3s var(--pro-bezier);
+        `, [
+        cE('main', `
+            flex-grow: 1;
+            flex-basis: 0;
+          `),
+      ]),
+    ]),
     cB('pro-layout__scrollbar', `
       position:relative;
       flex: 1;

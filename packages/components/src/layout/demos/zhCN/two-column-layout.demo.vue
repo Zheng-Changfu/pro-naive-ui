@@ -1,5 +1,5 @@
 <markdown>
-# 侧边布局
+# 双列布局
 </markdown>
 
 <script lang="tsx">
@@ -15,7 +15,7 @@ export default defineComponent({
 
 <template>
   <div class="h-500px">
-    <pro-sidebar-layout>
+    <pro-two-column-layout>
       <template #logo>
         <div>logo</div>
       </template>
@@ -23,7 +23,7 @@ export default defineComponent({
         <div>header-left</div>
       </template>
       <template #header-center>
-        <div >header-center</div>
+        <div>header-center</div>
       </template>
       <template #header-menu>
         <div>header-menu</div>
@@ -33,6 +33,9 @@ export default defineComponent({
       </template>
       <template #sidebar>
         <div>sidebar</div>
+      </template>
+      <template #sidebar-extra>
+        <div>sidebar-extra</div>
       </template>
       <template #tabbar>
         <div>tabbar</div>
@@ -61,6 +64,6 @@ export default defineComponent({
       <div>main__content</div>
       <div>main__content</div>
       <div>main__content</div>
-    </pro-sidebar-layout>
+    </pro-two-column-layout>
   </div>
 </template>

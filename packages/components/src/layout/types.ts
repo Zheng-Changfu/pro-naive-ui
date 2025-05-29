@@ -3,6 +3,11 @@ export interface LayoutSidebar {
    * 侧边栏宽度
    */
   width: number
+  /**
+   * 混合侧边栏宽度,仅在 two-column、mixed-two-column 布局下生效
+   * @default 80
+   */
+  mixedWidth: number
 }
 
 export interface LayoutHeader {

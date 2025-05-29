@@ -10,7 +10,7 @@ import { sharedLayoutProps } from '../../props'
 import { useMergeConfig } from '../composables/useMergeConfig'
 import style from './index.cssr'
 
-const name = 'ProSidebarLayout'
+const name = 'ProMixedDoubleColumnLayout'
 export default defineComponent({
   name,
   props: sharedLayoutProps,
@@ -32,7 +32,7 @@ export default defineComponent({
 
     useMountStyle(
       name,
-      'pro-sidebar-layout',
+      'pro-mixed-double-column-layout',
       style,
     )
 
@@ -50,13 +50,6 @@ export default defineComponent({
       if (this.mergedHeader === false) {
         return null
       }
-
-      const logoDom = resolveWrappedSlot(this.$slots.logo, (children) => {
-        if (!children) {
-          return null
-        }
-        return <div class={`${this.mergedClsPrefix}-pro-layout__header__logo`}>{children}</div>
-      })
 
       const headerLeftDom = resolveWrappedSlot(this.$slots['header-left'], (children) => {
         if (!children) {
@@ -87,25 +80,21 @@ export default defineComponent({
       })
 
       if (
-        !logoDom
-        && !headerLeftDom
+        !headerLeftDom
         && !headerMenuDom
         && !headerCenterDom
         && !headerRightDom
       ) {
         return null
       }
-      return [
-        <header
-          class={`${this.mergedClsPrefix}-pro-layout__header`}
-        >
-          {logoDom}
+      return (
+        <header class={`${this.mergedClsPrefix}-pro-layout__header`}>
           {headerLeftDom}
           {headerMenuDom}
           {headerCenterDom}
           {headerRightDom}
-        </header>,
-      ]
+        </header>
+      )
     }
 
     const renderTabbar = () => {
@@ -116,51 +105,52 @@ export default defineComponent({
         if (!children) {
           return null
         }
-        const fixed = this.mergedHeader === false || this.mergedHeader.fixed || renderHeader()
-        return [
-          <section
-            class={[
-              `${this.mergedClsPrefix}-pro-layout__tabbar`,
-              fixed && `${this.mergedClsPrefix}-pro-layout__tabbar--fixed`,
-            ]}
-          >
+        return (
+          <section class={`${this.mergedClsPrefix}-pro-layout__tabbar`}>
             {children}
-          </section>,
-          <section
-            class={`${this.mergedClsPrefix}-pro-layout__tabbar--placeholder`}
-          >
-          </section>,
-        ]
+          </section>
+        )
       })
     }
-
     const resolveScrollHeader = () => {
       if (this.mergedHeader === false && this.mergedTabbar === false) {
         return null
       }
       const headerDom = renderHeader()
-      if (!headerDom) {
+      const tabbarDom = renderTabbar()
+      if (!headerDom && !tabbarDom) {
         return null
       }
+      const fixed = this.mergedHeader === false || this.mergedHeader.fixed || !headerDom
       return [
         <div class={[
           `${this.mergedClsPrefix}-pro-layout__scroll-behavior`,
-          `${this.mergedClsPrefix}-pro-layout__scroll-behavior--fixed`,
+          { [`${this.mergedClsPrefix}-pro-layout__scroll-behavior--fixed`]: fixed },
         ]}
         >
           {headerDom}
+          {tabbarDom}
         </div>,
-        headerDom && (
-          <div class={[
-            `${this.mergedClsPrefix}-pro-layout__header`,
-            `${this.mergedClsPrefix}-pro-layout__header--placeholder`,
-          ]}
-          >
-          </div>
-        ),
+        fixed && [
+          headerDom && (
+            <div class={[
+              `${this.mergedClsPrefix}-pro-layout__header`,
+              `${this.mergedClsPrefix}-pro-layout__header--placeholder`,
+            ]}
+            >
+            </div>
+          ),
+          tabbarDom && (
+            <div class={[
+              `${this.mergedClsPrefix}-pro-layout__tabbar`,
+              `${this.mergedClsPrefix}-pro-layout__tabbar--placeholder`,
+            ]}
+            >
+            </div>
+          ),
+        ],
       ]
     }
-
     const renderFooter = () => {
       if (this.mergedFooter === false) {
         return null
@@ -185,47 +175,68 @@ export default defineComponent({
                 `${this.mergedClsPrefix}-pro-layout__footer`,
                 `${this.mergedClsPrefix}-pro-layout__footer--placeholder`,
               ]}
-            >
-            </footer>
+            />
           ),
         ]
       })
     }
 
     const renderAside = () => {
+      const logoDom = resolveWrappedSlot(this.$slots.logo, (children) => {
+        if (!children) {
+          return null
+        }
+        return <div class={`${this.mergedClsPrefix}-pro-layout__aside__one-column__logo`}>{children}</div>
+      })
+
       const sidebarDom = resolveWrappedSlot(this.$slots.sidebar, (children) => {
         if (!children) {
           return null
         }
-        return <div class={`${this.mergedClsPrefix}-pro-layout__aside__main`}>{children}</div>
+        return <div class={`${this.mergedClsPrefix}-pro-layout__aside__one-column__main`}>{children}</div>
       })
 
-      if (!sidebarDom) {
+      const asideExtraDom = resolveWrappedSlot(this.$slots['sidebar-extra'], (children) => {
+        if (!children) {
+          return null
+        }
+        return <div class={`${this.mergedClsPrefix}-pro-layout__aside__extra__main`}>{children}</div>
+      })
+
+      if (!logoDom && !sidebarDom && !asideExtraDom) {
         return null
       }
-      return [
+      return (
         <aside class={[
           `${this.mergedClsPrefix}-pro-layout__aside`,
         ]}
         >
-          { sidebarDom }
-        </aside>,
-        <aside class={[
-          `${this.mergedClsPrefix}-pro-layout__aside--placeholder`,
-        ]}
-        >
-        </aside>,
-      ]
+          <div class={[
+            `${this.mergedClsPrefix}-pro-layout__aside__one-column`,
+          ]}
+          >
+            {logoDom}
+            {sidebarDom}
+          </div>
+          <div class={[
+            `${this.mergedClsPrefix}-pro-layout__aside__extra`,
+          ]}
+          >
+            { asideExtraDom}
+          </div>
+        </aside>
+      )
     }
 
     return (
       <div
         class={[
           `${this.mergedClsPrefix}-pro-layout`,
-          `${this.mergedClsPrefix}-pro-layout--sidebar`,
+          `${this.mergedClsPrefix}-pro-layout--mixed-two-column`,
         ]}
         style={this.mergedCssVars}
       >
+        {renderAside()}
         <NScrollbar
           class={[
             `${this.mergedClsPrefix}-pro-layout__scrollbar`,
@@ -233,20 +244,8 @@ export default defineComponent({
           contentClass={`${this.mergedClsPrefix}-pro-layout__scrollbar__inner`}
         >
           {resolveScrollHeader()}
-          <div class={[
-            `${this.mergedClsPrefix}-pro-layout__wrapper`,
-          ]}
-          >
-            {renderAside()}
-            <main class={[
-              `${this.mergedClsPrefix}-pro-layout__main`,
-            ]}
-            >
-              {renderTabbar()}
-              <main class={`${this.mergedClsPrefix}-pro-layout__main__content`}>{this.$slots.default?.()}</main>
-              {renderFooter()}
-            </main>
-          </div>
+          <main class={`${this.mergedClsPrefix}-pro-layout__main`}>{this.$slots.default?.()}</main>
+          {renderFooter()}
         </NScrollbar>
       </div>
     )

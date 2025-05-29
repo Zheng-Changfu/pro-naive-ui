@@ -15,6 +15,49 @@ export default defineComponent({
 
 <template>
   <div class="h-500px">
-    <pro-horizontal-layout />
+    <pro-horizontal-layout>
+      <template #logo>
+        <div>logo</div>
+      </template>
+      <template #header-left>
+        <div>header-left</div>
+      </template>
+      <template #header-menu>
+        <div>header-menu</div>
+      </template>
+      <template #header-center>
+        <div>header-center</div>
+      </template>
+      <template #header-right>
+        <div>header-right</div>
+      </template>
+      <template #tabbar>
+        <div>tabbar</div>
+      </template>
+      <template #footer>
+        <div>footer</div>
+      </template>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+    </pro-horizontal-layout>
   </div>
 </template>
