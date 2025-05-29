@@ -15,6 +15,55 @@ export default defineComponent({
 
 <template>
   <div class="h-500px">
-    <pro-mixed-two-column-layout />
+    <pro-mixed-two-column-layout>
+      <template #logo>
+        <div>logo</div>
+      </template>
+      <template #header-left>
+        <div>header-left</div>
+      </template>
+      <template #header-center>
+        <div>header-center</div>
+      </template>
+      <template #header-menu>
+        <div>header-menu</div>
+      </template>
+      <template #header-right>
+        <div>header-right</div>
+      </template>
+      <template #sidebar>
+        <div>sidebar</div>
+      </template>
+      <template #sidebar-extra>
+        <div>sidebar-extra</div>
+      </template>
+      <template #tabbar>
+        <div>tabbar</div>
+      </template>
+      <template #footer>
+        <div>footer</div>
+      </template>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+      <div>main__content</div>
+    </pro-mixed-two-column-layout>
   </div>
 </template>

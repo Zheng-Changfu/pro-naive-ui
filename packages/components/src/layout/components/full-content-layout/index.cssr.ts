@@ -10,17 +10,17 @@ export default cB('pro-layout', `
     cB('pro-layout__scrollbar', `
       position:relative;
       flex: 1;
-    `),
-    cB('pro-layout__main', `
-      display: flex;
-      flex-direction: column;
-      min-height: 100%;
-      height: auto;
     `, [
-      cE('content', `
-        flex-grow: 1;
-        flex-basis: 0;
-      `),
+      cE('inner', `
+          display: flex;
+          flex-direction: column;
+          min-height: 100%;
+          height: auto;
+        `),
     ]),
+    cB('pro-layout__main', `
+      flex-grow: 1;
+        flex-basis: 0;
+    `),
   ]),
 ])
