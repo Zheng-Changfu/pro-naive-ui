@@ -10,5 +10,3 @@ export {
 export type {
   LayoutMode as ProLayoutMode,
 } from './types'
-
-export * from './components'

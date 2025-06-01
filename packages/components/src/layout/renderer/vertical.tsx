@@ -217,6 +217,8 @@ export function setupVerticalLayoutStyle() {
       cE('main', `
           flex-grow: 1;
           flex-basis: 0;
+          display: flex;
+          flex-direction: column;
         `),
     ]),
     cB('pro-layout__scrollbar', `

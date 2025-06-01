@@ -226,6 +226,8 @@ export function setupMixedTwoColumnLayoutStyle() {
         cE('main', `
             flex-grow: 1;
             flex-basis: 0;
+            display: flex;
+            flex-direction: column;
           `),
       ]),
       cB('pro-layout__aside__extra', `
@@ -242,6 +244,8 @@ export function setupMixedTwoColumnLayoutStyle() {
         cE('main', `
               flex-grow: 1;
               flex-basis: 0;
+              display: flex;
+              flex-direction: column;
             `),
       ]),
     ]),

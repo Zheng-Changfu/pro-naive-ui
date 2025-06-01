@@ -219,6 +219,8 @@ export function setupSidebarLayoutStyle() {
       cE('main', `
           flex-grow: 1;
           flex-basis: 0;
+          display: flex;
+          flex-direction: column;
           border-right: 1px solid var(--pro-layout-border-color);
           transition: 
             border-color .3s var(--pro-bezier);
