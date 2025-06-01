@@ -197,6 +197,13 @@ export function useLayoutMenu(options: UseLayoutMenuOptions) {
   })
 
   return {
+    isMixedLayout: computed(() => {
+      return [
+        'two-column',
+        'mixed-sidebar',
+        'mixed-two-column',
+      ].includes(mode.value)
+    }),
     layout: computed(() => {
       const privateLayout = layout.value
       return privateLayout.layout.value
