@@ -1,5 +1,5 @@
 import type { ExtractPublicPropTypes, PropType } from 'vue'
-import type { LayoutFooter, LayoutHeader, LayoutSidebar, LayoutTabbar } from './types'
+import type { LayoutFooter, LayoutHeader, LayoutMode, LayoutSidebar, LayoutTabbar } from './types'
 
 export const sharedLayoutProps = {
   /**
@@ -32,4 +32,14 @@ export const sharedLayoutProps = {
   },
 } as const
 
+export const proLayoutProps = {
+  ...sharedLayoutProps,
+  /**
+   * 布局模式
+   * @default 'vertical'
+   */
+  mode: String as PropType<LayoutMode>,
+} as const
+
+export type ProLayoutProps = ExtractPublicPropTypes<typeof proLayoutProps>
 export type SharedLayoutProps = ExtractPublicPropTypes<typeof sharedLayoutProps>

@@ -112,6 +112,7 @@ export default defineComponent({
         )
       })
     }
+
     const resolveScrollHeader = () => {
       if (this.mergedHeader === false && this.mergedTabbar === false) {
         return null
@@ -151,6 +152,7 @@ export default defineComponent({
         ],
       ]
     }
+
     const renderFooter = () => {
       if (this.mergedFooter === false) {
         return null

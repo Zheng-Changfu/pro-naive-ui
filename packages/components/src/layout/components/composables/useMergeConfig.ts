@@ -1,10 +1,14 @@
 import type { ComputedRef } from 'vue'
-import type { SharedLayoutProps } from '../../props'
+import type { ProLayoutProps } from '../../props'
 import { useThemeVars } from 'naive-ui'
 import { computed } from 'vue'
 
-export function useMergeConfig(props: ComputedRef<SharedLayoutProps>) {
+export function useMergeConfig(props: ComputedRef<ProLayoutProps>) {
   const themeVars = useThemeVars()
+
+  const mergedMode = computed(() => {
+    return props.value.mode ?? 'vertical'
+  })
 
   const mergedSidebar = computed(() => {
     if (props.value.sidebar === false)
@@ -70,6 +74,7 @@ export function useMergeConfig(props: ComputedRef<SharedLayoutProps>) {
   })
 
   return {
+    mergedMode,
     mergedHeader,
     mergedFooter,
     mergedTabbar,

@@ -1,3 +1,6 @@
+import type { Slot } from 'vue'
+import type { SharedLayoutSlots } from './slots'
+
 export interface LayoutSidebar {
   /**
    * 侧边栏宽度
@@ -60,3 +63,15 @@ export type LayoutMode =
   | 'two-column'
   | 'mixed-two-column'
   | ({} & string)
+
+export interface LayoutRenderOptions {
+  mergedClsPrefix: string
+  mergedHeader: LayoutHeader | false
+  mergedFooter: LayoutFooter | false
+  mergedTabbar: LayoutTabbar | false
+  mergedSidebar: LayoutSidebar | false
+  mergedCssVars: Record<string, string>
+  slots: {
+    [K in keyof SharedLayoutSlots]?: Slot<SharedLayoutSlots[K]>
+  }
+}
