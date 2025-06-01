@@ -4,6 +4,7 @@ import type { SharedLayoutSlots } from './slots'
 export interface LayoutSidebar {
   /**
    * 侧边栏宽度
+   * @default 224
    */
   width: number
   /**
@@ -11,11 +12,17 @@ export interface LayoutSidebar {
    * @default 80
    */
   mixedWidth: number
+  /**
+   * 折叠后的侧边栏宽度
+   * @default 58
+   */
+  collapsedWidth: number
 }
 
 export interface LayoutHeader {
   /**
    * 头部高度
+   * @default 50
    */
   height: number
   /**
@@ -28,6 +35,7 @@ export interface LayoutHeader {
 export interface LayoutFooter {
   /**
    * 底部高度
+   * @default 32
    */
   height: number
   /**
@@ -40,6 +48,7 @@ export interface LayoutFooter {
 export interface LayoutTabbar {
   /**
    * 标签栏高度
+   * @default 38
    */
   height: number
 }
