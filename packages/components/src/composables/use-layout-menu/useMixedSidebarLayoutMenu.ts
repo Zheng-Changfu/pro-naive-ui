@@ -23,7 +23,7 @@ export function useMixedSidebarLayoutMenu({
   })
 
   const verticalMenuData = computed(() => {
-    const info = menuKeyToMetaMap.value.get(activeKey.value!)
+    const info = menuKeyToMetaMap.value.get(horizontalMenuActiveKey.value!)
     if (!info) {
       return []
     }

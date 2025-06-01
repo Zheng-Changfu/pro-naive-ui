@@ -23,7 +23,7 @@ export function useTwoColumnLayoutMenu({
   })
 
   const verticalExtraMenuData = computed(() => {
-    const info = menuKeyToMetaMap.value.get(activeKey.value!)
+    const info = menuKeyToMetaMap.value.get(verticalMenuActiveKey.value!)
     if (!info) {
       return []
     }
