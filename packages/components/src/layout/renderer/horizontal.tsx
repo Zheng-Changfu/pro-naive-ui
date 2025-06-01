@@ -29,13 +29,6 @@ export function renderHorizontalLayout({
       return <div class={`${mergedClsPrefix}-pro-layout__header__left`}>{children}</div>
     })
 
-    const headerMenuDom = resolveWrappedSlot(slots['header-menu'], (children) => {
-      if (!children) {
-        return null
-      }
-      return <div class={`${mergedClsPrefix}-pro-layout__header__menu`}>{children}</div>
-    })
-
     const headerCenterDom = resolveWrappedSlot(slots['header-center'], (children) => {
       if (!children) {
         return null
@@ -53,7 +46,6 @@ export function renderHorizontalLayout({
     if (
       !logoDom
       && !headerLeftDom
-      && !headerMenuDom
       && !headerCenterDom
       && !headerRightDom
     ) {
@@ -63,7 +55,6 @@ export function renderHorizontalLayout({
       <header class={`${mergedClsPrefix}-pro-layout__header`}>
         {logoDom}
         {headerLeftDom}
-        {headerMenuDom}
         {headerCenterDom}
         {headerRightDom}
       </header>
@@ -220,13 +211,11 @@ export function setupHorizontalLayoutStyle() {
       cE('left', `
         height: 100%;
       `),
-      cE('menu', `
-          height: 100%;
-          // TODO
-      `),
       cE('center', `
         height: 100%;
-        flex: 1;
+        flex-grow: 1;
+        flex-basis: 0;
+        overflow: hidden;
       `),
       cE('right', `
         height: 100%;

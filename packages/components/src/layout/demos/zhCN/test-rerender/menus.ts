@@ -41,6 +41,7 @@ export const menuOptions: MenuOption[] = [
       {
         label: '鼠',
         key: 'rat',
+        icon: renderIcon(BookIcon),
       },
     ],
   },

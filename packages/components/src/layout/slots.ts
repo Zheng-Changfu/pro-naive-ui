@@ -12,10 +12,6 @@ export interface SharedLayoutSlots {
    */
   'header-center': any
   /**
-   * 头部菜单
-   */
-  'header-menu': any
-  /**
    * 头部右侧
    */
   'header-right': any

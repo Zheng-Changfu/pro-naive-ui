@@ -9,7 +9,6 @@ import TestContentRerender from './test-rerender/content.vue'
 import TestFooterRerender from './test-rerender/footer.vue'
 import TestHeaderCenterRerender from './test-rerender/header-center.vue'
 import TestHeaderLeftRerender from './test-rerender/header-left.vue'
-import TestHeaderMenuRerender from './test-rerender/header-menu.vue'
 import TestHeaderRightRerender from './test-rerender/header-right.vue'
 import TestLogoRerender from './test-rerender/logo.vue'
 import TestSidebarExtraRerender from './test-rerender/sidebar-extra.vue'
@@ -24,7 +23,6 @@ export default defineComponent({
     TestContentRerender,
     TestSidebarRerender,
     TestHeaderLeftRerender,
-    TestHeaderMenuRerender,
     TestHeaderRightRerender,
     TestSidebarExtraRerender,
     TestHeaderCenterRerender,
@@ -49,9 +47,6 @@ export default defineComponent({
       </template>
       <template #header-center>
         <TestHeaderCenterRerender />
-      </template>
-      <template #header-menu>
-        <TestHeaderMenuRerender />
       </template>
       <template #header-right>
         <TestHeaderRightRerender />

@@ -45,19 +45,21 @@ export default defineComponent({
       <template #logo>
         <TestLogoRerender />
       </template>
-      <template #header-menu>
-        <div class="flex items-center h-full">
-          <h3>1</h3>
-          <n-menu v-bind="layout.horizontalMenuProps" />
-        </div>
+      <template #header-center>
+        <n-menu v-bind="layout.horizontalMenuProps" />
       </template>
       <template #sidebar>
         <h3>2</h3>
-        <n-menu v-bind="layout.verticalMenuProps" />
+        <n-scrollbar class="flex-[1_0_0]">
+          <n-menu v-bind="layout.verticalMenuProps" />
+        </n-scrollbar>
+        <h3>2</h3>
       </template>
       <template #sidebar-extra>
         <h3>3</h3>
-        <n-menu v-bind="layout.verticalExtraMenuProps" />
+        <n-scrollbar class="flex-[1_0_0]">
+          <n-menu v-bind="layout.verticalExtraMenuProps" />
+        </n-scrollbar>
       </template>
       <template #default>
         <TestContentRerender />
