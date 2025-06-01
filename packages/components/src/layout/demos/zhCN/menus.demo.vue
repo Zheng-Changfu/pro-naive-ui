@@ -1,38 +1,39 @@
 <markdown>
-# 基本展示
+# 接入菜单
 </markdown>
 
 <script lang="tsx">
 import type { ProLayoutMode } from 'pro-naive-ui'
+import { useLayoutMenu } from 'pro-naive-ui'
 import { defineComponent, ref } from 'vue'
 import TestContentRerender from './test-rerender/content.vue'
-import TestFooterRerender from './test-rerender/footer.vue'
-import TestHeaderCenterRerender from './test-rerender/header-center.vue'
-import TestHeaderLeftRerender from './test-rerender/header-left.vue'
-import TestHeaderMenuRerender from './test-rerender/header-menu.vue'
-import TestHeaderRightRerender from './test-rerender/header-right.vue'
 import TestLogoRerender from './test-rerender/logo.vue'
-import TestSidebarExtraRerender from './test-rerender/sidebar-extra.vue'
-import TestSidebarRerender from './test-rerender/sidebar.vue'
-import TestTabbarRerender from './test-rerender/tabbar.vue'
+import { menuOptions } from './test-rerender/menus'
 
 export default defineComponent({
   components: {
     TestLogoRerender,
-    TestFooterRerender,
-    TestTabbarRerender,
     TestContentRerender,
-    TestSidebarRerender,
-    TestHeaderLeftRerender,
-    TestHeaderMenuRerender,
-    TestHeaderRightRerender,
-    TestSidebarExtraRerender,
-    TestHeaderCenterRerender,
   },
   setup() {
     const mode = ref<ProLayoutMode>('sidebar')
+
+    const {
+      layout,
+      activeKey,
+      collapsed,
+      expandedKeys,
+    } = useLayoutMenu({
+      mode,
+      menus: menuOptions,
+    })
+
     return {
       mode,
+      layout,
+      activeKey,
+      collapsed,
+      expandedKeys,
     }
   },
 })
@@ -44,29 +45,19 @@ export default defineComponent({
       <template #logo>
         <TestLogoRerender />
       </template>
-      <template #header-left>
-        <TestHeaderLeftRerender />
-      </template>
-      <template #header-center>
-        <TestHeaderCenterRerender />
-      </template>
       <template #header-menu>
-        <TestHeaderMenuRerender />
-      </template>
-      <template #header-right>
-        <TestHeaderRightRerender />
+        <div class="flex items-center h-full">
+          <h3>1</h3>
+          <n-menu v-bind="layout.horizontalMenuProps" />
+        </div>
       </template>
       <template #sidebar>
-        <TestSidebarRerender />
+        <h3>2</h3>
+        <n-menu v-bind="layout.verticalMenuProps" />
       </template>
       <template #sidebar-extra>
-        <TestSidebarExtraRerender />
-      </template>
-      <template #tabbar>
-        <TestTabbarRerender />
-      </template>
-      <template #footer>
-        <TestFooterRerender />
+        <h3>3</h3>
+        <n-menu v-bind="layout.verticalExtraMenuProps" />
       </template>
       <template #default>
         <TestContentRerender />
