@@ -1,5 +1,5 @@
 import type { ComputedRef } from 'vue'
-import type { ProLayoutProps } from '../../props'
+import type { ProLayoutProps } from '../props'
 import { useThemeVars } from 'naive-ui'
 import { computed } from 'vue'
 
@@ -11,42 +11,59 @@ export function useMergeConfig(props: ComputedRef<ProLayoutProps>) {
   })
 
   const mergedSidebar = computed(() => {
-    if (props.value.sidebar === false)
-      return false
-    return {
-      width: 224,
-      mixedWidth: 80,
-      ...(props.value.sidebar ?? {}),
-    }
+    const {
+      showSidebar,
+      sidebarWidth,
+      sidebarMixedWidth,
+      sidebarCollapsedWidth,
+    } = props.value
+    return showSidebar === false
+      ? false
+      : {
+          width: sidebarWidth ?? 224,
+          mixedWidth: sidebarMixedWidth ?? 80,
+          collapsedWidth: sidebarCollapsedWidth ?? 58,
+        }
   })
 
   const mergedHeader = computed(() => {
-    if (props.value.header === false)
-      return false
-    return {
-      height: 50,
-      fixed: true,
-      ...(props.value.header ?? {}),
-    }
+    const {
+      showHeader,
+      headerFixed,
+      headerHeight,
+    } = props.value
+    return showHeader === false
+      ? false
+      : {
+          fixed: headerFixed ?? true,
+          height: headerHeight ?? 50,
+        }
   })
 
   const mergedFooter = computed(() => {
-    if (props.value.footer === false)
-      return false
-    return {
-      height: 32,
-      fixed: false,
-      ...(props.value.footer ?? {}),
-    }
+    const {
+      showFooter,
+      footerFixed,
+      footerHeight,
+    } = props.value
+    return showFooter === false
+      ? false
+      : {
+          height: footerHeight ?? 32,
+          fixed: footerFixed ?? false,
+        }
   })
 
   const mergedTabbar = computed(() => {
-    if (props.value.tabbar === false)
-      return false
-    return {
-      height: 38,
-      ...(props.value.tabbar ?? {}),
-    }
+    const {
+      showTabbar,
+      tabbarHeight,
+    } = props.value
+    return showTabbar === false
+      ? false
+      : {
+          height: tabbarHeight ?? 38,
+        }
   })
 
   const mergedCssVars = computed(() => {
