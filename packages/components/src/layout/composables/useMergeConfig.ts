@@ -10,6 +10,10 @@ export function useMergeConfig(props: ComputedRef<ProLayoutProps>) {
     return props.value.mode ?? 'vertical'
   })
 
+  const mergedCollasped = computed(() => {
+    return props.value.collapsed ?? false
+  })
+
   const mergedSidebar = computed(() => {
     const {
       showSidebar,
@@ -21,7 +25,7 @@ export function useMergeConfig(props: ComputedRef<ProLayoutProps>) {
       ? false
       : {
           width: sidebarWidth ?? 224,
-          mixedWidth: sidebarMixedWidth ?? 80,
+          mixedWidth: sidebarMixedWidth ?? 58,
           collapsedWidth: sidebarCollapsedWidth ?? 58,
         }
   })
@@ -86,6 +90,7 @@ export function useMergeConfig(props: ComputedRef<ProLayoutProps>) {
     if (mergedSidebar.value !== false) {
       vars['--pro-layout-sidebar-width'] = `${mergedSidebar.value.width}px`
       vars['--pro-layout-sidebar-mixed-width'] = `${mergedSidebar.value.mixedWidth}px`
+      vars['--pro-layout-sidebar-collapsed-width'] = `${mergedSidebar.value.collapsedWidth}px`
     }
     return vars
   })
@@ -97,5 +102,6 @@ export function useMergeConfig(props: ComputedRef<ProLayoutProps>) {
     mergedTabbar,
     mergedSidebar,
     mergedCssVars,
+    mergedCollasped,
   }
 }

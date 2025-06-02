@@ -8,7 +8,9 @@ export function renderMixedTwoColumnLayout({
   mergedTabbar,
   mergedFooter,
   mergedCssVars,
+  mergedSidebar,
   mergedClsPrefix,
+  mergedCollasped,
 }: LayoutRenderOptions) {
   const renderHeader = () => {
     if (mergedHeader === false) {
@@ -165,11 +167,20 @@ export function renderMixedTwoColumnLayout({
     }
     return (
       <aside class={`${mergedClsPrefix}-pro-layout__aside`}>
-        <div class={`${mergedClsPrefix}-pro-layout__aside__one-column`}>
+        <div class={[
+          `${mergedClsPrefix}-pro-layout__aside__one-column`,
+          { [`${mergedClsPrefix}-pro-layout__aside__one-column--hidden`]: mergedSidebar === false },
+        ]}
+        >
           {logoDom}
           {sidebarDom}
         </div>
-        <div class={`${mergedClsPrefix}-pro-layout__aside__extra`}>
+        <div class={[
+          `${mergedClsPrefix}-pro-layout__aside__extra`,
+          { [`${mergedClsPrefix}-pro-layout__aside__extra--collapsed`]: mergedCollasped },
+          { [`${mergedClsPrefix}-pro-layout__aside__extra--hidden`]: mergedSidebar === false },
+        ]}
+        >
           {asideExtraDom}
         </div>
       </aside>
@@ -220,6 +231,12 @@ export function setupMixedTwoColumnLayoutStyle() {
             display: flex;
             flex-direction: column;
           `),
+        cM('hidden', `
+          width: 0;
+          overflow: hidden;
+          transition:
+          width .3s var(--pro-bezier);
+        `),
       ]),
       cB('pro-layout__aside__extra', `
           width: var(--pro-layout-sidebar-width);
@@ -229,15 +246,23 @@ export function setupMixedTwoColumnLayoutStyle() {
           border-left: 1px solid var(--pro-layout-border-color);
           border-right: 1px solid var(--pro-layout-border-color);
           transition: 
+            width .3s var(--pro-bezier),
             background .3s var(--pro-bezier),
             border-color .3s var(--pro-bezier);
-          `, [
+        `, [
         cE('main', `
-              flex-grow: 1;
-              flex-basis: 0;
-              display: flex;
-              flex-direction: column;
-            `),
+          flex-grow: 1;
+          flex-basis: 0;
+          display: flex;
+          flex-direction: column;
+        `),
+        cM('collapsed', `
+          width: var(--pro-layout-sidebar-collapsed-width);
+        `),
+        cM('hidden', `
+          width: 0;
+          overflow: hidden;
+        `),
       ]),
     ]),
     cB('pro-layout__scrollbar', `

@@ -75,6 +75,7 @@ export type LayoutMode =
 
 export interface LayoutRenderOptions {
   mergedClsPrefix: string
+  mergedCollasped: boolean
   mergedHeader: LayoutHeader | false
   mergedFooter: LayoutFooter | false
   mergedTabbar: LayoutTabbar | false

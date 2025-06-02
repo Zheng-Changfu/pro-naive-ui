@@ -8,7 +8,9 @@ export function renderSidebarLayout({
   mergedTabbar,
   mergedFooter,
   mergedCssVars,
+  mergedSidebar,
   mergedClsPrefix,
+  mergedCollasped,
 }: LayoutRenderOptions) {
   const renderHeader = () => {
     if (mergedHeader === false) {
@@ -150,7 +152,16 @@ export function renderSidebarLayout({
       if (!children) {
         return null
       }
-      return <div class={`${mergedClsPrefix}-pro-layout__aside__main`}>{children}</div>
+      return (
+        <div class={[
+          `${mergedClsPrefix}-pro-layout__aside__main`,
+          { [`${mergedClsPrefix}-pro-layout__aside__main--collapsed`]: mergedCollasped },
+          { [`${mergedClsPrefix}-pro-layout__aside__main--hidden`]: mergedSidebar === false },
+        ]}
+        >
+          {children}
+        </div>
+      )
     })
 
     if (!logoDom && !sidebarDom) {
@@ -214,8 +225,17 @@ export function setupSidebarLayoutStyle() {
           flex-direction: column;
           border-right: 1px solid var(--pro-layout-border-color);
           transition: 
+            width .3s var(--pro-bezier),
             border-color .3s var(--pro-bezier);
+        `, [
+        cM('collapsed', `
+            width: var(--pro-layout-sidebar-collapsed-width);
         `),
+        cM('hidden', `
+            width: 0;
+            overflow: hidden;
+        `),
+      ]),
     ]),
     cB('pro-layout__scrollbar', `
         position:relative;

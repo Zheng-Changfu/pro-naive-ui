@@ -32,6 +32,7 @@ export default defineComponent({
       mergedFooter,
       mergedSidebar,
       mergedCssVars,
+      mergedCollasped,
     } = useMergeConfig(overridedProps)
 
     const renderLayout = computed(() => {
@@ -75,6 +76,7 @@ export default defineComponent({
       mergedFooter,
       mergedSidebar,
       mergedCssVars,
+      mergedCollasped,
       mergedClsPrefix,
       renderLayout,
     }
@@ -88,6 +90,7 @@ export default defineComponent({
       mergedCssVars: this.mergedCssVars,
       mergedSidebar: this.mergedSidebar,
       mergedClsPrefix: this.mergedClsPrefix,
+      mergedCollasped: this.mergedCollasped,
     })
   },
 })

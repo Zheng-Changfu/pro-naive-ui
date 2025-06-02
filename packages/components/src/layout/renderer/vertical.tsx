@@ -8,7 +8,9 @@ export function renderVerticalLayout({
   mergedTabbar,
   mergedFooter,
   mergedCssVars,
+  mergedSidebar,
   mergedClsPrefix,
+  mergedCollasped,
 }: LayoutRenderOptions) {
   const renderHeader = () => {
     if (mergedHeader === false) {
@@ -157,7 +159,12 @@ export function renderVerticalLayout({
       return null
     }
     return (
-      <aside class={`${mergedClsPrefix}-pro-layout__aside`}>
+      <aside class={[
+        `${mergedClsPrefix}-pro-layout__aside`,
+        { [`${mergedClsPrefix}-pro-layout__aside--collapsed`]: mergedCollasped },
+        { [`${mergedClsPrefix}-pro-layout__aside--hidden`]: mergedSidebar === false },
+      ]}
+      >
         {logoDom}
         {sidebarDom}
       </aside>
@@ -197,6 +204,7 @@ export function setupVerticalLayoutStyle() {
         background: var(--pro-layout-color);
         border-right: 1px solid var(--pro-layout-border-color);
         transition: 
+          width .3s var(--pro-bezier),
           background .3s var(--pro-bezier),
           border-color .3s var(--pro-bezier);
       `, [
@@ -210,6 +218,13 @@ export function setupVerticalLayoutStyle() {
           flex-basis: 0;
           display: flex;
           flex-direction: column;
+        `),
+      cM('collapsed', `
+          width: var(--pro-layout-sidebar-collapsed-width);
+        `),
+      cM('hidden', `
+          width: 0;
+          overflow: hidden;
         `),
     ]),
     cB('pro-layout__scrollbar', `
