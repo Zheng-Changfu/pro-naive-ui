@@ -7,5 +7,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>headerLeft</div>
+  <n-button size="small">
+    折叠
+  </n-button>
 </template>

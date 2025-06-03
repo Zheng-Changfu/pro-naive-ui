@@ -16,7 +16,7 @@ export default defineComponent({
     TestContentRerender,
   },
   setup() {
-    const mode = ref<ProLayoutMode>('sidebar')
+    const mode = ref<ProLayoutMode>('vertical')
 
     const {
       layout,
@@ -34,6 +34,7 @@ export default defineComponent({
       activeKey,
       collapsed,
       expandedKeys,
+      showSidebar: ref(true),
     }
   },
 })
@@ -41,9 +42,21 @@ export default defineComponent({
 
 <template>
   <div class="h-500px">
-    <pro-layout :mode="mode">
+    <pro-layout
+      v-model:collapsed="collapsed"
+      :mode="mode"
+      :show-sidebar="showSidebar"
+    >
       <template #logo>
         <TestLogoRerender />
+      </template>
+      <template #header-left>
+        <n-button type="primary" size="small" @click="collapsed = !collapsed">
+          {{ collapsed ? '展开' : '折叠' }}
+        </n-button>
+        <n-button type="error" size="small" @click="showSidebar = !showSidebar">
+          {{ showSidebar ? '隐藏' : '显示' }}
+        </n-button>
       </template>
       <template #header-center>
         <n-menu v-bind="layout.horizontalMenuProps" />
@@ -51,14 +64,14 @@ export default defineComponent({
       <template #sidebar>
         <h3>2</h3>
         <n-scrollbar class="flex-[1_0_0]">
-          <n-menu v-bind="layout.verticalMenuProps" />
+          <n-menu v-bind="layout.verticalMenuProps" :collapsed-width="58" />
         </n-scrollbar>
         <h3>2</h3>
       </template>
       <template #sidebar-extra>
         <h3>3</h3>
         <n-scrollbar class="flex-[1_0_0]">
-          <n-menu v-bind="layout.verticalExtraMenuProps" />
+          <n-menu v-bind="layout.verticalExtraMenuProps" :collapsed-width="58" />
         </n-scrollbar>
       </template>
       <template #default>
