@@ -1,17 +1,19 @@
+import { NScrollbar } from 'naive-ui'
 import { computed, defineComponent } from 'vue'
 import { useNaiveClsPrefix } from '../_internal/useClsPrefix'
 import { useMountStyle } from '../_internal/useMountStyle'
+import { resolveWrappedSlot } from '../_utils/resolveSlot'
 import { warnOnce } from '../_utils/warn'
 import { useOverrideProps } from '../composables'
+import { useFullContentCls } from './composables/useFullContentCls'
+import { useHorizontalLayoutCls } from './composables/useHorizontalLayoutCls'
 import { useMergeConfig } from './composables/useMergeConfig'
+import { useMixedSidebarCls } from './composables/useMixedSidebarCls'
+import { useMixedTwoColumnCls } from './composables/useMixedTwoColumnCls'
+import { useSidebarLayoutCls } from './composables/useSidebarLayoutCls'
+import { useTwoColumnLayoutCls } from './composables/useTwoColumnLayoutCls'
+import { useVerticalLayoutCls } from './composables/useVerticalLayoutCls'
 import { proLayoutProps } from './props'
-import { renderFullContentLayout } from './renderer/full-content'
-import { renderHorizontalLayout } from './renderer/horizontal'
-import { renderMixedSidebarLayout } from './renderer/mixed-sidebar'
-import { renderMixedTwoColumnLayout } from './renderer/mixed-two-column'
-import { renderSidebarLayout } from './renderer/sidebar'
-import { renderTwoColumnLayout } from './renderer/two-column'
-import { renderVerticalLayout } from './renderer/vertical'
 import style from './styles/index.cssr'
 
 const name = 'ProLayout'
@@ -35,23 +37,107 @@ export default defineComponent({
       mergedCollasped,
     } = useMergeConfig(overridedProps)
 
-    const renderLayout = computed(() => {
+    const sidebarLayoutCls = useSidebarLayoutCls({
+      mergedMode,
+      mergedHeader,
+      mergedTabbar,
+      mergedFooter,
+      mergedSidebar,
+      mergedCssVars,
+      mergedCollasped,
+    })
+
+    const verticalLayoutCls = useVerticalLayoutCls({
+      mergedMode,
+      mergedHeader,
+      mergedTabbar,
+      mergedFooter,
+      mergedSidebar,
+      mergedCssVars,
+      mergedCollasped,
+    })
+
+    const twoColumnLayoutCls = useTwoColumnLayoutCls({
+      mergedMode,
+      mergedHeader,
+      mergedTabbar,
+      mergedFooter,
+      mergedSidebar,
+      mergedCssVars,
+      mergedCollasped,
+    })
+
+    const horizontalLayoutCls = useHorizontalLayoutCls({
+      mergedMode,
+      mergedHeader,
+      mergedTabbar,
+      mergedFooter,
+      mergedSidebar,
+      mergedCssVars,
+      mergedCollasped,
+    })
+
+    const fullContentCls = useFullContentCls({
+      mergedMode,
+      mergedHeader,
+      mergedTabbar,
+      mergedFooter,
+      mergedSidebar,
+      mergedCssVars,
+      mergedCollasped,
+    })
+
+    const mixedSidebarCls = useMixedSidebarCls({
+      mergedMode,
+      mergedHeader,
+      mergedTabbar,
+      mergedFooter,
+      mergedSidebar,
+      mergedCssVars,
+      mergedCollasped,
+    })
+
+    const mixedTwoColumnCls = useMixedTwoColumnCls({
+      mergedMode,
+      mergedHeader,
+      mergedTabbar,
+      mergedFooter,
+      mergedSidebar,
+      mergedCssVars,
+      mergedCollasped,
+    })
+
+    const cls = computed(() => {
       const mode = mergedMode.value
+      /**
+       *  layout
+          scrollbar
+          scrollbarContent
+          sidebar
+          section
+          header
+          tabbar
+          main
+          footer
+       *
+       *
+       */
+
       switch (mode) {
         case 'sidebar':
-          return renderSidebarLayout
+          return sidebarLayoutCls.value
         case 'vertical':
-          return renderVerticalLayout
+          return verticalLayoutCls.value
         case 'two-column':
-          return renderTwoColumnLayout
+          return twoColumnLayoutCls.value
         case 'horizontal':
-          return renderHorizontalLayout
+          return horizontalLayoutCls.value
         case 'full-content':
-          return renderFullContentLayout
+          return fullContentCls.value
         case 'mixed-sidebar':
-          return renderMixedSidebarLayout
+          return mixedSidebarCls.value
         case 'mixed-two-column':
-          return renderMixedTwoColumnLayout
+          return mixedTwoColumnCls.value
         default:
           if (__DEV__) {
             warnOnce(
@@ -59,7 +145,7 @@ export default defineComponent({
               `mode "${mode}" is not supported, falling back to "vertical" mode.`,
             )
           }
-          return renderVerticalLayout
+          return verticalLayoutCls.value
       }
     })
 
@@ -70,27 +156,139 @@ export default defineComponent({
     )
 
     return {
+      cls,
       mergedMode,
-      mergedHeader,
-      mergedTabbar,
-      mergedFooter,
-      mergedSidebar,
-      mergedCssVars,
-      mergedCollasped,
       mergedClsPrefix,
-      renderLayout,
     }
   },
   render() {
-    return this.renderLayout({
-      slots: this.$slots,
-      mergedFooter: this.mergedFooter,
-      mergedHeader: this.mergedHeader,
-      mergedTabbar: this.mergedTabbar,
-      mergedCssVars: this.mergedCssVars,
-      mergedSidebar: this.mergedSidebar,
-      mergedClsPrefix: this.mergedClsPrefix,
-      mergedCollasped: this.mergedCollasped,
+    const logoDom = resolveWrappedSlot(this.$slots.logo, (children) => {
+      if (!children) {
+        return null
+      }
+      return <div>{children}</div>
     })
+
+    const headerLeftDom = resolveWrappedSlot(this.$slots['header-left'], (children) => {
+      if (!children) {
+        return null
+      }
+      return <div>{children}</div>
+    })
+
+    const headerCenterDom = resolveWrappedSlot(this.$slots['header-center'], (children) => {
+      if (!children) {
+        return null
+      }
+      return <div>{children}</div>
+    })
+
+    const headerRightDom = resolveWrappedSlot(this.$slots['header-right'], (children) => {
+      if (!children) {
+        return null
+      }
+      return <div>{children}</div>
+    })
+
+    const sidebarDom = resolveWrappedSlot(this.$slots.sidebar, (children) => {
+      if (!children) {
+        return null
+      }
+      return <div>{children}</div>
+    })
+
+    const sidebarExtraDom = resolveWrappedSlot(this.$slots['sidebar-extra'], (children) => {
+      if (!children) {
+        return null
+      }
+      return <div>{children}</div>
+    })
+
+    const tabbarDom = resolveWrappedSlot(this.$slots.tabbar, (children) => {
+      if (!children) {
+        return null
+      }
+      return <div>{children}</div>
+    })
+
+    const footerDom = resolveWrappedSlot(this.$slots.footer, (children) => {
+      if (!children) {
+        return null
+      }
+      return <div>{children}</div>
+    })
+
+    const defaultDom = resolveWrappedSlot(this.$slots.default, (children) => {
+      if (!children) {
+        return null
+      }
+      return <div>{children}</div>
+    })
+
+    return (
+      <div class={[
+        `${this.mergedClsPrefix}-pro-layout`,
+        `${this.mergedClsPrefix}-pro-layout--${this.mergedMode}`,
+        ...this.cls.layout,
+      ]}
+      >
+        <NScrollbar
+          class={[
+            `${this.mergedClsPrefix}-pro-layout__scrollbar--${this.mergedMode}`,
+            ...this.cls.scrollbar,
+          ]}
+          contentClass={[
+            `${this.mergedClsPrefix}-pro-layout__scrollbar-content--${this.mergedMode}`,
+            ...this.cls.scrollbarContent,
+          ]}
+        >
+          <aside class={[
+            `${this.mergedClsPrefix}-pro-layout__sidebar--${this.mergedMode}`,
+            ...this.cls.sidebar,
+          ]}
+          >
+            {logoDom}
+            {sidebarDom}
+            {sidebarExtraDom}
+          </aside>
+          <section class={[
+            `${this.mergedClsPrefix}-pro-layout__section--${this.mergedMode}`,
+            ...this.cls.section,
+          ]}
+          >
+            <header class={[
+              `${this.mergedClsPrefix}-pro-layout__header--${this.mergedMode}`,
+              ...this.cls.header,
+            ]}
+            >
+              {headerLeftDom}
+              {headerCenterDom}
+              {headerRightDom}
+            </header>
+            <div class={[
+              `${this.mergedClsPrefix}-pro-layout__tabbar--${this.mergedMode}`,
+              ...this.cls.tabbar,
+            ]}
+            >
+              {tabbarDom}
+            </div>
+            <main class={[
+              `${this.mergedClsPrefix}-pro-layout__main--${this.mergedMode}`,
+              ...this.cls.main,
+            ]}
+            >
+              {defaultDom}
+            </main>
+            <footer class={[
+              `${this.mergedClsPrefix}-pro-layout__footer--${this.mergedMode}`,
+              ...this.cls.footer,
+            ]}
+            >
+              {footerDom}
+            </footer>
+          </section>
+        </NScrollbar>
+      </div>
+    )
   },
 })
