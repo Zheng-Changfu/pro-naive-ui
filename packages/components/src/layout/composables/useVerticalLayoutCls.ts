@@ -11,34 +11,32 @@ export function useVerticalLayoutCls({
   mergedCollasped,
 }: CalcLayoutClsOptions) {
   return computed(() => {
-    const headerFixed = mergedNav.value === false || mergedNav.value.fixed
-    const footerFixed = mergedFooter.value === false || mergedFooter.value.fixed
     return {
       layout: [
         `${mergedClsPrefix.value}-pro-layout--vertical`,
       ],
       aside: [
         { [`${mergedClsPrefix.value}-pro-layout__aside--collapsed`]: mergedCollasped.value },
-        { [`${mergedClsPrefix.value}-pro-layout__aside--hidden`]: mergedSidebar.value === false },
+        { [`${mergedClsPrefix.value}-pro-layout__aside--hidden`]: !mergedSidebar.value.show },
       ],
       header: [
-        { [`${mergedClsPrefix.value}-pro-layout__header--fixed`]: headerFixed },
+        { [`${mergedClsPrefix.value}-pro-layout__header--fixed`]: mergedNav.value.fixed },
       ],
       nav: [
-        { [`${mergedClsPrefix.value}-pro-layout__nav--hidden`]: mergedNav.value === false },
+        { [`${mergedClsPrefix.value}-pro-layout__nav--hidden`]: !mergedNav.value.show },
       ],
       tabbar: [
-        { [`${mergedClsPrefix.value}-pro-layout__tabbar--hidden`]: mergedTabbar.value === false },
+        { [`${mergedClsPrefix.value}-pro-layout__tabbar--hidden`]: !mergedTabbar.value.show },
       ],
       main: [
-        { [`${mergedClsPrefix.value}-pro-layout__main--header-fixed-with-has-nav`]: headerFixed && mergedNav.value !== false },
-        { [`${mergedClsPrefix.value}-pro-layout__main--header-fixed-with-has-tabbar`]: headerFixed && mergedTabbar.value !== false },
-        { [`${mergedClsPrefix.value}-pro-layout__main--header-fixed-with-has-header`]: headerFixed && mergedNav.value === false && mergedTabbar.value === false },
-        { [`${mergedClsPrefix.value}-pro-layout__main--footer-fixed-with-has-footer`]: footerFixed && mergedFooter.value !== false },
+        { [`${mergedClsPrefix.value}-pro-layout__main--header-fixed-with-only-has-nav`]: mergedNav.value.fixed && mergedNav.value.show && !mergedTabbar.value.show },
+        { [`${mergedClsPrefix.value}-pro-layout__main--header-fixed-with-only-has-tabbar`]: mergedNav.value.fixed && mergedTabbar.value.show && !mergedNav.value.show },
+        { [`${mergedClsPrefix.value}-pro-layout__main--header-fixed-with-has-header`]: mergedNav.value.fixed && mergedNav.value.show && mergedTabbar.value.show },
+        { [`${mergedClsPrefix.value}-pro-layout__main--footer-fixed-with-has-footer`]: mergedFooter.value.fixed && mergedFooter.value.show },
       ],
       footer: [
-        { [`${mergedClsPrefix.value}-pro-layout__footer--fixed`]: footerFixed },
-        { [`${mergedClsPrefix.value}-pro-layout__footer--hidden`]: mergedFooter.value === false },
+        { [`${mergedClsPrefix.value}-pro-layout__footer--fixed`]: mergedFooter.value.fixed },
+        { [`${mergedClsPrefix.value}-pro-layout__footer--hidden`]: !mergedFooter.value.show },
       ],
     }
   })
@@ -46,16 +44,6 @@ export function useVerticalLayoutCls({
 
 export function setupVerticalLayoutStyle() {
   return cM('vertical', [
-    // cB('pro-layout__scrollbar', `
-    //     position:relative;
-    //     flex: 1;
-    //   `, [
-    //   cE('inner', `
-    //       display: flex;
-    //       min-height: 100%;
-    //       height: auto;
-    //     `),
-    // ]),
     cB('pro-layout__aside', `
         width: var(--pro-layout-sidebar-width);
         height: 100%;
@@ -79,7 +67,7 @@ export function setupVerticalLayoutStyle() {
         `),
     ]),
     cB('pro-layout__logo', `
-        height: var(--pro-layout-header-height);
+        height: var(--pro-layout-nav-height);
         flex-shrink: 0;
     `),
     cB('pro-layout__sidebar', `
@@ -111,7 +99,7 @@ export function setupVerticalLayoutStyle() {
     cB('pro-layout__nav', `
         display: flex;
         align-items: center;
-        height: var(--pro-layout-header-height);
+        height: var(--pro-layout-nav-height);
         border-bottom: 1px solid var(--pro-layout-border-color);
         transition:
           height .3s var(--pro-bezier),
@@ -154,17 +142,17 @@ export function setupVerticalLayoutStyle() {
         flex-grow: 1;
         flex-basis: 0;
       `, [
-      cM('header-fixed-with-has-nav', `
+      cM('header-fixed-with-only-has-nav', `
           padding-top: var(--pro-layout-tabbar-height);
         `),
-      cM('header-fixed-with-has-tabbar', `
-          padding-top: var(--pro-layout-header-height);
+      cM('header-fixed-with-only-has-tabbar', `
+          padding-top: var(--pro-layout-nav-height);
         `),
       cM('header-fixed-with-has-header', `
-          padding-top: 0;
+          padding-top: calc(var(--pro-layout-nav-height) + var(--pro-layout-tabbar-height));
         `),
       cM('footer-fixed-with-has-footer', `
-          padding-bottom: 0;
+          padding-bottom: var(--pro-layout-footer-height);
         `),
     ]),
     cB('pro-layout__footer', `

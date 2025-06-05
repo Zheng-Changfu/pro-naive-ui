@@ -1,8 +1,8 @@
 import type { ExtractPublicPropTypes, PropType } from 'vue'
 import type { MaybeArray } from '../_utils/call'
-import type { LayoutFooter, LayoutHeader, LayoutMode, LayoutSidebar, LayoutTabbar } from './types'
+import type { ProLayoutFooter, ProLayoutMode, ProLayoutNav, ProLayoutSidebar, ProLayoutTabbar } from './types'
 
-export const sharedLayoutProps = {
+export const proLayoutProps = {
   /**
    * 是否折叠
    */
@@ -28,31 +28,31 @@ export const sharedLayoutProps = {
   /**
    * 侧边栏宽度
    */
-  'sidebarWidth': Number as PropType<LayoutSidebar['width']>,
+  'sidebarWidth': Number as PropType<ProLayoutSidebar['width']>,
   /**
    * 侧边栏混合宽度
    */
-  'sidebarMixedWidth': Number as PropType<LayoutSidebar['mixedWidth']>,
+  'sidebarMixedWidth': Number as PropType<ProLayoutSidebar['mixedWidth']>,
   /**
    * 侧边栏折叠后的宽度
    */
-  'sidebarCollapsedWidth': Number as PropType<LayoutSidebar['collapsedWidth']>,
+  'sidebarCollapsedWidth': Number as PropType<ProLayoutSidebar['collapsedWidth']>,
   /**
    * 是否显示顶栏
    */
-  'showHeader': {
+  'showNav': {
     type: Boolean as PropType<boolean | undefined>,
     default: undefined,
   },
   /**
    * 顶栏高度
    */
-  'headerHeight': Number as PropType<LayoutHeader['height']>,
+  'navHeight': Number as PropType<ProLayoutNav['height']>,
   /**
    * 顶栏是否固定
    */
-  'headerFixed': {
-    type: Boolean as PropType<LayoutHeader['fixed']>,
+  'navFixed': {
+    type: Boolean as PropType<ProLayoutNav['fixed']>,
     default: undefined,
   },
   /**
@@ -65,12 +65,12 @@ export const sharedLayoutProps = {
   /**
    * 底部高度
    */
-  'footerHeight': Number as PropType<LayoutFooter['height']>,
+  'footerHeight': Number as PropType<ProLayoutFooter['height']>,
   /**
    * 底部是否固定
    */
   'footerFixed': {
-    type: Boolean as PropType<LayoutFooter['fixed']>,
+    type: Boolean as PropType<ProLayoutFooter['fixed']>,
     default: undefined,
   },
   /**
@@ -83,17 +83,12 @@ export const sharedLayoutProps = {
   /**
    * 标签栏高度
    */
-  'tabbarHeight': Number as PropType<LayoutTabbar['height']>,
-} as const
-
-export const proLayoutProps = {
-  ...sharedLayoutProps,
+  'tabbarHeight': Number as PropType<ProLayoutTabbar['height']>,
   /**
    * 布局模式
    * @default 'vertical'
    */
-  mode: String as PropType<LayoutMode>,
+  'mode': String as PropType<ProLayoutMode>,
 } as const
 
 export type ProLayoutProps = ExtractPublicPropTypes<typeof proLayoutProps>
-export type SharedLayoutProps = ExtractPublicPropTypes<typeof sharedLayoutProps>

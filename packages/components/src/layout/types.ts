@@ -1,6 +1,10 @@
 import type { ComputedRef, Ref } from 'vue'
 
-export interface LayoutSidebar {
+export interface ProLayoutSidebar {
+  /**
+   * 是否显示侧边栏
+   */
+  show: boolean
   /**
    * 侧边栏宽度
    * @default 224
@@ -18,7 +22,11 @@ export interface LayoutSidebar {
   collapsedWidth: number
 }
 
-export interface LayoutHeader {
+export interface ProLayoutNav {
+  /**
+   * 是否显示顶栏
+   */
+  show: boolean
   /**
    * 头部高度
    * @default 50
@@ -31,7 +39,11 @@ export interface LayoutHeader {
   fixed: boolean
 }
 
-export interface LayoutFooter {
+export interface ProLayoutFooter {
+  /**
+   * 是否显示底部
+   */
+  show: boolean
   /**
    * 底部高度
    * @default 32
@@ -44,7 +56,11 @@ export interface LayoutFooter {
   fixed: boolean
 }
 
-export interface LayoutTabbar {
+export interface ProLayoutTabbar {
+  /**
+   * 是否显示标签栏
+   */
+  show: boolean
   /**
    * 标签栏高度
    * @default 38
@@ -62,7 +78,7 @@ export interface LayoutTabbar {
  * two-column: 双栏布局
  * mixed-two-column: 混合双栏布局
  */
-export type LayoutMode =
+export type ProLayoutMode =
   | 'vertical'
   | 'horizontal'
   | 'sidebar'
@@ -74,9 +90,9 @@ export type LayoutMode =
 
 export interface CalcLayoutClsOptions {
   mergedClsPrefix: Ref<string>
+  mergedNav: ComputedRef<ProLayoutNav>
   mergedCollasped: ComputedRef<boolean>
-  mergedNav: ComputedRef<LayoutHeader | false>
-  mergedFooter: ComputedRef<LayoutFooter | false>
-  mergedTabbar: ComputedRef<LayoutTabbar | false>
-  mergedSidebar: ComputedRef<LayoutSidebar | false>
+  mergedFooter: ComputedRef<ProLayoutFooter>
+  mergedTabbar: ComputedRef<ProLayoutTabbar>
+  mergedSidebar: ComputedRef<ProLayoutSidebar>
 }
