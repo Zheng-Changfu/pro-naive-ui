@@ -4,7 +4,7 @@ import { resolveWrappedSlot } from '../../_utils/resolveSlot'
 
 export function renderSidebarLayout({
   slots,
-  mergedHeader,
+  mergedNav,
   mergedTabbar,
   mergedFooter,
   mergedCssVars,
@@ -13,7 +13,7 @@ export function renderSidebarLayout({
   mergedCollasped,
 }: LayoutRenderOptions) {
   const renderHeader = () => {
-    if (mergedHeader === false) {
+    if (mergedNav === false) {
       return null
     }
 
@@ -101,7 +101,7 @@ export function renderSidebarLayout({
   }
 
   const resolveScrollHeader = () => {
-    if (mergedHeader === false && mergedTabbar === false) {
+    if (mergedNav === false && mergedTabbar === false) {
       return null
     }
     const headerDom = renderHeader()
@@ -109,7 +109,7 @@ export function renderSidebarLayout({
     if (!headerDom && !tabbarDom) {
       return null
     }
-    const fixed = mergedHeader === false || mergedHeader.fixed || !headerDom
+    const fixed = mergedNav === false || mergedNav.fixed || !headerDom
     return [
       <div class={[
         `${mergedClsPrefix}-pro-layout__scroll-behavior`,

@@ -30,7 +30,7 @@ export function useMergeConfig(props: ComputedRef<ProLayoutProps>) {
         }
   })
 
-  const mergedHeader = computed(() => {
+  const mergedNav = computed(() => {
     const {
       showHeader,
       headerFixed,
@@ -78,8 +78,8 @@ export function useMergeConfig(props: ComputedRef<ProLayoutProps>) {
       '--pro-bezier': themeVars.value.cubicBezierEaseInOut,
       '--pro-layout-border-color': themeVars.value.borderColor,
     }
-    if (mergedHeader.value !== false) {
-      vars['--pro-layout-header-height'] = `${mergedHeader.value.height}px`
+    if (mergedNav.value !== false) {
+      vars['--pro-layout-header-height'] = `${mergedNav.value.height}px`
     }
     if (mergedFooter.value !== false) {
       vars['--pro-layout-footer-height'] = `${mergedFooter.value.height}px`
@@ -97,7 +97,7 @@ export function useMergeConfig(props: ComputedRef<ProLayoutProps>) {
 
   return {
     mergedMode,
-    mergedHeader,
+    mergedNav,
     mergedFooter,
     mergedTabbar,
     mergedSidebar,

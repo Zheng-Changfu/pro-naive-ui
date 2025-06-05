@@ -28,7 +28,7 @@ export default defineComponent({
     TestHeaderCenterRerender,
   },
   setup() {
-    const mode = ref<ProLayoutMode>('sidebar')
+    const mode = ref<ProLayoutMode>('vertical')
     return {
       mode,
     }

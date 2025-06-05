@@ -1,5 +1,4 @@
-import type { Slot } from 'vue'
-import type { SharedLayoutSlots } from './slots'
+import type { ComputedRef, Ref } from 'vue'
 
 export interface LayoutSidebar {
   /**
@@ -73,15 +72,11 @@ export type LayoutMode =
   | 'mixed-two-column'
   | ({} & string)
 
-export interface LayoutRenderOptions {
-  mergedClsPrefix: string
-  mergedCollasped: boolean
-  mergedHeader: LayoutHeader | false
-  mergedFooter: LayoutFooter | false
-  mergedTabbar: LayoutTabbar | false
-  mergedSidebar: LayoutSidebar | false
-  mergedCssVars: Record<string, string>
-  slots: {
-    [K in keyof SharedLayoutSlots]?: Slot<SharedLayoutSlots[K]>
-  }
+export interface CalcLayoutClsOptions {
+  mergedClsPrefix: Ref<string>
+  mergedCollasped: ComputedRef<boolean>
+  mergedNav: ComputedRef<LayoutHeader | false>
+  mergedFooter: ComputedRef<LayoutFooter | false>
+  mergedTabbar: ComputedRef<LayoutTabbar | false>
+  mergedSidebar: ComputedRef<LayoutSidebar | false>
 }
