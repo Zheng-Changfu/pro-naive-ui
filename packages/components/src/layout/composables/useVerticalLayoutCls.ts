@@ -10,11 +10,9 @@ export function useVerticalLayoutCls({
   mergedClsPrefix,
   mergedCollasped,
 }: CalcLayoutClsOptions) {
-  const headerFixed = computed(() => {
-    return mergedNav.value === false || mergedNav.value.fixed
-  })
-
   return computed(() => {
+    const headerFixed = mergedNav.value === false || mergedNav.value.fixed
+    const footerFixed = mergedFooter.value === false || mergedFooter.value.fixed
     return {
       layout: [
         `${mergedClsPrefix.value}-pro-layout--vertical`,
@@ -24,7 +22,7 @@ export function useVerticalLayoutCls({
         { [`${mergedClsPrefix.value}-pro-layout__aside--hidden`]: mergedSidebar.value === false },
       ],
       header: [
-        { [`${mergedClsPrefix.value}-pro-layout__header--fixed`]: headerFixed.value },
+        { [`${mergedClsPrefix.value}-pro-layout__header--fixed`]: headerFixed },
       ],
       nav: [
         { [`${mergedClsPrefix.value}-pro-layout__nav--hidden`]: mergedNav.value === false },
@@ -33,14 +31,14 @@ export function useVerticalLayoutCls({
         { [`${mergedClsPrefix.value}-pro-layout__tabbar--hidden`]: mergedTabbar.value === false },
       ],
       main: [
-        { [`${mergedClsPrefix.value}-pro-layout__main--fixed-no-nav`]: mergedNav.value === false },
-        { [`${mergedClsPrefix.value}-pro-layout__main--fixed-no-tabbar`]: mergedTabbar.value === false },
-        { [`${mergedClsPrefix.value}-pro-layout__main--fixed-no-header`]: mergedTabbar.value === false },
-        { [`${mergedClsPrefix.value}-pro-layout__main--fixed-no-footer`]: mergedTabbar.value === false },
+        { [`${mergedClsPrefix.value}-pro-layout__main--header-fixed-with-has-nav`]: headerFixed && mergedNav.value !== false },
+        { [`${mergedClsPrefix.value}-pro-layout__main--header-fixed-with-has-tabbar`]: headerFixed && mergedTabbar.value !== false },
+        { [`${mergedClsPrefix.value}-pro-layout__main--header-fixed-with-has-header`]: headerFixed && mergedNav.value === false && mergedTabbar.value === false },
+        { [`${mergedClsPrefix.value}-pro-layout__main--footer-fixed-with-has-footer`]: footerFixed && mergedFooter.value !== false },
       ],
       footer: [
+        { [`${mergedClsPrefix.value}-pro-layout__footer--fixed`]: footerFixed },
         { [`${mergedClsPrefix.value}-pro-layout__footer--hidden`]: mergedFooter.value === false },
-        { [`${mergedClsPrefix.value}-pro-layout__footer--fixed`]: mergedFooter.value !== false && mergedFooter.value.fixed },
       ],
     }
   })
@@ -156,11 +154,17 @@ export function setupVerticalLayoutStyle() {
         flex-grow: 1;
         flex-basis: 0;
       `, [
-      cM('no-nav', `
+      cM('header-fixed-with-has-nav', `
           padding-top: var(--pro-layout-tabbar-height);
         `),
-      cM('no-tabbar', `
+      cM('header-fixed-with-has-tabbar', `
           padding-top: var(--pro-layout-header-height);
+        `),
+      cM('header-fixed-with-has-header', `
+          padding-top: 0;
+        `),
+      cM('footer-fixed-with-has-footer', `
+          padding-bottom: 0;
         `),
     ]),
     cB('pro-layout__footer', `
