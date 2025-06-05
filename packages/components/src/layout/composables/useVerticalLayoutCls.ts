@@ -89,6 +89,9 @@ export function setupVerticalLayoutStyle() {
         transition:
           background .3s var(--pro-bezier);
       `, [
+      cB('pro-layout__logo', `
+          display: none;
+      `),
       cM('fixed', `
           position: absolute;
           top: 0;
