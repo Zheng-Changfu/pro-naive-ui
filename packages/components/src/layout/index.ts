@@ -8,5 +8,9 @@ export {
 } from './layout'
 
 export type {
-  LayoutMode as ProLayoutMode,
+  ProLayoutMode,
 } from './types'
+
+export type {
+  ProLayoutSlots,
+} from './slots'

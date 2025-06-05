@@ -21,27 +21,25 @@ export function useMergeConfig(props: ComputedRef<ProLayoutProps>) {
       sidebarMixedWidth,
       sidebarCollapsedWidth,
     } = props.value
-    return showSidebar === false
-      ? false
-      : {
-          width: sidebarWidth ?? 224,
-          mixedWidth: sidebarMixedWidth ?? 58,
-          collapsedWidth: sidebarCollapsedWidth ?? 58,
-        }
+    return {
+      show: showSidebar !== false,
+      width: sidebarWidth ?? 224,
+      mixedWidth: sidebarMixedWidth ?? 58,
+      collapsedWidth: sidebarCollapsedWidth ?? 58,
+    }
   })
 
   const mergedNav = computed(() => {
     const {
-      showHeader,
-      headerFixed,
-      headerHeight,
+      showNav,
+      navFixed,
+      navHeight,
     } = props.value
-    return showHeader === false
-      ? false
-      : {
-          fixed: headerFixed ?? true,
-          height: headerHeight ?? 50,
-        }
+    return {
+      show: showNav !== false,
+      fixed: navFixed ?? true,
+      height: navHeight ?? 50,
+    }
   })
 
   const mergedFooter = computed(() => {
@@ -50,12 +48,11 @@ export function useMergeConfig(props: ComputedRef<ProLayoutProps>) {
       footerFixed,
       footerHeight,
     } = props.value
-    return showFooter === false
-      ? false
-      : {
-          height: footerHeight ?? 32,
-          fixed: footerFixed ?? false,
-        }
+    return {
+      show: showFooter !== false,
+      height: footerHeight ?? 32,
+      fixed: footerFixed ?? false,
+    }
   })
 
   const mergedTabbar = computed(() => {
@@ -63,36 +60,26 @@ export function useMergeConfig(props: ComputedRef<ProLayoutProps>) {
       showTabbar,
       tabbarHeight,
     } = props.value
-    return showTabbar === false
-      ? false
-      : {
-          height: tabbarHeight ?? 38,
-        }
+    return {
+      show: showTabbar !== false,
+      height: tabbarHeight ?? 38,
+    }
   })
 
   const mergedCssVars = computed(() => {
-    const vars: Record<string, any> = {
+    return {
       '--n-color': themeVars.value.bodyColor,
       '--n-text-color': themeVars.value.textColor2,
       '--pro-layout-color': themeVars.value.bodyColor,
       '--pro-bezier': themeVars.value.cubicBezierEaseInOut,
+      '--pro-layout-nav-height': `${mergedNav.value.height}px`,
       '--pro-layout-border-color': themeVars.value.borderColor,
+      '--pro-layout-footer-height': `${mergedFooter.value.height}px`,
+      '--pro-layout-tabbar-height': `${mergedTabbar.value.height}px`,
+      '--pro-layout-sidebar-width': `${mergedSidebar.value.width}px`,
+      '--pro-layout-sidebar-mixed-width': `${mergedSidebar.value.mixedWidth}px`,
+      '--pro-layout-sidebar-collapsed-width': `${mergedSidebar.value.collapsedWidth}px`,
     }
-    if (mergedNav.value !== false) {
-      vars['--pro-layout-header-height'] = `${mergedNav.value.height}px`
-    }
-    if (mergedFooter.value !== false) {
-      vars['--pro-layout-footer-height'] = `${mergedFooter.value.height}px`
-    }
-    if (mergedTabbar.value !== false) {
-      vars['--pro-layout-tabbar-height'] = `${mergedTabbar.value.height}px`
-    }
-    if (mergedSidebar.value !== false) {
-      vars['--pro-layout-sidebar-width'] = `${mergedSidebar.value.width}px`
-      vars['--pro-layout-sidebar-mixed-width'] = `${mergedSidebar.value.mixedWidth}px`
-      vars['--pro-layout-sidebar-collapsed-width'] = `${mergedSidebar.value.collapsedWidth}px`
-    }
-    return vars
   })
 
   return {

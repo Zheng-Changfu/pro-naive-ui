@@ -1,5 +1,5 @@
 import type { SlotsType } from 'vue'
-import type { SharedLayoutSlots } from './slots'
+import type { ProLayoutSlots } from './slots'
 import { NScrollbar } from 'naive-ui'
 import { computed, defineComponent } from 'vue'
 import { useNaiveClsPrefix } from '../_internal/useClsPrefix'
@@ -23,7 +23,7 @@ const name = 'ProLayout'
 export default defineComponent({
   name,
   props: proLayoutProps,
-  slots: Object as SlotsType<SharedLayoutSlots>,
+  slots: Object as SlotsType<ProLayoutSlots>,
   setup(props) {
     const mergedClsPrefix = useNaiveClsPrefix()
     const overridedProps = useOverrideProps(
@@ -152,10 +152,6 @@ export default defineComponent({
       }
     })
 
-    const isSidebarLayout = computed(() => {
-      return mergedMode.value === 'sidebar' || mergedMode.value === 'mixed-sidebar'
-    })
-
     useMountStyle(
       name,
       'pro-layout',
@@ -172,7 +168,6 @@ export default defineComponent({
       mergedSidebar,
       mergedClsPrefix,
       mergedCollasped,
-      isSidebarLayout,
     }
   },
   render() {
@@ -192,7 +187,7 @@ export default defineComponent({
         return null
       }
       return (
-        <div class={`${this.mergedClsPrefix}-pro-layout__header__inner__left`}>
+        <div class={`${this.mergedClsPrefix}-pro-layout__nav__left`}>
           {children}
         </div>
       )
@@ -203,7 +198,7 @@ export default defineComponent({
         return null
       }
       return (
-        <div class={`${this.mergedClsPrefix}-pro-layout__header__inner__center`}>
+        <div class={`${this.mergedClsPrefix}-pro-layout__nav__center`}>
           {children}
         </div>
       )
@@ -214,7 +209,7 @@ export default defineComponent({
         return null
       }
       return (
-        <div class={`${this.mergedClsPrefix}-pro-layout__header__inner__right`}>
+        <div class={`${this.mergedClsPrefix}-pro-layout__nav__right`}>
           {children}
         </div>
       )
@@ -237,14 +232,14 @@ export default defineComponent({
     return (
       <div
         class={[
-          ...this.cls.layout,
           `${this.mergedClsPrefix}-pro-layout`,
+          ...this.cls.layout,
         ]}
         style={this.mergedCssVars}
       >
         <aside class={[
-          ...this.cls.aside,
           `${this.mergedClsPrefix}-pro-layout__aside`,
+          ...this.cls.aside,
         ]}
         >
           {logoDom}
@@ -256,13 +251,13 @@ export default defineComponent({
           contentClass={`${this.mergedClsPrefix}-pro-layout__scrollbar__inner`}
         >
           <header class={[
-            ...this.cls.header,
             `${this.mergedClsPrefix}-pro-layout__header`,
+            ...this.cls.header,
           ]}
           >
             <div class={[
-              ...this.cls.nav,
               `${this.mergedClsPrefix}-pro-layout__nav`,
+              ...this.cls.nav,
             ]}
             >
               {logoDom}
@@ -270,46 +265,28 @@ export default defineComponent({
               {headerCenterDom}
               {headerRightDom}
             </div>
-            {
-              resolveWrappedSlot(this.$slots.tabbar, (children) => {
-                if (!children) {
-                  return null
-                }
-                return (
-                  <div class={[
-                    ...this.cls.tabbar,
-                    `${this.mergedClsPrefix}-pro-layout__tabbar`,
-                  ]}
-                  >
-                    {children}
-                  </div>
-                )
-              })
-            }
+            <div class={[
+              `${this.mergedClsPrefix}-pro-layout__tabbar`,
+              ...this.cls.tabbar,
+            ]}
+            >
+              {this.$slots.tabbar?.()}
+            </div>
           </header>
           <main class={[
-            ...this.cls.main,
             `${this.mergedClsPrefix}-pro-layout__main`,
+            ...this.cls.main,
           ]}
           >
             {this.$slots.default?.()}
           </main>
-          {
-            resolveWrappedSlot(this.$slots.footer, (children) => {
-              if (!children) {
-                return null
-              }
-              return (
-                <footer class={[
-                  ...this.cls.footer,
-                  `${this.mergedClsPrefix}-pro-layout__footer`,
-                ]}
-                >
-                  {children}
-                </footer>
-              )
-            })
-          }
+          <footer class={[
+            `${this.mergedClsPrefix}-pro-layout__footer`,
+            ...this.cls.footer,
+          ]}
+          >
+            {this.$slots.footer?.()}
+          </footer>
         </NScrollbar>
       </div>
     )

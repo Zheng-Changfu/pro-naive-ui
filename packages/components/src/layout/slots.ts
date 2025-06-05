@@ -1,4 +1,4 @@
-export interface SharedLayoutSlots {
+export interface ProLayoutSlots {
   /**
    * logo 区域
    */
