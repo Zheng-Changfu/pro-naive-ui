@@ -100,6 +100,7 @@ export function setupVerticalLayoutStyle() {
         display: flex;
         align-items: center;
         height: var(--pro-layout-nav-height);
+        box-sizing: border-box;
         border-bottom: 1px solid var(--pro-layout-border-color);
         transition:
           height .3s var(--pro-bezier),
