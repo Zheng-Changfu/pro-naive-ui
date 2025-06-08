@@ -9,7 +9,7 @@ import type { ProDataTableColumns, ProDataTableDragSortEnd } from 'pro-naive-ui'
 import { AimOutlined } from '@vicons/antd'
 import { NButton, NIcon } from 'naive-ui'
 import { move } from 'pro-naive-ui'
-import { defineComponent, ref } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 
 interface Song {
   no: number
@@ -20,15 +20,35 @@ interface Song {
 export default defineComponent({
   setup() {
     const dragHandle = ref(true)
+    const loading = ref(false)
 
-    const data = ref<Song[]>([
+    // 初始设置为空数组
+    const data = ref<Song[]>([])
+
+    // 模拟的歌曲数据
+    const songData: Song[] = [
       { no: 3, title: 'Wonderwall', length: '4:18' },
       { no: 4, title: 'Don\'t Look Back in Anger', length: '4:48' },
       { no: 12, title: 'Champagne Supernova', length: '7:27' },
       { no: 33, title: 'Wonderwall', length: '4:18' },
       { no: 44, title: 'Don\'t Look Back in Anger', length: '4:48' },
       { no: 122, title: 'Champagne Supernova', length: '7:27' },
-    ])
+    ]
+
+    // 模拟异步请求获取数据
+    const fetchData = () => {
+      loading.value = true
+      return new Promise<Song[]>((resolve) => {
+        setTimeout(() => {
+          resolve(songData)
+          loading.value = false
+        }, 1500) // 1.5秒后加载完成
+      })
+    }
+
+    onMounted(async () => {
+      data.value = await fetchData()
+    })
 
     const columns: ProDataTableColumns<Song> = [
       {
@@ -70,6 +90,7 @@ export default defineComponent({
 
     return {
       data,
+      loading,
       columns,
       dragHandle,
       onDragSortEnd,
@@ -81,6 +102,7 @@ export default defineComponent({
 <template>
   <pro-data-table
     :data="data"
+    :loading
     :columns="columns"
     :drag-sort-options="{
       columnPath: 'dragSort',
