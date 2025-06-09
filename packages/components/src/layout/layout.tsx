@@ -10,9 +10,6 @@ import { useOverrideProps } from '../composables'
 import { useFullContentLayoutCls } from './composables/useFullContentLayoutCls'
 import { useHorizontalLayoutCls } from './composables/useHorizontalLayoutCls'
 import { useMergeConfig } from './composables/useMergeConfig'
-// import { useFullContentCls } from './composables/useFullContentCls'
-// import { useHorizontalLayoutCls } from './composables/useHorizontalLayoutCls'
-// import { useMergeConfig } from './composables/useMergeConfig'
 import { useMixedSidebarCls } from './composables/useMixedSidebarCls'
 // import { useMixedTwoColumnCls } from './composables/useMixedTwoColumnCls'
 import { useSidebarLayoutCls } from './composables/useSidebarLayoutCls'
@@ -24,6 +21,7 @@ import style from './styles/index.cssr'
 const name = 'ProLayout'
 export default defineComponent({
   name,
+  inheritAttrs: false,
   props: proLayoutProps,
   slots: Object as SlotsType<ProLayoutSlots>,
   setup(props) {
@@ -41,9 +39,24 @@ export default defineComponent({
       mergedSidebar,
       mergedCssVars,
       mergedCollasped,
+      mergedNavClass,
+      mergedMainClass,
+      mergedAsideClass,
+      mergedHeaderClass,
+      mergedTabbarClass,
+      mergedFooterClass,
     } = useMergeConfig(overridedProps)
 
     const sidebarLayoutCls = useSidebarLayoutCls({
+      mergedNav,
+      mergedTabbar,
+      mergedFooter,
+      mergedSidebar,
+      mergedCollasped,
+      mergedClsPrefix,
+    })
+
+    const mixedSidebarCls = useMixedSidebarCls({
       mergedNav,
       mergedTabbar,
       mergedFooter,
@@ -60,16 +73,6 @@ export default defineComponent({
       mergedCollasped,
       mergedClsPrefix,
     })
-
-    // const twoColumnLayoutCls = useTwoColumnLayoutCls({
-    //   mergedMode,
-    //   mergedNav,
-    //   mergedTabbar,
-    //   mergedFooter,
-    //   mergedSidebar,
-    //   mergedCssVars,
-    //   mergedCollasped,
-    // })
 
     const horizontalLayoutCls = useHorizontalLayoutCls({
       mergedNav,
@@ -89,14 +92,15 @@ export default defineComponent({
       mergedClsPrefix,
     })
 
-    const mixedSidebarCls = useMixedSidebarCls({
-      mergedNav,
-      mergedTabbar,
-      mergedFooter,
-      mergedSidebar,
-      mergedCollasped,
-      mergedClsPrefix,
-    })
+    // const twoColumnLayoutCls = useTwoColumnLayoutCls({
+    //   mergedMode,
+    //   mergedNav,
+    //   mergedTabbar,
+    //   mergedFooter,
+    //   mergedSidebar,
+    //   mergedCssVars,
+    //   mergedCollasped,
+    // })
 
     // const mixedTwoColumnCls = useMixedTwoColumnCls({
     //   mergedMode,
@@ -110,20 +114,6 @@ export default defineComponent({
 
     const cls = computed(() => {
       const mode = mergedMode.value
-      /**
-       *  layout
-          scrollbar
-          scrollbarContent
-          sidebar
-          section
-          header
-          tabbar
-          main
-          footer
-       *
-       *
-       */
-
       switch (mode) {
         case 'sidebar':
           return sidebarLayoutCls.value
@@ -166,6 +156,12 @@ export default defineComponent({
       mergedSidebar,
       mergedClsPrefix,
       mergedCollasped,
+      mergedNavClass,
+      mergedMainClass,
+      mergedAsideClass,
+      mergedHeaderClass,
+      mergedTabbarClass,
+      mergedFooterClass,
     }
   },
   render() {
@@ -229,6 +225,7 @@ export default defineComponent({
 
     return (
       <div
+        {...this.$attrs}
         class={[
           `${this.mergedClsPrefix}-pro-layout`,
           ...this.cls.layout,
@@ -238,6 +235,7 @@ export default defineComponent({
         <aside class={[
           `${this.mergedClsPrefix}-pro-layout__aside`,
           ...this.cls.aside,
+          ...this.mergedAsideClass,
         ]}
         >
           {logoDom}
@@ -251,11 +249,13 @@ export default defineComponent({
           <header class={[
             `${this.mergedClsPrefix}-pro-layout__header`,
             ...this.cls.header,
+            ...this.mergedHeaderClass,
           ]}
           >
             <div class={[
               `${this.mergedClsPrefix}-pro-layout__nav`,
               ...this.cls.nav,
+              ...this.mergedNavClass,
             ]}
             >
               {logoDom}
@@ -266,6 +266,7 @@ export default defineComponent({
             <div class={[
               `${this.mergedClsPrefix}-pro-layout__tabbar`,
               ...this.cls.tabbar,
+              ...this.mergedTabbarClass,
             ]}
             >
               {this.$slots.tabbar?.()}
@@ -274,6 +275,7 @@ export default defineComponent({
           <main class={[
             `${this.mergedClsPrefix}-pro-layout__main`,
             ...this.cls.main,
+            ...this.mergedMainClass,
           ]}
           >
             {this.$slots.default?.()}
@@ -281,6 +283,7 @@ export default defineComponent({
           <footer class={[
             `${this.mergedClsPrefix}-pro-layout__footer`,
             ...this.cls.footer,
+            ...this.mergedFooterClass,
           ]}
           >
             {this.$slots.footer?.()}

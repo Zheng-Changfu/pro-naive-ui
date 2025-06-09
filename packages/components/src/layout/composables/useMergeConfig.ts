@@ -1,5 +1,6 @@
 import type { ComputedRef } from 'vue'
 import type { ProLayoutProps } from '../props'
+import { isString } from 'lodash-es'
 import { useThemeVars } from 'naive-ui'
 import { computed } from 'vue'
 
@@ -66,6 +67,36 @@ export function useMergeConfig(props: ComputedRef<ProLayoutProps>) {
     }
   })
 
+  const mergedAsideClass = computed(() => {
+    const asideClass = props.value.asideClass ?? []
+    return isString(asideClass) ? [asideClass] : asideClass
+  })
+
+  const mergedHeaderClass = computed(() => {
+    const headerClass = props.value.headerClass ?? []
+    return isString(headerClass) ? [headerClass] : headerClass
+  })
+
+  const mergedNavClass = computed(() => {
+    const navClass = props.value.navClass ?? []
+    return isString(navClass) ? [navClass] : navClass
+  })
+
+  const mergedTabbarClass = computed(() => {
+    const tabbarClass = props.value.tabbarClass ?? []
+    return isString(tabbarClass) ? [tabbarClass] : tabbarClass
+  })
+
+  const mergedMainClass = computed(() => {
+    const mainClass = props.value.mainClass ?? []
+    return isString(mainClass) ? [mainClass] : mainClass
+  })
+
+  const mergedFooterClass = computed(() => {
+    const footerClass = props.value.footerClass ?? []
+    return isString(footerClass) ? [footerClass] : footerClass
+  })
+
   const mergedCssVars = computed(() => {
     return {
       '--n-color': themeVars.value.bodyColor,
@@ -89,6 +120,12 @@ export function useMergeConfig(props: ComputedRef<ProLayoutProps>) {
     mergedTabbar,
     mergedSidebar,
     mergedCssVars,
+    mergedNavClass,
+    mergedMainClass,
     mergedCollasped,
+    mergedAsideClass,
+    mergedHeaderClass,
+    mergedTabbarClass,
+    mergedFooterClass,
   }
 }
