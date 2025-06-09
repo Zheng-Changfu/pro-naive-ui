@@ -1,10 +1,10 @@
 import { cB } from 'naive-ui'
 import { setupFullContentLayoutStyle } from '../composables/useFullContentLayoutCls'
 import { setupHorizontalLayoutStyle } from '../composables/useHorizontalLayoutCls'
+import { setupSidebarLayoutStyle } from '../composables/useSidebarLayoutCls'
 import { setupVerticalLayoutStyle } from '../composables/useVerticalLayoutCls'
 import { setupMixedSidebarLayoutStyle } from '../renderer/mixed-sidebar'
 import { setupMixedTwoColumnLayoutStyle } from '../renderer/mixed-two-column'
-import { setupSidebarLayoutStyle } from '../renderer/sidebar'
 import { setupTwoColumnLayoutStyle } from '../renderer/two-column'
 
 export default cB('pro-layout', `
@@ -13,7 +13,7 @@ export default cB('pro-layout', `
     width: 100%;
     height: 100%;
   `, [
-  // setupSidebarLayoutStyle(),
+  setupSidebarLayoutStyle(),
   setupVerticalLayoutStyle(),
   // setupTwoColumnLayoutStyle(),
   setupHorizontalLayoutStyle(),
