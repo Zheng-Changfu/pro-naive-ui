@@ -106,7 +106,6 @@ export function setupVerticalLayoutStyle() {
         box-sizing: border-box;
         border-bottom: 1px solid var(--pro-layout-border-color);
         transition:
-          height .3s var(--pro-bezier),
           border-color .3s var(--pro-bezier);
     `, [
       cE('left', `
@@ -134,7 +133,6 @@ export function setupVerticalLayoutStyle() {
         background: var(--pro-layout-color);
         border-bottom: 1px solid var(--pro-layout-border-color);
         transition:
-          height .3s var(--pro-bezier),
           background .3s var(--pro-bezier),
           border-color .3s var(--pro-bezier);
     `, [
@@ -166,7 +164,6 @@ export function setupVerticalLayoutStyle() {
         flex-shrink: 0;
         background: var(--pro-layout-color);
         transition: 
-          height .3s var(--pro-bezier),
           background .3s var(--pro-bezier);
       `, [
       cM('fixed', `
