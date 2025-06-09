@@ -8,6 +8,7 @@ import { resolveWrappedSlot } from '../_utils/resolveSlot'
 import { warnOnce } from '../_utils/warn'
 import { useOverrideProps } from '../composables'
 import { useFullContentLayoutCls } from './composables/useFullContentLayoutCls'
+import { useHorizontalLayoutCls } from './composables/useHorizontalLayoutCls'
 import { useMergeConfig } from './composables/useMergeConfig'
 // import { useFullContentCls } from './composables/useFullContentCls'
 // import { useHorizontalLayoutCls } from './composables/useHorizontalLayoutCls'
@@ -71,15 +72,14 @@ export default defineComponent({
     //   mergedCollasped,
     // })
 
-    // const horizontalLayoutCls = useHorizontalLayoutCls({
-    //   mergedMode,
-    //   mergedNav,
-    //   mergedTabbar,
-    //   mergedFooter,
-    //   mergedSidebar,
-    //   mergedCssVars,
-    //   mergedCollasped,
-    // })
+    const horizontalLayoutCls = useHorizontalLayoutCls({
+      mergedNav,
+      mergedTabbar,
+      mergedFooter,
+      mergedSidebar,
+      mergedCollasped,
+      mergedClsPrefix,
+    })
 
     const fullContentCls = useFullContentLayoutCls({
       mergedNav,
@@ -133,8 +133,8 @@ export default defineComponent({
           return verticalLayoutCls.value
         // case 'two-column':
         //   return twoColumnLayoutCls.value
-        // case 'horizontal':
-        //   return horizontalLayoutCls.value
+        case 'horizontal':
+          return horizontalLayoutCls.value
         case 'full-content':
           return fullContentCls.value
         // case 'mixed-sidebar':

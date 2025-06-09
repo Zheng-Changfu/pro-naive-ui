@@ -1,7 +1,7 @@
 import { cB } from 'naive-ui'
 import { setupFullContentLayoutStyle } from '../composables/useFullContentLayoutCls'
+import { setupHorizontalLayoutStyle } from '../composables/useHorizontalLayoutCls'
 import { setupVerticalLayoutStyle } from '../composables/useVerticalLayoutCls'
-import { setupHorizontalLayoutStyle } from '../renderer/horizontal'
 import { setupMixedSidebarLayoutStyle } from '../renderer/mixed-sidebar'
 import { setupMixedTwoColumnLayoutStyle } from '../renderer/mixed-two-column'
 import { setupSidebarLayoutStyle } from '../renderer/sidebar'
@@ -16,7 +16,7 @@ export default cB('pro-layout', `
   // setupSidebarLayoutStyle(),
   setupVerticalLayoutStyle(),
   // setupTwoColumnLayoutStyle(),
-  // setupHorizontalLayoutStyle(),
+  setupHorizontalLayoutStyle(),
   setupFullContentLayoutStyle(),
   // setupMixedSidebarLayoutStyle(),
   // setupMixedTwoColumnLayoutStyle(),
