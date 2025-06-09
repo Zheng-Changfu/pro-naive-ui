@@ -187,7 +187,7 @@ export default defineComponent({
         return null
       }
       return (
-        <div class={`${this.mergedClsPrefix}-pro-layout__header__inner__left`}>
+        <div class={`${this.mergedClsPrefix}-pro-layout__nav__left`}>
           {children}
         </div>
       )
@@ -198,7 +198,7 @@ export default defineComponent({
         return null
       }
       return (
-        <div class={`${this.mergedClsPrefix}-pro-layout__header__inner__center`}>
+        <div class={`${this.mergedClsPrefix}-pro-layout__nav__center`}>
           {children}
         </div>
       )
@@ -209,7 +209,7 @@ export default defineComponent({
         return null
       }
       return (
-        <div class={`${this.mergedClsPrefix}-pro-layout__header__inner__right`}>
+        <div class={`${this.mergedClsPrefix}-pro-layout__nav__right`}>
           {children}
         </div>
       )
