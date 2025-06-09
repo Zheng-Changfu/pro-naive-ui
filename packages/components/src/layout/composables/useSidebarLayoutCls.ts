@@ -1,0 +1,243 @@
+import type { CalcLayoutClsOptions } from '../types'
+import { cB, cE, cM } from 'naive-ui'
+import { computed } from 'vue'
+
+export function useSidebarLayoutCls({
+  mergedNav,
+  mergedTabbar,
+  mergedFooter,
+  mergedSidebar,
+  mergedClsPrefix,
+  mergedCollasped,
+}: CalcLayoutClsOptions) {
+  return computed(() => {
+    return {
+      layout: [
+        `${mergedClsPrefix.value}-pro-layout--sidebar`,
+      ],
+      aside: [
+        { [`${mergedClsPrefix.value}-pro-layout__aside--collapsede`]: mergedCollasped.value },
+        { [`${mergedClsPrefix.value}-pro-layout__aside--hidden`]: !mergedSidebar.value.show },
+        { [`${mergedClsPrefix.value}-pro-layout__aside--header-fixed-with-only-nav`]: mergedNav.value.fixed && mergedNav.value.show },
+      ],
+      header: [
+        { [`${mergedClsPrefix.value}-pro-layout__header--fixed`]: mergedNav.value.fixed },
+      ],
+      nav: [
+        { [`${mergedClsPrefix.value}-pro-layout__nav--hidden`]: !mergedNav.value.show },
+        { [`${mergedClsPrefix.value}-pro-layout__nav--no-fixed-aside-hidden`]: !mergedNav.value.fixed && !mergedSidebar.value.show },
+        { [`${mergedClsPrefix.value}-pro-layout__nav--no-fixed-aside-expanded`]: !mergedNav.value.fixed && mergedSidebar.value.show && !mergedCollasped.value },
+        { [`${mergedClsPrefix.value}-pro-layout__nav--no-fixed-aside-collapsed`]: !mergedNav.value.fixed && mergedSidebar.value.show && mergedCollasped.value },
+      ],
+      tabbar: [
+        { [`${mergedClsPrefix.value}-pro-layout__tabbar--hidden`]: !mergedTabbar.value.show },
+        { [`${mergedClsPrefix.value}-pro-layout__tabbar--aside-hidden`]: !mergedSidebar.value.show },
+        { [`${mergedClsPrefix.value}-pro-layout__tabbar--aside-expanded`]: mergedSidebar.value.show && !mergedCollasped.value },
+        { [`${mergedClsPrefix.value}-pro-layout__tabbar--aside-collapsed`]: mergedSidebar.value.show && mergedCollasped.value },
+      ],
+      main: [
+        { [`${mergedClsPrefix.value}-pro-layout__main--header-fixed-with-only-has-nav`]: mergedNav.value.fixed && mergedNav.value.show && !mergedTabbar.value.show },
+        { [`${mergedClsPrefix.value}-pro-layout__main--header-fixed-with-only-has-tabbar`]: mergedNav.value.fixed && mergedTabbar.value.show && !mergedNav.value.show },
+        { [`${mergedClsPrefix.value}-pro-layout__main--header-fixed-with-nav-and-tabbar`]: mergedNav.value.fixed && mergedNav.value.show && mergedTabbar.value.show },
+        { [`${mergedClsPrefix.value}-pro-layout__main--footer-fixed-with-has-footer`]: mergedFooter.value.fixed && mergedFooter.value.show },
+        { [`${mergedClsPrefix.value}-pro-layout__main--aside-hidden`]: !mergedSidebar.value.show },
+        { [`${mergedClsPrefix.value}-pro-layout__main--aside-expanded`]: mergedSidebar.value.show && !mergedCollasped.value },
+        { [`${mergedClsPrefix.value}-pro-layout__main--aside-collapsed`]: mergedSidebar.value.show && mergedCollasped.value },
+      ],
+      footer: [
+        { [`${mergedClsPrefix.value}-pro-layout__footer--fixed`]: mergedFooter.value.fixed },
+        { [`${mergedClsPrefix.value}-pro-layout__footer--hidden`]: !mergedFooter.value.show },
+        { [`${mergedClsPrefix.value}-pro-layout__footer--aside-hidden`]: !mergedSidebar.value.show },
+        { [`${mergedClsPrefix.value}-pro-layout__footer--aside-expanded`]: mergedSidebar.value.show && !mergedCollasped.value },
+        { [`${mergedClsPrefix.value}-pro-layout__footer--aside-collapsed`]: mergedSidebar.value.show && mergedCollasped.value },
+      ],
+    }
+  })
+}
+
+export function setupSidebarLayoutStyle() {
+  return cM('sidebar', [
+    cB('pro-layout__aside', `
+        width: var(--pro-layout-sidebar-width);
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        background: var(--pro-layout-color);
+        border-right: 1px solid var(--pro-layout-border-color);
+        transition:
+          width .3s var(--pro-bezier),
+          background .3s var(--pro-bezier),
+          border-color .3s var(--pro-bezier);
+      `, [
+      cB('pro-layout__logo', `
+          display: none;
+      `),
+      cM('collapsede', `
+          width: var(--pro-layout-sidebar-collapsed-width);
+        `),
+      cM('hidden', `
+          width: 0;
+          overflow: hidden;
+          border-right: none;
+        `),
+      cM('header-fixed-with-only-nav', `
+          height: calc(100% - var(--pro-layout-nav-height));
+          margin-top: var(--pro-layout-nav-height);
+        `),
+    ]),
+    cB('pro-layout__logo', `
+      height: 100%;
+      width: var(--pro-layout-sidebar-width);
+      flex-shrink: 0;
+    `),
+    cB('pro-layout__sidebar', `
+        flex-grow: 1;
+        flex-basis: 0;
+        display: flex;
+        flex-direction: column;
+    `),
+    cB('pro-layout__sidebar-extra', `
+        display: none;
+    `),
+    cB('pro-layout__scrollbar__inner', `
+        display: flex;
+        flex-direction: column;
+    `),
+    cB('pro-layout__header', `
+        background: var(--pro-layout-color);
+        transition:
+          background .3s var(--pro-bezier);
+      `, [
+      cM('fixed', `
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+      `),
+    ]),
+    cB('pro-layout__nav', `
+        height: var(--pro-layout-nav-height);
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+        background: var(--pro-layout-color);
+        border-bottom: 1px solid var(--pro-layout-border-color);
+    `, [
+      cE('left', `
+          height: 100%;
+        `),
+      cE('center', `
+          height: 100%;
+          flex-grow: 1;
+          flex-basis: 0;
+          overflow: hidden;
+        `),
+      cE('right', `
+          height: 100%;
+        `),
+      cM('hidden', `
+          height: 0;
+          overflow: hidden;
+          border-bottom: none;
+      `),
+      cM('no-fixed-aside-hidden', `
+        padding-left: 0;
+      `),
+      cM('no-fixed-aside-expanded', `
+        padding-left: var(--pro-layout-sidebar-width);
+      `),
+      cM('no-fixed-aside-collapsed', `
+        padding-left: var(--pro-layout-sidebar-collapsed-width);
+      `),
+    ]),
+    cB('pro-layout__tabbar', `
+        height: var(--pro-layout-tabbar-height);
+        display: flex;
+        box-sizing: border-box;
+        background: var(--pro-layout-color);
+        border-bottom: 1px solid var(--pro-layout-border-color);
+        transition:
+          width .3s var(--pro-bezier),
+          height .3s var(--pro-bezier),
+          padding-left .3s var(--pro-bezier),
+          background .3s var(--pro-bezier),
+          border-color .3s var(--pro-bezier);
+    `, [
+      cM('hidden', `
+          height: 0;
+          overflow: hidden;
+          border-bottom: none;
+      `),
+      cM('aside-hidden', `
+        padding-left: 0;
+      `),
+      cM('aside-expanded', `
+        padding-left: var(--pro-layout-sidebar-width);
+      `),
+      cM('aside-collapsed', `
+        padding-left: var(--pro-layout-sidebar-collapsed-width);
+      `),
+    ]),
+    cB('pro-layout__main', `
+       transition: padding-left .3s var(--pro-bezier)
+    `, [
+      cM('header-fixed-with-only-has-nav', `
+          padding-top: var(--pro-layout-nav-height);
+        `),
+      cM('header-fixed-with-only-has-tabbar', `
+          padding-top: var(--pro-layout-tabbar-height);
+        `),
+      cM('header-fixed-with-nav-and-tabbar', `
+          padding-top: calc(var(--pro-layout-nav-height) + var(--pro-layout-tabbar-height));
+        `),
+      cM('footer-fixed-with-has-footer', `
+          padding-bottom: var(--pro-layout-footer-height);
+        `),
+      cM('aside-hidden', `
+          padding-left: 0;
+        `),
+      cM('aside-expanded', `
+          padding-left: var(--pro-layout-sidebar-width);
+        `),
+      cM('aside-collapsed', `
+          padding-left: var(--pro-layout-sidebar-collapsed-width);
+        `),
+    ]),
+    cB('pro-layout__footer', `
+        height: var(--pro-layout-footer-height);
+        background: var(--pro-layout-color);
+        transition: 
+          width .3s var(--pro-bezier),
+          height .3s var(--pro-bezier),
+          padding-left .3s var(--pro-bezier),
+          background .3s var(--pro-bezier);
+      `, [
+      cM('fixed', `
+          position: absolute;
+          bottom: 0;
+          left: 0;
+        `),
+      cM('hidden', `
+          height: 0;
+          overflow: hidden;
+        `),
+      cM('aside-hidden', `
+          padding-left: 0;
+          width: 100%;
+        `),
+      cM('aside-expanded', `
+          padding-left: var(--pro-layout-sidebar-width);
+          width: calc(100% - var(--pro-layout-sidebar-width));
+        `),
+      cM('aside-collapsed', `
+          padding-left: var(--pro-layout-sidebar-collapsed-width);
+          width: calc(100% - var(--pro-layout-sidebar-collapsed-width));
+        `),
+    ]),
+  ])
+}

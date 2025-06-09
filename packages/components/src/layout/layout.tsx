@@ -13,7 +13,7 @@ import { useMergeConfig } from './composables/useMergeConfig'
 // import { useMergeConfig } from './composables/useMergeConfig'
 // import { useMixedSidebarCls } from './composables/useMixedSidebarCls'
 // import { useMixedTwoColumnCls } from './composables/useMixedTwoColumnCls'
-// import { useSidebarLayoutCls } from './composables/useSidebarLayoutCls'
+import { useSidebarLayoutCls } from './composables/useSidebarLayoutCls'
 // import { useTwoColumnLayoutCls } from './composables/useTwoColumnLayoutCls'
 import { useVerticalLayoutCls } from './composables/useVerticalLayoutCls'
 import { proLayoutProps } from './props'
@@ -41,15 +41,14 @@ export default defineComponent({
       mergedCollasped,
     } = useMergeConfig(overridedProps)
 
-    // const sidebarLayoutCls = useSidebarLayoutCls({
-    //   mergedMode,
-    //   mergedNav,
-    //   mergedTabbar,
-    //   mergedFooter,
-    //   mergedSidebar,
-    //   mergedCssVars,
-    //   mergedCollasped,
-    // })
+    const sidebarLayoutCls = useSidebarLayoutCls({
+      mergedNav,
+      mergedTabbar,
+      mergedFooter,
+      mergedSidebar,
+      mergedCollasped,
+      mergedClsPrefix,
+    })
 
     const verticalLayoutCls = useVerticalLayoutCls({
       mergedNav,
@@ -127,8 +126,8 @@ export default defineComponent({
        */
 
       switch (mode) {
-        // case 'sidebar':
-        //   return sidebarLayoutCls.value
+        case 'sidebar':
+          return sidebarLayoutCls.value
         case 'vertical':
           return verticalLayoutCls.value
         // case 'two-column':
