@@ -89,9 +89,6 @@ export function setupVerticalLayoutStyle() {
         transition:
           background .3s var(--pro-bezier);
       `, [
-      cB('pro-layout__logo', `
-          display: none;
-      `),
       cM('fixed', `
           position: absolute;
           top: 0;
@@ -108,6 +105,9 @@ export function setupVerticalLayoutStyle() {
         transition:
           border-color .3s var(--pro-bezier);
     `, [
+      cB('pro-layout__logo', `
+          display: none;
+      `),
       cE('left', `
           height: 100%;
         `),
@@ -147,10 +147,10 @@ export function setupVerticalLayoutStyle() {
         flex-basis: 0;
       `, [
       cM('header-fixed-with-only-has-nav', `
-          padding-top: var(--pro-layout-tabbar-height);
+          padding-top: var(--pro-layout-nav-height);
         `),
       cM('header-fixed-with-only-has-tabbar', `
-          padding-top: var(--pro-layout-nav-height);
+          padding-top: var(--pro-layout-tabbar-height);
         `),
       cM('header-fixed-with-has-header', `
           padding-top: calc(var(--pro-layout-nav-height) + var(--pro-layout-tabbar-height));
