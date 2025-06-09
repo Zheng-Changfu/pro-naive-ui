@@ -123,6 +123,7 @@ export function setupVerticalLayoutStyle() {
         `),
       cM('hidden', `
           height: 0;
+          border-bottom: none;
           overflow: hidden;
       `),
     ]),
@@ -140,6 +141,7 @@ export function setupVerticalLayoutStyle() {
       cM('hidden', `
           height: 0;
           overflow: hidden;
+          border-bottom: none;
       `),
     ]),
     cB('pro-layout__main', `
