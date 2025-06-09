@@ -13,7 +13,7 @@ import { useMergeConfig } from './composables/useMergeConfig'
 // import { useFullContentCls } from './composables/useFullContentCls'
 // import { useHorizontalLayoutCls } from './composables/useHorizontalLayoutCls'
 // import { useMergeConfig } from './composables/useMergeConfig'
-// import { useMixedSidebarCls } from './composables/useMixedSidebarCls'
+import { useMixedSidebarCls } from './composables/useMixedSidebarCls'
 // import { useMixedTwoColumnCls } from './composables/useMixedTwoColumnCls'
 import { useSidebarLayoutCls } from './composables/useSidebarLayoutCls'
 // import { useTwoColumnLayoutCls } from './composables/useTwoColumnLayoutCls'
@@ -89,15 +89,14 @@ export default defineComponent({
       mergedClsPrefix,
     })
 
-    // const mixedSidebarCls = useMixedSidebarCls({
-    //   mergedMode,
-    //   mergedNav,
-    //   mergedTabbar,
-    //   mergedFooter,
-    //   mergedSidebar,
-    //   mergedCssVars,
-    //   mergedCollasped,
-    // })
+    const mixedSidebarCls = useMixedSidebarCls({
+      mergedNav,
+      mergedTabbar,
+      mergedFooter,
+      mergedSidebar,
+      mergedCollasped,
+      mergedClsPrefix,
+    })
 
     // const mixedTwoColumnCls = useMixedTwoColumnCls({
     //   mergedMode,
@@ -136,8 +135,8 @@ export default defineComponent({
           return horizontalLayoutCls.value
         case 'full-content':
           return fullContentCls.value
-        // case 'mixed-sidebar':
-        //   return mixedSidebarCls.value
+        case 'mixed-sidebar':
+          return mixedSidebarCls.value
         // case 'mixed-two-column':
         //   return mixedTwoColumnCls.value
         default:
