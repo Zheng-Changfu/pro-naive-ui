@@ -90,11 +90,6 @@ export function setupSidebarLayoutStyle() {
           margin-top: var(--pro-layout-nav-height);
         `),
     ]),
-    cB('pro-layout__logo', `
-      height: 100%;
-      width: var(--pro-layout-sidebar-width);
-      flex-shrink: 0;
-    `),
     cB('pro-layout__sidebar', `
         flex-grow: 1;
         flex-basis: 0;
@@ -128,6 +123,11 @@ export function setupSidebarLayoutStyle() {
         background: var(--pro-layout-color);
         border-bottom: 1px solid var(--pro-layout-border-color);
     `, [
+      cB('pro-layout__logo', `
+          height: 100%;
+          width: var(--pro-layout-sidebar-width);
+          flex-shrink: 0;
+        `),
       cE('left', `
           height: 100%;
         `),
@@ -146,13 +146,13 @@ export function setupSidebarLayoutStyle() {
           border-bottom: none;
       `),
       cM('no-fixed-aside-hidden', `
-        padding-left: 0;
+          padding-left: 0;
       `),
       cM('no-fixed-aside-expanded', `
-        padding-left: var(--pro-layout-sidebar-width);
+          padding-left: var(--pro-layout-sidebar-width);
       `),
       cM('no-fixed-aside-collapsed', `
-        padding-left: var(--pro-layout-sidebar-collapsed-width);
+          padding-left: var(--pro-layout-sidebar-collapsed-width);
       `),
     ]),
     cB('pro-layout__tabbar', `
@@ -163,7 +163,6 @@ export function setupSidebarLayoutStyle() {
         border-bottom: 1px solid var(--pro-layout-border-color);
         transition:
           width .3s var(--pro-bezier),
-          height .3s var(--pro-bezier),
           padding-left .3s var(--pro-bezier),
           background .3s var(--pro-bezier),
           border-color .3s var(--pro-bezier);
@@ -174,17 +173,18 @@ export function setupSidebarLayoutStyle() {
           border-bottom: none;
       `),
       cM('aside-hidden', `
-        padding-left: 0;
+         padding-left: 0;
       `),
       cM('aside-expanded', `
-        padding-left: var(--pro-layout-sidebar-width);
+          padding-left: var(--pro-layout-sidebar-width);
       `),
       cM('aside-collapsed', `
-        padding-left: var(--pro-layout-sidebar-collapsed-width);
+          padding-left: var(--pro-layout-sidebar-collapsed-width);
       `),
     ]),
     cB('pro-layout__main', `
-       transition: padding-left .3s var(--pro-bezier)
+       transition: 
+        padding-left .3s var(--pro-bezier);
     `, [
       cM('header-fixed-with-only-has-nav', `
           padding-top: var(--pro-layout-nav-height);
@@ -213,7 +213,6 @@ export function setupSidebarLayoutStyle() {
         background: var(--pro-layout-color);
         transition: 
           width .3s var(--pro-bezier),
-          height .3s var(--pro-bezier),
           padding-left .3s var(--pro-bezier),
           background .3s var(--pro-bezier);
       `, [
