@@ -15,6 +15,10 @@ export function useDraggableSort(props: ComputedRef<ProDataTableProps>) {
   const currentInstance = getCurrentInstance()
 
   const nDataTableTBody = computed(() => {
+    const { data = [], columns = [] } = props.value
+    if (data.length === 0 || columns.length === 0) {
+      return null
+    }
     const root = currentInstance?.vnode.el
     return root?.querySelector(`.${clsPrefix.value}-data-table-tbody`) as HTMLElement
   })

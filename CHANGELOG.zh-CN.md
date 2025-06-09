@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## 2.1.5
+
+### Fixes
+
+- 修复 `pro-data-table` 的拖拽功能在数据源异步获取场景下失效问题
+
+## 2.1.4
+
+### Fixes
+
+- 修复 `pro-cascader`、`pro-tree-select` 使用 `show-path` 属性在只读模式下不生效问题
+- 修复 `pro-edit-data-table` 编辑行的 `key` 不能添加值为 0 的问题
+
 ## 2.1.3
 
 ### Fixes

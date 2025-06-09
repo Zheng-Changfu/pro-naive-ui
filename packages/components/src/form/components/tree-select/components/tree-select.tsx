@@ -1,4 +1,4 @@
-import type { TreeSelectInst } from 'naive-ui'
+import type { TreeSelectInst, TreeSelectOption } from 'naive-ui'
 import type { SlotsType, VNodeChild } from 'vue'
 import type { ProTreeSelectSlots } from '../slots'
 import { get, isArray, noop } from 'lodash-es'
@@ -7,6 +7,8 @@ import { eachTree } from 'pro-composables'
 import { computed, defineComponent, ref } from 'vue'
 import { useFieldUtils } from '../../field'
 import { useInjectTreeSelectInstStore } from '../inst'
+
+type Key = string | number
 
 export default defineComponent({
   name: 'TreeSelect',
@@ -28,46 +30,81 @@ export default defineComponent({
       emptyDom,
     } = useFieldUtils()
 
-    const selectedLabels = computed(() => {
-      const {
-        renderTag,
-        renderLabel,
-        options = [],
-        keyField = 'key',
-        labelField = 'label',
-        childrenField = 'children',
-      } = props as any
-
-      const labels: VNodeChild[] = []
-      const selectedValue = isArray(value.value) ? value.value : [value.value]
-      eachTree(
-        options as any[],
-        (item) => {
-          const value = get(item, keyField)
-          if (selectedValue.includes(value)) {
-            let label = get(item, labelField) as VNodeChild
-            if (renderTag) {
-              label = renderTag({ option: item as any, handleClose: noop })
-            }
-            if (renderLabel) {
-              label = renderLabel({ option: item, checked: true, selected: true })
-            }
-            if (label) {
-              labels.push(<span>{label}</span>)
-            }
-          }
-        },
-        childrenField,
-      )
-      return labels
-    })
-
     const nTreeSelectProps = computed(() => {
       return {
         ...props,
         value: props.value ?? null,
       }
     })
+
+    const optionKeyToInfoMap = computed(() => {
+      const {
+        options = [],
+        keyField = 'key',
+        childrenField = 'children',
+      } = props
+
+      const map = new Map<Key, {
+        option: TreeSelectOption
+        parentValue: Key | null
+      }>()
+
+      eachTree(
+        options as TreeSelectOption[],
+        (item, _, { parent }) => {
+          const key = get(item, keyField) as Key
+          map.set(key, {
+            option: item,
+            parentValue: get(parent, keyField, null) as Key | null,
+          })
+        },
+        childrenField,
+      )
+      return map
+    })
+
+    const selectedLabels = computed(() => {
+      const labels: VNodeChild[] = []
+      const selectedValue = isArray(value.value) ? value.value : [value.value]
+      for (const value of selectedValue) {
+        const labelNodes = findLabelNodesByKey(value as Key)
+        labels.push(...labelNodes)
+      }
+      return labels
+    })
+
+    function findLabelNodesByKey(key: Key) {
+      const {
+        renderTag,
+        renderLabel,
+        showPath = false,
+        separator = ' / ',
+        labelField = 'label',
+      } = props
+
+      const labels: VNodeChild[] = []
+      let info = optionKeyToInfoMap.value.get(key)
+      while (info) {
+        let label = get(info.option, labelField) as VNodeChild
+        if (renderTag) {
+          label = renderTag({ option: info.option, handleClose: noop })
+        }
+        if (renderLabel) {
+          label = renderLabel({ option: info.option, checked: true, selected: true })
+        }
+        if (label) {
+          if (labels.length) {
+            labels.unshift(separator)
+          }
+          labels.unshift(<span>{label}</span>)
+        }
+        if (!showPath) {
+          break
+        };
+        info = optionKeyToInfoMap.value.get(info.parentValue as any)
+      }
+      return labels
+    }
 
     registerInst({
       blur: () => instRef.value?.blur(),

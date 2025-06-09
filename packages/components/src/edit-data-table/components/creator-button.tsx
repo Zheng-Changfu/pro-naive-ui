@@ -109,7 +109,7 @@ export default defineComponent({
           editableKeys.value = new Set([
             ...editableKeys.value,
             resolveRowKey(row, rowKey),
-          ].filter(Boolean))
+          ])
           if (afterAddRow) {
             afterAddRow({ total: list.value.length, index: -1, insertIndex })
           }
@@ -127,7 +127,7 @@ export default defineComponent({
         editableKeys.value = new Set([
           ...editableKeys.value,
           resolveRowKey(row, rowKey),
-        ].filter(Boolean))
+        ])
         if (afterAddRow) {
           afterAddRow({ total: list.value.length, index: -1, insertIndex })
         }

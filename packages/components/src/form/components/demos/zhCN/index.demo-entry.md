@@ -130,9 +130,9 @@ import type { Dependencie } from 'pro-naive-ui'
 基于 [n-cascader](https://www.naiveui.com/zh-CN/os-theme/components/cascader) 封装
 ```html
 <template>
-  <pro-textarea
-    title="文本域"
-    path="textarea"
+  <pro-cascader
+    title="级联选择"
+    path="cascader"
     :field-props="nNCascaderProps"
   />
 </template>

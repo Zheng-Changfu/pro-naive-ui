@@ -1,3 +1,4 @@
+import type { CascaderOption } from 'naive-ui'
 import type { SlotsType, VNodeChild } from 'vue'
 import type { ProCascaderSlots } from '../slots'
 import { get, isArray } from 'lodash-es'
@@ -6,6 +7,8 @@ import { eachTree } from 'pro-composables'
 import { computed, defineComponent } from 'vue'
 import { useFieldUtils } from '../../field'
 import { useInjectCascaderInstStore } from '../inst'
+
+type ValueAtom = string | number
 
 export default defineComponent({
   name: 'Cascader',
@@ -33,35 +36,70 @@ export default defineComponent({
       }
     })
 
-    const selectedLabels = computed(() => {
+    const optionValueToInfoMap = computed(() => {
       const {
-        renderLabel,
         options = [],
-        labelField = 'label',
         valueField = 'value',
         childrenField = 'children',
-      } = props as any
+      } = props
 
-      const labels: VNodeChild[] = []
-      const selectedValue = isArray(value.value) ? value.value : [value.value]
+      const map = new Map<ValueAtom, {
+        option: CascaderOption
+        parentValue: ValueAtom | null
+      }>()
+
       eachTree(
-        options as any[],
-        (item) => {
-          const value = get(item, valueField)
-          if (selectedValue.includes(value)) {
-            let label = get(item, labelField) as VNodeChild
-            if (renderLabel) {
-              label = renderLabel(item as any, true)
-            }
-            if (label) {
-              labels.push(<span>{label}</span>)
-            }
-          }
+        options as CascaderOption[],
+        (item, _, { parent }) => {
+          const value = get(item, valueField) as ValueAtom
+          map.set(value, {
+            option: item,
+            parentValue: get(parent, valueField, null) as ValueAtom | null,
+          })
         },
         childrenField,
       )
+      return map
+    })
+
+    const selectedLabels = computed(() => {
+      const labels: VNodeChild[] = []
+      const selectedValue = isArray(value.value) ? value.value : [value.value]
+      for (const value of selectedValue) {
+        const labelNodes = findLabelNodesByValue(value as ValueAtom)
+        labels.push(...labelNodes)
+      }
       return labels
     })
+
+    function findLabelNodesByValue(value: ValueAtom) {
+      const {
+        renderLabel,
+        showPath = true,
+        separator = ' / ',
+        labelField = 'label',
+      } = props
+
+      const labels: VNodeChild[] = []
+      let info = optionValueToInfoMap.value.get(value)
+      while (info) {
+        let label = get(info.option, labelField) as VNodeChild
+        if (renderLabel) {
+          label = renderLabel(info.option, true)
+        }
+        if (label) {
+          if (labels.length) {
+            labels.unshift(separator)
+          }
+          labels.unshift(<span>{label}</span>)
+        }
+        if (!showPath) {
+          break
+        };
+        info = optionValueToInfoMap.value.get(info.parentValue as any)
+      }
+      return labels
+    }
 
     registerInst({
       blur: () => instRef.value?.blur(),
@@ -69,6 +107,7 @@ export default defineComponent({
       getCheckedData: () => instRef.value?.getCheckedData() as any,
       getIndeterminateData: () => instRef.value?.getIndeterminateData() as any,
     })
+
     return {
       empty,
       value,

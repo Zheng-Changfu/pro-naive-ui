@@ -2,22 +2,19 @@ import type { CalcLayoutClsOptions } from '../types'
 import { cB, cE, cM } from 'naive-ui'
 import { computed } from 'vue'
 
-export function useVerticalLayoutCls({
+export function useHorizontalLayoutCls({
   mergedNav,
   mergedTabbar,
   mergedFooter,
-  mergedSidebar,
   mergedClsPrefix,
-  mergedCollasped,
 }: CalcLayoutClsOptions) {
   return computed(() => {
     return {
       layout: [
-        `${mergedClsPrefix.value}-pro-layout--vertical`,
+        `${mergedClsPrefix.value}-pro-layout--horizontal`,
       ],
       aside: [
-        { [`${mergedClsPrefix.value}-pro-layout__aside--collapsed`]: mergedCollasped.value },
-        { [`${mergedClsPrefix.value}-pro-layout__aside--hidden`]: !mergedSidebar.value.show },
+        { [`${mergedClsPrefix.value}-pro-layout__aside--hidden`]: true },
       ],
       header: [
         { [`${mergedClsPrefix.value}-pro-layout__header--fixed`]: mergedNav.value.fixed },
@@ -42,43 +39,13 @@ export function useVerticalLayoutCls({
   })
 }
 
-export function setupVerticalLayoutStyle() {
-  return cM('vertical', [
-    cB('pro-layout__aside', `
-        width: var(--pro-layout-sidebar-width);
-        height: 100%;
-        flex-shrink: 0;
-        display: flex;
-        flex-direction: column;
-        box-sizing: border-box;
-        background: var(--pro-layout-color);
-        border-right: 1px solid var(--pro-layout-border-color);
-        transition:
-          width .3s var(--pro-bezier),
-          background .3s var(--pro-bezier),
-          border-color .3s var(--pro-bezier);
-      `, [
-      cM('collapsed', `
-          width: var(--pro-layout-sidebar-collapsed-width);
-        `),
+export function setupHorizontalLayoutStyle() {
+  return cM('horizontal', [
+    cB('pro-layout__aside', [
       cM('hidden', `
-          width: 0;
-          overflow: hidden;
+          display: none;
         `),
     ]),
-    cB('pro-layout__logo', `
-        height: var(--pro-layout-nav-height);
-        flex-shrink: 0;
-    `),
-    cB('pro-layout__sidebar', `
-        flex-grow: 1;
-        flex-basis: 0;
-        display: flex;
-        flex-direction: column;
-    `),
-    cB('pro-layout__sidebar-extra', `
-        display: none;
-    `),
     cB('pro-layout__scrollbar__inner', `
         display: flex;
         flex-direction: column;
@@ -106,7 +73,8 @@ export function setupVerticalLayoutStyle() {
           border-color .3s var(--pro-bezier);
     `, [
       cB('pro-layout__logo', `
-          display: none;
+          width: var(--pro-layout-sidebar-width);
+          height: 100%;
       `),
       cE('left', `
           height: 100%;
