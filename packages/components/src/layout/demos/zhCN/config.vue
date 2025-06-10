@@ -3,6 +3,7 @@ import type { ProLayoutMode } from 'pro-naive-ui'
 
 const mode = defineModel<ProLayoutMode>('mode')
 const showNav = defineModel<boolean>('showNav')
+const showLogo = defineModel<boolean>('showLogo')
 const navFixed = defineModel<boolean>('navFixed')
 const navHeight = defineModel<number>('navHeight')
 const collapsed = defineModel<boolean>('collapsed')
@@ -70,6 +71,10 @@ const sidebarCollapsedWidth = defineModel<number>('sidebarCollapsedWidth')
     <div>
       <div>底部是否固定</div>
       <n-switch v-model:value="footerFixed" />
+    </div>
+    <div>
+      <div>是否显示 logo</div>
+      <n-switch v-model:value="showLogo" />
     </div>
     <div>
       <div>布局模式</div>

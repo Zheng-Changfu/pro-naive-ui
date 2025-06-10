@@ -32,6 +32,7 @@ export default defineComponent({
   setup() {
     const navFixed = ref(true)
     const showNav = ref(true)
+    const showLogo = ref(true)
     const collapsed = ref(true)
     const showFooter = ref(true)
     const showTabbar = ref(true)
@@ -47,6 +48,7 @@ export default defineComponent({
     return {
       mode,
       showNav,
+      showLogo,
       navFixed,
       collapsed,
       navHeight,
@@ -67,17 +69,18 @@ export default defineComponent({
 <template>
   <Config
     v-model:mode="mode"
-    v-model:collapsed="collapsed"
     v-model:show-nav="showNav"
+    v-model:show-logo="showLogo"
+    v-model:collapsed="collapsed"
+    v-model:nav-fixed="navFixed"
+    v-model:nav-height="navHeight"
     v-model:show-footer="showFooter"
     v-model:show-tabbar="showTabbar"
     v-model:show-sidebar="showSidebar"
     v-model:footer-fixed="footerFixed"
-    v-model:nav-fixed="navFixed"
     v-model:footer-height="footerHeight"
     v-model:sidebar-width="sidebarWidth"
     v-model:tabbar-height="tabbarHeight"
-    v-model:nav-height="navHeight"
     v-model:sidebar-mixed-width="sidebarMixedWidth"
     v-model:sidebar-collapsed-width="sidebarCollapsedWidth"
   />
@@ -86,15 +89,16 @@ export default defineComponent({
       v-model:collapsed="collapsed"
       :mode="mode"
       :show-nav="showNav"
+      :show-logo="showLogo"
+      :nav-fixed="navFixed"
+      :nav-height="navHeight"
       :show-footer="showFooter"
       :show-tabbar="showTabbar"
       :show-sidebar="showSidebar"
       :footer-fixed="footerFixed"
-      :nav-fixed="navFixed"
       :footer-height="footerHeight"
       :sidebar-width="sidebarWidth"
       :tabbar-height="tabbarHeight"
-      :nav-height="navHeight"
       :sidebar-mixed-width="sidebarMixedWidth"
       :sidebar-collapsed-width="sidebarCollapsedWidth"
     >
