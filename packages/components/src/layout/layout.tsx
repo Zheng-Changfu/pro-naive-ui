@@ -12,6 +12,7 @@ import { useHorizontalLayoutCls } from './composables/use-horizontal-layout-cls'
 import { useMergeConfig } from './composables/use-merge-config'
 import { useMixedSidebarLayoutCls } from './composables/use-mixed-sidebar-cls'
 import { useMixedTwoColumnLayoutCls } from './composables/use-mixed-two-column-layout-cls'
+import { useMobileLayoutCls } from './composables/use-mobile-layout-cls'
 import { useSidebarLayoutCls } from './composables/use-sidebar-layout-cls'
 import { useTwoColumnLayoutCls } from './composables/use-two-column-layout-cls'
 import { useVerticalLayoutCls } from './composables/use-vertical-layout-cls'
@@ -39,6 +40,7 @@ export default defineComponent({
       mergedFooter,
       mergedSidebar,
       mergedCssVars,
+      mergedIsMobile,
       mergedCollasped,
       mergedNavClass,
       mergedLogoClass,
@@ -48,6 +50,16 @@ export default defineComponent({
       mergedTabbarClass,
       mergedFooterClass,
     } = useMergeConfig(overridedProps)
+
+    const mobileLayoutCls = useMobileLayoutCls({
+      mergedNav,
+      mergedLogo,
+      mergedTabbar,
+      mergedFooter,
+      mergedSidebar,
+      mergedCollasped,
+      mergedClsPrefix,
+    })
 
     const sidebarLayoutCls = useSidebarLayoutCls({
       mergedNav,
@@ -120,6 +132,9 @@ export default defineComponent({
     })
 
     const cls = computed(() => {
+      if (mergedIsMobile.value) {
+        return mobileLayoutCls.value
+      }
       const mode = mergedMode.value
       switch (mode) {
         case 'sidebar':

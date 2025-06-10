@@ -3,6 +3,7 @@ import { setupFullContentLayoutStyle } from '../composables/use-full-content-lay
 import { setupHorizontalLayoutStyle } from '../composables/use-horizontal-layout-cls'
 import { setupMixedSidebarLayoutStyle } from '../composables/use-mixed-sidebar-cls'
 import { setupMixedTwoColumnLayoutStyle } from '../composables/use-mixed-two-column-layout-cls'
+import { setupMobileLayoutStyle } from '../composables/use-mobile-layout-cls'
 import { setupSidebarLayoutStyle } from '../composables/use-sidebar-layout-cls'
 import { setupTwoColumnLayoutStyle } from '../composables/use-two-column-layout-cls'
 import { setupVerticalLayoutStyle } from '../composables/use-vertical-layout-cls'
@@ -13,6 +14,7 @@ export default cB('pro-layout', `
     width: 100%;
     height: 100%;
   `, [
+  setupMobileLayoutStyle(),
   setupSidebarLayoutStyle(),
   setupVerticalLayoutStyle(),
   setupTwoColumnLayoutStyle(),

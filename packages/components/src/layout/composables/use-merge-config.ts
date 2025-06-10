@@ -11,6 +11,10 @@ export function useMergeConfig(props: ComputedRef<ProLayoutProps>) {
     return props.value.mode ?? 'vertical'
   })
 
+  const mergedIsMobile = computed(() => {
+    return props.value.isMobile ?? false
+  })
+
   const mergedCollasped = computed(() => {
     return props.value.collapsed ?? false
   })
@@ -131,6 +135,7 @@ export function useMergeConfig(props: ComputedRef<ProLayoutProps>) {
     mergedFooter,
     mergedTabbar,
     mergedSidebar,
+    mergedIsMobile,
     mergedCssVars,
     mergedNavClass,
     mergedLogoClass,
