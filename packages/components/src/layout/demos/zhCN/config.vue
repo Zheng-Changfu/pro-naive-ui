@@ -1,14 +1,17 @@
 <script setup lang='tsx'>
-const collapsed = defineModel<boolean>('collapsed')
+import type { ProLayoutMode } from 'pro-naive-ui'
+
+const mode = defineModel<ProLayoutMode>('mode')
 const showNav = defineModel<boolean>('showNav')
+const navFixed = defineModel<boolean>('navFixed')
+const navHeight = defineModel<number>('navHeight')
+const collapsed = defineModel<boolean>('collapsed')
 const showFooter = defineModel<boolean>('showFooter')
 const showTabbar = defineModel<boolean>('showTabbar')
 const showSidebar = defineModel<boolean>('showSidebar')
 const footerFixed = defineModel<boolean>('footerFixed')
-const navFixed = defineModel<boolean>('navFixed')
 const sidebarWidth = defineModel<number>('sidebarWidth')
 const tabbarHeight = defineModel<number>('tabbarHeight')
-const navHeight = defineModel<number>('navHeight')
 const footerHeight = defineModel<number>('footerHeight')
 const sidebarMixedWidth = defineModel<number>('sidebarMixedWidth')
 const sidebarCollapsedWidth = defineModel<number>('sidebarCollapsedWidth')
@@ -67,6 +70,21 @@ const sidebarCollapsedWidth = defineModel<number>('sidebarCollapsedWidth')
     <div>
       <div>底部是否固定</div>
       <n-switch v-model:value="footerFixed" />
+    </div>
+    <div>
+      <div>布局模式</div>
+      <n-select
+        v-model:value="mode"
+        :options="[
+          { label: '竖向布局', value: 'vertical' },
+          { label: '横向布局', value: 'horizontal' },
+          { label: '双栏布局', value: 'two-column' },
+          { label: '混合双栏布局', value: 'mixed-two-column' },
+          { label: '侧边栏布局', value: 'sidebar' },
+          { label: '全内容布局', value: 'full-content' },
+          { label: '混合侧边栏布局', value: 'mixed-sidebar' },
+        ]"
+      />
     </div>
   </div>
 </template>

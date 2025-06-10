@@ -5,7 +5,7 @@
 <script lang="tsx">
 import type { ProLayoutMode } from 'pro-naive-ui'
 import { defineComponent, ref } from 'vue'
-import Config from '../../components/config.vue'
+import Config from './config.vue'
 import TestContentRerender from './test-rerender/content.vue'
 import TestFooterRerender from './test-rerender/footer.vue'
 import TestHeaderCenterRerender from './test-rerender/header-center.vue'
@@ -30,7 +30,6 @@ export default defineComponent({
     TestHeaderCenterRerender,
   },
   setup() {
-    const mode = ref<ProLayoutMode>('vertical')
     const navFixed = ref(true)
     const showNav = ref(true)
     const collapsed = ref(true)
@@ -44,18 +43,19 @@ export default defineComponent({
     const footerHeight = ref(50)
     const sidebarMixedWidth = ref(58)
     const sidebarCollapsedWidth = ref(58)
+    const mode = ref<ProLayoutMode>('vertical')
     return {
       mode,
-      collapsed,
       showNav,
+      navFixed,
+      collapsed,
+      navHeight,
       showFooter,
       showTabbar,
       showSidebar,
       footerFixed,
-      navFixed,
       sidebarWidth,
       tabbarHeight,
-      navHeight,
       footerHeight,
       sidebarMixedWidth,
       sidebarCollapsedWidth,
@@ -66,6 +66,7 @@ export default defineComponent({
 
 <template>
   <Config
+    v-model:mode="mode"
     v-model:collapsed="collapsed"
     v-model:show-nav="showNav"
     v-model:show-footer="showFooter"
@@ -80,7 +81,7 @@ export default defineComponent({
     v-model:sidebar-mixed-width="sidebarMixedWidth"
     v-model:sidebar-collapsed-width="sidebarCollapsedWidth"
   />
-  <div class="h-500px">
+  <div class="h-500px mt-12px">
     <pro-layout
       v-model:collapsed="collapsed"
       :mode="mode"
@@ -126,16 +127,4 @@ export default defineComponent({
       </template>
     </pro-layout>
   </div>
-  <n-select
-    v-model:value="mode"
-    :options="[
-      { label: '竖向布局', value: 'vertical' },
-      { label: '横向布局', value: 'horizontal' },
-      { label: '双栏布局', value: 'two-column' },
-      { label: '混合双栏布局', value: 'mixed-two-column' },
-      { label: '侧边栏布局', value: 'sidebar' },
-      { label: '全内容布局', value: 'full-content' },
-      { label: '混合侧边栏布局', value: 'mixed-sidebar' },
-    ]"
-  />
 </template>
