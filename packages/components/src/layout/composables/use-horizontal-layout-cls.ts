@@ -26,10 +26,10 @@ export function useHorizontalLayoutCls({
         { [`${mergedClsPrefix.value}-pro-layout__tabbar--hidden`]: !mergedTabbar.value.show },
       ],
       main: [
-        { [`${mergedClsPrefix.value}-pro-layout__main--header-fixed-with-only-has-nav`]: mergedNav.value.fixed && mergedNav.value.show && !mergedTabbar.value.show },
-        { [`${mergedClsPrefix.value}-pro-layout__main--header-fixed-with-only-has-tabbar`]: mergedNav.value.fixed && mergedTabbar.value.show && !mergedNav.value.show },
-        { [`${mergedClsPrefix.value}-pro-layout__main--header-fixed-with-has-header`]: mergedNav.value.fixed && mergedNav.value.show && mergedTabbar.value.show },
-        { [`${mergedClsPrefix.value}-pro-layout__main--footer-fixed-with-has-footer`]: mergedFooter.value.fixed && mergedFooter.value.show },
+        { [`${mergedClsPrefix.value}-pro-layout__main--header-fixed-nav-only`]: mergedNav.value.fixed && mergedNav.value.show && !mergedTabbar.value.show },
+        { [`${mergedClsPrefix.value}-pro-layout__main--header-fixed-tabbar-only`]: mergedNav.value.fixed && mergedTabbar.value.show && !mergedNav.value.show },
+        { [`${mergedClsPrefix.value}-pro-layout__main--header-fixed-nav-tabbar`]: mergedNav.value.fixed && mergedNav.value.show && mergedTabbar.value.show },
+        { [`${mergedClsPrefix.value}-pro-layout__main--footer-fixed`]: mergedFooter.value.fixed && mergedFooter.value.show },
       ],
       footer: [
         { [`${mergedClsPrefix.value}-pro-layout__footer--fixed`]: mergedFooter.value.fixed },
@@ -114,16 +114,16 @@ export function setupHorizontalLayoutStyle() {
         flex-grow: 1;
         flex-basis: 0;
       `, [
-      cM('header-fixed-with-only-has-nav', `
+      cM('header-fixed-nav-only', `
           padding-top: var(--pro-layout-nav-height);
         `),
-      cM('header-fixed-with-only-has-tabbar', `
+      cM('header-fixed-tabbar-only', `
           padding-top: var(--pro-layout-tabbar-height);
         `),
-      cM('header-fixed-with-has-header', `
+      cM('header-fixed-nav-tabbar', `
           padding-top: calc(var(--pro-layout-nav-height) + var(--pro-layout-tabbar-height));
         `),
-      cM('footer-fixed-with-has-footer', `
+      cM('footer-fixed', `
           padding-bottom: var(--pro-layout-footer-height);
         `),
     ]),

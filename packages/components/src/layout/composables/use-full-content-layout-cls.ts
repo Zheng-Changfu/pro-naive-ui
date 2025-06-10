@@ -32,8 +32,7 @@ export function setupFullContentLayoutStyle() {
   return cM('full-content', [
     cB('pro-layout__aside', [
       cM('hidden', `
-          width: 0;
-          overflow: hidden;
+          display: none;
         `),
     ]),
     cB('pro-layout__scrollbar__inner', `
@@ -42,15 +41,12 @@ export function setupFullContentLayoutStyle() {
     `),
     cB('pro-layout__nav', [
       cM('hidden', `
-          height: 0;
-          overflow: hidden;
+          display: none;
       `),
     ]),
     cB('pro-layout__tabbar', [
       cM('hidden', `
-          height: 0;
-          overflow: hidden;
-          border-bottom: none;
+          display: none;
       `),
     ]),
     cB('pro-layout__main', `
@@ -59,8 +55,7 @@ export function setupFullContentLayoutStyle() {
       `),
     cB('pro-layout__footer', [
       cM('hidden', `
-          height: 0;
-          overflow: hidden;
+          display: none;
         `),
     ]),
   ])
