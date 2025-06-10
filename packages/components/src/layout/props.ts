@@ -19,6 +19,13 @@ export const proLayoutProps = {
    */
   'onUpdateCollapsed': [Function, Array] as PropType<MaybeArray<(value: boolean) => void>>,
   /**
+   * 是否显示 logo
+   */
+  'showLogo': {
+    type: Boolean as PropType<boolean | undefined>,
+    default: undefined,
+  },
+  /**
    * 是否显示侧边栏
    */
   'showSidebar': {
@@ -93,6 +100,10 @@ export const proLayoutProps = {
    * 是否启用移动端布局
    */
   'isMobile': Boolean as PropType<boolean>,
+  /**
+   * logo 的 class
+   */
+  'logoClass': Array as PropType<string | any[]>,
   /**
    * 整个侧边的 class
    */

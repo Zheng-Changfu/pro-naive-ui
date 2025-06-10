@@ -1,5 +1,13 @@
 import type { ComputedRef, Ref } from 'vue'
 
+export interface ProLayoutLogo {
+  /**
+   * 是否显示 logo
+   * @default true
+   */
+  show: boolean
+}
+
 export interface ProLayoutSidebar {
   /**
    * 是否显示侧边栏
@@ -92,6 +100,7 @@ export interface CalcLayoutClsOptions {
   mergedClsPrefix: Ref<string>
   mergedNav: ComputedRef<ProLayoutNav>
   mergedCollasped: ComputedRef<boolean>
+  mergedLogo: ComputedRef<ProLayoutLogo>
   mergedFooter: ComputedRef<ProLayoutFooter>
   mergedTabbar: ComputedRef<ProLayoutTabbar>
   mergedSidebar: ComputedRef<ProLayoutSidebar>

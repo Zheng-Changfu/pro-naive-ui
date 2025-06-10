@@ -10,6 +10,7 @@ export function useFullContentLayoutCls({
       layout: [
         `${mergedClsPrefix.value}-pro-layout--full-content`,
       ],
+      logo: [],
       aside: [
         { [`${mergedClsPrefix.value}-pro-layout__aside--hidden`]: true },
       ],

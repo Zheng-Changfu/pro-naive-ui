@@ -4,6 +4,7 @@ import { computed } from 'vue'
 
 export function useVerticalLayoutCls({
   mergedNav,
+  mergedLogo,
   mergedTabbar,
   mergedFooter,
   mergedSidebar,
@@ -14,6 +15,9 @@ export function useVerticalLayoutCls({
     return {
       layout: [
         `${mergedClsPrefix.value}-pro-layout--vertical`,
+      ],
+      logo: [
+        { [`${mergedClsPrefix.value}-pro-layout__logo--hidden`]: !mergedLogo.value.show },
       ],
       aside: [
         { [`${mergedClsPrefix.value}-pro-layout__aside--collapsed`]: mergedCollasped.value },
@@ -69,7 +73,12 @@ export function setupVerticalLayoutStyle() {
     cB('pro-layout__logo', `
         height: var(--pro-layout-nav-height);
         flex-shrink: 0;
-    `),
+    `, [
+      cM('hidden', `
+          height: 0;
+          overflow: hidden;
+        `),
+    ]),
     cB('pro-layout__sidebar', `
         flex-grow: 1;
         flex-basis: 0;

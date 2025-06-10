@@ -2,10 +2,10 @@ import { cB } from 'naive-ui'
 import { setupFullContentLayoutStyle } from '../composables/use-full-content-layout-cls'
 import { setupHorizontalLayoutStyle } from '../composables/use-horizontal-layout-cls'
 import { setupMixedSidebarLayoutStyle } from '../composables/use-mixed-sidebar-cls'
+import { setupMixedTwoColumnLayoutStyle } from '../composables/use-mixed-two-column-layout-cls'
 import { setupSidebarLayoutStyle } from '../composables/use-sidebar-layout-cls'
+import { setupTwoColumnLayoutStyle } from '../composables/use-two-column-layout-cls'
 import { setupVerticalLayoutStyle } from '../composables/use-vertical-layout-cls'
-import { setupMixedTwoColumnLayoutStyle } from '../renderer/mixed-two-column'
-import { setupTwoColumnLayoutStyle } from '../renderer/two-column'
 
 export default cB('pro-layout', `
     position: relative;
@@ -15,9 +15,9 @@ export default cB('pro-layout', `
   `, [
   setupSidebarLayoutStyle(),
   setupVerticalLayoutStyle(),
-  // setupTwoColumnLayoutStyle(),
+  setupTwoColumnLayoutStyle(),
   setupHorizontalLayoutStyle(),
   setupFullContentLayoutStyle(),
   setupMixedSidebarLayoutStyle(),
-  // setupMixedTwoColumnLayoutStyle(),
+  setupMixedTwoColumnLayoutStyle(),
 ])

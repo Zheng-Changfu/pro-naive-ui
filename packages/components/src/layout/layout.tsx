@@ -11,9 +11,9 @@ import { useFullContentLayoutCls } from './composables/use-full-content-layout-c
 import { useHorizontalLayoutCls } from './composables/use-horizontal-layout-cls'
 import { useMergeConfig } from './composables/use-merge-config'
 import { useMixedSidebarLayoutCls } from './composables/use-mixed-sidebar-cls'
-// import { useMixedTwoColumnCls } from './composables/useMixedTwoColumnCls'
+import { useMixedTwoColumnLayoutCls } from './composables/use-mixed-two-column-layout-cls'
 import { useSidebarLayoutCls } from './composables/use-sidebar-layout-cls'
-// import { useTwoColumnLayoutCls } from './composables/useTwoColumnLayoutCls'
+import { useTwoColumnLayoutCls } from './composables/use-two-column-layout-cls'
 import { useVerticalLayoutCls } from './composables/use-vertical-layout-cls'
 import { proLayoutProps } from './props'
 import style from './styles/index.cssr'
@@ -32,14 +32,16 @@ export default defineComponent({
     )
 
     const {
-      mergedMode,
       mergedNav,
+      mergedMode,
+      mergedLogo,
       mergedTabbar,
       mergedFooter,
       mergedSidebar,
       mergedCssVars,
       mergedCollasped,
       mergedNavClass,
+      mergedLogoClass,
       mergedMainClass,
       mergedAsideClass,
       mergedHeaderClass,
@@ -49,6 +51,7 @@ export default defineComponent({
 
     const sidebarLayoutCls = useSidebarLayoutCls({
       mergedNav,
+      mergedLogo,
       mergedTabbar,
       mergedFooter,
       mergedSidebar,
@@ -56,8 +59,9 @@ export default defineComponent({
       mergedClsPrefix,
     })
 
-    const mixedSidebarCls = useMixedSidebarLayoutCls({
+    const mixedSidebarLayoutCls = useMixedSidebarLayoutCls({
       mergedNav,
+      mergedLogo,
       mergedTabbar,
       mergedFooter,
       mergedSidebar,
@@ -67,6 +71,7 @@ export default defineComponent({
 
     const verticalLayoutCls = useVerticalLayoutCls({
       mergedNav,
+      mergedLogo,
       mergedTabbar,
       mergedFooter,
       mergedSidebar,
@@ -76,6 +81,7 @@ export default defineComponent({
 
     const horizontalLayoutCls = useHorizontalLayoutCls({
       mergedNav,
+      mergedLogo,
       mergedTabbar,
       mergedFooter,
       mergedSidebar,
@@ -83,8 +89,9 @@ export default defineComponent({
       mergedClsPrefix,
     })
 
-    const fullContentCls = useFullContentLayoutCls({
+    const fullContentLayoutCls = useFullContentLayoutCls({
       mergedNav,
+      mergedLogo,
       mergedTabbar,
       mergedFooter,
       mergedSidebar,
@@ -92,25 +99,25 @@ export default defineComponent({
       mergedClsPrefix,
     })
 
-    // const twoColumnLayoutCls = useTwoColumnLayoutCls({
-    //   mergedMode,
-    //   mergedNav,
-    //   mergedTabbar,
-    //   mergedFooter,
-    //   mergedSidebar,
-    //   mergedCssVars,
-    //   mergedCollasped,
-    // })
+    const twoColumnLayoutCls = useTwoColumnLayoutCls({
+      mergedNav,
+      mergedLogo,
+      mergedTabbar,
+      mergedFooter,
+      mergedSidebar,
+      mergedCollasped,
+      mergedClsPrefix,
+    })
 
-    // const mixedTwoColumnCls = useMixedTwoColumnCls({
-    //   mergedMode,
-    //   mergedNav,
-    //   mergedTabbar,
-    //   mergedFooter,
-    //   mergedSidebar,
-    //   mergedCssVars,
-    //   mergedCollasped,
-    // })
+    const mixedTwoColumnCls = useMixedTwoColumnLayoutCls({
+      mergedNav,
+      mergedLogo,
+      mergedTabbar,
+      mergedFooter,
+      mergedSidebar,
+      mergedCollasped,
+      mergedClsPrefix,
+    })
 
     const cls = computed(() => {
       const mode = mergedMode.value
@@ -119,16 +126,16 @@ export default defineComponent({
           return sidebarLayoutCls.value
         case 'vertical':
           return verticalLayoutCls.value
-        // case 'two-column':
-        //   return twoColumnLayoutCls.value
+        case 'two-column':
+          return twoColumnLayoutCls.value
         case 'horizontal':
           return horizontalLayoutCls.value
         case 'full-content':
-          return fullContentCls.value
+          return fullContentLayoutCls.value
         case 'mixed-sidebar':
-          return mixedSidebarCls.value
-        // case 'mixed-two-column':
-        //   return mixedTwoColumnCls.value
+          return mixedSidebarLayoutCls.value
+        case 'mixed-two-column':
+          return mixedTwoColumnCls.value
         default:
           if (__DEV__) {
             warnOnce(
@@ -148,8 +155,9 @@ export default defineComponent({
 
     return {
       cls,
-      mergedMode,
       mergedNav,
+      mergedMode,
+      mergedLogo,
       mergedTabbar,
       mergedFooter,
       mergedCssVars,
@@ -157,6 +165,7 @@ export default defineComponent({
       mergedClsPrefix,
       mergedCollasped,
       mergedNavClass,
+      mergedLogoClass,
       mergedMainClass,
       mergedAsideClass,
       mergedHeaderClass,
@@ -170,7 +179,13 @@ export default defineComponent({
         return null
       }
       return (
-        <div class={`${this.mergedClsPrefix}-pro-layout__logo`}>
+        <div
+          class={[
+            `${this.mergedClsPrefix}-pro-layout__logo`,
+            ...this.cls.logo,
+            ...this.mergedLogoClass,
+          ]}
+        >
           {children}
         </div>
       )

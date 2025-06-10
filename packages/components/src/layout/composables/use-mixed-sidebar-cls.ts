@@ -4,6 +4,7 @@ import { computed } from 'vue'
 
 export function useMixedSidebarLayoutCls({
   mergedNav,
+  mergedLogo,
   mergedTabbar,
   mergedFooter,
   mergedSidebar,
@@ -14,6 +15,9 @@ export function useMixedSidebarLayoutCls({
     return {
       layout: [
         `${mergedClsPrefix.value}-pro-layout--mixed-sidebar`,
+      ],
+      logo: [
+        { [`${mergedClsPrefix.value}-pro-layout__logo--hidden`]: !mergedLogo.value.show },
       ],
       aside: [
         { [`${mergedClsPrefix.value}-pro-layout__aside--collapsed`]: mergedCollasped.value },
@@ -124,7 +128,12 @@ export function setupMixedSidebarLayoutStyle() {
           height: 100%;
           width: var(--pro-layout-sidebar-width);
           flex-shrink: 0;
-        `),
+        `, [
+        cM('hidden', `
+            width: 0;
+            overflow: hidden;
+          `),
+      ]),
       cE('left', `
           height: 100%;
         `),

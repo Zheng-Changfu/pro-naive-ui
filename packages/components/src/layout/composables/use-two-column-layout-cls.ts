@@ -2,23 +2,27 @@ import type { CalcLayoutClsOptions } from '../types'
 import { cB, cE, cM } from 'naive-ui'
 import { computed } from 'vue'
 
-export function useHorizontalLayoutCls({
+export function useTwoColumnLayoutCls({
   mergedNav,
   mergedLogo,
   mergedTabbar,
   mergedFooter,
+  mergedSidebar,
   mergedClsPrefix,
+  mergedCollasped,
 }: CalcLayoutClsOptions) {
   return computed(() => {
     return {
       layout: [
-        `${mergedClsPrefix.value}-pro-layout--horizontal`,
+        `${mergedClsPrefix.value}-pro-layout--two-column`,
       ],
       logo: [
         { [`${mergedClsPrefix.value}-pro-layout__logo--hidden`]: !mergedLogo.value.show },
       ],
       aside: [
-        { [`${mergedClsPrefix.value}-pro-layout__aside--hidden`]: true },
+        { [`${mergedClsPrefix.value}-pro-layout__aside--collapsed`]: mergedCollasped.value },
+        { [`${mergedClsPrefix.value}-pro-layout__aside--hidden`]: !mergedSidebar.value.show },
+        { [`${mergedClsPrefix.value}-pro-layout__aside--logo-hidden`]: !mergedLogo.value.show },
       ],
       header: [
         { [`${mergedClsPrefix.value}-pro-layout__header--fixed`]: mergedNav.value.fixed },
@@ -30,10 +34,10 @@ export function useHorizontalLayoutCls({
         { [`${mergedClsPrefix.value}-pro-layout__tabbar--hidden`]: !mergedTabbar.value.show },
       ],
       main: [
-        { [`${mergedClsPrefix.value}-pro-layout__main--header-fixed-nav-only`]: mergedNav.value.fixed && mergedNav.value.show && !mergedTabbar.value.show },
-        { [`${mergedClsPrefix.value}-pro-layout__main--header-fixed-tabbar-only`]: mergedNav.value.fixed && mergedTabbar.value.show && !mergedNav.value.show },
-        { [`${mergedClsPrefix.value}-pro-layout__main--header-fixed-nav-tabbar`]: mergedNav.value.fixed && mergedNav.value.show && mergedTabbar.value.show },
-        { [`${mergedClsPrefix.value}-pro-layout__main--footer-fixed`]: mergedFooter.value.fixed && mergedFooter.value.show },
+        { [`${mergedClsPrefix.value}-pro-layout__main--header-fixed-with-only-has-nav`]: mergedNav.value.fixed && mergedNav.value.show && !mergedTabbar.value.show },
+        { [`${mergedClsPrefix.value}-pro-layout__main--header-fixed-with-only-has-tabbar`]: mergedNav.value.fixed && mergedTabbar.value.show && !mergedNav.value.show },
+        { [`${mergedClsPrefix.value}-pro-layout__main--header-fixed-with-has-header`]: mergedNav.value.fixed && mergedNav.value.show && mergedTabbar.value.show },
+        { [`${mergedClsPrefix.value}-pro-layout__main--footer-fixed-with-has-footer`]: mergedFooter.value.fixed && mergedFooter.value.show },
       ],
       footer: [
         { [`${mergedClsPrefix.value}-pro-layout__footer--fixed`]: mergedFooter.value.fixed },
@@ -43,13 +47,63 @@ export function useHorizontalLayoutCls({
   })
 }
 
-export function setupHorizontalLayoutStyle() {
-  return cM('horizontal', [
-    cB('pro-layout__aside', [
+export function setupTwoColumnLayoutStyle() {
+  return cM('two-column', [
+    cB('pro-layout__aside', `
+        position: relative;
+        flex-shrink: 0;
+        height: 100%;
+        display: flex;
+        width: calc(var(--pro-layout-sidebar-mixed-width) + var(--pro-layout-sidebar-width));
+        background: var(--pro-layout-color);
+        transition:
+          width .3s var(--pro-bezier),
+          background .3s var(--pro-bezier);
+      `, [
+      cM('collapsed', `
+          width: calc(var(--pro-layout-sidebar-mixed-width) + var(--pro-layout-sidebar-collapsed-width));
+        `),
       cM('hidden', `
-          display: none;
+          width: 0;
+          overflow: hidden;
+        `),
+      cM('logo-hidden',[
+        cB('pro-layout__sidebar',`
+            padding-top: 0;
+        `)
+      ])
+    ]),
+    cB('pro-layout__logo', `
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: var(--pro-layout-nav-height);
+        width: var(--pro-layout-sidebar-mixed-width);
+    `, [
+      cM('hidden', `
+          width: 0;
+          overflow: hidden;
         `),
     ]),
+    cB('pro-layout__sidebar', `
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+        box-sizing: border-box;
+        padding-top: var(--pro-layout-nav-height);
+        width: var(--pro-layout-sidebar-mixed-width);
+        border-right: 1px solid var(--pro-layout-border-color);
+        transition:
+          border-color .3s var(--pro-bezier);
+    `),
+    cB('pro-layout__sidebar-extra', `
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid var(--pro-layout-border-color);
+        transition:
+          border-color .3s var(--pro-bezier);
+    `),
     cB('pro-layout__scrollbar__inner', `
         display: flex;
         flex-direction: column;
@@ -70,21 +124,15 @@ export function setupHorizontalLayoutStyle() {
     cB('pro-layout__nav', `
         display: flex;
         align-items: center;
-        height: var(--pro-layout-nav-height);
         box-sizing: border-box;
+        height: var(--pro-layout-nav-height);
         border-bottom: 1px solid var(--pro-layout-border-color);
         transition:
           border-color .3s var(--pro-bezier);
     `, [
       cB('pro-layout__logo', `
-          width: var(--pro-layout-sidebar-width);
-          height: 100%;
-      `, [  
-        cM('hidden', `
-            width: 0;
-            overflow: hidden;
-          `),
-      ]),
+          display: none;
+      `),
       cE('left', `
           height: 100%;
         `),
@@ -123,16 +171,16 @@ export function setupHorizontalLayoutStyle() {
         flex-grow: 1;
         flex-basis: 0;
       `, [
-      cM('header-fixed-nav-only', `
+      cM('header-fixed-with-only-has-nav', `
           padding-top: var(--pro-layout-nav-height);
         `),
-      cM('header-fixed-tabbar-only', `
+      cM('header-fixed-with-only-has-tabbar', `
           padding-top: var(--pro-layout-tabbar-height);
         `),
-      cM('header-fixed-nav-tabbar', `
+      cM('header-fixed-with-has-header', `
           padding-top: calc(var(--pro-layout-nav-height) + var(--pro-layout-tabbar-height));
         `),
-      cM('footer-fixed', `
+      cM('footer-fixed-with-has-footer', `
           padding-bottom: var(--pro-layout-footer-height);
         `),
     ]),

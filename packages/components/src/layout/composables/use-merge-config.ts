@@ -67,9 +67,20 @@ export function useMergeConfig(props: ComputedRef<ProLayoutProps>) {
     }
   })
 
+  const mergedLogo = computed(() => {
+    return {
+      show: props.value.showLogo ?? true,
+    }
+  })
+
   const mergedAsideClass = computed(() => {
     const asideClass = props.value.asideClass ?? []
     return isString(asideClass) ? [asideClass] : asideClass
+  })
+
+  const mergedLogoClass = computed(() => {
+    const logoClass = props.value.logoClass ?? []
+    return isString(logoClass) ? [logoClass] : logoClass
   })
 
   const mergedHeaderClass = computed(() => {
@@ -114,13 +125,15 @@ export function useMergeConfig(props: ComputedRef<ProLayoutProps>) {
   })
 
   return {
-    mergedMode,
     mergedNav,
+    mergedMode,
+    mergedLogo,
     mergedFooter,
     mergedTabbar,
     mergedSidebar,
     mergedCssVars,
     mergedNavClass,
+    mergedLogoClass,
     mergedMainClass,
     mergedCollasped,
     mergedAsideClass,
