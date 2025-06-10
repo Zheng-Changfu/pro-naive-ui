@@ -1,1 +1,1 @@
-export { useLayoutMenu } from './useLayoutMenu'
+export { useLayoutMenu } from './use-layout-menu'

@@ -5,7 +5,7 @@ import type { ProDataTableColumn } from '../types'
 import { mapTree } from 'pro-composables'
 import { computed } from 'vue'
 import { isDragSortColumn, isExpandColumn, isGroupColumn, isIndexColumn, isSelectionColumn } from '../utils/column'
-import { useColumnRenderer } from './useColumnRenderer'
+import { useColumnRenderer } from './use-column-renderer'
 
 interface UseColumnsOptions {
   dragHandleId: string

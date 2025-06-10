@@ -1,17 +1,26 @@
 import type { ExpandedKey, MenuKey } from './types'
-import type { LayoutMenuReturn, SharedLayoutOptions } from './useLayoutMenu'
+import type { LayoutMenuReturn, SharedLayoutOptions } from './use-layout-menu'
 import { computed } from 'vue'
 
-export function useFullContentLayoutMenu({
-  activeKey,
+export function useVerticalLayoutMenu({
+  menus,
   collapsed,
+  activeKey,
   expandedKeys,
 }: SharedLayoutOptions) {
   const layout = computed<LayoutMenuReturn>(() => {
     return {
       horizontalMenuProps: {},
-      verticalMenuProps: {},
       verticalExtraMenuProps: {},
+      verticalMenuProps: {
+        mode: 'vertical',
+        options: menus.value,
+        value: activeKey.value,
+        collapsed: collapsed.value,
+        expandedKeys: expandedKeys.value,
+        onUpdateValue: active,
+        onUpdateExpandedKeys: expand,
+      },
     }
   })
 

@@ -4,7 +4,7 @@ import type { ProRateSlots } from './slots'
 import { defineComponent } from 'vue'
 import { useOverrideProps } from '../../../composables'
 import { ProField } from '../field'
-import { useMergePlaceholder } from '../field/composables/useMergePlaceholder'
+import { useMergePlaceholder } from '../field/composables/use-merge-placeholder'
 import Rate from './components/rate'
 import { proRateProps } from './props'
 

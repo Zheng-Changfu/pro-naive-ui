@@ -5,7 +5,7 @@ import { isNil } from 'lodash-es'
 import { uid } from 'pro-composables'
 import Sortable from 'sortablejs'
 import { computed, getCurrentInstance, onUnmounted, ref, watchPostEffect } from 'vue'
-import { useNaiveClsPrefix } from '../../_internal/useClsPrefix'
+import { useNaiveClsPrefix } from '../../_internal/use-cls-prefix'
 import { warn } from '../../_utils/warn'
 
 export function useDraggableSort(props: ComputedRef<ProDataTableProps>) {

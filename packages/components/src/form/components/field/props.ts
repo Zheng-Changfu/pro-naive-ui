@@ -1,6 +1,6 @@
 import type { TupleToUnion } from 'type-fest'
 import type { ExtractPublicPropTypes, PropType } from 'vue'
-import { simplyOmit } from '../../../_utils/simplyOmit'
+import { simplyOmit } from '../../../_utils/simply-omit'
 import { proFormItemProps } from '../form-item'
 
 export const proFieldProps = {

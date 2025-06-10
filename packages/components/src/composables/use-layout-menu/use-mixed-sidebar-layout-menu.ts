@@ -1,8 +1,8 @@
 import type { MenuOption } from 'naive-ui'
 import type { ExpandedKey, MenuKey } from './types'
-import type { LayoutMenuReturn, SharedLayoutOptions } from './useLayoutMenu'
+import type { LayoutMenuReturn, SharedLayoutOptions } from './use-layout-menu'
 import { computed } from 'vue'
-import { splitMenuData } from './utils/splitMenuData'
+import { splitMenuData } from './utils/split-menu-data'
 
 export function useMixedSidebarLayoutMenu({
   menus,

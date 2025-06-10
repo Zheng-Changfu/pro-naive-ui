@@ -3,7 +3,7 @@ export * from './components'
 export {
   createProForm,
   useInjectProForm,
-} from './composables/createProForm'
+} from './composables/create-pro-form'
 
 export {
   default as ProForm,

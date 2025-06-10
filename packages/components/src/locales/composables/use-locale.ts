@@ -1,6 +1,6 @@
 import { get } from 'lodash-es'
 import { computed, inject } from 'vue'
-import { enUS } from '../enUS'
+import { enUS } from '../en-us'
 
 export function useLocale(ns?: string) {
   const { mergedLocaleRef } = inject('n-config-provider', null) || {} as any

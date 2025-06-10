@@ -2,10 +2,10 @@ import type { GridProps } from 'naive-ui'
 import type { Simplify } from 'type-fest'
 import type { ExtractPublicPropTypes, PropType } from 'vue'
 import type { ProButtonProps } from '../button'
-import type { CreateProSearchFormReturn } from './composables/createProSearchForm'
+import type { CreateProSearchFormReturn } from './composables/create-pro-search-form'
 import type { ProSearchFormColumns } from './types'
 import { gridProps } from 'naive-ui'
-import { simplyOmit } from '../_utils/simplyOmit'
+import { simplyOmit } from '../_utils/simply-omit'
 import { proFormProps } from '../form'
 
 export const proSearchFormExtendProps = {

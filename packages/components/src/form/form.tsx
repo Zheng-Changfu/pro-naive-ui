@@ -8,7 +8,7 @@ import { provideInternalForm } from 'pro-composables'
 import { computed, defineComponent, onMounted, provide, ref } from 'vue'
 import { warnOnce } from '../_utils/warn'
 import { useOmitProps, useOverrideProps } from '../composables'
-import { createProForm, proFormInternalKey, provideProForm } from './composables/createProForm'
+import { createProForm, proFormInternalKey, provideProForm } from './composables/create-pro-form'
 import { proFormConfigInjectionKey } from './context'
 import { proFormExtendProps, proFormProps } from './props'
 

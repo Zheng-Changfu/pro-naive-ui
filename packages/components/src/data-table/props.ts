@@ -3,7 +3,7 @@ import type { ExtractPublicPropTypes, PropType } from 'vue'
 import type { ProCardProps } from '../card'
 import type { ProDataTableColumns, ProDataTableDragSortOptions } from './types'
 import { dataTableProps } from 'naive-ui'
-import { keysOf } from '../_utils/keysOf'
+import { keysOf } from '../_utils/keys-of'
 
 export const proDataTableExtendProps = {
   /**

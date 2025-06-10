@@ -4,7 +4,7 @@ import type { ProSliderSlots } from './slots'
 import { defineComponent } from 'vue'
 import { useOverrideProps } from '../../../composables'
 import { ProField } from '../field'
-import { useMergePlaceholder } from '../field/composables/useMergePlaceholder'
+import { useMergePlaceholder } from '../field/composables/use-merge-placeholder'
 import Slider from './components/slider'
 import { proSliderProps } from './props'
 

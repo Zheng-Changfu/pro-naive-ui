@@ -1,6 +1,6 @@
 export {
   useFieldUtils,
-} from './composables/useFieldUtils'
+} from './composables/use-field-utils'
 
 export {
   default as ProField,
@@ -19,11 +19,11 @@ export * from './slots'
 
 export {
   pickProFieldSharedProps,
-} from './utils/pickProFieldSharedProps'
+} from './utils/pick-pro-field-shared-props'
 
 export {
   pickProListFieldSharedProps,
-} from './utils/pickProListFieldSharedProps'
+} from './utils/pick-pro-list-field-shared-props'
 
 export type {
   InternalPath,

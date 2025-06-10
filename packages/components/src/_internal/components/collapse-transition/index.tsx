@@ -1,7 +1,7 @@
 import { collapseTransitionProps } from 'naive-ui'
 import { defineComponent, vShow, withDirectives } from 'vue'
-import { useNaiveClsPrefix } from '../../useClsPrefix'
-import { useMountStyle } from '../../useMountStyle'
+import { useNaiveClsPrefix } from '../../use-cls-prefix'
+import { useMountStyle } from '../../use-mount-style'
 import ProFadeInExpandTransition from '../fade-in-expand-transition'
 import style from './styles/index.cssr'
 

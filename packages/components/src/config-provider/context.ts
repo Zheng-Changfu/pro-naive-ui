@@ -1,7 +1,7 @@
 import type { MaybeRef } from 'vue'
 import type { EmptyConfig } from './props'
 import { inject, provide } from 'vue'
-import { createInjectionKey } from '../composables/createInjectionKey'
+import { createInjectionKey } from '../composables/create-injection-key'
 
 interface GlobalConfig {
   mergedEmpty: MaybeRef<Required<EmptyConfig>>

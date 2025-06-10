@@ -1,8 +1,8 @@
 import type { Simplify } from 'type-fest'
 import type { UnwrapRef } from 'vue'
 import { computed, unref } from 'vue'
-import { keysOf } from '../_utils/keysOf'
-import { simplyOmit } from '../_utils/simplyOmit'
+import { keysOf } from '../_utils/keys-of'
+import { simplyOmit } from '../_utils/simply-omit'
 
 export function useOmitProps<T extends object, K extends keyof UnwrapRef<T>>(
   props: T,

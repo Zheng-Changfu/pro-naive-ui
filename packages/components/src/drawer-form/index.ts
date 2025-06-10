@@ -3,7 +3,7 @@ export * from './components/drawer-content'
 export {
   createProDrawerForm,
   useInjectProDrawerForm,
-} from './composables/createProDrawerForm'
+} from './composables/create-pro-drawer-form'
 
 export {
   default as ProDrawerForm,

@@ -1,6 +1,6 @@
 import type { ProListFieldSharedProps } from '../props'
 import { keep } from '../../../../_utils/keep'
-import { keysOf } from '../../../../_utils/keysOf'
+import { keysOf } from '../../../../_utils/keys-of'
 import { proListFieldSharedProps } from '../props'
 
 export function pickProListFieldSharedProps<T extends Record<string, any>>(value: T) {

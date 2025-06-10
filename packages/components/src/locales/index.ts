@@ -1,3 +1,3 @@
-export * from './composables/useLocale'
-export * from './enUS'
-export * from './zhCN'
+export * from './composables/use-locale'
+export * from './en-us'
+export * from './zh-cn'

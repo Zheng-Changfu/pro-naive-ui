@@ -2,8 +2,8 @@ import type { FormRules } from 'naive-ui'
 import type { MaybeRef, ToRef } from 'vue'
 import type { ValidationTrigger } from './props'
 import { inject, shallowRef } from 'vue'
-import { createInjectionKey } from '../composables/createInjectionKey'
-import { useValidationResults } from './composables/useValidationResult'
+import { createInjectionKey } from '../composables/create-injection-key'
+import { useValidationResults } from './composables/use-validation-result'
 
 export const proFormConfigInjectionKey = createInjectionKey<{
   rules: ToRef<FormRules | undefined>
