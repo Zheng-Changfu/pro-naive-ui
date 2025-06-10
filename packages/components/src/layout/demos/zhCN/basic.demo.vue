@@ -33,6 +33,7 @@ export default defineComponent({
     const navFixed = ref(true)
     const showNav = ref(true)
     const showLogo = ref(true)
+    const isMobile = ref(false)
     const collapsed = ref(true)
     const showFooter = ref(true)
     const showTabbar = ref(true)
@@ -49,6 +50,7 @@ export default defineComponent({
       mode,
       showNav,
       showLogo,
+      isMobile,
       navFixed,
       collapsed,
       navHeight,
@@ -71,6 +73,7 @@ export default defineComponent({
     v-model:mode="mode"
     v-model:show-nav="showNav"
     v-model:show-logo="showLogo"
+    v-model:is-mobile="isMobile"
     v-model:collapsed="collapsed"
     v-model:nav-fixed="navFixed"
     v-model:nav-height="navHeight"
@@ -90,6 +93,7 @@ export default defineComponent({
       :mode="mode"
       :show-nav="showNav"
       :show-logo="showLogo"
+      :is-mobile="isMobile"
       :nav-fixed="navFixed"
       :nav-height="navHeight"
       :show-footer="showFooter"
