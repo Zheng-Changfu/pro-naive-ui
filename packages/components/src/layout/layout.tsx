@@ -7,14 +7,14 @@ import { useMountStyle } from '../_internal/use-mount-style'
 import { resolveWrappedSlot } from '../_utils/resolve-slot'
 import { warnOnce } from '../_utils/warn'
 import { useOverrideProps } from '../composables'
-import { useFullContentLayoutCls } from './composables/useFullContentLayoutCls'
-import { useHorizontalLayoutCls } from './composables/useHorizontalLayoutCls'
-import { useMergeConfig } from './composables/useMergeConfig'
-import { useMixedSidebarCls } from './composables/useMixedSidebarCls'
+import { useFullContentLayoutCls } from './composables/use-full-content-layout-cls'
+import { useHorizontalLayoutCls } from './composables/use-horizontal-layout-cls'
+import { useMergeConfig } from './composables/use-merge-config'
+import { useMixedSidebarLayoutCls } from './composables/use-mixed-sidebar-cls'
 // import { useMixedTwoColumnCls } from './composables/useMixedTwoColumnCls'
-import { useSidebarLayoutCls } from './composables/useSidebarLayoutCls'
+import { useSidebarLayoutCls } from './composables/use-sidebar-layout-cls'
 // import { useTwoColumnLayoutCls } from './composables/useTwoColumnLayoutCls'
-import { useVerticalLayoutCls } from './composables/useVerticalLayoutCls'
+import { useVerticalLayoutCls } from './composables/use-vertical-layout-cls'
 import { proLayoutProps } from './props'
 import style from './styles/index.cssr'
 
@@ -56,7 +56,7 @@ export default defineComponent({
       mergedClsPrefix,
     })
 
-    const mixedSidebarCls = useMixedSidebarCls({
+    const mixedSidebarCls = useMixedSidebarLayoutCls({
       mergedNav,
       mergedTabbar,
       mergedFooter,

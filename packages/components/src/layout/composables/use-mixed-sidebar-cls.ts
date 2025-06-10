@@ -2,7 +2,7 @@ import type { CalcLayoutClsOptions } from '../types'
 import { cB, cE, cM } from 'naive-ui'
 import { computed } from 'vue'
 
-export function useMixedSidebarCls({
+export function useMixedSidebarLayoutCls({
   mergedNav,
   mergedTabbar,
   mergedFooter,
