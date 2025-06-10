@@ -1,7 +1,7 @@
 import type { MaybeRefOrGetter } from '@vueuse/core'
 import type { MenuOption, MenuProps } from 'naive-ui'
 import type { ComputedRef, Ref } from 'vue'
-import type { LayoutMode } from '../../layout/types'
+import type { ProLayoutMode } from '../../layout/types'
 import type { ExpandedKey, MenuKey } from './types'
 import { toValue } from '@vueuse/core'
 import { computed, ref } from 'vue'
@@ -73,7 +73,7 @@ interface UseLayoutMenuOptions {
   /**
    * 布局模式
    */
-  mode: MaybeRefOrGetter<LayoutMode>
+  mode: MaybeRefOrGetter<ProLayoutMode>
   /**
    * 是否自动激活被分离的子菜单,只会在 mixed-sidebar、two-column、mixed-two-column 模式下生效
    * 比如在 mixed-sidebar 模式下，如果选中了顶部的菜单，则会自动激活侧边的子菜单
@@ -225,6 +225,24 @@ export function useLayoutMenu(options: UseLayoutMenuOptions) {
       set: (value) => {
         layout.value.collapse(value)
       },
+    }),
+    verticalLayout: computed(() => {
+      return verticalLayout.layout.value
+    }),
+    horizontalLayout: computed(() => {
+      return horizontalLayout.layout.value
+    }),
+    mixedSidebarLayout: computed(() => {
+      return mixedSidebarLayout.layout.value
+    }),
+    fullContentLayout: computed(() => {
+      return fullContentLayout.layout.value
+    }),
+    twoColumnLayout: computed(() => {
+      return twoColumnLayout.layout.value
+    }),
+    mixedTwoColumnLayout: computed(() => {
+      return mixedTwoColumnLayout.layout.value
     }),
   }
 }
