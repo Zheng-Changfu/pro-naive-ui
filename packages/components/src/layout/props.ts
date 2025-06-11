@@ -103,31 +103,31 @@ export const proLayoutProps = {
   /**
    * logo 的 class
    */
-  'logoClass': Array as PropType<string | any[]>,
+  'logoClass': [Array, String] as PropType<string | any[]>,
   /**
    * 整个侧边的 class
    */
-  'asideClass': Array as PropType<string | any[]>,
+  'asideClass': [Array, String] as PropType<string | any[]>,
   /**
    * 头部 class
    */
-  'headerClass': Array as PropType<string | any[]>,
+  'headerClass': [Array, String] as PropType<string | any[]>,
   /**
    * 导航栏 class
    */
-  'navClass': Array as PropType<string | any[]>,
+  'navClass': [Array, String] as PropType<string | any[]>,
   /**
    * 标签栏 class
    */
-  'tabbarClass': Array as PropType<string | any[]>,
+  'tabbarClass': [Array, String] as PropType<string | any[]>,
   /**
    * 主内容区 class
    */
-  'mainClass': Array as PropType<string | any[]>,
+  'mainClass': [Array, String] as PropType<string | any[]>,
   /**
    * 底部 class
    */
-  'footerClass': Array as PropType<string | any[]>,
+  'footerClass': [Array, String] as PropType<string | any[]>,
 } as const
 
 export type ProLayoutProps = ExtractPublicPropTypes<typeof proLayoutProps>

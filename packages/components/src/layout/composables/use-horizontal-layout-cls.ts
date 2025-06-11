@@ -79,7 +79,7 @@ export function setupHorizontalLayoutStyle() {
       cB('pro-layout__logo', `
           width: var(--pro-layout-sidebar-width);
           height: 100%;
-      `, [  
+      `, [
         cM('hidden', `
             width: 0;
             overflow: hidden;
