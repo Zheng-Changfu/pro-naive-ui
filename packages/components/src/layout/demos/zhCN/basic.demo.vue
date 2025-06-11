@@ -6,28 +6,10 @@
 import type { ProLayoutMode } from 'pro-naive-ui'
 import { defineComponent, ref } from 'vue'
 import Config from './config.vue'
-import TestContentRerender from './test-rerender/content.vue'
-import TestFooterRerender from './test-rerender/footer.vue'
-import TestHeaderCenterRerender from './test-rerender/header-center.vue'
-import TestHeaderLeftRerender from './test-rerender/header-left.vue'
-import TestHeaderRightRerender from './test-rerender/header-right.vue'
-import TestLogoRerender from './test-rerender/logo.vue'
-import TestSidebarExtraRerender from './test-rerender/sidebar-extra.vue'
-import TestSidebarRerender from './test-rerender/sidebar.vue'
-import TestTabbarRerender from './test-rerender/tabbar.vue'
 
 export default defineComponent({
   components: {
     Config,
-    TestLogoRerender,
-    TestFooterRerender,
-    TestTabbarRerender,
-    TestContentRerender,
-    TestSidebarRerender,
-    TestHeaderLeftRerender,
-    TestHeaderRightRerender,
-    TestSidebarExtraRerender,
-    TestHeaderCenterRerender,
   },
   setup() {
     const navFixed = ref(true)
@@ -107,31 +89,33 @@ export default defineComponent({
       :sidebar-collapsed-width="sidebarCollapsedWidth"
     >
       <template #logo>
-        <TestLogoRerender />
+        <div>logo</div>
       </template>
       <template #header-left>
-        <TestHeaderLeftRerender />
+        <div>left</div>
       </template>
       <template #header-center>
-        <TestHeaderCenterRerender />
+        <div>center</div>
       </template>
       <template #header-right>
-        <TestHeaderRightRerender />
+        <div>right</div>
       </template>
       <template #sidebar>
-        <TestSidebarRerender />
+        <div>sidebar</div>
       </template>
       <template #sidebar-extra>
-        <TestSidebarExtraRerender />
+        <div>sidebarExtra</div>
       </template>
       <template #tabbar>
-        <TestTabbarRerender />
+        <div>tabbar</div>
       </template>
       <template #footer>
-        <TestFooterRerender />
+        <div>footer</div>
       </template>
       <template #default>
-        <TestContentRerender />
+        <div v-for="item in 20" :key="item">
+          main__content
+        </div>
       </template>
     </pro-layout>
   </div>
