@@ -3,6 +3,10 @@ export {
 } from './composables/use-field-utils'
 
 export {
+  useMergePlaceholder,
+} from './composables/use-merge-placeholder'
+
+export {
   default as ProField,
 } from './pro-field'
 
