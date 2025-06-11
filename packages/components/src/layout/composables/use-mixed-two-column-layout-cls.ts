@@ -67,11 +67,11 @@ export function setupMixedTwoColumnLayoutStyle() {
           width: 0;
           overflow: hidden;
         `),
-      cM('logo-hidden',[
-        cB('pro-layout__sidebar',`
+      cM('logo-hidden', [
+        cB('pro-layout__sidebar', `
             padding-top: 0;
-        `)
-      ])
+        `),
+      ]),
     ]),
     cB('pro-layout__logo', `
         position: absolute;
@@ -97,7 +97,8 @@ export function setupMixedTwoColumnLayoutStyle() {
           border-color .3s var(--pro-bezier);
     `),
     cB('pro-layout__sidebar-extra', `
-        flex: 1;
+        width: calc(100% - var(--pro-layout-sidebar-mixed-width));
+        box-sizing: border-box;
         display: flex;
         flex-direction: column;
         border-right: 1px solid var(--pro-layout-border-color);
