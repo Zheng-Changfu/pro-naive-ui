@@ -1,4 +1,4 @@
-import { cB } from 'naive-ui'
+import { c, cB, cM } from 'naive-ui'
 import { setupFullContentLayoutStyle } from '../composables/use-full-content-layout-cls'
 import { setupHorizontalLayoutStyle } from '../composables/use-horizontal-layout-cls'
 import { setupMixedSidebarLayoutStyle } from '../composables/use-mixed-sidebar-cls'
@@ -14,6 +14,11 @@ export default cB('pro-layout', `
     width: 100%;
     height: 100%;
   `, [
+  cM('disabled-transition', [
+    c('*', `
+      transition: none !important;
+    `),
+  ]),
   setupMobileLayoutStyle(),
   setupSidebarLayoutStyle(),
   setupVerticalLayoutStyle(),

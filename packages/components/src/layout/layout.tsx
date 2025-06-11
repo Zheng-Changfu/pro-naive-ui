@@ -7,6 +7,7 @@ import { useMountStyle } from '../_internal/use-mount-style'
 import { resolveWrappedSlot } from '../_utils/resolve-slot'
 import { warnOnce } from '../_utils/warn'
 import { useOverrideProps } from '../composables'
+import { useDisabledTransitionWhenModeChange } from './composables/use-disabled-transition-on-mode-change'
 import { useFullContentLayoutCls } from './composables/use-full-content-layout-cls'
 import { useHorizontalLayoutCls } from './composables/use-horizontal-layout-cls'
 import { useMergeConfig } from './composables/use-merge-config'
@@ -50,6 +51,10 @@ export default defineComponent({
       mergedTabbarClass,
       mergedFooterClass,
     } = useMergeConfig(overridedProps)
+
+    const {
+      disabled,
+    } = useDisabledTransitionWhenModeChange(mergedMode)
 
     const mobileLayoutCls = useMobileLayoutCls({
       mergedNav,
@@ -170,6 +175,7 @@ export default defineComponent({
 
     return {
       cls,
+      disabled,
       mergedNav,
       mergedMode,
       mergedLogo,
@@ -258,6 +264,7 @@ export default defineComponent({
         {...this.$attrs}
         class={[
           `${this.mergedClsPrefix}-pro-layout`,
+          { [`${this.mergedClsPrefix}-pro-layout--disabled-transition`]: this.disabled },
           ...this.cls.layout,
         ]}
         style={this.mergedCssVars}
