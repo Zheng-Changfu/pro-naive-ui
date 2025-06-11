@@ -29,7 +29,7 @@ export function useMergeConfig(props: ComputedRef<ProLayoutProps>) {
     return {
       show: showSidebar !== false,
       width: sidebarWidth ?? 224,
-      mixedWidth: sidebarMixedWidth ?? 58,
+      mixedWidth: sidebarMixedWidth ?? 80,
       collapsedWidth: sidebarCollapsedWidth ?? 58,
     }
   })
