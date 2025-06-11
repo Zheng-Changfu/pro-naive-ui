@@ -71,9 +71,9 @@ export function setupMixedSidebarLayoutStyle() {
         background: var(--pro-layout-color);
         border-right: 1px solid var(--pro-layout-border-color);
         transition:
-          width .3s var(--pro-bezier),
-          background .3s var(--pro-bezier),
-          border-color .3s var(--pro-bezier);
+          width .3s var(--n-bezier),
+          background .3s var(--n-bezier),
+          border-color .3s var(--n-bezier);
       `, [
       cB('pro-layout__logo', `
           display: none;
@@ -107,7 +107,7 @@ export function setupMixedSidebarLayoutStyle() {
     cB('pro-layout__header', `
         background: var(--pro-layout-color);
         transition:
-          background .3s var(--pro-bezier);
+          background .3s var(--n-bezier);
       `, [
       cM('fixed', `
           position: absolute;
@@ -169,9 +169,9 @@ export function setupMixedSidebarLayoutStyle() {
         padding-left: var(--pro-layout-sidebar-width);
         border-bottom: 1px solid var(--pro-layout-border-color);
         transition:
-          background .3s var(--pro-bezier),
-          padding-left .3s var(--pro-bezier),
-          border-color .3s var(--pro-bezier);
+          background .3s var(--n-bezier),
+          padding-left .3s var(--n-bezier),
+          border-color .3s var(--n-bezier);
     `, [
       cM('hidden', `
           height: 0;
@@ -188,7 +188,7 @@ export function setupMixedSidebarLayoutStyle() {
     cB('pro-layout__main', `
        padding-left: var(--pro-layout-sidebar-width);
        transition: 
-        padding-left .3s var(--pro-bezier);
+        padding-left .3s var(--n-bezier);
     `, [
       cM('header-fixed-nav-only', `
           padding-top: var(--pro-layout-nav-height);
@@ -215,8 +215,8 @@ export function setupMixedSidebarLayoutStyle() {
         padding-left: var(--pro-layout-sidebar-width);
         width: calc(100% - var(--pro-layout-sidebar-width));
         transition: 
-          padding-left .3s var(--pro-bezier),
-          background .3s var(--pro-bezier);
+          padding-left .3s var(--n-bezier),
+          background .3s var(--n-bezier);
       `, [
       cM('fixed', `
           position: absolute;

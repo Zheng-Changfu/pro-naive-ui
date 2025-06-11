@@ -57,8 +57,8 @@ export function setupTwoColumnLayoutStyle() {
         width: calc(var(--pro-layout-sidebar-mixed-width) + var(--pro-layout-sidebar-width));
         background: var(--pro-layout-color);
         transition:
-          width .3s var(--pro-bezier),
-          background .3s var(--pro-bezier);
+          width .3s var(--n-bezier),
+          background .3s var(--n-bezier);
       `, [
       cM('collapsed', `
           width: calc(var(--pro-layout-sidebar-mixed-width) + var(--pro-layout-sidebar-collapsed-width));
@@ -94,7 +94,7 @@ export function setupTwoColumnLayoutStyle() {
         width: var(--pro-layout-sidebar-mixed-width);
         border-right: 1px solid var(--pro-layout-border-color);
         transition:
-          border-color .3s var(--pro-bezier);
+          border-color .3s var(--n-bezier);
     `),
     cB('pro-layout__sidebar-extra', `
         width: calc(100% - var(--pro-layout-sidebar-mixed-width));
@@ -103,7 +103,7 @@ export function setupTwoColumnLayoutStyle() {
         flex-direction: column;
         border-right: 1px solid var(--pro-layout-border-color);
         transition:
-          border-color .3s var(--pro-bezier);
+          border-color .3s var(--n-bezier);
     `),
     cB('pro-layout__scrollbar__inner', `
         display: flex;
@@ -113,7 +113,7 @@ export function setupTwoColumnLayoutStyle() {
         box-sizing: border-box;
         background: var(--pro-layout-color);
         transition:
-          background .3s var(--pro-bezier);
+          background .3s var(--n-bezier);
       `, [
       cM('fixed', `
           position: absolute;
@@ -129,7 +129,7 @@ export function setupTwoColumnLayoutStyle() {
         height: var(--pro-layout-nav-height);
         border-bottom: 1px solid var(--pro-layout-border-color);
         transition:
-          border-color .3s var(--pro-bezier);
+          border-color .3s var(--n-bezier);
     `, [
       cB('pro-layout__logo', `
           display: none;
@@ -159,8 +159,8 @@ export function setupTwoColumnLayoutStyle() {
         background: var(--pro-layout-color);
         border-bottom: 1px solid var(--pro-layout-border-color);
         transition:
-          background .3s var(--pro-bezier),
-          border-color .3s var(--pro-bezier);
+          background .3s var(--n-bezier),
+          border-color .3s var(--n-bezier);
     `, [
       cM('hidden', `
           height: 0;
@@ -190,7 +190,7 @@ export function setupTwoColumnLayoutStyle() {
         flex-shrink: 0;
         background: var(--pro-layout-color);
         transition: 
-          background .3s var(--pro-bezier);
+          background .3s var(--n-bezier);
       `, [
       cM('fixed', `
           width: 100%;
