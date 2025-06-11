@@ -3,6 +3,8 @@ import type { ProLayoutSlots } from './slots'
 import { NScrollbar } from 'naive-ui'
 import { computed, defineComponent } from 'vue'
 import { useNaiveClsPrefix } from '../_internal/use-cls-prefix'
+import { useThemeClass } from '../_internal/use-css-vars-class'
+import { useInlineThemeDisabled } from '../_internal/use-inline-theme-disabled'
 import { useMountStyle } from '../_internal/use-mount-style'
 import { resolveWrappedSlot } from '../_utils/resolve-slot'
 import { warnOnce } from '../_utils/warn'
@@ -28,6 +30,8 @@ export default defineComponent({
   slots: Object as SlotsType<ProLayoutSlots>,
   setup(props) {
     const mergedClsPrefix = useNaiveClsPrefix()
+    const inlineThemeDisabled = useInlineThemeDisabled()
+
     const overridedProps = useOverrideProps(
       name,
       props,
@@ -173,6 +177,14 @@ export default defineComponent({
       style,
     )
 
+    const themeClassHandle = inlineThemeDisabled
+      ? useThemeClass(
+          'pro-layout',
+          undefined,
+          mergedCssVars,
+          props as any,
+        )
+      : undefined
     return {
       cls,
       disabled,
@@ -181,7 +193,6 @@ export default defineComponent({
       mergedLogo,
       mergedTabbar,
       mergedFooter,
-      mergedCssVars,
       mergedSidebar,
       mergedClsPrefix,
       mergedCollasped,
@@ -192,9 +203,13 @@ export default defineComponent({
       mergedHeaderClass,
       mergedTabbarClass,
       mergedFooterClass,
+      onRender: themeClassHandle?.onRender,
+      themeClass: themeClassHandle?.themeClass,
+      mergedCssVars: inlineThemeDisabled ? undefined : mergedCssVars,
     }
   },
   render() {
+    this.onRender?.()
     const logoDom = resolveWrappedSlot(this.$slots.logo, (children) => {
       if (!children) {
         return null
@@ -265,6 +280,7 @@ export default defineComponent({
         class={[
           `${this.mergedClsPrefix}-pro-layout`,
           { [`${this.mergedClsPrefix}-pro-layout--disabled-transition`]: this.disabled },
+          this.themeClass,
           ...this.cls.layout,
         ]}
         style={this.mergedCssVars}
