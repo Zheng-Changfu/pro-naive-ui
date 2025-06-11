@@ -5,7 +5,7 @@ import { computed, defineComponent } from 'vue'
 import { omitUndef } from '../../../_utils/omit-undef'
 import { ProFormItem } from '../form-item'
 import { createField } from './composables/create-field'
-import { useMergeOptions } from './composables/use-merge-options'
+import { useMergeConfig } from './composables/use-merge-config'
 import { useVModelProps } from './composables/use-v-model-props'
 import { fieldExtraKey } from './field-extra-info'
 import { proFieldProps } from './props'
@@ -27,7 +27,7 @@ export default defineComponent({
       mergedTitle,
       mergedReadonly,
       mergedShowLabel,
-    } = useMergeOptions(props)
+    } = useMergeConfig(props)
 
     const inputProps = computed(() => {
       const fieldProps = props.fieldProps ?? {}
