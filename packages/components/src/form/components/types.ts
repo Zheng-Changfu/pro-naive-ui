@@ -11,6 +11,7 @@ import type { ProDynamicTagsProps, ProDynamicTagsSlots } from './dynamic-tags'
 import type { ProFieldSharedProps } from './field'
 import type { BuiltinFieldEnum, BuiltinFieldType } from './field/enums'
 import type { ProInputProps, ProInputSlots } from './input'
+import type { ProInputOtpProps, ProInputOtpSlots } from './input-otp'
 import type { ProMentionProps, ProMentionSlots } from './mention'
 import type { ProRadioGroupProps, ProRadioGroupSlots } from './radio-group'
 import type { ProRateProps, ProRateSlots } from './rate'
@@ -114,6 +115,16 @@ interface InputColumn<
     | `${BuiltinFieldEnum.TEXTAREA}`
   fieldSlots?: UnwrapSlots<ProInputSlots>
   fieldProps?: MaybeFunction<NonNullable<ProInputProps['fieldProps']>, FieldPropsParameters>
+}
+
+interface InputOtpColumn<
+  Values = any,
+  FieldPropsParameters extends any[] = any[],
+  ProFieldPropsParameters extends any[] = any[],
+> extends ProBaseFieldColumn<Values, ProFieldPropsParameters> {
+  field?: `${BuiltinFieldEnum.INPUT_OTP}`
+  fieldSlots?: UnwrapSlots<ProInputOtpSlots>
+  fieldProps?: MaybeFunction<NonNullable<ProInputOtpProps['fieldProps']>, FieldPropsParameters>
 }
 
 interface MentionColumn<
@@ -261,6 +272,7 @@ export type ProFieldColumn<
   | Merge<CascaderColumn<Values, FunctionalFieldPropsParameters, FunctionalProFieldPropsParameters>, ExtraProps>
   | Merge<TransferColumn<Values, FunctionalFieldPropsParameters, FunctionalProFieldPropsParameters>, ExtraProps>
   | Merge<CheckboxColumn<Values, FunctionalFieldPropsParameters, FunctionalProFieldPropsParameters>, ExtraProps>
+  | Merge<InputOtpColumn<Values, FunctionalFieldPropsParameters, FunctionalProFieldPropsParameters>, ExtraProps>
   | Merge<RadioGroupColumn<Values, FunctionalFieldPropsParameters, FunctionalProFieldPropsParameters>, ExtraProps>
   | Merge<TimePickerColumn<Values, FunctionalFieldPropsParameters, FunctionalProFieldPropsParameters>, ExtraProps>
   | Merge<DatePickerColumn<Values, FunctionalFieldPropsParameters, FunctionalProFieldPropsParameters>, ExtraProps>

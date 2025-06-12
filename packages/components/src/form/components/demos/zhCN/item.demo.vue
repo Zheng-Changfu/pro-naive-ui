@@ -16,6 +16,7 @@ export default defineComponent({
         'name': 'zcf',
         'password': 'zcf',
         'select': 0,
+        'input-otp': '654321'.split(''),
         'select-multiple': [0, 2],
         'tree-select': 'Wait',
         'radio-group': 0,
@@ -104,6 +105,10 @@ export default defineComponent({
           :field-props="{
             options: autoCompleteOptions,
           }"
+        />
+        <pro-input-otp
+          title="InputOtp"
+          path="input-otp"
         />
       </n-flex>
     </n-card>

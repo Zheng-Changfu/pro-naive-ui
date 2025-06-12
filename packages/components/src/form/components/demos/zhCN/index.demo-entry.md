@@ -114,6 +114,19 @@ import type { Dependencie } from 'pro-naive-ui'
 </template>
 ```
 
+### ProInputOtp
+自 `NEXT_VERSION` 开始提供。
+基于 [n-input-otp](https://www.naiveui.com/zh-CN/os-theme/components/input-otp) 封装
+```html
+<template>
+  <pro-input-otp
+    title="验证码"
+    path="code"
+    :field-props="nInputOtpProps"
+  />
+</template>
+```
+
 ### ProAutoComplete
 基于 [n-auto-complete](https://www.naiveui.com/zh-CN/os-theme/components/auto-complete) 封装
 ```html
