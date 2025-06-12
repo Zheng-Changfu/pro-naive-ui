@@ -41,7 +41,7 @@
     "@vitejs/plugin-vue": "^5.0.5",
     "@vitejs/plugin-vue-jsx": "^4.1.1",
     "eslint": "^9.17.0",
-    "naive-ui": "^2.40.4",
+    "naive-ui": "^2.41.1",
     "rimraf": "^6.0.1",
     "type-fest": "^4.26.1",
     "typescript": "5.5.4",
