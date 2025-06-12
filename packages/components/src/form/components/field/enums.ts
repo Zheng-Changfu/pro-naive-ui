@@ -12,6 +12,7 @@ export enum BuiltinFieldEnum {
   TEXTAREA = 'textarea',
   CHECKBOX = 'checkbox',
   TRANSFER = 'transfer',
+  INPUT_OTP = 'input-otp',
   TREE_SELECT = 'tree-select',
   RADIO_GROUP = 'radio-group',
   COLOR_PICKER = 'color-picker',
