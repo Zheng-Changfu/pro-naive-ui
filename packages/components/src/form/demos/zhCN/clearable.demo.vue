@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { createProForm } from 'pro-naive-ui'
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 
 export default defineComponent({
   setup() {
