@@ -86,6 +86,7 @@ declare module 'vue' {
     ProFullContentLayout: typeof import('pro-naive-ui')['ProFullContentLayout']
     ProHorizontalLayout: typeof import('pro-naive-ui')['ProHorizontalLayout']
     ProInput: typeof import('pro-naive-ui')['ProInput']
+    ProInputOtp: typeof import('pro-naive-ui')['ProInputOtp']
     ProLayout: typeof import('pro-naive-ui')['ProLayout']
     ProMention: typeof import('pro-naive-ui')['ProMention']
     ProMixedSidebarLayout: typeof import('pro-naive-ui')['ProMixedSidebarLayout']
