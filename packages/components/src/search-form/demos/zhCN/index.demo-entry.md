@@ -92,7 +92,7 @@ import type { VNodeChild } from 'vue'
 | textarea           | [ProTextarea](field#ProTextarea)           |              |
 | checkbox           | [ProCheckbox](field#ProCheckbox)           |              |
 | transfer           | [ProTransfer](field#ProTransfer)           |              |
-| input-otp          | [ProInputOtp](field#ProInputOtp)           | NEXT_VERSION |
+| input-otp          | [ProInputOtp](field#ProInputOtp)           | 2.2.0 |
 | tree-select        | [ProTreeSelect](field#ProTreeSelect)       |              |
 | radio-group        | [ProRadioGroup](field#ProRadioGroup)       |              |
 | color-picker       | [ProColorPicker](field#ProColorPicker)     |              |

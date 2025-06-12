@@ -115,7 +115,7 @@ import type { Dependencie } from 'pro-naive-ui'
 ```
 
 ### ProInputOtp
-自 `NEXT_VERSION` 开始提供。
+自 `2.2.0` 开始提供。
 基于 [n-input-otp](https://www.naiveui.com/zh-CN/os-theme/components/input-otp) 封装
 ```html
 <template>

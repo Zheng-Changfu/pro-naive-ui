@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 2.2.0
+
+### Features
+
+- 新增 `pro-layout` 组件
+- 新增 `pro-input-otp` 组件
+- 新增 `use-layout-menu` composable
+
 ## 2.1.6
 
 ### Fixes
