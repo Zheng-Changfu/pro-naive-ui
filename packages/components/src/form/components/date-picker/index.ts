@@ -1,6 +1,6 @@
 export {
   useMergeFormat,
-} from './components/composables/useMergeFormat'
+} from './components/composables/use-merge-format'
 
 export {
   default as ProDate,

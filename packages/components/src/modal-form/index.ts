@@ -1,7 +1,7 @@
 export {
   createProModalForm,
   useInjectProModalForm,
-} from './composables/createProModalForm'
+} from './composables/create-pro-modal-form'
 
 export {
   default as ProModalForm,

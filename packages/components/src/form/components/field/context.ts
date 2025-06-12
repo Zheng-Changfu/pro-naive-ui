@@ -1,5 +1,5 @@
 import type { MaybeRef } from 'vue'
-import { createInjectionKey } from '../../../composables/createInjectionKey'
+import { createInjectionKey } from '../../../composables/create-injection-key'
 
 export const proFieldConfigInjectionKey = createInjectionKey<{
   readonly?: MaybeRef<boolean | undefined>

@@ -11,5 +11,6 @@ export default antfu({
     'no-use-before-define': 'off',
     'ts/no-unused-expressions': 'off',
     'vue/one-component-per-file': 'off',
+    'perfectionist/sort-exports': 'off',
   },
 })

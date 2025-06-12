@@ -1,7 +1,7 @@
 export {
   createProSearchForm,
   useInjectProSearchForm,
-} from './composables/createProSearchForm'
+} from './composables/create-pro-search-form'
 
 export {
   proSearchFormProps,

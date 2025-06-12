@@ -9,7 +9,7 @@ import { get, isFunction } from 'lodash-es'
 import { NButton, NIcon } from 'naive-ui'
 import { computed, unref } from 'vue'
 import ProTooltip from '../../_internal/components/pro-tooltip'
-import { isEmptyValue } from '../../_utils/isEmptyValue'
+import { isEmptyValue } from '../../_utils/is-empty-value'
 import { useInjectGlobalConfig } from '../../config-provider'
 import { useLocale } from '../../locales'
 

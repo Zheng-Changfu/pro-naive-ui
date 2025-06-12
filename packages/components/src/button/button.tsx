@@ -5,7 +5,7 @@ import { NButton } from 'naive-ui'
 import { defineComponent } from 'vue'
 import ProTooltip from '../_internal/components/pro-tooltip'
 import { useOmitProps, useOverrideProps } from '../composables'
-import { useTooltip } from './composables/useTooltip'
+import { useTooltip } from './composables/use-tooltip'
 import { proButtonExtendProps, proButtonProps } from './props'
 
 const name = 'ProButton'

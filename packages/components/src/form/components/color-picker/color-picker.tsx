@@ -4,7 +4,7 @@ import type { ProColorPickerSlots } from './slots'
 import { defineComponent } from 'vue'
 import { useOverrideProps } from '../../../composables'
 import { ProField } from '../field'
-import { useMergePlaceholder } from '../field/composables/useMergePlaceholder'
+import { useMergePlaceholder } from '../field/composables/use-merge-placeholder'
 import ColorPicker from './components/color-picker'
 import { proColorPickerProps } from './props'
 

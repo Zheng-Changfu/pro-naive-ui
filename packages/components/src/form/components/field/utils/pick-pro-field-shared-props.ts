@@ -1,6 +1,6 @@
 import type { ProFieldSharedProps } from '../props'
 import { keep } from '../../../../_utils/keep'
-import { keysOf } from '../../../../_utils/keysOf'
+import { keysOf } from '../../../../_utils/keys-of'
 import { proFieldSharedProps } from '../props'
 
 export function pickProFieldSharedProps<T extends Record<string, any>>(value: T) {

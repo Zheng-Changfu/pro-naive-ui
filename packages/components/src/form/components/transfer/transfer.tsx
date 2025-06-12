@@ -4,7 +4,7 @@ import type { ProTransferSlots } from './slots'
 import { defineComponent } from 'vue'
 import { useOverrideProps } from '../../../composables'
 import { ProField } from '../field'
-import { useMergePlaceholder } from '../field/composables/useMergePlaceholder'
+import { useMergePlaceholder } from '../field/composables/use-merge-placeholder'
 import Transfer from './components/transfer'
 import { proTransferProps } from './props'
 

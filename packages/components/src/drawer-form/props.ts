@@ -1,9 +1,9 @@
 import type { DrawerProps } from 'naive-ui'
 import type { Simplify } from 'type-fest'
 import type { ExtractPublicPropTypes, PropType } from 'vue'
-import type { CreateProDrawerFormReturn } from './composables/createProDrawerForm'
+import type { CreateProDrawerFormReturn } from './composables/create-pro-drawer-form'
 import { drawerProps } from 'naive-ui'
-import { simplyOmit } from '../_utils/simplyOmit'
+import { simplyOmit } from '../_utils/simply-omit'
 import { proFormProps } from '../form'
 
 export const proDrawerFormExtendProps = {

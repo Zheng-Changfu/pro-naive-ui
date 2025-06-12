@@ -6,8 +6,8 @@ import { datePickerProps, NDatePicker, NFlex } from 'naive-ui'
 import { computed, defineComponent } from 'vue'
 import { useFieldUtils } from '../../field'
 import { useInjectDatePickerInstStore } from '../inst'
-import { useMergeFormat } from './composables/useMergeFormat'
-import { stringifyDate } from './utils/stringifyDate'
+import { useMergeFormat } from './composables/use-merge-format'
+import { stringifyDate } from './utils/stringify-date'
 
 export default defineComponent({
   name: 'DatePicker',

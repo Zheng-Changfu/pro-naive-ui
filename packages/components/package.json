@@ -58,7 +58,8 @@
     "gen-version": "node scripts/gen-version",
     "test:all": "pnpm test:umd && pnpm test:esm",
     "test:umd": "vitest run tests/umd-test.spec",
-    "test:esm": "vitest run tests/esm-test.spec"
+    "test:esm": "vitest run tests/esm-test.spec",
+    "test:composables": "vitest run src/composables/**/*.spec.ts"
   },
   "peerDependencies": {
     "naive-ui": "^2.38.2",

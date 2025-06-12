@@ -1,11 +1,11 @@
 import type { FormItemRule } from 'naive-ui'
 import type { PropType } from 'vue'
-import type { FormItemInternalValidationResult } from '../../../composables/useValidationResult'
+import type { FormItemInternalValidationResult } from '../../../composables/use-validation-result'
 import type { FieldExtraInfo } from '../../field/field-extra-info'
 import { useInjectField } from 'pro-composables'
 import { defineComponent, inject, onUnmounted, provide, watch } from 'vue'
 import { useInjectProFormConfig } from '../../../context'
-import { useFieldUtils } from '../../field/composables/useFieldUtils'
+import { useFieldUtils } from '../../field/composables/use-field-utils'
 import { fieldExtraKey } from '../../field/field-extra-info'
 
 /**

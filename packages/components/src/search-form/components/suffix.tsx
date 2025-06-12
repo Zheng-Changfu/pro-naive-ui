@@ -1,6 +1,6 @@
 import type { PropType } from 'vue'
 import type { ProButtonProps } from '../../button'
-import type { CreateProSearchFormReturn } from '../composables/createProSearchForm'
+import type { CreateProSearchFormReturn } from '../composables/create-pro-search-form'
 import { DownOutlined, UpOutlined } from '@vicons/antd'
 import { NIcon } from 'naive-ui'
 import { computed, defineComponent } from 'vue'

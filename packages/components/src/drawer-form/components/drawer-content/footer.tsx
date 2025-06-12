@@ -4,7 +4,7 @@ import { computed, defineComponent, inject } from 'vue'
 import { warnOnce } from '../../../_utils/warn'
 import { ProButton } from '../../../button'
 import { useLocale } from '../../../locales'
-import { useInjectProDrawerForm } from '../../composables/createProDrawerForm'
+import { useInjectProDrawerForm } from '../../composables/create-pro-drawer-form'
 import { proDrawerFormInjectionKey } from '../../context'
 
 export default defineComponent({

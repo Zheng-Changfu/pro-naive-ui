@@ -229,6 +229,12 @@ export function createComponentMenuOptions({ lang, theme }) {
           zh: '编辑表格',
           enSuffix: true,
           path: '/edit-data-table',
+        },
+        {
+          en: 'ProLayout',
+          zh: '布局',
+          enSuffix: true,
+          path: '/layout',
           isNew: true,
         },
         // {

@@ -119,7 +119,7 @@ import type { VNodeChild } from 'vue'
 - `labelPlacement` 调整为 `left`
 - `responsive` 调整为 `'screen'`
 
-### 扩展 field
+<!-- ### 扩展 field
 如果你也基于 `ProField` 封装了一个组件([查看自定义组件](field#develop-custom-component.vue))，`ProSearchForm`是可以正常渲染出来的，但是 `field`、`fieldSlots`、`fieldProps` 会缺少类型提示，
 你需要做如下调整
 - 在你项目全局的 `.d.ts` 文件中书写如下代码
@@ -172,4 +172,4 @@ interface Test<
 
 export {}
 ```
-- 确保你的 `tsconfig.json` 包含 `.d.ts` 文件
+- 确保你的 `tsconfig.json` 包含 `.d.ts` 文件 -->

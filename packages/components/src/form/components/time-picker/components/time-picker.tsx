@@ -4,10 +4,10 @@ import type { ProTimePickerSlots } from '../slots'
 import { isString } from 'lodash-es'
 import { NTimePicker, timePickerProps } from 'naive-ui'
 import { computed, defineComponent } from 'vue'
-import { stringifyDate } from '../../date-picker/components/utils/stringifyDate'
+import { stringifyDate } from '../../date-picker/components/utils/stringify-date'
 import { useFieldUtils } from '../../field'
 import { useInjectTimePickerInstStore } from '../inst'
-import { useMergeFormat } from './composables/useMergeFormat'
+import { useMergeFormat } from './composables/use-merge-format'
 
 export default defineComponent({
   name: 'TimePicker',

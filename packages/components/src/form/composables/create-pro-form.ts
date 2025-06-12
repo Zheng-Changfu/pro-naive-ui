@@ -2,13 +2,13 @@ import type { FormInst } from 'naive-ui'
 import type { BaseForm, FormOptions, InternalPath } from 'pro-composables'
 import type { Merge, Paths, Simplify } from 'type-fest'
 import type { FieldExtraInfo } from '../components/field/field-extra-info'
-import type { FormItemInternalValidationResult } from './useValidationResult'
+import type { FormItemInternalValidationResult } from './use-validation-result'
 import { isString } from 'lodash-es'
 import { createForm, stringifyPath } from 'pro-composables'
 import { inject, provide, ref } from 'vue'
-import { createInjectionKey } from '../../composables/createInjectionKey'
+import { createInjectionKey } from '../../composables/create-injection-key'
 import { fieldExtraKey } from '../components/field/field-extra-info'
-import { useValidationResults } from './useValidationResult'
+import { useValidationResults } from './use-validation-result'
 
 export interface ValidateError {
   field?: string

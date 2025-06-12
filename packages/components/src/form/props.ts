@@ -1,8 +1,8 @@
 import type { ExtractPublicPropTypes, PropType } from 'vue'
-import type { CreateProFormReturn } from './composables/createProForm'
+import type { CreateProFormReturn } from './composables/create-pro-form'
 import { formProps } from 'naive-ui'
-import { keysOf } from '../_utils/keysOf'
-import { simplyOmit } from '../_utils/simplyOmit'
+import { keysOf } from '../_utils/keys-of'
+import { simplyOmit } from '../_utils/simply-omit'
 
 export interface ValidateError {
   message?: string

@@ -5,7 +5,7 @@ import type { ProSearchFormColumn } from '../types'
 import { isFunction } from 'lodash-es'
 import { NGi } from 'naive-ui'
 import { computed, defineComponent } from 'vue'
-import { resolveComponentByField } from '../../_utils/resolveComponentByField'
+import { resolveComponentByField } from '../../_utils/resolve-component-by-field'
 import { pickProFieldSharedProps } from '../../form'
 
 export default defineComponent({

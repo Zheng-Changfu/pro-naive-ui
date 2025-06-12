@@ -3,7 +3,7 @@ import { computed, inject, unref } from 'vue'
 import { useInjectProFormConfig } from '../../../context'
 import { proFieldConfigInjectionKey } from '../context'
 
-export function useMergeOptions(props: ProFieldProps) {
+export function useMergeConfig(props: ProFieldProps) {
   const {
     readonly: formReadonlyRef,
   } = useInjectProFormConfig()

@@ -1,6 +1,6 @@
 import type { ProFormListInst } from './inst'
 import { inject, provide } from 'vue'
-import { createInjectionKey } from '../composables/createInjectionKey'
+import { createInjectionKey } from '../composables/create-injection-key'
 
 const proFormListInstInjectionKey = createInjectionKey<ProFormListInst>('pro-form-list')
 
