@@ -72,6 +72,7 @@ export function useFieldUtils(field?: BaseField) {
   })
 
   return {
+    field,
     empty,
     readonly,
     emptyDom,
