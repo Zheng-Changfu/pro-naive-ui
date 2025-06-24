@@ -23,7 +23,7 @@ import type { ProTransferProps, ProTransferSlots } from './transfer'
 import type { ProTreeSelectProps, ProTreeSelectSlots } from './tree-select'
 import type { ProUploadProps, ProUploadSlots } from './upload'
 
-export interface ProBaseFieldColumn<Values = any, ProFieldPropsParameters extends any[] = any[]> {
+interface ProBaseFieldColumn<Values = any, ProFieldPropsParameters extends any[] = any[]> {
   /**
    * 字段路径
    */
@@ -249,6 +249,31 @@ interface TreeSelectColumn<
 }
 
 /**
+ * 让用户可以扩展 ProFieldColumn 的类型
+ */
+export interface ProFieldCustomColumn {}
+
+/**
+ * 方便用户符合直觉的扩展类型，这里做一下包装
+ */
+type WrapProFieldCustomColumn<
+  Column = any,
+  Values = any,
+  FieldPropsParameters extends any[] = any[],
+  ProFieldPropsParameters extends any[] = any[],
+> = Column extends {
+  field?: infer F
+  fieldProps?: infer P
+  fieldSlots?: infer S
+}
+  ? Merge<ProBaseFieldColumn<Values, ProFieldPropsParameters>, {
+    field?: F
+    fieldSlots?: UnwrapSlots<S>
+    fieldProps?: MaybeFunction<NonNullable<P>, FieldPropsParameters>
+  }>
+  : never
+
+/**
  * 通用字段解释
  *  field: 渲染哪个字段组件
  *  fieldProps: 透传给字段组件的 props
@@ -281,5 +306,10 @@ export type ProFieldColumn<
   | Merge<DynamicTagsColumn<Values, FunctionalFieldPropsParameters, FunctionalProFieldPropsParameters>, ExtraProps>
   | Merge<AutoCompleteColumn<Values, FunctionalFieldPropsParameters, FunctionalProFieldPropsParameters>, ExtraProps>
   | Merge<CheckboxGroupColumn<Values, FunctionalFieldPropsParameters, FunctionalProFieldPropsParameters>, ExtraProps>
+  | (
+    ProFieldCustomColumn extends { column: infer CustomColumn }
+      ? Merge<WrapProFieldCustomColumn<CustomColumn, Values, FunctionalFieldPropsParameters, FunctionalProFieldPropsParameters>, ExtraProps>
+      : never
+  )
 
 export type ProFieldColumnType = BuiltinFieldType
