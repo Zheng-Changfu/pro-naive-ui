@@ -114,7 +114,7 @@ export function useMergeConfig(props: ComputedRef<ProLayoutProps>) {
 
   const mergedCssVars = computed(() => {
     return {
-      // 给后代组件使用的变量,切换主题时会自动更新
+      // 支持主题切换
       '--n-color': themeVars.value.bodyColor,
       '--n-text-color': themeVars.value.textColor2,
       '--n-bezier': themeVars.value.cubicBezierEaseInOut,

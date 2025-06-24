@@ -13,6 +13,11 @@ export default cB('pro-layout', `
     display: flex;
     width: 100%;
     height: 100%;
+    color: var(--n-text-color);
+    background-color: var(--n-color);
+    transition: 
+      color .3s var(--n-bezier),
+      background-color .3s var(--n-bezier);
   `, [
   cM('disabled-transition', [
     c('*', `
