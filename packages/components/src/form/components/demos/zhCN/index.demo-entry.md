@@ -165,8 +165,8 @@ import type { Dependencie } from 'pro-naive-ui'
 
 ### ProCheckboxGroup
 基于 [n-checkbox-group](https://www.naiveui.com/zh-CN/os-theme/components/checkbox) 封装，`fieldProps` 中新增了一些属性
-- labelField：label 属性的字段名，默认 'label'
-- valueField：value 属性的字段名，默认 'value'
+- labelField: label 属性的字段名，默认 'label'
+- valueField: value 属性的字段名，默认 'value'
 - flexProps: 传递给 `n-flex` 的属性，默认使用 `n-flex` 布局
 - options: 每一项 `n-checkbox` 的配置
 ```html
@@ -267,16 +267,18 @@ import type { Dependencie } from 'pro-naive-ui'
 
 ### ProRadioGroup
 基于 [n-radio](https://www.naiveui.com/zh-CN/os-theme/components/radio) 封装，`fieldProps` 中新增了一些属性
-- labelField：label 属性的字段名，默认 'label'
-- valueField：value 属性的字段名，默认 'value'
+- labelField: label 属性的字段名，默认 'label'
+- valueField: value 属性的字段名，默认 'value'
 - flexProps: 传递给 `n-flex` 的属性，默认使用 `n-flex` 布局
 - options: 每一项 `n-radio` 的配置
+- type: 如果配置为 `'button'`，渲染为按钮组，`NEXT_VERSION` 新增
 ```html
 <template>
   <pro-radio-group
     title="单选框组"
     path="radio-group"
     :field-props="{
+      // type: 'button',
       labelField:'a',
       valueField:'b',
       flexProps:{

@@ -23,6 +23,11 @@ export interface ProRadioGroupFieldProps extends RadioGroupProps {
    * 包裹 n-radio 的 flex 属性
    */
   flexProps?: FlexProps
+  /**
+   * 单选组或者按钮组
+   * @default 'radio
+   */
+  type?: 'button' | 'radio'
 }
 
 export const proRadioGroupProps = {

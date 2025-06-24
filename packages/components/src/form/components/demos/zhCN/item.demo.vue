@@ -229,6 +229,18 @@ export default defineComponent({
           }"
         />
         <pro-radio-group
+          title="RadioGroupButton"
+          path="radio-group"
+          :field-props="{
+            type: 'button',
+            options: [
+              { label: 'item1', value: 0 },
+              { label: 'item2', value: 1 },
+              { label: 'item3', value: 2 },
+            ],
+          }"
+        />
+        <pro-radio-group
           title="RadioGroup"
           path="radio-group-vertical"
           :field-props="{

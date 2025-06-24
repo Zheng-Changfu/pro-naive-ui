@@ -2,7 +2,7 @@ import type { FlexProps, RadioGroupProps, RadioProps } from 'naive-ui'
 import type { PropType, SlotsType, VNodeChild } from 'vue'
 import type { ProRadioGroupSlots } from '../slots'
 import { get, toPath } from 'lodash-es'
-import { NFlex, NRadio, NRadioGroup, radioGroupProps } from 'naive-ui'
+import { NFlex, NRadio, NRadioButton, NRadioGroup, radioGroupProps } from 'naive-ui'
 import { computed, defineComponent } from 'vue'
 import { useFieldUtils } from '../../field'
 
@@ -13,6 +13,7 @@ export default defineComponent({
     labelField: String,
     valueField: String,
     flexProps: Object as PropType<FlexProps>,
+    type: String as PropType<'button' | 'radio'>,
     options: Array as PropType<Array<RadioProps & ([x: string])>>,
     ...radioGroupProps,
   },
@@ -55,6 +56,7 @@ export default defineComponent({
 
     const nRadioGroupProps = computed<RadioGroupProps>(() => {
       const {
+        type,
         options,
         flexProps,
         labelField,
@@ -98,7 +100,12 @@ export default defineComponent({
         >
           {{
             default: () => {
-              const flexProps = this.$props.flexProps ?? {}
+              const { type, flexProps = {} } = this.$props
+              if (type === 'button') {
+                return this.normalizedOptions.map((item) => {
+                  return <NRadioButton key={item.value} {...item} />
+                })
+              }
               return (
                 <NFlex {...flexProps}>
                   {
