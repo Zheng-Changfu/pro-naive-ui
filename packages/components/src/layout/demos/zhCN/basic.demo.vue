@@ -91,13 +91,13 @@ export default defineComponent({
       <template #logo>
         <div>logo</div>
       </template>
-      <template #header-left>
+      <template #nav-left>
         <div>left</div>
       </template>
-      <template #header-center>
+      <template #nav-center>
         <div>center</div>
       </template>
-      <template #header-right>
+      <template #nav-right>
         <div>right</div>
       </template>
       <template #sidebar>

@@ -212,10 +212,7 @@ export default defineComponent({
       )
     })
 
-    const headerLeftDom = resolveWrappedSlot(this.$slots['header-left'], (children) => {
-      if (!children) {
-        return null
-      }
+    const navLeftDom = resolveWrappedSlot(this.$slots['nav-left'] ?? this.$slots['header-left'], (children) => {
       return (
         <div class={`${this.mergedClsPrefix}-pro-layout__nav__left`}>
           {children}
@@ -223,10 +220,7 @@ export default defineComponent({
       )
     })
 
-    const headerCenterDom = resolveWrappedSlot(this.$slots['header-center'], (children) => {
-      if (!children) {
-        return null
-      }
+    const navCenterDom = resolveWrappedSlot(this.$slots['nav-center'] ?? this.$slots['header-center'], (children) => {
       return (
         <div class={`${this.mergedClsPrefix}-pro-layout__nav__center`}>
           {children}
@@ -234,10 +228,7 @@ export default defineComponent({
       )
     })
 
-    const headerRightDom = resolveWrappedSlot(this.$slots['header-right'], (children) => {
-      if (!children) {
-        return null
-      }
+    const navRightDom = resolveWrappedSlot(this.$slots['nav-right'] ?? this.$slots['header-right'], (children) => {
       return (
         <div class={`${this.mergedClsPrefix}-pro-layout__nav__right`}>
           {children}
@@ -297,9 +288,9 @@ export default defineComponent({
             ]}
             >
               {logoDom}
-              {headerLeftDom}
-              {headerCenterDom}
-              {headerRightDom}
+              {navLeftDom}
+              {navCenterDom}
+              {navRightDom}
             </div>
             <div class={[
               `${this.mergedClsPrefix}-pro-layout__tabbar`,

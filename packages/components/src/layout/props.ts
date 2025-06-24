@@ -113,7 +113,7 @@ export const proLayoutProps = {
    */
   'headerClass': [Array, String] as PropType<string | any[]>,
   /**
-   * 导航栏 class
+   * 顶栏 class
    */
   'navClass': [Array, String] as PropType<string | any[]>,
   /**

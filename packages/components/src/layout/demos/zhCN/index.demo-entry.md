@@ -46,9 +46,9 @@ menus.vue
 | 名称          | 参数  | 说明                                                                 | 版本 |
 | ------------- | ----- | -------------------------------------------------------------------- | ---- |
 | logo          | `any` | logo 区域                                                            |      |
-| header-left   | `any` | 头部左侧                                                             |      |
-| header-center | `any` | 头部中间                                                             |      |
-| header-right  | `any` | 头部右侧                                                             |      |
+| nav-left      | `any` | 顶栏左侧                                                             |      |
+| nav-center    | `any` | 顶栏中间                                                             |      |
+| nav-right     | `any` | 顶栏右侧                                                             |      |
 | sidebar       | `any` | 侧边栏，在 `'horizontal'`、`'full-content'` 布局中不生效             |      |
 | sidebar-extra | `any` | 侧边栏额外区域，只在 `'two-column'`、`'mixed-two-column'` 布局中生效 |      |
 | tabbar        | `any` | tabbar 区域                                                          |      |

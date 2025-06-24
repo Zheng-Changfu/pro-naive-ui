@@ -107,7 +107,7 @@ export default defineComponent({
       <template #logo>
         logo
       </template>
-      <template #header-left>
+      <template #nav-left>
         <span>left</span>
         <n-popover v-if="isMobile" trigger="click" style="padding: 0;">
           <template #trigger>
@@ -120,7 +120,7 @@ export default defineComponent({
           </n-scrollbar>
         </n-popover>
       </template>
-      <template #header-center>
+      <template #nav-center>
         <n-menu v-if="hasHorizontalMenu" v-bind="layout.horizontalMenuProps" />
       </template>
       <template #sidebar>

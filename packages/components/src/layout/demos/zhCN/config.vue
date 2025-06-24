@@ -76,11 +76,11 @@ function updateMode(v: ProLayoutMode) {
       <n-switch v-model:value="showSidebar" />
     </div>
     <div>
-      <div>显示导航栏</div>
+      <div>显示顶栏</div>
       <n-switch v-model:value="showNav" />
     </div>
     <div>
-      <div>导航栏是否固定</div>
+      <div>顶栏是否固定</div>
       <n-switch v-model:value="navFixed" />
     </div>
     <div>
