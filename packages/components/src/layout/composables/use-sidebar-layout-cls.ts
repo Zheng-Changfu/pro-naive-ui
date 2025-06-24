@@ -102,6 +102,7 @@ export function setupSidebarLayoutStyle() {
     `),
     cB('pro-layout__scrollbar__inner', `
         display: flex;
+        min-height: 100%;
         flex-direction: column;
     `),
     cB('pro-layout__header', `
@@ -187,6 +188,8 @@ export function setupSidebarLayoutStyle() {
     ]),
     cB('pro-layout__main', `
        padding-left: var(--pro-layout-sidebar-width);
+       flex-grow: 1;
+       flex-basis: 0;
        transition: 
         padding-left .3s var(--n-bezier);
     `, [

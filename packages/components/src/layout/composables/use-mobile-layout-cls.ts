@@ -52,6 +52,7 @@ export function setupMobileLayoutStyle() {
     ]),
     cB('pro-layout__scrollbar__inner', `
         display: flex;
+        min-height: 100%;
         flex-direction: column;
     `),
     cB('pro-layout__header', `
