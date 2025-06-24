@@ -26,10 +26,12 @@ export default defineComponent({
     )
 
     const {
+      showTooltip,
       tooltipProps,
     } = useTooltip(overridedProps)
 
     return {
+      showTooltip,
       tooltipProps,
       nButtonProps,
     }
@@ -43,20 +45,24 @@ export default defineComponent({
       tooltipProps,
     } = this
 
+    const buttonDom = (
+      <NButton
+        {...$attrs}
+        {...nButtonProps}
+      >
+        {{
+          ...$slots,
+          default: () => $props.content ?? $slots.default?.(),
+        }}
+      </NButton>
+    )
+    if (!this.showTooltip) {
+      return buttonDom
+    }
     return (
       <ProTooltip {...tooltipProps}>
         {{
-          trigger: () => (
-            <NButton
-              {...$attrs}
-              {...nButtonProps}
-            >
-              {{
-                ...$slots,
-                default: () => $props.content ?? $slots.default?.(),
-              }}
-            </NButton>
-          ),
+          trigger: () => buttonDom,
         }}
       </ProTooltip>
     )

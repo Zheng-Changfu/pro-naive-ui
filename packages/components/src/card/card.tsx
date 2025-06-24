@@ -50,6 +50,11 @@ export default defineComponent({
       return !!title || !!slots.header || !!tooltip
     })
 
+    const showTooltip = computed(() => {
+      const { tooltip } = overridedProps.value
+      return !!tooltip && tooltip.length > 0
+    })
+
     const collapseText = computed(() => {
       return getMessage('collapse')(!show.value)
     })
@@ -83,6 +88,7 @@ export default defineComponent({
       show,
       nCardProps,
       showHeader,
+      showTooltip,
       collapseText,
       resolvedTitle,
       triggerExpand,
@@ -125,24 +131,24 @@ export default defineComponent({
                 }]}
                 onClick={() => this.triggerExpand('main')}
               >
-                {
-                  resolveSlot(this.$slots.header, () => [this.resolvedTitle])
-                }
-                <ProTooltip
-                  trigger="hover"
-                  tooltip={this.tooltip}
-                >
-                  {{
-                    trigger: () => [
-                      <NIcon
-                        size={18}
-                        class={`${mergedClsPrefix}-icon--tooltip`}
-                      >
-                        <InfoCircleOutlined />
-                      </NIcon>,
-                    ],
-                  }}
-                </ProTooltip>
+                {resolveSlot(this.$slots.header, () => [this.resolvedTitle])}
+                {this.showTooltip && (
+                  <ProTooltip
+                    trigger="hover"
+                    tooltip={this.tooltip}
+                  >
+                    {{
+                      trigger: () => [
+                        <NIcon
+                          size={18}
+                          class={`${mergedClsPrefix}-icon--tooltip`}
+                        >
+                          <InfoCircleOutlined />
+                        </NIcon>,
+                      ],
+                    }}
+                  </ProTooltip>
+                )}
               </div>
             )
           },

@@ -128,27 +128,30 @@ export default defineComponent({
             : undefined,
           label: labelDom
             ? () => {
+                const showTooltip = !!this.tooltip && this.tooltip.length > 0
                 return (
                   <div class={[`${this.mergedClsPrefix}-pro-form-item__label`]}>
                     {labelDom}
-                    <ProTooltip
-                      trigger="hover"
-                      tooltip={this.tooltip}
-                    >
-                      {{
-                        trigger: () => {
-                          return (
-                            <NIcon
-                              depth={3}
-                              size={16}
-                              class={[`${this.mergedClsPrefix}-pro-form-item__icon`]}
-                            >
-                              <QuestionCircleOutlined />
-                            </NIcon>
-                          )
-                        },
-                      }}
-                    </ProTooltip>
+                    {showTooltip && (
+                      <ProTooltip
+                        trigger="hover"
+                        tooltip={this.tooltip}
+                      >
+                        {{
+                          trigger: () => {
+                            return (
+                              <NIcon
+                                depth={3}
+                                size={16}
+                                class={[`${this.mergedClsPrefix}-pro-form-item__icon`]}
+                              >
+                                <QuestionCircleOutlined />
+                              </NIcon>
+                            )
+                          },
+                        }}
+                      </ProTooltip>
+                    )}
                   </div>
                 )
               }

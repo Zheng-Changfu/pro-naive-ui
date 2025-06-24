@@ -20,16 +20,20 @@ export function useTooltip(props: ComputedRef<ProButtonProps>) {
     return []
   })
 
+  const showTooltip = computed(() => {
+    return tooltipTexts.value.length > 0
+  })
+
   const tooltipProps = computed<ProTooltipProps>(() => {
     return {
       trigger: 'hover',
       disabled: disabled.value,
       tooltip: tooltipTexts.value,
-      emptyTooltipShowTrigger: true,
     }
   })
 
   return {
+    showTooltip,
     tooltipProps,
     tooltipTexts,
   }

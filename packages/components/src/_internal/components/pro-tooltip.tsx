@@ -7,10 +7,6 @@ import { resolveWrappedSlot } from '../../_utils/resolve-slot'
 export const proTooltipProps = {
   ...tooltipProps,
   tooltip: [String, Array] as PropType<string | string[]>,
-  /**
-   * 当 tooltip 为空时是否调用 trigger 插槽显示
-   */
-  emptyTooltipShowTrigger: Boolean,
 } as const
 
 export type ProTooltipProps = ExtractPublicPropTypes<typeof proTooltipProps>
@@ -40,7 +36,6 @@ export default defineComponent({
   render() {
     const {
       tooltip,
-      emptyTooltipShowTrigger,
       ...nTooltipProps
     } = this.$props
 
@@ -48,13 +43,11 @@ export default defineComponent({
       if (!children && this.normalizeTootlip.length <= 0) {
         return null
       }
-      return children ?? this.normalizeTootlip.map(tip => <div key={tip}>{tip}</div>)
+      return children ?? this.normalizeTootlip.map((tip, index) => <div key={index}>{tip}</div>)
     }) as VNodeChild | null
 
     if (!tooltipsVnode) {
-      return emptyTooltipShowTrigger
-        ? this.$slots.trigger?.()
-        : null
+      return null
     }
 
     return (
