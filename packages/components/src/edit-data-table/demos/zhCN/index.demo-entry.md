@@ -40,3 +40,34 @@ import type { ProEditDataTableRecordCreatorProps, ProEditDataTableActionGuard, P
 | --------------------------------------------------------------------------------------------------------------------------------- | ---- | ------------------- | ---- |
 | [参考 ProDataTable](https://naive-ui.pro-components.cn/zh-CN/os-theme/components/data-table#ProDataTable-%E6%8F%92%E6%A7%BD)      |      |                     |      |
 | [参考 ProField](https://naive-ui.pro-components.cn/zh-CN/os-theme/components/field#%E9%80%9A%E7%94%A8%E7%9A%84%E6%8F%92%E6%A7%BD) |      | 不支持 `input` 插槽 |      |
+
+### 扩展 field
+如果你基于 `ProField` 封装了一个组件，`ProEditDataTable` 是可以正常渲染出来的，但是 `field`、`fieldSlots`、`fieldProps` 会缺少类型提示，
+你需要做如下调整
+- 在你项目全局的 `.d.ts` 文件中扩展 `ProFieldCustomColumn` 类型，该类型在 `2.3.0` 新增
+```typescript
+import type { 
+  ProFieldCustomColumn,
+} from 'pro-naive-ui'
+
+declare module 'pro-naive-ui' {
+  interface ProFieldCustomColumn {
+    column: XColumn | YColumn
+  }
+
+  interface XColumn {
+    field: 'X' // 扩展的 field 名称
+    fieldSlots: TestSlots // field 对应组件的插槽
+    fieldProps: TestProps['fieldProps'] // field 对应组件 props 中的 fieldProps
+  }
+
+  interface YColumn {
+    field: 'Y' // 扩展的 field 名称
+    fieldSlots: TestSlots // field 对应组件的插槽
+    fieldProps: TestProps['fieldProps'] // field 对应组件 props 中的 fieldProps
+  }
+}
+
+export {}
+```
+- 确保你的 `tsconfig.json` 包含 `.d.ts` 文件

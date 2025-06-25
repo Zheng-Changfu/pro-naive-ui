@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## 2.3.0
+
+### Features
+
+- `pro-radio-group` 的 `field-props` 中新增 `type` 属性，用于支持单选按钮组
+- 新增 `ProFieldCustomColumn` 类型，外界可自定义扩展 `field` 类型
+- `createProForm` 返回值中新增 `onSubmit`、`onSubmitFailed`、`onReset` 钩子 
+
+### Fixes
+
+- 修复 `pro-form`、组件 `submit-on-press-enter` 属性配置为 `true` 后回车无法提交表单问题
+- 修复 `pro-layout` 组件主题切换样式未跟随主题色问题
+- 修复 `pro-layout` 组件内容区域自适应无效问题
+
 ## 2.2.0
 
 ### Features

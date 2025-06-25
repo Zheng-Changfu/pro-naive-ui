@@ -77,40 +77,40 @@ import type { VNodeChild } from 'vue'
 
 ### ProFieldColumnType
 以下是 `field` 和组件的对照关系表
-| field              | 组件                                       | 版本         |
-| ------------------ | ------------------------------------------ | ------------ |
-| rate               | [ProRate](field#ProRate)                   |              |
-| input              | [ProInput](field#ProInput)                 |              |
-| digit              | [ProDigit](field#ProDigit)                 |              |
-| slider             | [ProSlider](field#ProSlider)               |              |
-| switch             | [ProSwitch](field#ProSwitch)               |              |
-| upload             | [ProUpload](field#ProUpload)               |              |
-| select             | [ProSelect](field#ProSelect)               |              |
-| mention            | [ProMention](field#ProMention)             |              |
-| cascader           | [ProCascader](field#ProCascader)           |              |
-| password           | [ProPassword](field#ProPassword)           |              |
-| textarea           | [ProTextarea](field#ProTextarea)           |              |
-| checkbox           | [ProCheckbox](field#ProCheckbox)           |              |
-| transfer           | [ProTransfer](field#ProTransfer)           |              |
+| field              | 组件                                       | 版本  |
+| ------------------ | ------------------------------------------ | ----- |
+| rate               | [ProRate](field#ProRate)                   |       |
+| input              | [ProInput](field#ProInput)                 |       |
+| digit              | [ProDigit](field#ProDigit)                 |       |
+| slider             | [ProSlider](field#ProSlider)               |       |
+| switch             | [ProSwitch](field#ProSwitch)               |       |
+| upload             | [ProUpload](field#ProUpload)               |       |
+| select             | [ProSelect](field#ProSelect)               |       |
+| mention            | [ProMention](field#ProMention)             |       |
+| cascader           | [ProCascader](field#ProCascader)           |       |
+| password           | [ProPassword](field#ProPassword)           |       |
+| textarea           | [ProTextarea](field#ProTextarea)           |       |
+| checkbox           | [ProCheckbox](field#ProCheckbox)           |       |
+| transfer           | [ProTransfer](field#ProTransfer)           |       |
 | input-otp          | [ProInputOtp](field#ProInputOtp)           | 2.2.0 |
-| tree-select        | [ProTreeSelect](field#ProTreeSelect)       |              |
-| radio-group        | [ProRadioGroup](field#ProRadioGroup)       |              |
-| color-picker       | [ProColorPicker](field#ProColorPicker)     |              |
-| dynamic-tags       | [ProDynamicTags](field#ProDynamicTags)     |              |
-| auto-complete      | [ProAutoComplete](field#ProAutoComplete)   |              |
-| checkbox-group     | [ProCheckboxGroup](field#ProCheckboxGroup) |              |
-| time               | [ProTime](field#ProTime)                   |              |
-| date               | [ProDate](field#ProDate)                   |              |
-| date-time          | [ProDateTime](field#ProDate)               |              |
-| date-year          | [ProDateYear](field#ProDate)               |              |
-| date-week          | [ProDateWeek](field#ProDate)               |              |
-| date-month         | [ProDateMonth](field#ProDate)              |              |
-| date-range         | [ProDateRange](field#ProDate)              |              |
-| date-quarter       | [ProDateQuarter](field#ProDate)            |              |
-| date-time-range    | [ProDateTimeRange](field#ProDate)          |              |
-| date-year-range    | [ProDateYearRange](field#ProDate)          |              |
-| date-month-range   | [ProDateMonthRange](field#ProDate)         |              |
-| date-quarter-range | [ProDateQuarterRange](field#ProDate)       |              |
+| tree-select        | [ProTreeSelect](field#ProTreeSelect)       |       |
+| radio-group        | [ProRadioGroup](field#ProRadioGroup)       |       |
+| color-picker       | [ProColorPicker](field#ProColorPicker)     |       |
+| dynamic-tags       | [ProDynamicTags](field#ProDynamicTags)     |       |
+| auto-complete      | [ProAutoComplete](field#ProAutoComplete)   |       |
+| checkbox-group     | [ProCheckboxGroup](field#ProCheckboxGroup) |       |
+| time               | [ProTime](field#ProTime)                   |       |
+| date               | [ProDate](field#ProDate)                   |       |
+| date-time          | [ProDateTime](field#ProDate)               |       |
+| date-year          | [ProDateYear](field#ProDate)               |       |
+| date-week          | [ProDateWeek](field#ProDate)               |       |
+| date-month         | [ProDateMonth](field#ProDate)              |       |
+| date-range         | [ProDateRange](field#ProDate)              |       |
+| date-quarter       | [ProDateQuarter](field#ProDate)            |       |
+| date-time-range    | [ProDateTimeRange](field#ProDate)          |       |
+| date-year-range    | [ProDateYearRange](field#ProDate)          |       |
+| date-month-range   | [ProDateMonthRange](field#ProDate)         |       |
+| date-quarter-range | [ProDateQuarterRange](field#ProDate)       |       |
 
 ### 默认值调整
 我们为了更加的好用，调整了一些默认值，如果你不满意，可以参考[组件 Props 覆盖](config-provider#prop-overrides.vue)
@@ -120,57 +120,33 @@ import type { VNodeChild } from 'vue'
 - `labelPlacement` 调整为 `left`
 - `responsive` 调整为 `'screen'`
 
-<!-- ### 扩展 field
-如果你也基于 `ProField` 封装了一个组件([查看自定义组件](field#develop-custom-component.vue))，`ProSearchForm`是可以正常渲染出来的，但是 `field`、`fieldSlots`、`fieldProps` 会缺少类型提示，
+### 扩展 field
+如果你基于 `ProField` 封装了一个组件，`ProSearchForm` 是可以正常渲染出来的，但是 `field`、`fieldSlots`、`fieldProps` 会缺少类型提示，
 你需要做如下调整
-- 在你项目全局的 `.d.ts` 文件中书写如下代码
+- 在你项目全局的 `.d.ts` 文件中扩展 `ProFieldCustomColumn` 类型，该类型在 `2.3.0` 新增
 ```typescript
 import type { 
-  Merge,
-  UnwrapSlots,
-  MaybeFunction,
-  ProBaseFieldColumn,
-  ProFieldSharedSlots,
-  ProSearchFormColumnProps,
-  ProFieldColumn as _ProFieldColumn,
+  ProFieldCustomColumn,
 } from 'pro-naive-ui'
 
 declare module 'pro-naive-ui' {
-  type ProSearchFormColumn<Values = any> = ProFieldColumn<Values, ProSearchFormColumnProps>;
-  type ProSearchFormColumns<Values = any> = ProSearchFormColumn<Values>[];
-}
+  interface ProFieldCustomColumn {
+    column: XColumn | YColumn
+  }
 
-type ProFieldColumn< V = any,EP extends object = object,FFP extends any[] = any[],FPP extends any[] = any[]> = 
-| _ProFieldColumn 
-| Merge<Test<V, FFP, FPP>, EP>
+  interface XColumn {
+    field: 'X' // 扩展的 field 名称
+    fieldSlots: TestSlots // field 对应组件的插槽
+    fieldProps: TestProps['fieldProps'] // field 对应组件 props 中的 fieldProps
+  }
 
-/**
- * 自定义插槽
- */
-interface TestSlots extends ProFieldSharedSlots {
-  test?: {a:string,b:number}
-}
-
-/**
- * 自定义 fieldProps
- */
-type TestFieldProps = {
-  readonly a?: string
-}
-
-/**
- * 自定义列
- */
-interface Test<
-  V = any,
-  FP extends any[] = any[],
-  PP extends any[] = any[],
-> extends ProBaseFieldColumn<V, PP> {
-  field?: 'test' // 你需要扩展的 field
-  fieldSlots?: UnwrapSlots<TestSlots> // 你的 field 对应组件的插槽
-  fieldProps?: MaybeFunction<NonNullable<TestFieldProps>, FP> // 你的 field 对应组件的 fieldProps
+  interface YColumn {
+    field: 'Y' // 扩展的 field 名称
+    fieldSlots: TestSlots // field 对应组件的插槽
+    fieldProps: TestProps['fieldProps'] // field 对应组件 props 中的 fieldProps
+  }
 }
 
 export {}
 ```
-- 确保你的 `tsconfig.json` 包含 `.d.ts` 文件 -->
+- 确保你的 `tsconfig.json` 包含 `.d.ts` 文件

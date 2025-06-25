@@ -271,7 +271,7 @@ import type { Dependencie } from 'pro-naive-ui'
 - valueField: value 属性的字段名，默认 'value'
 - flexProps: 传递给 `n-flex` 的属性，默认使用 `n-flex` 布局
 - options: 每一项 `n-radio` 的配置
-- type: 如果配置为 `'button'`，渲染为按钮组，`NEXT_VERSION` 新增
+- type: 如果配置为 `'button'`，渲染为按钮组，`2.3.0` 新增
 ```html
 <template>
   <pro-radio-group
