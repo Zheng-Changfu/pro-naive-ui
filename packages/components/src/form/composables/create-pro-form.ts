@@ -1,8 +1,10 @@
+import type { EventHookOn } from '@vueuse/core'
 import type { FormInst } from 'naive-ui'
 import type { BaseForm, FormOptions, InternalPath } from 'pro-composables'
 import type { Merge, Paths, Simplify } from 'type-fest'
 import type { FieldExtraInfo } from '../components/field/field-extra-info'
 import type { FormItemInternalValidationResult } from './use-validation-result'
+import { createEventHook } from '@vueuse/core'
 import { isString } from 'lodash-es'
 import { createForm, stringifyPath } from 'pro-composables'
 import { inject, provide, ref } from 'vue'
@@ -41,6 +43,18 @@ export type CreateProFormReturn<Values = any> = Simplify<Pick<
    * 还原所有字段值并清空校验
    */
   restoreFieldsValue: () => void
+  /**
+   * 数据重置后的回调事件
+   */
+  onReset: EventHookOn<void>
+  /**
+   * 数据验证失败后回调事件
+   */
+  onSubmitFailed: EventHookOn<ValidateError[][]>
+  /**
+   * 数据验证成功后的回调事件
+   */
+  onSubmit: EventHookOn<{ values: Values, warnings: ValidateError[][] }>
   /**
    * 还原指定字段值并清空校验
    */
@@ -115,6 +129,21 @@ export function createProForm<Values = any>(
   const validationResults = useValidationResults()
 
   const {
+    on: onResetHook,
+    trigger: triggerResetHook,
+  } = createEventHook<void>()
+
+  const {
+    on: onSubmitFailedHook,
+    trigger: triggerSubmitFailedHook,
+  } = createEventHook<ValidateError[][]>()
+
+  const {
+    on: onSubmitHook,
+    trigger: triggerSubmitHook,
+  } = createEventHook<{ values: Values, warnings: ValidateError[][] }>()
+
+  const {
     addValidationErrors,
     addValidationWarnings,
     clearValidationResults,
@@ -147,6 +176,7 @@ export function createProForm<Values = any>(
     }
     validate()
       ?.then(({ warnings }) => {
+        triggerSubmitHook({ values: fieldsValue.value as any, warnings: warnings ?? [] })
         if (onSubmit) {
           onSubmit(fieldsValue.value as any, warnings ?? [])
         }
@@ -156,6 +186,7 @@ export function createProForm<Values = any>(
           throw errors
         }
         onSubmitFailed(errors)
+        triggerSubmitFailedHook(errors)
       })
   }
 
@@ -177,6 +208,7 @@ export function createProForm<Values = any>(
     restoreValidation(path)
     clearValidationResults(path)
     onReset && onReset()
+    triggerResetHook()
   }
 
   function restoreFieldsValue() {
@@ -184,6 +216,7 @@ export function createProForm<Values = any>(
     restoreValidation()
     clearValidationResults()
     onReset && onReset()
+    triggerResetHook()
   }
 
   function addValidateResults(
@@ -220,7 +253,10 @@ export function createProForm<Values = any>(
     restoreValidation,
     restoreFieldValue,
     restoreFieldsValue,
+    onReset: onResetHook,
+    onSubmit: onSubmitHook,
     getFieldValidationResult,
+    onSubmitFailed: onSubmitFailedHook,
     [proFormInternalKey]: {
       internalForm,
       validationResults,
