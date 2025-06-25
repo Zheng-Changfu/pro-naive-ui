@@ -14,5 +14,3 @@ export type BaseFieldProps<T> = Merge<{
 export type UnwrapSlots<T> = {
   [K in keyof T]?: IsAny<T[K]> extends true ? () => VNodeChild : (params: NonNullable<T[K]>) => VNodeChild
 }
-
-export type { Merge } from 'type-fest'
