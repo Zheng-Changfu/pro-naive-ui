@@ -1,3 +1,4 @@
+import type { EventHookOn } from '@vueuse/core'
 import type { DataTableFilterState, DataTableProps, DataTableSortState } from 'naive-ui'
 import type { UsePaginationOptions, UsePaginationReturn } from 'pro-composables'
 import type { ComputedRef } from 'vue'
@@ -44,9 +45,10 @@ export type UseNDataTableParams = [
 ]
 
 export interface SearchFormLike {
-  restoreFieldsValue: () => void
+  submit: () => void
+  onReset: EventHookOn
+  onSubmit: EventHookOn
   fieldsValue: ComputedRef<FormValues>
-  validate: () => Promise<any> | undefined
 }
 
 export type UseNDataTableService<Data extends UseNDataTableData, Params extends UseNDataTableParams> = (
@@ -84,8 +86,6 @@ export interface UseNDataTableReturn<
     ) => void
   }
   search: {
-    reset: () => void
-    submit: () => void
     resetLoading: ComputedRef<boolean>
     searchLoading: ComputedRef<boolean>
     proSearchFormProps: ComputedRef<{
@@ -159,30 +159,11 @@ export function useNDataTable<
     )
   }
 
-  function submit() {
+  function query() {
     if (form) {
-      form.validate()
-        ?.then(() => {
-          const { params } = fetchInst
-          params.value[1] = form.fieldsValue.value
-          searchLoading.value = true
-          onTableChange({ page: 1 })
-        })
-        ?.catch(err => err)
-    }
-    else {
-      searchLoading.value = true
-      onTableChange({ page: 1 })
-    }
-  }
-
-  function reset() {
-    if (form) {
-      form.restoreFieldsValue()
       const { params } = fetchInst
       params.value[1] = form.fieldsValue.value
     }
-    resetLoading.value = true
     onTableChange({ page: 1 })
   }
 
@@ -210,9 +191,26 @@ export function useNDataTable<
 
   onMounted(() => {
     if (!manual) {
-      submit()
+      if (form) {
+        form.submit()
+        return
+      }
+      searchLoading.value = true
+      query()
     }
   })
+
+  if (form) {
+    form.onSubmit(() => {
+      searchLoading.value = true
+      query()
+    })
+
+    form.onReset(() => {
+      resetLoading.value = true
+      query()
+    })
+  }
 
   return {
     ...fetchInst,
@@ -242,23 +240,17 @@ export function useNDataTable<
       }),
     },
     search: {
-      reset,
-      submit,
       resetLoading: computed(() => resetLoading.value),
       searchLoading: computed(() => searchLoading.value),
       proSearchFormProps: computed(() => {
         return {
           loading: fetchInst.loading.value,
           searchButtonProps: {
-            attrType: 'button',
             loading: searchLoading.value,
             disabled: fetchInst.loading.value,
-            onClick: submit,
           },
           resetButtonProps: {
-            attrType: 'button',
             loading: resetLoading.value,
-            onClick: reset,
           },
         }
       }),
