@@ -176,10 +176,10 @@ export function createProForm<Values = any>(
     }
     validate()
       ?.then(({ warnings }) => {
-        triggerSubmitHook({ values: fieldsValue.value as any, warnings: warnings ?? [] })
         if (onSubmit) {
           onSubmit(fieldsValue.value as any, warnings ?? [])
         }
+        triggerSubmitHook({ values: fieldsValue.value as any, warnings: warnings ?? [] })
       })
       ?.catch((errors) => {
         if (!onSubmitFailed) {
