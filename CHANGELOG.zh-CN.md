@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## 2.3.1
+
+### Features
+
+- `pro-field` 组件 `input` 插槽变更为解构对象，新增 `readonly` 参数
+- `useNDataTable` 增加 `submit`、`reset` 方法
+
+### Fixes
+
+- 修复 `pro-form-list` 组件重置数据后在添加一行报错问题
+
 ## 2.3.0
 
 ### Features
@@ -10,7 +21,7 @@
 
 ### Fixes
 
-- 修复 `pro-form`、组件 `submit-on-press-enter` 属性配置为 `true` 后回车无法提交表单问题
+- 修复 `pro-form` 组件 `submit-on-press-enter` 属性配置为 `true` 后回车无法提交表单问题
 - 修复 `pro-layout` 组件主题切换样式未跟随主题色问题
 - 修复 `pro-layout` 组件内容区域自适应无效问题
 
@@ -20,7 +31,7 @@
 
 - 新增 `pro-layout` 组件
 - 新增 `pro-input-otp` 组件
-- 新增 `use-layout-menu` composable
+- 新增 `useLayoutMenu` composable
 
 ## 2.1.6
 
