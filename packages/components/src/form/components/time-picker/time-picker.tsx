@@ -43,8 +43,8 @@ export default defineComponent({
       >
         {{
           ...this.$slots,
-          input: (pureProps: any) => {
-            return <TimePicker {...pureProps} v-slots={this.$slots}></TimePicker>
+          input: ({ inputProps }: any) => {
+            return <TimePicker {...inputProps} v-slots={this.$slots}></TimePicker>
           },
         }}
       </ProField>

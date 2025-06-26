@@ -84,6 +84,7 @@ export default defineComponent({
 
     return {
       inputProps,
+      mergedReadonly,
       show: field.show,
       proFormItemProps,
     }
@@ -98,7 +99,10 @@ export default defineComponent({
         {{
           label: this.$slots.label,
           feedback: this.$slots.feedback,
-          default: () => this.$slots.input(this.inputProps),
+          default: () => this.$slots.input({
+            inputProps: this.inputProps,
+            readonly: this.mergedReadonly,
+          }),
         }}
       </ProFormItem>
     )

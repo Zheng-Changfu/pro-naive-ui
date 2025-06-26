@@ -87,11 +87,11 @@ export default defineComponent({
       >
         {{
           ...this.$slots,
-          input: (pureProps: any) => {
+          input: ({ inputProps }: any) => {
             return (
               <EditDataTable
                 class={[`${mergedClsPrefix}-pro-edit-data-table`]}
-                {...pureProps}
+                {...inputProps}
                 v-slots={this.$slots}
               />
             )

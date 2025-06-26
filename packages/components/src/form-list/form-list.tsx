@@ -67,8 +67,8 @@ export default defineComponent({
       >
         {{
           ...this.$slots,
-          input: (pureProps: any) => {
-            return <FormList {...pureProps} v-slots={this.$slots}></FormList>
+          input: ({ inputProps }: any) => {
+            return <FormList {...inputProps} v-slots={this.$slots}></FormList>
           },
         }}
       </ProField>

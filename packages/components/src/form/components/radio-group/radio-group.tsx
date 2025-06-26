@@ -37,8 +37,8 @@ export default defineComponent({
       >
         {{
           ...this.$slots,
-          input: (pureProps: any) => {
-            return <RadioGroup {...pureProps} v-slots={this.$slots}></RadioGroup>
+          input: ({ inputProps }: any) => {
+            return <RadioGroup {...inputProps} v-slots={this.$slots}></RadioGroup>
           },
         }}
       </ProField>

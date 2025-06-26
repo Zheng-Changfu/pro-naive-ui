@@ -43,8 +43,8 @@ export default defineComponent({
       >
         {{
           ...this.$slots,
-          input: (pureProps: any) => {
-            return <Digit {...pureProps} v-slots={this.$slots}></Digit>
+          input: ({ inputProps }: any) => {
+            return <Digit {...inputProps} v-slots={this.$slots}></Digit>
           },
         }}
       </ProField>

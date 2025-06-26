@@ -37,8 +37,8 @@ export default defineComponent({
       >
         {{
           ...this.$slots,
-          input: (pureProps: any) => {
-            return <ColorPicker {...pureProps} v-slots={this.$slots}></ColorPicker>
+          input: ({ inputProps }: any) => {
+            return <ColorPicker {...inputProps} v-slots={this.$slots}></ColorPicker>
           },
         }}
       </ProField>

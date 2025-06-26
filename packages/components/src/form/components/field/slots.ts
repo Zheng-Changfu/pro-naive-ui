@@ -35,7 +35,16 @@ export interface ProFieldSlots<InputProps = Record<string, any>> {
   /**
    * 自定义表单项
    */
-  input: InputProps
+  input: {
+    /**
+     *  是否为只读模式
+     */
+    readonly: boolean
+    /**
+     * 传递给表单项的所有 props
+     */
+    inputProps: InputProps
+  }
 }
 
 interface ProFieldInputSlotsType<InputProps extends object> {
