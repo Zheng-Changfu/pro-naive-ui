@@ -75,7 +75,7 @@
     "css-render": "^0.15.14",
     "date-fns": "^3.6.0",
     "lodash-es": "^4.17.21",
-    "pro-composables": "^3.3.0",
+    "pro-composables": "^3.3.2",
     "sortablejs": "^1.15.6",
     "type-fest": "^4.26.1",
     "vooks": "0.2.12"

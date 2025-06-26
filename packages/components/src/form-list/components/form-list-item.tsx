@@ -48,7 +48,7 @@ const Action = defineComponent({
       insert,
       remove: _remove,
       stringPath,
-      value: list,
+      valueWithUid: list,
     } = useInjectField(true)!
 
     const showCopyButton = computed(() => {
@@ -204,7 +204,7 @@ export default defineComponent({
     } = useResolvePath(toRef(props, 'index'))
 
     const {
-      value: list,
+      valueWithUid: list,
     } = useInjectField(true)!
 
     const total = computed(() => {

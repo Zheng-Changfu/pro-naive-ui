@@ -33,7 +33,7 @@ const CreatorButton = defineComponent({
     const {
       insert,
       stringPath,
-      value: list,
+      valueWithUid: list,
     } = useInjectField(true)!
 
     const form = useInjectProForm()
@@ -129,14 +129,14 @@ export default defineComponent({
       remove,
       unshift,
       moveDown,
-      uidValue: uidList,
+      valueWithUid: list,
     } = useInjectField(true)!
 
     const showCreatorButton = computed(() => {
       const { max, creatorButtonProps } = props
       return !readonly.value
         && creatorButtonProps !== false
-        && uidList.value.length < (max ?? Number.POSITIVE_INFINITY)
+        && list.value.length < (max ?? Number.POSITIVE_INFINITY)
     })
 
     const exposed: ProFormListInst = {
@@ -154,13 +154,13 @@ export default defineComponent({
     registerInst(exposed)
     provideProFormListInst(exposed)
     return {
-      uidList,
+      list,
       showCreatorButton,
     }
   },
   render() {
     const {
-      uidList,
+      list,
       $props,
       $slots,
     } = this
@@ -177,7 +177,7 @@ export default defineComponent({
       onlyShowFirstItemLabel,
     } = $props
 
-    const listDom = uidList.map((item, index) => {
+    const listDom = list.map((item, index) => {
       return (
         <FormListItem
           key={item[ROW_UUID_KEY]}
