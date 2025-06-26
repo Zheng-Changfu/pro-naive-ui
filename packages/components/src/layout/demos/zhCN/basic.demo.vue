@@ -2,52 +2,27 @@
 # 基本展示
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import type { ProLayoutMode } from 'pro-naive-ui'
-import { defineComponent, ref } from 'vue'
+import { ref } from 'vue'
 import Config from './config.vue'
 
-export default defineComponent({
-  components: {
-    Config,
-  },
-  setup() {
-    const navFixed = ref(true)
-    const showNav = ref(true)
-    const showLogo = ref(true)
-    const isMobile = ref(false)
-    const collapsed = ref(true)
-    const showFooter = ref(true)
-    const showTabbar = ref(true)
-    const showSidebar = ref(true)
-    const footerFixed = ref(true)
-    const navHeight = ref(50)
-    const sidebarWidth = ref(224)
-    const tabbarHeight = ref(38)
-    const footerHeight = ref(50)
-    const sidebarMixedWidth = ref(58)
-    const sidebarCollapsedWidth = ref(58)
-    const mode = ref<ProLayoutMode>('vertical')
-    return {
-      mode,
-      showNav,
-      showLogo,
-      isMobile,
-      navFixed,
-      collapsed,
-      navHeight,
-      showFooter,
-      showTabbar,
-      showSidebar,
-      footerFixed,
-      sidebarWidth,
-      tabbarHeight,
-      footerHeight,
-      sidebarMixedWidth,
-      sidebarCollapsedWidth,
-    }
-  },
-})
+const navFixed = ref(true)
+const showNav = ref(true)
+const showLogo = ref(true)
+const isMobile = ref(false)
+const collapsed = ref(true)
+const showFooter = ref(true)
+const showTabbar = ref(true)
+const showSidebar = ref(true)
+const footerFixed = ref(true)
+const navHeight = ref(50)
+const sidebarWidth = ref(224)
+const tabbarHeight = ref(38)
+const footerHeight = ref(50)
+const sidebarMixedWidth = ref(58)
+const sidebarCollapsedWidth = ref(58)
+const mode = ref<ProLayoutMode>('vertical')
 </script>
 
 <template>

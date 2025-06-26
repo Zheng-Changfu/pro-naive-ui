@@ -4,10 +4,9 @@
 通过设置 `options.debounceWait`，进入防抖模式，此时如果频繁触发 `run` 或者 `runAsync`，则会以防抖策略进行请求。你可以在下面 input 框中快速输入文本，体验效果
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import Mock from 'mockjs'
 import { useRequest } from 'pro-naive-ui'
-import { defineComponent } from 'vue'
 
 function getEmail(search?: string): Promise<string[]> {
   console.log('debounce getEmail', search)
@@ -18,19 +17,9 @@ function getEmail(search?: string): Promise<string[]> {
   })
 }
 
-export default defineComponent({
-  setup() {
-    const { data, loading, run } = useRequest(getEmail, {
-      manual: true,
-      debounceWait: 1000,
-    })
-
-    return {
-      run,
-      data,
-      loading,
-    }
-  },
+const { data, loading, run } = useRequest(getEmail, {
+  manual: true,
+  debounceWait: 1000,
 })
 </script>
 

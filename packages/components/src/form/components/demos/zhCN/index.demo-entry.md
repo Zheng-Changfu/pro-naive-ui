@@ -30,6 +30,9 @@ link-async-loop.vue
 cross-component.vue
 feedback.vue
 input-slot.vue
+custom-component-1.vue
+custom-component-2.vue
+custom-component-3.vue
 ```
 
 ## API

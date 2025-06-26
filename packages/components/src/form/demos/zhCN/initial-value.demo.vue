@@ -4,24 +4,17 @@
 所有的默认值建议统一配置在 `createProForm` 的 `initialValues` 属性中，任何直接使用组件 `v-model:xxx` 和 `default-xxx` 的方式都有可能导致值绑定失效
 </markdown>
 
-<script lang="ts">
+<script setup lang="ts">
 import { createProForm } from 'pro-naive-ui'
-import { defineComponent } from 'vue'
 
-export default defineComponent({
-  setup() {
-    return {
-      form: createProForm({
-        initialValues: {
-          name: 'zcf',
-          age: 18,
-        },
-        onReset: console.log,
-        onSubmit: console.log,
-        onSubmitFailed: console.log,
-      }),
-    }
+const form = createProForm({
+  initialValues: {
+    name: 'zcf',
+    age: 18,
   },
+  onReset: console.log,
+  onSubmit: console.log,
+  onSubmitFailed: console.log,
 })
 </script>
 

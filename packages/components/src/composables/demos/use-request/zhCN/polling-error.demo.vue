@@ -4,11 +4,22 @@
 通过 `options.pollingErrorRetryCount` 设置轮询错误重试次数。
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import Mock from 'mockjs'
 import { useMessage } from 'naive-ui'
 import { useRequest } from 'pro-naive-ui'
-import { defineComponent } from 'vue'
+
+const message = useMessage()
+
+const { data, loading, run, cancel } = useRequest(getUsername, {
+  manual: true,
+  pollingInterval: 1000,
+  pollingWhenHidden: false,
+  pollingErrorRetryCount: 3,
+  onError: (error) => {
+    message.error(error.message)
+  },
+})
 
 function getUsername() {
   console.log('polling getUsername Error')
@@ -18,29 +29,6 @@ function getUsername() {
     }, 1000)
   })
 }
-
-export default defineComponent({
-  setup() {
-    const message = useMessage()
-
-    const { data, loading, run, cancel } = useRequest(getUsername, {
-      manual: true,
-      pollingInterval: 1000,
-      pollingWhenHidden: false,
-      pollingErrorRetryCount: 3,
-      onError: (error) => {
-        message.error(error.message)
-      },
-    })
-
-    return {
-      run,
-      data,
-      cancel,
-      loading,
-    }
-  },
-})
 </script>
 
 <template>

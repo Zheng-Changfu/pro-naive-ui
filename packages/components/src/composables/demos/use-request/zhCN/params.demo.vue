@@ -4,10 +4,13 @@
 `useRequest` 返回的 `params` 会记录当次调用 `service` 的参数数组。比如你触发了 `run(1, 2, 3)`，则 `params` 中的内容为 `[1, 2, 3]` 。
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import Mock from 'mockjs'
 import { useRequest } from 'pro-naive-ui'
-import { defineComponent, ref } from 'vue'
+import { ref } from 'vue'
+
+const username = ref('')
+const { data, params, run } = useRequest(getUsername)
 
 function getUsername(id: string): Promise<string> {
   console.log(id)
@@ -17,20 +20,6 @@ function getUsername(id: string): Promise<string> {
     }, 1000)
   })
 }
-
-export default defineComponent({
-  setup() {
-    const username = ref('')
-    const { data, params, run } = useRequest(getUsername)
-
-    return {
-      data,
-      params,
-      username,
-      run,
-    }
-  },
-})
 </script>
 
 <template>

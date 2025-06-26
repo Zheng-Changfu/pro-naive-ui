@@ -8,52 +8,44 @@
 </n-alert>
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import type { UploadFileInfo } from 'naive-ui'
 import { useMessage } from 'naive-ui'
 import { createProForm } from 'pro-naive-ui'
-import { defineComponent } from 'vue'
 
-export default defineComponent({
-  setup() {
-    const message = useMessage()
-
-    return {
-      propOverrides: {
-        ProDigit: {
-          fieldProps: {
-            min: 0,
-            precision: 2,
-          },
-        },
-        ProCard: {
-          showCollapse: false,
-        },
-        ProUpload: {
-          fieldProps: {
-            maxSize: 1,
-            onlyAcceptImage: true,
-            onOverSize: (maxSize: number, data: {
-              file: UploadFileInfo
-              fileList: UploadFileInfo[]
-            }) => {
-              console.log(maxSize, data)
-              message.warning('文件超出大小')
-            },
-            onUnAcceptType: (data: {
-              file: UploadFileInfo
-              fileList: UploadFileInfo[]
-            }) => {
-              console.log(data)
-              message.warning('不支持的文件类型')
-            },
-          },
-        },
-      },
-      form: createProForm(),
-    }
+const message = useMessage()
+const form = createProForm()
+const propOverrides = {
+  ProDigit: {
+    fieldProps: {
+      min: 0,
+      precision: 2,
+    },
   },
-})
+  ProCard: {
+    showCollapse: false,
+  },
+  ProUpload: {
+    fieldProps: {
+      maxSize: 1,
+      onlyAcceptImage: true,
+      onOverSize: (maxSize: number, data: {
+        file: UploadFileInfo
+        fileList: UploadFileInfo[]
+      }) => {
+        console.log(maxSize, data)
+        message.warning('文件超出大小')
+      },
+      onUnAcceptType: (data: {
+        file: UploadFileInfo
+        fileList: UploadFileInfo[]
+      }) => {
+        console.log(data)
+        message.warning('不支持的文件类型')
+      },
+    },
+  },
+}
 </script>
 
 <template>

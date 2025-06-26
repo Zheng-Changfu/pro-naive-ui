@@ -4,19 +4,13 @@
 这玩意有时候还是需要的
 </markdown>
 
-<script lang="tsx">
-import { defineComponent, ref } from 'vue'
+<script setup lang="tsx">
+import { ref } from 'vue'
 
-export default defineComponent({
-  setup() {
-    return {
-      show1: ref(false),
-      show2: ref(false),
-      show3: ref(false),
-      show4: ref(false),
-    }
-  },
-})
+const show1 = ref(false)
+const show2 = ref(false)
+const show3 = ref(false)
+const show4 = ref(false)
 </script>
 
 <template>

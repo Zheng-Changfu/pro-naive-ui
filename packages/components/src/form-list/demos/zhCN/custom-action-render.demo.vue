@@ -4,22 +4,11 @@
 使用 `action-render` 自定义渲染按钮和布局
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import { ArrowDownOutlined, ArrowUpOutlined } from '@vicons/antd'
 import { createProForm } from 'pro-naive-ui'
-import { defineComponent } from 'vue'
 
-export default defineComponent({
-  components: {
-    ArrowUpOutlined,
-    ArrowDownOutlined,
-  },
-  setup() {
-    return {
-      form: createProForm(),
-    }
-  },
-})
+const form = createProForm()
 </script>
 
 <template>

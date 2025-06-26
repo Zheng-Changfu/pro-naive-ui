@@ -7,24 +7,17 @@
 </n-alert>
 </markdown>
 
-<script lang="ts">
+<script setup lang="ts">
 import { createProForm } from 'pro-naive-ui'
-import { defineComponent } from 'vue'
 
-export default defineComponent({
-  setup() {
-    const form = createProForm<{ color?: string }>({
-      onSubmit: console.log,
-      initialValues: {
-        color: '#ccc',
-      },
-    })
-    return {
-      form,
-      values: form.values,
-    }
+const form = createProForm<{ color?: string }>({
+  onSubmit: console.log,
+  initialValues: {
+    color: '#ccc',
   },
 })
+
+const { values } = form
 </script>
 
 <template>

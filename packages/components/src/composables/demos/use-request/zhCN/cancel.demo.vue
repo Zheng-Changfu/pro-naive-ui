@@ -11,10 +11,24 @@
 - 竞态取消，当上一次 promise 还没返回时，又发起了下一次 promise，则会忽略上一次 promise 的响应
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import { useMessage } from 'naive-ui'
 import { useRequest } from 'pro-naive-ui'
-import { defineComponent, ref } from 'vue'
+import { ref } from 'vue'
+
+const username = ref('')
+const message = useMessage()
+
+const { loading, run, cancel } = useRequest(editUsername, {
+  manual: true,
+  onSuccess: (result, params) => {
+    username.value = ''
+    message.success(`The username was changed to "${params[0]}" !`)
+  },
+  onError: (error) => {
+    message.error(error.message)
+  },
+})
 
 function editUsername(username: string): Promise<void> {
   console.log(username)
@@ -29,31 +43,6 @@ function editUsername(username: string): Promise<void> {
     }, 1000)
   })
 }
-
-export default defineComponent({
-  setup() {
-    const username = ref('')
-    const message = useMessage()
-
-    const { loading, run, cancel } = useRequest(editUsername, {
-      manual: true,
-      onSuccess: (result, params) => {
-        username.value = ''
-        message.success(`The username was changed to "${params[0]}" !`)
-      },
-      onError: (error) => {
-        message.error(error.message)
-      },
-    })
-
-    return {
-      loading,
-      username,
-      run,
-      cancel,
-    }
-  },
-})
 </script>
 
 <template>

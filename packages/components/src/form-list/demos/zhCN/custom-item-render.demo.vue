@@ -4,17 +4,10 @@
 使用 `item-render` 可以将行和操作区域放在任意位置
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import { createProForm } from 'pro-naive-ui'
-import { defineComponent } from 'vue'
 
-export default defineComponent({
-  setup() {
-    return {
-      form: createProForm(),
-    }
-  },
-})
+const form = createProForm()
 </script>
 
 <template>

@@ -4,65 +4,39 @@
 `useLayoutMenu` 和 `ProLayout` 组件是无关的，这意味着可以在任何地方使用，比如可以满足布局是高度定制的场景。
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import type { ProLayoutMode } from 'pro-naive-ui'
 import { useLayoutMenu } from 'pro-naive-ui'
-import { computed, defineComponent, ref } from 'vue'
+import { computed, ref } from 'vue'
 import Config from './config.vue'
 import { menuOptions } from './menus'
 
-export default defineComponent({
-  components: {
-    Config,
-  },
-  setup() {
-    const navFixed = ref(true)
-    const showNav = ref(true)
-    const showLogo = ref(true)
-    const isMobile = ref(false)
-    const showFooter = ref(true)
-    const showTabbar = ref(true)
-    const showSidebar = ref(true)
-    const footerFixed = ref(true)
-    const navHeight = ref(50)
-    const sidebarWidth = ref(224)
-    const tabbarHeight = ref(38)
-    const footerHeight = ref(50)
-    const sidebarMixedWidth = ref(80)
-    const sidebarCollapsedWidth = ref(58)
-    const mode = ref<ProLayoutMode>('vertical')
-    const {
-      layout,
-      collapsed,
-      verticalLayout,
-    } = useLayoutMenu({
-      mode,
-      menus: menuOptions,
-    })
-    return {
-      mode,
-      layout,
-      showNav,
-      showLogo,
-      isMobile,
-      navFixed,
-      collapsed,
-      navHeight,
-      showFooter,
-      showTabbar,
-      showSidebar,
-      footerFixed,
-      sidebarWidth,
-      tabbarHeight,
-      footerHeight,
-      verticalLayout,
-      sidebarMixedWidth,
-      sidebarCollapsedWidth,
-      isTwoColumnLayout: computed(() => ['two-column', 'mixed-two-two-column'].includes(mode.value)),
-      hasHorizontalMenu: computed(() => ['horizontal', 'mixed-two-column', 'mixed-sidebar'].includes(mode.value)),
-    }
-  },
+const navFixed = ref(true)
+const showNav = ref(true)
+const showLogo = ref(true)
+const isMobile = ref(false)
+const showFooter = ref(true)
+const showTabbar = ref(true)
+const showSidebar = ref(true)
+const footerFixed = ref(true)
+const navHeight = ref(50)
+const sidebarWidth = ref(224)
+const tabbarHeight = ref(38)
+const footerHeight = ref(50)
+const sidebarMixedWidth = ref(80)
+const sidebarCollapsedWidth = ref(58)
+const mode = ref<ProLayoutMode>('vertical')
+const {
+  layout,
+  collapsed,
+  verticalLayout,
+} = useLayoutMenu({
+  mode,
+  menus: menuOptions,
 })
+
+const isTwoColumnLayout = computed(() => ['two-column', 'mixed-two-two-column'].includes(mode.value))
+const hasHorizontalMenu = computed(() => ['horizontal', 'mixed-two-column', 'mixed-sidebar'].includes(mode.value))
 </script>
 
 <template>

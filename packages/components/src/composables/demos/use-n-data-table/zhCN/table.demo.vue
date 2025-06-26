@@ -4,9 +4,8 @@
 `useNDataTable` 会自动管理表格分页数据，你只需要将返回的 `table` 属性中的 `tableProps` 传递给组件就可以了。
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import { useNDataTable } from 'pro-naive-ui'
-import { defineComponent } from 'vue'
 
 interface Item {
   name: {
@@ -34,35 +33,26 @@ function getTableData({ current, pageSize }: any): Promise<Result> {
     }))
 }
 
-export default defineComponent({
-  setup() {
-    const { table: { tableProps } } = useNDataTable(getTableData)
+const { table: { tableProps } } = useNDataTable(getTableData)
 
-    const columns = [
-      {
-        title: 'name',
-        key: 'name.last',
-      },
-      {
-        title: 'email',
-        key: 'email',
-      },
-      {
-        title: 'phone',
-        key: 'phone',
-      },
-      {
-        title: 'gender',
-        key: 'gender',
-      },
-    ]
-
-    return {
-      columns,
-      tableProps,
-    }
+const columns = [
+  {
+    title: 'name',
+    key: 'name.last',
   },
-})
+  {
+    title: 'email',
+    key: 'email',
+  },
+  {
+    title: 'phone',
+    key: 'phone',
+  },
+  {
+    title: 'gender',
+    key: 'gender',
+  },
+]
 </script>
 
 <template>

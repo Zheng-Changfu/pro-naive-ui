@@ -7,32 +7,27 @@
 表单必填，填写 `required` 为 `true` 后内部会自动处理不同的 `type`，必填信息自定义请查看[在现有国际化基础上调整](config-provider#edit-i18n.vue)<br />
 </markdown>
 
-<script lang="ts">
+<script setup lang="ts">
 import { createProForm } from 'pro-naive-ui'
-import { defineComponent, ref } from 'vue'
+import { ref } from 'vue'
 
-export default defineComponent({
-  setup() {
-    return {
-      readonly: ref(false),
-      form: createProForm<{
-        username?: string
-        password?: string
-      }>({
-        onReset: console.log,
-        onSubmit: console.log,
-        onSubmitFailed: console.log,
-      }),
-      rules: {
-        user: {
-          age: {
-            required: true,
-          },
-        },
-      },
-    }
-  },
+const readonly = ref(false)
+const form = createProForm<{
+  username?: string
+  password?: string
+}>({
+  onReset: console.log,
+  onSubmit: console.log,
+  onSubmitFailed: console.log,
 })
+
+const rules = {
+  user: {
+    age: {
+      required: true,
+    },
+  },
+}
 </script>
 
 <template>

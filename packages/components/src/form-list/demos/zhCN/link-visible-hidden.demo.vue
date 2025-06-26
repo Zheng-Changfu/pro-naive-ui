@@ -4,27 +4,20 @@
 使用 `row` 或 `values` 获取当前行的值控制联动
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import { createProForm } from 'pro-naive-ui'
-import { defineComponent } from 'vue'
 
-export default defineComponent({
-  setup() {
-    const form = createProForm({
-      initialValues: {
-        userInfo: [
-          { name: 'zcf', age: 26 },
-          { name: 'cxh', age: 28 },
-        ],
-      },
-      onSubmit: console.log,
-    })
-    return {
-      form,
-      values: form.values,
-    }
+const form = createProForm({
+  initialValues: {
+    userInfo: [
+      { name: 'zcf', age: 26 },
+      { name: 'cxh', age: 28 },
+    ],
   },
+  onSubmit: console.log,
 })
+
+const { values } = form
 </script>
 
 <template>

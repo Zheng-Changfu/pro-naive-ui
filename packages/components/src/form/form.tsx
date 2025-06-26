@@ -72,7 +72,6 @@ export default defineComponent({
           if (e.key !== 'Enter')
             return
           if (!overridedProps.value.submitOnPressEnter) {
-            e.preventDefault()
             return
           }
           if (!loading.value) {

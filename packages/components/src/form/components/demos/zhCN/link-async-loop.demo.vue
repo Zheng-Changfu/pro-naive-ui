@@ -4,41 +4,30 @@
 有的时候 A 发生变化要改变 B,B 发生变化要改变 A,你可以使用 `onChange` 完成需求
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import { createProForm } from 'pro-naive-ui'
-import { defineComponent } from 'vue'
 
 function delay(time: number) {
   return new Promise(resolve => setTimeout(resolve, time))
 }
 
-export default defineComponent({
-  setup() {
-    const form = createProForm<{
-      A?: number
-      B?: number
-      name?: string
-    }>()
+const form = createProForm<{
+  A?: number
+  B?: number
+  name?: string
+}>()
 
-    async function fetchUpdateBAndName() {
-      await delay(500)
-      form.values.value.B = 1
-      form.values.value.name = 'BBBBBB'
-    }
+async function fetchUpdateBAndName() {
+  await delay(500)
+  form.values.value.B = 1
+  form.values.value.name = 'BBBBBB'
+}
 
-    async function fetchUpdateAAndName() {
-      await delay(500)
-      form.values.value.A = 0
-      form.values.value.name = 'AAAAA'
-    }
-
-    return {
-      form,
-      fetchUpdateBAndName,
-      fetchUpdateAAndName,
-    }
-  },
-})
+async function fetchUpdateAAndName() {
+  await delay(500)
+  form.values.value.A = 0
+  form.values.value.name = 'AAAAA'
+}
 </script>
 
 <template>

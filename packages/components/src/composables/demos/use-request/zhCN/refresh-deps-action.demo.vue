@@ -2,11 +2,27 @@
 # 自定义刷新行为
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import { isNumber } from 'lodash-es'
 import Mock from 'mockjs'
 import { useRequest } from 'pro-naive-ui'
-import { defineComponent, ref } from 'vue'
+import { ref } from 'vue'
+
+const userId = ref()
+
+const { data, loading, run } = useRequest((id: number) => getUsername(id), {
+  refreshDeps: [userId],
+  refreshDepsAction: () => {
+    if (!isNumber(userId.value)) {
+      console.log(
+        `parameter "userId" expected to be a number, but got ${typeof userId.value}.`,
+        userId.value,
+      )
+      return
+    }
+    run(userId.value)
+  },
+})
 
 function getUsername(id: number): Promise<string> {
   console.log('getUsername id:', id)
@@ -16,32 +32,6 @@ function getUsername(id: number): Promise<string> {
     }, 1000)
   })
 }
-
-export default defineComponent({
-  setup() {
-    const userId = ref()
-    const { data, loading, run } = useRequest((id: number) => getUsername(id), {
-      refreshDeps: [userId],
-      refreshDepsAction: () => {
-        if (!isNumber(userId.value)) {
-          console.log(
-            `parameter "userId" expected to be a number, but got ${typeof userId.value}.`,
-            userId.value,
-          )
-          return
-        }
-        run(userId.value)
-      },
-    })
-
-    return {
-      run,
-      data,
-      userId,
-      loading,
-    }
-  },
-})
 </script>
 
 <template>

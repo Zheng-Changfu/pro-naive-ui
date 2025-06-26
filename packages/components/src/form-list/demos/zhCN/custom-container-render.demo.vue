@@ -4,28 +4,17 @@
 你可以对整个容器自定义，使其变得更加灵活，比如你想给列表加个动画
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import { ArrowDownOutlined, ArrowUpOutlined } from '@vicons/antd'
 import { createProForm } from 'pro-naive-ui'
-import { defineComponent } from 'vue'
 
-export default defineComponent({
-  components: {
-    ArrowDownOutlined,
-    ArrowUpOutlined,
-  },
-  setup() {
-    return {
-      form: createProForm({
-        initialValues: {
-          userInfo: [
-            { name: 'zcf', age: 26 },
-            { name: 'zzx', age: 0.5 },
-            { name: 'cxh', age: 28 },
-          ],
-        },
-      }),
-    }
+const form = createProForm({
+  initialValues: {
+    userInfo: [
+      { name: 'zcf', age: 26 },
+      { name: 'zzx', age: 0.5 },
+      { name: 'cxh', age: 28 },
+    ],
   },
 })
 </script>

@@ -4,10 +4,48 @@
 我们封装了 [useNDataTable](use-n-data-table) 帮助你轻松对接 `NDataTable`
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import type { ProDataTableColumns } from 'pro-naive-ui'
 import { renderProCopyableText, renderProImages, useNDataTable } from 'pro-naive-ui'
-import { defineComponent, ref } from 'vue'
+import { ref } from 'vue'
+
+const columns = ref<ProDataTableColumns<{ src: any, title: string, now: number }>>([
+  {
+    title: '远程过滤',
+    filter: true,
+    path: 'filter',
+    width: 300,
+    filterOptions: [
+      {
+        label: 'value1',
+        value: 1,
+      },
+      {
+        label: 'value2',
+        value: 2,
+      },
+    ],
+    render: row => renderProCopyableText(row.title),
+  },
+  {
+    title: '远程排序',
+    width: 300,
+    path: 'title',
+    sorter: true,
+    sortOrder: false,
+  },
+  {
+    title: '图片',
+    render: row => renderProImages(row.src),
+  },
+])
+
+const { table: { tableProps } } = useNDataTable(({
+  current,
+  pageSize,
+  sorter,
+  filters,
+}) => fetchList({ current, pageSize, sorter, filters }))
 
 function fetchList(params: any) {
   console.log(params, '@@@')
@@ -31,53 +69,6 @@ function fetchList(params: any) {
     }, 1500)
   })
 }
-
-export default defineComponent({
-  setup() {
-    const columns = ref<ProDataTableColumns<{ src: any, title: string, now: number }>>([
-      {
-        title: '远程过滤',
-        filter: true,
-        path: 'filter',
-        width: 300,
-        filterOptions: [
-          {
-            label: 'value1',
-            value: 1,
-          },
-          {
-            label: 'value2',
-            value: 2,
-          },
-        ],
-        render: row => renderProCopyableText(row.title),
-      },
-      {
-        title: '远程排序',
-        width: 300,
-        path: 'title',
-        sorter: true,
-        sortOrder: false,
-      },
-      {
-        title: '图片',
-        render: row => renderProImages(row.src),
-      },
-    ])
-
-    const { table: { tableProps } } = useNDataTable(({
-      current,
-      pageSize,
-      sorter,
-      filters,
-    }) => fetchList({ current, pageSize, sorter, filters }))
-
-    return {
-      columns,
-      tableProps,
-    }
-  },
-})
 </script>
 
 <template>

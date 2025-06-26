@@ -4,10 +4,10 @@
 它们都是扩展了 `create-pro-form` ，增加了一些更好用的方法 <br />
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import type { ProSearchFormColumns } from 'pro-naive-ui'
 import { createProDrawerForm, createProForm, createProModalForm, createProSearchForm } from 'pro-naive-ui'
-import { defineComponent, ref } from 'vue'
+import { ref } from 'vue'
 
 type FormType = 'pro-form' | 'pro-search-form' | 'pro-modal-form' | 'pro-drawer-form'
 interface Info {
@@ -26,124 +26,111 @@ function delay(time: number) {
   return new Promise(resolve => setTimeout(resolve, time))
 }
 
-export default defineComponent({
-  setup() {
-    const loading = ref(false)
+const loading = ref(false)
+const type = ref<FormType>('pro-form')
 
-    const columns: ProSearchFormColumns<Info> = [
-      {
-        title: '姓名',
-        path: 'name',
-        tooltip: '最长为 24 位',
-        fieldProps: {
-          maxlength: 24,
-        },
-      },
-      {
-        title: '年龄',
-        path: 'age',
-        field: 'digit',
-      },
-      {
-        title: '状态',
-        path: 'status',
-        field: 'select',
-        fieldProps: {
-          options: [
-            { label: '正常', value: 0 },
-            { label: '异常', value: 1 },
-            { label: '离职', value: 2 },
-          ],
-        },
-      },
-      {
-        title: '日期',
-        path: 'date',
-        field: 'date',
-      },
-      {
-        title: '时间',
-        path: 'time',
-        field: 'time',
-      },
-      {
-        title: '日期时间',
-        path: 'info.dateRange',
-        field: 'date-time',
-      },
-      {
-        title: '项目名称',
-        path: 'projectName',
-        field: 'date-time',
-      },
-    ]
-
-    const form = createProForm({
-      initialValues: {
-        age: 18,
-      },
-      onReset: console.log,
-      onSubmit: async (values) => {
-        loading.value = true
-        console.log(values)
-        await delay(1500)
-        loading.value = false
-      },
-      onSubmitFailed: console.log,
-    })
-
-    const searchForm = createProSearchForm<Partial<Info>>({
-      onReset: console.log,
-      onSubmit: async (values) => {
-        loading.value = true
-        console.log(values)
-        await delay(1500)
-        loading.value = false
-      },
-      defaultCollapsed: true,
-      onSubmitFailed: console.log,
-    })
-
-    const modalForm = createProModalForm({
-      initialValues: {
-        age: 18,
-      },
-      onReset: console.log,
-      onSubmit: async (values) => {
-        loading.value = true
-        console.log(values)
-        await delay(1500)
-        modalForm.close()
-        loading.value = false
-      },
-      onSubmitFailed: console.log,
-    })
-
-    const drawerForm = createProDrawerForm({
-      initialValues: {
-        age: 18,
-      },
-      onReset: console.log,
-      onSubmit: async (values) => {
-        loading.value = true
-        console.log(values)
-        await delay(1500)
-        drawerForm.close()
-        loading.value = false
-      },
-      onSubmitFailed: console.log,
-    })
-
-    return {
-      form,
-      columns,
-      loading,
-      modalForm,
-      searchForm,
-      drawerForm,
-      type: ref<FormType>('pro-form'),
-    }
+const columns: ProSearchFormColumns<Info> = [
+  {
+    title: '姓名',
+    path: 'name',
+    tooltip: '最长为 24 位',
+    fieldProps: {
+      maxlength: 24,
+    },
   },
+  {
+    title: '年龄',
+    path: 'age',
+    field: 'digit',
+  },
+  {
+    title: '状态',
+    path: 'status',
+    field: 'select',
+    fieldProps: {
+      options: [
+        { label: '正常', value: 0 },
+        { label: '异常', value: 1 },
+        { label: '离职', value: 2 },
+      ],
+    },
+  },
+  {
+    title: '日期',
+    path: 'date',
+    field: 'date',
+  },
+  {
+    title: '时间',
+    path: 'time',
+    field: 'time',
+  },
+  {
+    title: '日期时间',
+    path: 'info.dateRange',
+    field: 'date-time',
+  },
+  {
+    title: '项目名称',
+    path: 'projectName',
+    field: 'date-time',
+  },
+]
+
+const form = createProForm({
+  initialValues: {
+    age: 18,
+  },
+  onReset: console.log,
+  onSubmit: async (values) => {
+    loading.value = true
+    console.log(values)
+    await delay(1500)
+    loading.value = false
+  },
+  onSubmitFailed: console.log,
+})
+
+const searchForm = createProSearchForm<Partial<Info>>({
+  onReset: console.log,
+  onSubmit: async (values) => {
+    loading.value = true
+    console.log(values)
+    await delay(1500)
+    loading.value = false
+  },
+  defaultCollapsed: true,
+  onSubmitFailed: console.log,
+})
+
+const modalForm = createProModalForm({
+  initialValues: {
+    age: 18,
+  },
+  onReset: console.log,
+  onSubmit: async (values) => {
+    loading.value = true
+    console.log(values)
+    await delay(1500)
+    modalForm.close()
+    loading.value = false
+  },
+  onSubmitFailed: console.log,
+})
+
+const drawerForm = createProDrawerForm({
+  initialValues: {
+    age: 18,
+  },
+  onReset: console.log,
+  onSubmit: async (values) => {
+    loading.value = true
+    console.log(values)
+    await delay(1500)
+    drawerForm.close()
+    loading.value = false
+  },
+  onSubmitFailed: console.log,
 })
 </script>
 

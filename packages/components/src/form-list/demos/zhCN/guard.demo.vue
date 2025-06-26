@@ -2,35 +2,26 @@
 # 增删守卫
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import { createProForm } from 'pro-naive-ui'
-import { defineComponent } from 'vue'
 
 function delay(time: number) {
   return new Promise(resolve => setTimeout(resolve, time))
 }
 
-export default defineComponent({
-  setup() {
-    async function beforeAddRow(opt: { index: number, insertIndex: number, total: number }) {
-      console.log(opt)
-      await delay(1000)
-      return Math.random() < 0.5
-    }
+const form = createProForm()
 
-    async function beforeRemoveRow(opt: { index: number, total: number }) {
-      console.log(opt)
-      await delay(1000)
-      return Math.random() < 0.5
-    }
+async function beforeAddRow(opt: { index: number, insertIndex: number, total: number }) {
+  console.log(opt)
+  await delay(1000)
+  return Math.random() < 0.5
+}
 
-    return {
-      beforeAddRow,
-      beforeRemoveRow,
-      form: createProForm(),
-    }
-  },
-})
+async function beforeRemoveRow(opt: { index: number, total: number }) {
+  console.log(opt)
+  await delay(1000)
+  return Math.random() < 0.5
+}
 </script>
 
 <template>

@@ -2,10 +2,9 @@
 # 自定义按钮
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import type { ProSearchFormColumns } from 'pro-naive-ui'
 import { createProSearchForm } from 'pro-naive-ui'
-import { defineComponent, ref } from 'vue'
 
 interface Info {
   appName: string
@@ -13,54 +12,41 @@ interface Info {
   createTime: number
 }
 
-export default defineComponent({
-  setup() {
-    const form1 = createProSearchForm({
-      onReset: console.log,
-      onSubmit: console.log,
-    })
-
-    const form2 = createProSearchForm({
-      onReset: console.log,
-      onSubmit: console.log,
-    })
-
-    const form3 = createProSearchForm({
-      onReset: console.log,
-      onSubmit: console.log,
-    })
-
-    const form4 = createProSearchForm({
-      onReset: console.log,
-      onSubmit: console.log,
-    })
-
-    const columns: ProSearchFormColumns<Info> = [
-      {
-        title: '应用名称',
-        path: 'appName',
-      },
-      {
-        title: '创建时间',
-        path: 'createTime',
-        field: 'date',
-      },
-      {
-        title: '应用状态',
-        path: 'appStatus',
-      },
-    ]
-
-    return {
-      form1,
-      form2,
-      form3,
-      form4,
-      columns,
-      layout: ref<'left' | 'top'>('left'),
-    }
-  },
+const form1 = createProSearchForm({
+  onReset: console.log,
+  onSubmit: console.log,
 })
+
+const form2 = createProSearchForm({
+  onReset: console.log,
+  onSubmit: console.log,
+})
+
+const form3 = createProSearchForm({
+  onReset: console.log,
+  onSubmit: console.log,
+})
+
+const form4 = createProSearchForm({
+  onReset: console.log,
+  onSubmit: console.log,
+})
+
+const columns: ProSearchFormColumns<Info> = [
+  {
+    title: '应用名称',
+    path: 'appName',
+  },
+  {
+    title: '创建时间',
+    path: 'createTime',
+    field: 'date',
+  },
+  {
+    title: '应用状态',
+    path: 'appStatus',
+  },
+]
 </script>
 
 <template>

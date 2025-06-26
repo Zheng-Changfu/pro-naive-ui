@@ -2,46 +2,36 @@
 # 编辑表单回显
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import { useMessage } from 'naive-ui'
 import { createProModalForm } from 'pro-naive-ui'
-import { defineComponent, ref } from 'vue'
+import { ref } from 'vue'
 
 function delay(time: number) {
   return new Promise(resolve => setTimeout(resolve, time))
 }
 
-export default defineComponent({
-  setup() {
-    const loading = ref(false)
-    const message = useMessage()
+const loading = ref(false)
+const message = useMessage()
 
-    const modalForm = createProModalForm<{ name?: string, age?: number }>({
-      onSubmit: async (values) => {
-        loading.value = true
-        await delay(1500)
-        message.success('更新成功')
-        console.log(values)
-        modalForm.close()
-        loading.value = false
-      },
-    })
-
-    function edit() {
-      modalForm.values.value = {
-        name: 'zcf',
-        age: 26,
-      }
-      modalForm.open()
-    }
-
-    return {
-      edit,
-      loading,
-      form: modalForm,
-    }
+const modalForm = createProModalForm<{ name?: string, age?: number }>({
+  onSubmit: async (values) => {
+    loading.value = true
+    await delay(1500)
+    message.success('更新成功')
+    console.log(values)
+    modalForm.close()
+    loading.value = false
   },
 })
+
+function edit() {
+  modalForm.values.value = {
+    name: 'zcf',
+    age: 26,
+  }
+  modalForm.open()
+}
 </script>
 
 <template>
@@ -51,7 +41,7 @@ export default defineComponent({
     </n-button>
   </n-flex>
   <pro-modal-form
-    :form="form"
+    :form="modalForm"
     :loading="loading"
     title="新建表单"
     preset="card"

@@ -2,18 +2,11 @@
 # 增删限制
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import { createProForm } from 'pro-naive-ui'
-import { defineComponent } from 'vue'
 
-export default defineComponent({
-  setup() {
-    return {
-      form: createProForm({
-        onSubmit: console.log,
-      }),
-    }
-  },
+const form = createProForm({
+  onSubmit: console.log,
 })
 </script>
 

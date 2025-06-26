@@ -2,29 +2,19 @@
 # 触发展开的区域
 </markdown>
 
-<script lang="tsx">
-import { computed, defineComponent, ref } from 'vue'
+<script setup lang="tsx">
+import { computed, ref } from 'vue'
 
-export default defineComponent({
-  setup() {
-    const main = ref(true)
-    const arrow = ref(true)
+const main = ref(true)
+const arrow = ref(true)
 
-    const triggerAreas = computed(() => {
-      const areas: Array<'main' | 'arrow'> = []
-      if (main.value)
-        areas.push('main')
-      if (arrow.value)
-        areas.push('arrow')
-      return areas
-    })
-
-    return {
-      main,
-      arrow,
-      triggerAreas,
-    }
-  },
+const triggerAreas = computed(() => {
+  const areas: Array<'main' | 'arrow'> = []
+  if (main.value)
+    areas.push('main')
+  if (arrow.value)
+    areas.push('arrow')
+  return areas
 })
 </script>
 

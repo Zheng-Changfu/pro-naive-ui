@@ -3,9 +3,8 @@
 有的时候 A 发生变化要改变 B,B 发生变化要改变 A,你可以使用 `onChange` 完成需求
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import { createProForm } from 'pro-naive-ui'
-import { defineComponent } from 'vue'
 
 function delay(time: number) {
   return new Promise(resolve => setTimeout(resolve, time))
@@ -17,37 +16,27 @@ interface Info {
   name: string
 }
 
-export default defineComponent({
-  setup() {
-    const form = createProForm({
-      initialValues: {
-        info: [
-          { name: 'zcf', age: 26, A: null, B: null },
-          { name: 'zzx', age: 0.5, A: null, B: null },
-        ],
-      },
-    })
-
-    async function fetchUpdateBAndName(row: Info) {
-      await delay(500)
-      row.B = 1
-      row.name = 'BBBBBB'
-    }
-
-    async function fetchUpdateAAndName(index: number) {
-      await delay(500)
-      // @ts-ignore
-      form.values.value.info[index].A = 0
-      form.values.value.info[index].name = 'AAAAA'
-    }
-
-    return {
-      form,
-      fetchUpdateBAndName,
-      fetchUpdateAAndName,
-    }
+const form = createProForm({
+  initialValues: {
+    info: [
+      { name: 'zcf', age: 26, A: null, B: null },
+      { name: 'zzx', age: 0.5, A: null, B: null },
+    ],
   },
 })
+
+async function fetchUpdateBAndName(row: Info) {
+  await delay(500)
+  row.B = 1
+  row.name = 'BBBBBB'
+}
+
+async function fetchUpdateAAndName(index: number) {
+  await delay(500)
+  // @ts-ignore
+  form.values.value.info[index].A = 0
+  form.values.value.info[index].name = 'AAAAA'
+}
 </script>
 
 <template>

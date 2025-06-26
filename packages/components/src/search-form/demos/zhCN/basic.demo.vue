@@ -4,10 +4,10 @@
 `field` 代表要被渲染的组件, 默认为 `'input'`
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import type { ProSearchFormColumns } from 'pro-naive-ui'
 import { createProSearchForm } from 'pro-naive-ui'
-import { defineComponent, ref } from 'vue'
+import { ref } from 'vue'
 
 interface Info {
   appName: string
@@ -17,59 +17,49 @@ interface Info {
   endTime: number
 }
 
+const loading = ref(false)
+const layout = ref<'left' | 'top'>('left')
+
+const form = createProSearchForm<Partial<Info>>({
+  defaultCollapsed: true, // 默认收起
+  onReset: console.log,
+  onSubmit: async (values) => {
+    console.log(values)
+    loading.value = true
+    await delay(1500)
+    loading.value = false
+  },
+})
+
+const columns: ProSearchFormColumns<Info> = [
+  {
+    title: '应用名称',
+    path: 'appName',
+  },
+  {
+    title: '创建时间',
+    path: 'createTime',
+    field: 'date',
+  },
+  {
+    title: '应用状态',
+    path: 'appStatus',
+  },
+  {
+    title: '响应日期',
+    path: 'responseDate',
+    field: 'date-time',
+  },
+  {
+    title: '结束日期',
+    path: 'endTime',
+    field: 'date',
+  },
+]
+
 function delay(time: number) {
   return new Promise(resolve => setTimeout(resolve, time))
 }
-
-export default defineComponent({
-  setup() {
-    const loading = ref(false)
-
-    const form = createProSearchForm<Partial<Info>>({
-      defaultCollapsed: true, // 默认收起
-      onReset: console.log,
-      onSubmit: async (values) => {
-        console.log(values)
-        loading.value = true
-        await delay(1500)
-        loading.value = false
-      },
-    })
-
-    const columns: ProSearchFormColumns<Info> = [
-      {
-        title: '应用名称',
-        path: 'appName',
-      },
-      {
-        title: '创建时间',
-        path: 'createTime',
-        field: 'date',
-      },
-      {
-        title: '应用状态',
-        path: 'appStatus',
-      },
-      {
-        title: '响应日期',
-        path: 'responseDate',
-        field: 'date-time',
-      },
-      {
-        title: '结束日期',
-        path: 'endTime',
-        field: 'date',
-      },
-    ]
-
-    return {
-      form,
-      loading,
-      columns,
-      layout: ref<'left' | 'top'>('left'),
-    }
-  },
-})
 </script>
 
 <template>

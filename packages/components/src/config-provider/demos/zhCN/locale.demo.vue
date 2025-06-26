@@ -4,24 +4,16 @@
 使用 `naive-ui` 的 `createLocale` 方法对语言包进行了扩展
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import type { NDateLocale, NLocale } from 'naive-ui'
 import { dateZhCN } from 'naive-ui'
 import { createProForm, zhCN } from 'pro-naive-ui'
-import { defineComponent, ref } from 'vue'
+import { ref } from 'vue'
 
-export default defineComponent({
-  setup() {
-    return {
-      readonly: ref(false),
-      form: createProForm(),
-      zhCN,
-      dateZhCN,
-      locale: ref<NLocale | null>(null),
-      dateLocale: ref<NDateLocale | null>(null),
-    }
-  },
-})
+const readonly = ref(false)
+const form = createProForm()
+const locale = ref<NLocale | null>(null)
+const dateLocale = ref<NDateLocale | null>(null)
 </script>
 
 <template>

@@ -4,28 +4,19 @@
 您可以正常编写所有的布局代码
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import { createProForm } from 'pro-naive-ui'
-import { defineComponent, ref } from 'vue'
+import { ref } from 'vue'
 
-export default defineComponent({
-  setup() {
-    const cols = ref(2)
+const cols = ref(2)
+const form = createProForm()
 
-    const marks = {
-      1: '1列',
-      2: '2列',
-      3: '3列',
-      4: '4列',
-    }
-
-    return {
-      cols,
-      marks,
-      form: createProForm(),
-    }
-  },
-})
+const marks = {
+  1: '1列',
+  2: '2列',
+  3: '3列',
+  4: '4列',
+}
 </script>
 
 <template>

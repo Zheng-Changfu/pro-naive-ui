@@ -2,17 +2,10 @@
   # 提示和禁用时的提示
 </markdown>
 
-<script lang="tsx">
-import { defineComponent, ref } from 'vue'
+<script setup lang="tsx">
+import { ref } from 'vue'
 
-export default defineComponent({
-  setup() {
-    const disabled = ref(false)
-    return {
-      disabled,
-    }
-  },
-})
+const disabled = ref(false)
 </script>
 
 <template>

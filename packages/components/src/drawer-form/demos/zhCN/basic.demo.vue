@@ -2,47 +2,37 @@
 # 基本用法
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import { random } from 'lodash-es'
 import { useMessage } from 'naive-ui'
 import { createProDrawerForm } from 'pro-naive-ui'
-import { defineComponent, ref } from 'vue'
+import { ref } from 'vue'
+
+const loading = ref(false)
+const message = useMessage()
+
+const drawerForm = createProDrawerForm({
+  onSubmit: async (values) => {
+    loading.value = true
+    await delay(1500)
+    message.success('更新成功')
+    console.log(values)
+    drawerForm.close()
+    loading.value = false
+  },
+})
+
+const { open } = drawerForm
+
+const len = ref(2)
+
+function updateList() {
+  len.value = random(2, 20)
+}
 
 function delay(time: number) {
   return new Promise(resolve => setTimeout(resolve, time))
 }
-
-export default defineComponent({
-  setup() {
-    const loading = ref(false)
-    const message = useMessage()
-
-    const drawerForm = createProDrawerForm({
-      onSubmit: async (values) => {
-        loading.value = true
-        await delay(1500)
-        message.success('更新成功')
-        console.log(values)
-        drawerForm.close()
-        loading.value = false
-      },
-    })
-
-    const len = ref(2)
-
-    function updateList() {
-      len.value = random(2, 20)
-    }
-
-    return {
-      len,
-      loading,
-      updateList,
-      form: drawerForm,
-      open: drawerForm.open,
-    }
-  },
-})
 </script>
 
 <template>
@@ -52,7 +42,7 @@ export default defineComponent({
     </n-button>
   </n-flex>
   <pro-drawer-form
-    :form="form"
+    :form="drawerForm"
     :loading="loading"
     label-width="80"
     label-placement="left"

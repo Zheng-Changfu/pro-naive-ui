@@ -4,36 +4,29 @@
 支持字符串格式和时间戳格式，字符串格式解析请使用 `value-format`
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import { createProForm } from 'pro-naive-ui'
-import { defineComponent, ref } from 'vue'
+import { ref } from 'vue'
 
-export default defineComponent({
-  setup() {
-    const readonly = ref(false)
+const readonly = ref(false)
 
-    return {
-      readonly,
-      form: createProForm({
-        initialValues: {
-          'date': Date.now(),
-          'time': '14:20:21',
-          'week': Date.now(),
-          'month': Date.now(),
-          'quarter': Date.now(),
-          'date-range': [
-            '2024/07/28',
-            '2024/07/29',
-          ],
-          'date-time-range': [
-            Date.now() - 1000 * 60 * 60 * 24,
-            Date.now(),
-          ],
-        },
-        onSubmit: console.log,
-      }),
-    }
+const form = createProForm({
+  initialValues: {
+    'date': Date.now(),
+    'time': '14:20:21',
+    'week': Date.now(),
+    'month': Date.now(),
+    'quarter': Date.now(),
+    'date-range': [
+      '2024/07/28',
+      '2024/07/29',
+    ],
+    'date-time-range': [
+      Date.now() - 1000 * 60 * 60 * 24,
+      Date.now(),
+    ],
   },
+  onSubmit: console.log,
 })
 </script>
 

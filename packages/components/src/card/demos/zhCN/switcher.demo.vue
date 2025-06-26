@@ -4,9 +4,7 @@
 如果你只是想修改文字，你可以通过[语言包](config-provider#edit-i18n.vue)完成功能
 </markdown>
 
-<script lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <pro-card title="卡片">

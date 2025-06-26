@@ -4,20 +4,13 @@
 每个表单项都支持该插槽，你可以用来接入别的组件或自定义内容
 </markdown>
 
-<script lang="ts">
+<script setup lang="ts">
 import { createProForm } from 'pro-naive-ui'
-import { defineComponent, ref } from 'vue'
+import { ref } from 'vue'
 
-export default defineComponent({
-  setup() {
-    const form = createProForm({
-      onSubmit: console.log,
-    })
-    return {
-      form,
-      readonly: ref(false),
-    }
-  },
+const readonly = ref(false)
+const form = createProForm({
+  onSubmit: console.log,
 })
 </script>
 

@@ -4,30 +4,22 @@
 我们开发了一个组件 `pro-form-clearable-provider` 来完成这个功能，请包裹在需要被清空的表单项组件上即可，它是通过 `pro-config-provider` 组件的 [prop-overrides](config-provider#prop-overrides.vue) 实现
 </markdown>
 
-<script lang="ts">
+<script setup lang="ts">
 import { createProForm } from 'pro-naive-ui'
-import { computed, defineComponent, ref } from 'vue'
+import { computed, ref } from 'vue'
 
-export default defineComponent({
-  setup() {
-    const form = createProForm()
-    const readonly = ref(false)
+const form = createProForm()
+const readonly = ref(false)
 
+const autoCompleteOptions = computed(() => {
+  const value = form.values.value['auto-complete']
+  return ['@gmail.com', '@163.com', '@qq.com'].map((suffix) => {
+    const prefix = (value ?? '').split('@')[0]
     return {
-      form,
-      readonly,
-      autoCompleteOptions: computed(() => {
-        const value = form.values.value['auto-complete']
-        return ['@gmail.com', '@163.com', '@qq.com'].map((suffix) => {
-          const prefix = (value ?? '').split('@')[0]
-          return {
-            label: prefix + suffix,
-            value: prefix + suffix,
-          }
-        })
-      }),
+      label: prefix + suffix,
+      value: prefix + suffix,
     }
-  },
+  })
 })
 </script>
 

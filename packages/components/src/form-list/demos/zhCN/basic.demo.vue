@@ -2,20 +2,13 @@
 # 基本使用
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import { createProForm } from 'pro-naive-ui'
-import { defineComponent, ref } from 'vue'
+import { ref } from 'vue'
 
-export default defineComponent({
-  setup() {
-    const position = ref<'top' | 'bottom'>('bottom')
-    return {
-      position,
-      readonly: ref(false),
-      form: createProForm(),
-    }
-  },
-})
+const readonly = ref(false)
+const form = createProForm()
+const position = ref<'top' | 'bottom'>('bottom')
 </script>
 
 <template>

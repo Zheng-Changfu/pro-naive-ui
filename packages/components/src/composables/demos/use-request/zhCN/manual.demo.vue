@@ -4,10 +4,23 @@
 如果设置了 `options.manual = true`，则 useRequest 不会默认执行，需要通过 `run` 来触发执行。
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import { useMessage } from 'naive-ui'
 import { useRequest } from 'pro-naive-ui'
-import { defineComponent, ref } from 'vue'
+import { ref } from 'vue'
+
+const username = ref('')
+const message = useMessage()
+
+const { loading, run } = useRequest(changeUsername, {
+  manual: true,
+  onSuccess(result, params) {
+    if (result.success) {
+      username.value = ''
+      message.success(`The username was changed to "${params[0]}" !`)
+    }
+  },
+})
 
 function changeUsername(username: string): Promise<{ success: boolean }> {
   console.log(username)
@@ -17,29 +30,6 @@ function changeUsername(username: string): Promise<{ success: boolean }> {
     }, 1000)
   })
 }
-
-export default defineComponent({
-  setup() {
-    const username = ref('')
-    const message = useMessage()
-
-    const { loading, run } = useRequest(changeUsername, {
-      manual: true,
-      onSuccess(result, params) {
-        if (result.success) {
-          username.value = ''
-          message.success(`The username was changed to "${params[0]}" !`)
-        }
-      },
-    })
-
-    return {
-      run,
-      loading,
-      username,
-    }
-  },
-})
 </script>
 
 <template>

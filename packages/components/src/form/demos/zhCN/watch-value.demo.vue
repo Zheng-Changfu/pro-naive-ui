@@ -8,30 +8,22 @@
 </n-alert>
 </markdown>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useMessage } from 'naive-ui'
 import { createProForm } from 'pro-naive-ui'
-import { defineComponent } from 'vue'
 
-export default defineComponent({
-  setup() {
-    const message = useMessage()
+const message = useMessage()
 
-    function messageValue(value: any) {
-      message.info(`监听到值改变：${value}`)
-    }
+function messageValue(value: any) {
+  message.info(`监听到值改变：${value}`)
+}
 
-    return {
-      messageValue,
-      form: createProForm({
-        onReset: console.log,
-        onSubmit: console.log,
-        onSubmitFailed: console.log,
-        onValueChange: ({ path, value }) => {
-          messageValue(`${path} -> ${value}`)
-        },
-      }),
-    }
+const form = createProForm({
+  onReset: console.log,
+  onSubmit: console.log,
+  onSubmitFailed: console.log,
+  onValueChange: ({ path, value }) => {
+    messageValue(`${path} -> ${value}`)
   },
 })
 </script>

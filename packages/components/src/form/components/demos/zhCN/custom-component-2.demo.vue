@@ -1,17 +1,40 @@
 <markdown>
 # 开发自定义组件
 
-我们暴露的组件可能并不能满足您业务需求，你希望可以开发自定义组件以支持在各种表单类型中使用，这里我们封装一个 `pro-json-code(json 代码块)`组件为例，
-它也会支持以 `value-type` 的形式在 `pro-search-form` 组件中使用
+你希望将自定义组件支持在各种表单类型中使用，下面代码介绍了如何封装 `pro-json-code` 组件。
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import type { InputProps } from 'naive-ui'
-import type { ProFieldSharedSlots } from 'pro-naive-ui'
+import type { BaseFieldProps, ProFieldSharedSlots } from 'pro-naive-ui'
 import type { PropType, SlotsType, VNodeChild } from 'vue'
 import { inputProps, NInput } from 'naive-ui'
 import { createProForm, ProField, proFieldSharedProps, useFieldUtils, useOverrideProps } from 'pro-naive-ui'
 import { defineComponent, ref } from 'vue'
+
+const readonly = ref(true)
+
+const form = createProForm({
+  onSubmit: console.log,
+  initialValues: {
+    code: `{
+  "compilerOptions": {
+    "target": "esnext",
+    "moduleResolution": "node",
+    "jsx": "preserve",
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+
+    "declaration": true,
+    "skipLibCheck": true
+  },
+}
+`,
+  },
+})
 
 const JsonCode = defineComponent({
   name: 'JsonCode',
@@ -62,15 +85,17 @@ const JsonCode = defineComponent({
   },
 })
 
-const name = 'ProJsonCode'
-const XProJsonCode = defineComponent({
-  name,
+const ProJsonCode = defineComponent({
+  name: 'ProJsonCode',
   props: {
     /**
-     * 你应该继承公共的属性
+     * 应该继承公共的属性
      */
     ...proFieldSharedProps,
-    fieldProps: Object as PropType<InputProps>,
+    /**
+     * InputProps 就是你这个组件的 props，外界使用时通过 fieldProps 传递
+     */
+    fieldProps: Object as PropType<BaseFieldProps<InputProps>>,
   },
   /**
    * 这里你应该继承公共的插槽
@@ -81,7 +106,7 @@ const XProJsonCode = defineComponent({
      * 允许该组件的 props 可以被 pro-config-provider 重写
      */
     const overridedProps = useOverrideProps(
-      name,
+      'ProJsonCode',
       props,
     )
     return {
@@ -92,50 +117,13 @@ const XProJsonCode = defineComponent({
     return (
       <ProField {...this.overridedProps}>
         {{
-          ...this.$slots,
-          /**
-           * @param pureProps 外界在 fieldProps 中写的属性 + (value + onUpdate:value)
-           */
-          input: (pureProps: InputProps) => {
-            return <JsonCode {...pureProps} v-slots={this.$slots}></JsonCode>
+          ...this.$slots, // 透传公共的插槽
+          input: (options: { inputProps: InputProps, readonly: boolean }) => {
+            return <JsonCode {...options.inputProps} v-slots={this.$slots}></JsonCode>
           },
         }}
       </ProField>
     )
-  },
-})
-
-export default defineComponent({
-  components: {
-    XProJsonCode,
-  },
-  setup() {
-    const form = createProForm({
-      onSubmit: console.log,
-      initialValues: {
-        code: `{
-  "compilerOptions": {
-    "target": "esnext",
-    "moduleResolution": "node",
-    "jsx": "preserve",
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitReturns": true,
-
-    "declaration": true,
-    "skipLibCheck": true
-  },
-  "include": ["**/src", "**/docs", "scripts", "**/demo", ".eslintrc.js"]
-}
-`,
-      },
-    })
-    return {
-      form,
-      readonly: ref(true),
-    }
   },
 })
 </script>
@@ -150,7 +138,7 @@ export default defineComponent({
     </template>
   </n-switch>
   <pro-form :readonly="readonly" :form="form" label-placement="left" label-width="auto">
-    <XProJsonCode
+    <ProJsonCode
       title="json 代码块"
       tooltip="代码块"
       path="code"

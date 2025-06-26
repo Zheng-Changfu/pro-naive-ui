@@ -4,10 +4,9 @@
 表单提交之前，我们会调用 `form.validate` 来校验表单数据，如果验证不通过，则不会发起请求。
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import type { ProSearchFormColumns } from 'pro-naive-ui'
 import { createProSearchForm, useNDataTable } from 'pro-naive-ui'
-import { defineComponent } from 'vue'
 
 interface Item {
   name: {
@@ -40,73 +39,61 @@ function getTableData({ current, pageSize }: any, formData: object): Promise<Res
     }))
 }
 
-export default defineComponent({
-  setup() {
-    const columns = [
-      {
-        title: 'name',
-        key: 'name.last',
-      },
-      {
-        title: 'email',
-        key: 'email',
-      },
-      {
-        title: 'phone',
-        key: 'phone',
-      },
-      {
-        title: 'gender',
-        key: 'gender',
-      },
-    ]
-
-    const searchColumns: ProSearchFormColumns<{
-      name: string
-      email: string
-      phone: string
-    }> = [
-      {
-        title: 'name',
-        path: 'name',
-        required: true,
-      },
-      {
-        title: 'email',
-        path: 'email',
-      },
-      {
-        title: 'phone',
-        path: 'phone',
-      },
-    ]
-
-    const searchForm = createProSearchForm({
-      initialValues: {
-        name: 'hello',
-        email: 'abc@gmail.com',
-      },
-    })
-
-    const {
-      table: {
-        tableProps,
-      },
-      search: {
-        proSearchFormProps,
-      },
-    } = useNDataTable(getTableData, {
-      form: searchForm,
-    })
-
-    return {
-      columns,
-      tableProps,
-      searchColumns,
-      form: searchForm,
-      proSearchFormProps,
-    }
+const columns = [
+  {
+    title: 'name',
+    key: 'name.last',
   },
+  {
+    title: 'email',
+    key: 'email',
+  },
+  {
+    title: 'phone',
+    key: 'phone',
+  },
+  {
+    title: 'gender',
+    key: 'gender',
+  },
+]
+
+const searchColumns: ProSearchFormColumns<{
+  name: string
+  email: string
+  phone: string
+}> = [
+  {
+    title: 'name',
+    path: 'name',
+    required: true,
+  },
+  {
+    title: 'email',
+    path: 'email',
+  },
+  {
+    title: 'phone',
+    path: 'phone',
+  },
+]
+
+const searchForm = createProSearchForm({
+  initialValues: {
+    name: 'hello',
+    email: 'abc@gmail.com',
+  },
+})
+
+const {
+  table: {
+    tableProps,
+  },
+  search: {
+    proSearchFormProps,
+  },
+} = useNDataTable(getTableData, {
+  form: searchForm,
 })
 </script>
 
@@ -114,7 +101,7 @@ export default defineComponent({
   <div class="flex flex-col" :style="{ height: '800px' }">
     <pro-card title="筛选条件" class="mb-24px">
       <pro-search-form
-        :form="form"
+        :form="searchForm"
         label-width="60"
         :columns="searchColumns"
         v-bind="proSearchFormProps"

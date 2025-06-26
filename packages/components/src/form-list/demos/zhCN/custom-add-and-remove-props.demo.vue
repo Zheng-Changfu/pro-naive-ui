@@ -4,46 +4,36 @@
 如果传入的属性为 `false`，则不显示对应按钮
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import { CloseCircleOutlined, PlusCircleTwotone, SmileOutlined } from '@vicons/antd'
 import { NIcon } from 'naive-ui'
 import { createProForm } from 'pro-naive-ui'
-import { defineComponent } from 'vue'
 
-export default defineComponent({
-  setup() {
-    function renderCreatorIcon() {
-      return (
-        <NIcon>
-          <PlusCircleTwotone />
-        </NIcon>
-      )
-    }
+const form = createProForm()
 
-    function renderCopyIcon() {
-      return (
-        <NIcon>
-          <SmileOutlined />
-        </NIcon>
-      )
-    }
+function renderCreatorIcon() {
+  return (
+    <NIcon>
+      <PlusCircleTwotone />
+    </NIcon>
+  )
+}
 
-    function renderRemoveIcon() {
-      return (
-        <NIcon>
-          <CloseCircleOutlined />
-        </NIcon>
-      )
-    }
+function renderCopyIcon() {
+  return (
+    <NIcon>
+      <SmileOutlined />
+    </NIcon>
+  )
+}
 
-    return {
-      renderCopyIcon,
-      renderRemoveIcon,
-      renderCreatorIcon,
-      form: createProForm(),
-    }
-  },
-})
+function renderRemoveIcon() {
+  return (
+    <NIcon>
+      <CloseCircleOutlined />
+    </NIcon>
+  )
+}
 </script>
 
 <template>

@@ -29,10 +29,41 @@ const { loading, run, runAsync } = useRequest(service, {
 接下来我们通过修改用户名这个简单的场景，来演示 useRequest 手动触发模式，以及 `run` 与 `runAsync` 的区别。
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import { useMessage } from 'naive-ui'
 import { useRequest } from 'pro-naive-ui'
-import { defineComponent, ref } from 'vue'
+import { ref } from 'vue'
+
+const username = ref('')
+const username2 = ref('')
+const message = useMessage()
+
+const { loading, run } = useRequest(editUsername, {
+  manual: true,
+  onSuccess: (result, params) => {
+    username.value = ''
+    message.success(`The username was changed to "${params[0]}" !`)
+  },
+  onError: (error) => {
+    message.error(error.message)
+  },
+})
+
+const { loading: loading2, runAsync } = useRequest(editUsername, {
+  manual: true,
+})
+
+async function editUsernameByRunAsync() {
+  try {
+    const name = username2.value
+    await runAsync(name)
+    username2.value = ''
+    message.success(`The username was changed to "${name}" !`)
+  }
+  catch (error: any) {
+    message.error(error.message)
+  }
+}
 
 function editUsername(username: string): Promise<void> {
   console.log(username)
@@ -47,50 +78,6 @@ function editUsername(username: string): Promise<void> {
     }, 1000)
   })
 }
-
-export default defineComponent({
-  setup() {
-    const username = ref('')
-    const username2 = ref('')
-    const message = useMessage()
-
-    const { loading, run } = useRequest(editUsername, {
-      manual: true,
-      onSuccess: (result, params) => {
-        username.value = ''
-        message.success(`The username was changed to "${params[0]}" !`)
-      },
-      onError: (error) => {
-        message.error(error.message)
-      },
-    })
-
-    const { loading: loading2, runAsync } = useRequest(editUsername, {
-      manual: true,
-    })
-
-    async function editUsernameByRunAsync() {
-      try {
-        const name = username2.value
-        await runAsync(name)
-        username2.value = ''
-        message.success(`The username was changed to "${name}" !`)
-      }
-      catch (error: any) {
-        message.error(error.message)
-      }
-    }
-
-    return {
-      run,
-      loading,
-      username,
-      loading2,
-      username2,
-      editUsernameByRunAsync,
-    }
-  },
-})
 </script>
 
 <template>

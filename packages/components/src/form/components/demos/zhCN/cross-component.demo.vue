@@ -4,7 +4,7 @@
 有的时候你的表单项可能被分散在各个组件，你可以使用 `useInjectProForm` 直接注入表单控制器
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import { createProForm, useInjectProForm } from 'pro-naive-ui'
 import { defineComponent } from 'vue'
 
@@ -39,19 +39,7 @@ const Comp2 = defineComponent({
   },
 })
 
-export default defineComponent({
-  components: {
-    Comp1,
-    Comp2,
-  },
-  setup() {
-    const form = createProForm()
-
-    return {
-      form,
-    }
-  },
-})
+const form = createProForm()
 </script>
 
 <template>

@@ -4,10 +4,81 @@
 这也是一个表格高度自适应的案例
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import type { ProDataTableColumns, ProSearchFormColumns } from 'pro-naive-ui'
 import { createProSearchForm, renderProCopyableText, renderProDateText, renderProImages, renderProTags, useNDataTable } from 'pro-naive-ui'
-import { defineComponent, ref } from 'vue'
+import { ref } from 'vue'
+
+const columns = ref<ProDataTableColumns<{ src: any, title: string, now: number }>>([
+  {
+    title: '可复制文本',
+    render: row => renderProCopyableText(row.title),
+  },
+  {
+    title: 'tags',
+    render: row => renderProTags(row.title),
+  },
+  {
+    title: '日期格式化',
+    render: row => renderProDateText(row.now, {
+      pattern: 'quarter',
+    }),
+  },
+  {
+    title: '图片',
+    width: 200,
+    render: row => renderProImages(row.src),
+  },
+])
+
+const searchColumns: ProSearchFormColumns<{
+  name: string
+  endTime: number
+  createTime: number
+  responseTime: number
+}> = [
+  {
+    title: '名称',
+    path: 'name',
+  },
+  {
+    title: '创建时间',
+    path: 'createTime',
+    field: 'date',
+  },
+  {
+    title: '响应时间',
+    path: 'responseTime',
+    field: 'date',
+  },
+  {
+    title: '响应时间',
+    path: 'responseTime',
+    field: 'date',
+  },
+]
+
+const searchForm = createProSearchForm({
+  initialValues: {
+    responseTime: Date.now(),
+  },
+})
+
+const {
+  table: {
+    tableProps,
+  },
+  search: {
+    proSearchFormProps,
+  },
+} = useNDataTable(({
+  current,
+  pageSize,
+  filters,
+  sorter,
+}, values) => fetchList({ current, pageSize, filters, sorter }, values), {
+  form: searchForm,
+})
 
 function fetchList(params: any, values: any) {
   console.log(params, values, '@@@')
@@ -31,89 +102,6 @@ function fetchList(params: any, values: any) {
     }, 1500)
   })
 }
-
-export default defineComponent({
-  setup() {
-    const columns = ref<ProDataTableColumns<{ src: any, title: string, now: number }>>([
-      {
-        title: '可复制文本',
-        render: row => renderProCopyableText(row.title),
-      },
-      {
-        title: 'tags',
-        render: row => renderProTags(row.title),
-      },
-      {
-        title: '日期格式化',
-        render: row => renderProDateText(row.now, {
-          pattern: 'quarter',
-        }),
-      },
-      {
-        title: '图片',
-        width: 200,
-        render: row => renderProImages(row.src),
-      },
-    ])
-
-    const searchColumns: ProSearchFormColumns<{
-      name: string
-      endTime: number
-      createTime: number
-      responseTime: number
-    }> = [
-      {
-        title: '名称',
-        path: 'name',
-      },
-      {
-        title: '创建时间',
-        path: 'createTime',
-        field: 'date',
-      },
-      {
-        title: '响应时间',
-        path: 'responseTime',
-        field: 'date',
-      },
-      {
-        title: '响应时间',
-        path: 'responseTime',
-        field: 'date',
-      },
-    ]
-
-    const searchForm = createProSearchForm({
-      initialValues: {
-        responseTime: Date.now(),
-      },
-    })
-
-    const {
-      table: {
-        tableProps,
-      },
-      search: {
-        proSearchFormProps,
-      },
-    } = useNDataTable(({
-      current,
-      pageSize,
-      filters,
-      sorter,
-    }, values) => fetchList({ current, pageSize, filters, sorter }, values), {
-      form: searchForm,
-    })
-
-    return {
-      columns,
-      tableProps,
-      searchColumns,
-      form: searchForm,
-      proSearchFormProps,
-    }
-  },
-})
 </script>
 
 <template>
@@ -121,7 +109,7 @@ export default defineComponent({
   <div class="flex flex-col" :style="{ height: '800px' }">
     <pro-card title="筛选条件" class="mb-24px">
       <pro-search-form
-        :form="form"
+        :form="searchForm"
         label-placement="top"
         :columns="searchColumns"
         v-bind="proSearchFormProps"

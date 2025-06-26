@@ -3,10 +3,10 @@
 你可以使用 [useRequest](use-request) 异步获取数据
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import type { ProEditDataTableColumns } from 'pro-naive-ui'
 import { createProForm, useRequest } from 'pro-naive-ui'
-import { defineComponent, ref } from 'vue'
+import { ref } from 'vue'
 
 interface DataSourceType {
   id: string
@@ -22,12 +22,6 @@ interface Info {
     name: string
   }>
   list: DataSourceType[]
-}
-
-function delay(time: number) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, time)
-  })
 }
 
 async function reqUserInfo() {
@@ -60,97 +54,90 @@ async function reqUserInfo() {
   }
   return result
 }
+const editableKeys = ref<string[]>([])
+const form = createProForm<Partial<Info>>({
+  onSubmit: console.log,
+})
 
-export default defineComponent({
-  setup() {
-    const editableKeys = ref<string[]>([])
-    const form = createProForm<Partial<Info>>({
-      onSubmit: console.log,
-    })
-
-    const { loading, run } = useRequest(reqUserInfo, {
-      manual: true,
-      onSuccess(res) {
-        form.restoreValidation() // 根据实际需求判断是否需要添加此代码，这里添加此行代码是有可能先点击提交触发校验，在点击获取数据需要清空校验
-        form.values.value = res
-        form.setInitialValues(res) // 将请求回来的值作为初始值，重置会回到初始值
-      },
-    })
-
-    function cancelEditable(id: string) {
-      editableKeys.value = editableKeys.value.filter(key => key !== id)
-    }
-
-    const columns: ProEditDataTableColumns<DataSourceType> = [
-      {
-        title: 'Title',
-        path: 'title',
-        field: 'input',
-        width: 200,
-      },
-      {
-        title: '时间',
-        path: 'now',
-        field: 'date-time',
-        width: 200,
-      },
-      {
-        title: '评分',
-        path: 'rate',
-        field: 'rate',
-      },
-      {
-        title: '操作',
-        width: 120,
-        fixed: 'right',
-        render: (row, rowIndex, action) => {
-          const { remove, editable } = action
-          return (
-            <n-flex>
-              {editable
-                ? (
-                    <n-button
-                      text={true}
-                      type="primary"
-                      onClick={() => cancelEditable(row.id)}
-                    >
-                      保存
-                    </n-button>
-                  )
-                : [
-                    <n-button
-                      text={true}
-                      type="primary"
-                      onClick={() => editableKeys.value.push(row.id)}
-                    >
-                      编辑
-                    </n-button>,
-                    <n-button
-                      text={true}
-                      type="error"
-                      onClick={() => {
-                        remove(rowIndex)
-                        cancelEditable(row.id)
-                      }}
-                    >
-                      删除
-                    </n-button>,
-                  ]}
-            </n-flex>
-          )
-        },
-      },
-    ]
-
-    return {
-      form,
-      loading,
-      run,
-      columns,
-      editableKeys,
-    }
+const { loading, run } = useRequest(reqUserInfo, {
+  manual: true,
+  onSuccess(res) {
+    form.restoreValidation() // 根据实际需求判断是否需要添加此代码，这里添加此行代码是有可能先点击提交触发校验，在点击获取数据需要清空校验
+    form.values.value = res
+    form.setInitialValues(res) // 将请求回来的值作为初始值，重置会回到初始值
   },
 })
+
+const columns: ProEditDataTableColumns<DataSourceType> = [
+  {
+    title: 'Title',
+    path: 'title',
+    field: 'input',
+    width: 200,
+  },
+  {
+    title: '时间',
+    path: 'now',
+    field: 'date-time',
+    width: 200,
+  },
+  {
+    title: '评分',
+    path: 'rate',
+    field: 'rate',
+  },
+  {
+    title: '操作',
+    width: 120,
+    fixed: 'right',
+    render: (row, rowIndex, action) => {
+      const { remove, editable } = action
+      return (
+        <n-flex>
+          {editable
+            ? (
+                <n-button
+                  text={true}
+                  type="primary"
+                  onClick={() => cancelEditable(row.id)}
+                >
+                  保存
+                </n-button>
+              )
+            : [
+                <n-button
+                  text={true}
+                  type="primary"
+                  onClick={() => editableKeys.value.push(row.id)}
+                >
+                  编辑
+                </n-button>,
+                <n-button
+                  text={true}
+                  type="error"
+                  onClick={() => {
+                    remove(rowIndex)
+                    cancelEditable(row.id)
+                  }}
+                >
+                  删除
+                </n-button>,
+              ]}
+        </n-flex>
+      )
+    },
+  },
+]
+
+function delay(time: number) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, time)
+  })
+}
+
+function cancelEditable(id: string) {
+  editableKeys.value = editableKeys.value.filter(key => key !== id)
+}
 </script>
 
 <template>

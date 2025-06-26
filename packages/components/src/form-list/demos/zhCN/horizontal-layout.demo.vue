@@ -2,27 +2,20 @@
 # 横向布局
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import { createProForm } from 'pro-naive-ui'
-import { defineComponent } from 'vue'
 
-export default defineComponent({
-  setup() {
-    return {
-      form: createProForm({
-        initialValues: {
-          attributes: [
-            {
-              name: '颜色',
-              items: [
-                { name: '红' },
-                { name: '橙' },
-              ],
-            },
-          ],
-        },
-      }),
-    }
+const form = createProForm({
+  initialValues: {
+    attributes: [
+      {
+        name: '颜色',
+        items: [
+          { name: '红' },
+          { name: '橙' },
+        ],
+      },
+    ],
   },
 })
 </script>

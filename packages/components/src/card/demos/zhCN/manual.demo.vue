@@ -2,17 +2,10 @@
 # 手动控制展开/收起
 </markdown>
 
-<script lang="tsx">
-import { defineComponent, ref } from 'vue'
+<script setup lang="tsx">
+import { ref } from 'vue'
 
-export default defineComponent({
-  setup() {
-    const show = ref(false)
-    return {
-      show,
-    }
-  },
-})
+const show = ref(false)
 </script>
 
 <template>

@@ -4,9 +4,8 @@
 你可以使用 [useRequest](use-request) 异步获取数据
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import { createProForm, useRequest } from 'pro-naive-ui'
-import { defineComponent } from 'vue'
 
 interface Info {
   name: string
@@ -33,26 +32,16 @@ async function reqUserInfo() {
   return result
 }
 
-export default defineComponent({
-  setup() {
-    const form = createProForm<Partial<Info>>({
-      onSubmit: console.log,
-    })
+const form = createProForm<Partial<Info>>({
+  onSubmit: console.log,
+})
 
-    const { loading, run } = useRequest(reqUserInfo, {
-      manual: true,
-      onSuccess(res) {
-        form.restoreValidation() // 根据实际需求判断是否需要添加此代码，这里添加此行代码是有可能先点击提交触发校验，在点击获取数据需要清空校验
-        form.values.value = res
-        form.setInitialValues(res) // 将请求回来的值作为初始值，重置会回到初始值
-      },
-    })
-
-    return {
-      form,
-      loading,
-      run,
-    }
+const { loading, run } = useRequest(reqUserInfo, {
+  manual: true,
+  onSuccess(res) {
+    form.restoreValidation() // 根据实际需求判断是否需要添加此代码，这里添加此行代码是有可能先点击提交触发校验，在点击获取数据需要清空校验
+    form.values.value = res
+    form.setInitialValues(res) // 将请求回来的值作为初始值，重置会回到初始值
   },
 })
 </script>

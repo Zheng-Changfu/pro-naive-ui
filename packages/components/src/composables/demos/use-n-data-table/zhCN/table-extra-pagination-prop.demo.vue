@@ -4,10 +4,10 @@
 有的时候可能表格还需要增加额外的分页属性，这时候你可以扩展 `tableProps`，如果你觉得很麻烦，参考[组件 Props 覆盖](config-provider#prop-overrides.vue)
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import type { DataTableProps } from 'naive-ui'
 import { useNDataTable } from 'pro-naive-ui'
-import { computed, defineComponent } from 'vue'
+import { computed } from 'vue'
 
 interface Item {
   name: {
@@ -35,48 +35,39 @@ function getTableData({ current, pageSize }: any): Promise<Result> {
     }))
 }
 
-export default defineComponent({
-  setup() {
-    const { table: { tableProps } } = useNDataTable(getTableData)
+const { table: { tableProps } } = useNDataTable(getTableData)
 
-    const columns = [
-      {
-        title: 'name',
-        key: 'name.last',
-      },
-      {
-        title: 'email',
-        key: 'email',
-      },
-      {
-        title: 'phone',
-        key: 'phone',
-      },
-      {
-        title: 'gender',
-        key: 'gender',
-      },
-    ]
-
-    const finalTableProps = computed<DataTableProps>(() => {
-      const { pagination, ...rest } = tableProps.value
-      return {
-        ...rest,
-        pagination: {
-          ...pagination,
-          showSizePicker: true,
-          showQuickJumper: true,
-          pageSizes: [10, 20, 30, 40],
-          prefix: ({ itemCount }) => `Total is ${itemCount}.`,
-        },
-      }
-    })
-
-    return {
-      columns,
-      finalTableProps,
-    }
+const columns = [
+  {
+    title: 'name',
+    key: 'name.last',
   },
+  {
+    title: 'email',
+    key: 'email',
+  },
+  {
+    title: 'phone',
+    key: 'phone',
+  },
+  {
+    title: 'gender',
+    key: 'gender',
+  },
+]
+
+const finalTableProps = computed<DataTableProps>(() => {
+  const { pagination, ...rest } = tableProps.value
+  return {
+    ...rest,
+    pagination: {
+      ...pagination,
+      showSizePicker: true,
+      showQuickJumper: true,
+      pageSizes: [10, 20, 30, 40],
+      prefix: ({ itemCount }) => `Total is ${itemCount}.`,
+    },
+  }
 })
 </script>
 

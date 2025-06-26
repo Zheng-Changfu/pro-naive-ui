@@ -12,10 +12,14 @@
 当然 `refresh` 和 `refreshAsync` 的区别和 `run` 和 `runAsync` 是一致的。
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import Mock from 'mockjs'
 import { useRequest } from 'pro-naive-ui'
-import { defineComponent, onMounted } from 'vue'
+import { onMounted } from 'vue'
+
+const { data, loading, run, refresh } = useRequest((id: number) => getUsername(id), {
+  manual: true,
+})
 
 function getUsername(id: number): Promise<string> {
   console.log('use-request-refresh-id', id)
@@ -26,23 +30,8 @@ function getUsername(id: number): Promise<string> {
   })
 }
 
-export default defineComponent({
-  setup() {
-    const { data, loading, run, refresh } = useRequest((id: number) => getUsername(id), {
-      manual: true,
-    })
-
-    onMounted(() => {
-      run(1)
-    })
-
-    return {
-      data,
-      loading,
-      run,
-      refresh,
-    }
-  },
+onMounted(() => {
+  run(1)
 })
 </script>
 

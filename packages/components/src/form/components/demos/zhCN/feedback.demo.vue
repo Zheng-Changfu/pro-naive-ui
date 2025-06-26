@@ -4,19 +4,11 @@
 我们对 `feedback` 插槽扩展了参数，现在你可以用它实现`自定义校验 ui`或插入一些额外的东西
 </markdown>
 
-<script lang="ts">
+<script setup lang="ts">
 import { createProForm } from 'pro-naive-ui'
-import { defineComponent } from 'vue'
 
-export default defineComponent({
-  setup() {
-    const form = createProForm({
-      onSubmit: console.log,
-    })
-    return {
-      form,
-    }
-  },
+const form = createProForm({
+  onSubmit: console.log,
 })
 </script>
 

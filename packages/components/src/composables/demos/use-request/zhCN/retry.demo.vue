@@ -4,10 +4,21 @@
 通过设置 `options.retryCount`，指定错误重试次数，则 useRequest 在失败后会进行重试。你可以在下面 input 框中输入文本，并点击 Edit 按钮，体验效果
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import { useMessage } from 'naive-ui'
 import { useRequest } from 'pro-naive-ui'
-import { defineComponent, ref } from 'vue'
+import { ref } from 'vue'
+
+const username = ref('')
+const message = useMessage()
+
+const { loading, run } = useRequest(editUsername, {
+  manual: true,
+  retryCount: 3,
+  onError: (error) => {
+    message.error(error.message)
+  },
+})
 
 function editUsername(username: string) {
   console.log(username)
@@ -17,27 +28,6 @@ function editUsername(username: string) {
     }, 1000)
   })
 }
-
-export default defineComponent({
-  setup() {
-    const username = ref('')
-    const message = useMessage()
-
-    const { loading, run } = useRequest(editUsername, {
-      manual: true,
-      retryCount: 3,
-      onError: (error) => {
-        message.error(error.message)
-      },
-    })
-
-    return {
-      run,
-      loading,
-      username,
-    }
-  },
-})
 </script>
 
 <template>

@@ -4,10 +4,16 @@
 通过设置 `options.refreshDeps`，在依赖变化时， `useRequest` 会自动调用 `refresh` 方法，实现`刷新（重复上一次请求）`的效果。
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import Mock from 'mockjs'
 import { useRequest } from 'pro-naive-ui'
-import { defineComponent, ref } from 'vue'
+import { ref } from 'vue'
+
+const userId = ref()
+
+const { data, loading, run } = useRequest((id: number) => getUsername(id), {
+  refreshDeps: [userId],
+})
 
 function getUsername(id: number): Promise<string> {
   console.log('getUsername id:', id)
@@ -17,23 +23,6 @@ function getUsername(id: number): Promise<string> {
     }, 1000)
   })
 }
-
-export default defineComponent({
-  setup() {
-    const userId = ref()
-
-    const { data, loading, run } = useRequest((id: number) => getUsername(id), {
-      refreshDeps: [userId],
-    })
-
-    return {
-      run,
-      data,
-      userId,
-      loading,
-    }
-  },
-})
 </script>
 
 <template>

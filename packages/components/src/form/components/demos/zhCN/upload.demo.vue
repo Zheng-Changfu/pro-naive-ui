@@ -9,77 +9,68 @@
 - onUnAcceptType:上传不支持的类型文件时触发的回调
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import type { UploadFileInfo } from 'naive-ui'
 import { ArchiveOutline as ArchiveIcon } from '@vicons/ionicons5'
 import { useMessage } from 'naive-ui'
 import { createProForm, uid } from 'pro-naive-ui'
-import { defineComponent } from 'vue'
 
-export default defineComponent({
-  components: { ArchiveIcon },
-  setup() {
-    const message = useMessage()
+const message = useMessage()
 
-    function onUnAcceptType(data: {
-      file: UploadFileInfo
-      fileList: UploadFileInfo[]
-    }) {
-      console.log(data)
-      message.warning('只支持上传图片')
-    }
-
-    return {
-      onUnAcceptType,
-      form: createProForm({
-        initialValues: {
-          'upload': [
-            {
-              id: uid(),
-              name: 'naive',
-              url: 'https://www.naiveui.com/assets/naivelogo-BdDVTUmz.svg',
-              status: 'finished',
-            },
-          ],
-          'upload-image': [
-            {
-              id: uid(),
-              name: 'naive-1',
-              url: 'https://www.naiveui.com/assets/naivelogo-BdDVTUmz.svg',
-              status: 'finished',
-            },
-            {
-              id: uid(),
-              name: 'naive-2',
-              url: 'https://www.naiveui.com/assets/naivelogo-BdDVTUmz.svg',
-              status: 'finished',
-            },
-          ],
-          'drag-upload': [
-            {
-              id: 'a',
-              name: '我错了，但我可以改.png',
-              status: 'error',
-            },
-            {
-              id: 'd',
-              name: '现在还不行呢.doc',
-              status: 'uploading',
-              percentage: 50,
-            },
-            {
-              id: 'c',
-              name: '现在就可下载哟.png',
-              status: 'finished',
-              url: 'https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg',
-            },
-          ],
-        },
-        onSubmit: console.log,
-      }),
-    }
+const form = createProForm({
+  initialValues: {
+    'upload': [
+      {
+        id: uid(),
+        name: 'naive',
+        url: 'https://www.naiveui.com/assets/naivelogo-BdDVTUmz.svg',
+        status: 'finished',
+      },
+    ],
+    'upload-image': [
+      {
+        id: uid(),
+        name: 'naive-1',
+        url: 'https://www.naiveui.com/assets/naivelogo-BdDVTUmz.svg',
+        status: 'finished',
+      },
+      {
+        id: uid(),
+        name: 'naive-2',
+        url: 'https://www.naiveui.com/assets/naivelogo-BdDVTUmz.svg',
+        status: 'finished',
+      },
+    ],
+    'drag-upload': [
+      {
+        id: 'a',
+        name: '我错了，但我可以改.png',
+        status: 'error',
+      },
+      {
+        id: 'd',
+        name: '现在还不行呢.doc',
+        status: 'uploading',
+        percentage: 50,
+      },
+      {
+        id: 'c',
+        name: '现在就可下载哟.png',
+        status: 'finished',
+        url: 'https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg',
+      },
+    ],
   },
+  onSubmit: console.log,
 })
+
+function onUnAcceptType(data: {
+  file: UploadFileInfo
+  fileList: UploadFileInfo[]
+}) {
+  console.log(data)
+  message.warning('只支持上传图片')
+}
 </script>
 
 <template>

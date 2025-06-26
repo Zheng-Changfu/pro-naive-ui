@@ -4,23 +4,16 @@
 内部会自动处理路径，可以很方便的实现嵌套及联动
 </markdown>
 
-<script lang="tsx">
+<script setup lang="tsx">
 import { createProForm } from 'pro-naive-ui'
-import { defineComponent } from 'vue'
 
-export default defineComponent({
-  setup() {
-    return {
-      form: createProForm({
-        initialValues: {
-          users: [
-            { name: 'zcf' },
-          ],
-        },
-        onSubmit: console.log,
-      }),
-    }
+const form = createProForm({
+  initialValues: {
+    users: [
+      { name: 'zcf' },
+    ],
   },
+  onSubmit: console.log,
 })
 </script>
 
