@@ -48,6 +48,7 @@ export interface SearchFormLike {
   submit: () => void
   onReset: EventHookOn
   onSubmit: EventHookOn
+  restoreFieldsValue: () => void
   fieldsValue: ComputedRef<FormValues>
 }
 
@@ -86,6 +87,8 @@ export interface UseNDataTableReturn<
     ) => void
   }
   search: {
+    reset: () => void
+    submit: () => void
     resetLoading: ComputedRef<boolean>
     searchLoading: ComputedRef<boolean>
     proSearchFormProps: ComputedRef<{
@@ -240,6 +243,12 @@ export function useNDataTable<
       }),
     },
     search: {
+      submit: () => {
+        form?.submit()
+      },
+      reset: () => {
+        form?.restoreFieldsValue()
+      },
       resetLoading: computed(() => resetLoading.value),
       searchLoading: computed(() => searchLoading.value),
       proSearchFormProps: computed(() => {
