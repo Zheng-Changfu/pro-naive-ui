@@ -64,20 +64,6 @@ export default defineComponent({
           e.preventDefault()
           form.restoreFieldsValue()
         },
-        /**
-         * 支持按下回车提交表单
-         * 因为 form 元素默认行为是支持按下回车提交的，所以如果没设置按下回车提交，这里要做阻止操作
-         */
-        onKeypress: (e: KeyboardEvent) => {
-          if (e.key !== 'Enter')
-            return
-          if (!overridedProps.value.submitOnPressEnter) {
-            return
-          }
-          if (!loading.value) {
-            form.submit()
-          }
-        },
       }
     })
 
