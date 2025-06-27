@@ -20,6 +20,7 @@
   "dependencies": {
     "@types/katex": "^0.16.7",
     "@vicons/ionicons5": "0.13.0",
+    "fflate": "^0.8.2",
     "fs-extra": "^11.2.0",
     "highlight.js": "11.8.0",
     "katex": "^0.16.10",

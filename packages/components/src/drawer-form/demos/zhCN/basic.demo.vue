@@ -3,7 +3,6 @@
 </markdown>
 
 <script setup lang="tsx">
-import { random } from 'lodash-es'
 import { useMessage } from 'naive-ui'
 import { createProDrawerForm } from 'pro-naive-ui'
 import { ref } from 'vue'
@@ -25,6 +24,10 @@ const drawerForm = createProDrawerForm({
 const { open } = drawerForm
 
 const len = ref(2)
+
+function random(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}
 
 function updateList() {
   len.value = random(2, 20)

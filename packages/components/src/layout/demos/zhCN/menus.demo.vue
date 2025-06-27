@@ -5,11 +5,103 @@
 </markdown>
 
 <script setup lang="tsx">
+import type { MenuOption } from 'naive-ui'
 import type { ProLayoutMode } from 'pro-naive-ui'
+import type { Component } from 'vue'
+import {
+  BookOutline as BookIcon,
+  HomeOutline as HomeIcon,
+  PersonOutline as PersonIcon,
+  WineOutline as WineIcon,
+} from '@vicons/ionicons5'
+import { NIcon } from 'naive-ui'
 import { useLayoutMenu } from 'pro-naive-ui'
-import { computed, ref } from 'vue'
-import Config from './config.vue'
-import { menuOptions } from './menus'
+import { computed, h, ref } from 'vue'
+
+function renderIcon(icon: Component) {
+  return () => h(NIcon, null, { default: () => h(icon) })
+}
+
+const menuOptions: MenuOption[] = [
+  {
+    label: '回家',
+    key: 'go-back-home',
+    icon: renderIcon(HomeIcon),
+  },
+  {
+    key: 'divider-1',
+    type: 'divider',
+    props: {
+      style: {
+        marginLeft: '32px',
+      },
+    },
+  },
+  {
+    label: '且听风吟',
+    key: 'hear-the-wind-sing',
+    icon: renderIcon(BookIcon),
+  },
+  {
+    label: '1973年的弹珠玩具',
+    key: 'pinball-1973',
+    icon: renderIcon(BookIcon),
+    children: [
+      {
+        label: '鼠',
+        key: 'rat',
+        icon: renderIcon(BookIcon),
+      },
+    ],
+  },
+  {
+    label: '寻羊冒险记',
+    key: 'a-wild-sheep-chase',
+    icon: renderIcon(BookIcon),
+  },
+  {
+    label: '舞，舞，舞',
+    key: 'dance-dance-dance',
+    icon: renderIcon(BookIcon),
+    children: [
+      {
+        label: '叙事者',
+        key: 'narrator',
+        icon: renderIcon(PersonIcon),
+      },
+      {
+        label: '羊男',
+        key: 'sheep-man',
+        icon: renderIcon(PersonIcon),
+      },
+      {
+        label: '饮品',
+        key: 'beverage',
+        icon: renderIcon(WineIcon),
+        children: [
+          {
+            label: '威士忌',
+            key: 'whisky',
+          },
+        ],
+      },
+      {
+        label: '食物',
+        key: 'food',
+        children: [
+          {
+            label: '三明治',
+            key: 'sandwich',
+          },
+        ],
+      },
+      {
+        label: '过去增多，未来减少',
+        key: 'the-past-increases-the-future-recedes',
+      },
+    ],
+  },
+]
 
 const navFixed = ref(true)
 const showNav = ref(true)
@@ -37,27 +129,89 @@ const {
 
 const isTwoColumnLayout = computed(() => ['two-column', 'mixed-two-two-column'].includes(mode.value))
 const hasHorizontalMenu = computed(() => ['horizontal', 'mixed-two-column', 'mixed-sidebar'].includes(mode.value))
+
+function updateMode(v: ProLayoutMode) {
+  mode.value = v
+  isMobile.value = v === 'mobile'
+}
 </script>
 
 <template>
-  <Config
-    v-model:mode="mode"
-    v-model:show-nav="showNav"
-    v-model:show-logo="showLogo"
-    v-model:is-mobile="isMobile"
-    v-model:collapsed="collapsed"
-    v-model:nav-fixed="navFixed"
-    v-model:nav-height="navHeight"
-    v-model:show-footer="showFooter"
-    v-model:show-tabbar="showTabbar"
-    v-model:show-sidebar="showSidebar"
-    v-model:footer-fixed="footerFixed"
-    v-model:footer-height="footerHeight"
-    v-model:sidebar-width="sidebarWidth"
-    v-model:tabbar-height="tabbarHeight"
-    v-model:sidebar-mixed-width="sidebarMixedWidth"
-    v-model:sidebar-collapsed-width="sidebarCollapsedWidth"
-  />
+  <div class="grid grid-cols-3 gap-8px">
+    <div>
+      <div>侧边栏宽度</div>
+      <n-input-number v-model:value="sidebarWidth" />
+    </div>
+    <div>
+      <div>侧边栏混合宽度</div>
+      <n-input-number v-model:value="sidebarMixedWidth" />
+    </div>
+    <div>
+      <div>侧边栏折叠后宽度</div>
+      <n-input-number v-model:value="sidebarCollapsedWidth" />
+    </div>
+    <div>
+      <div>导航栏高度</div>
+      <n-input-number v-model:value="navHeight" />
+    </div>
+    <div>
+      <div>标签栏高度</div>
+      <n-input-number v-model:value="tabbarHeight" />
+    </div>
+    <div>
+      <div>布局模式</div>
+      <n-select
+        :value="mode"
+        :options="[
+          { label: '竖向布局', value: 'vertical' },
+          { label: '横向布局', value: 'horizontal' },
+          { label: '双栏布局', value: 'two-column' },
+          { label: '混合双栏布局', value: 'mixed-two-column' },
+          { label: '侧边栏布局', value: 'sidebar' },
+          { label: '全内容布局', value: 'full-content' },
+          { label: '混合侧边栏布局', value: 'mixed-sidebar' },
+          { label: '移动端布局', value: 'mobile' },
+        ]"
+        @update:value="updateMode"
+      />
+    </div>
+    <div>
+      <div>底部高度</div>
+      <n-input-number v-model:value="footerHeight" />
+    </div>
+    <div>
+      <div>折叠/展开</div>
+      <n-switch v-model:value="collapsed" />
+    </div>
+    <div>
+      <div>显示侧边栏</div>
+      <n-switch v-model:value="showSidebar" />
+    </div>
+    <div>
+      <div>显示顶栏</div>
+      <n-switch v-model:value="showNav" />
+    </div>
+    <div>
+      <div>顶栏是否固定</div>
+      <n-switch v-model:value="navFixed" />
+    </div>
+    <div>
+      <div>显示标签栏</div>
+      <n-switch v-model:value="showTabbar" />
+    </div>
+    <div>
+      <div>是否显示底部</div>
+      <n-switch v-model:value="showFooter" />
+    </div>
+    <div>
+      <div>底部是否固定</div>
+      <n-switch v-model:value="footerFixed" />
+    </div>
+    <div>
+      <div>是否显示 logo</div>
+      <n-switch v-model:value="showLogo" />
+    </div>
+  </div>
   <div class="h-500px mt-12px">
     <pro-layout
       v-model:collapsed="collapsed"
@@ -126,11 +280,9 @@ const hasHorizontalMenu = computed(() => ['horizontal', 'mixed-two-column', 'mix
       <template #footer>
         <div>footer</div>
       </template>
-      <template #default>
-        <div v-for="item in 20" :key="item">
-          main__content
-        </div>
-      </template>
+      <div v-for="item in 20" :key="item">
+        main__content
+      </div>
     </pro-layout>
   </div>
 </template>

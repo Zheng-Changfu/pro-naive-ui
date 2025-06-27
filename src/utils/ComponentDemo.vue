@@ -4,11 +4,13 @@ import { computed, defineComponent, nextTick, ref, watch } from 'vue'
 import { useDisplayMode } from '../store'
 import { i18n } from '../utils/composables'
 import CopyCodeButton from './CopyCodeButton.vue'
+import EditInPlayground from './EditInPlayground.vue'
 
 export default defineComponent({
   components: {
     CodeOutline,
     CopyCodeButton,
+    EditInPlayground,
   },
   props: {
     title: {
@@ -73,6 +75,7 @@ export default defineComponent({
           hide: '收起代码',
           editOnGithub: '在 GitHub 中编辑',
           editInCodeSandbox: '在 CodeSandbox 中编辑',
+          editInPlayground: '在 Playground 中编辑',
           copyCode: '复制代码',
           copySuccess: '复制成功',
         },
@@ -98,6 +101,17 @@ export default defineComponent({
       </span>
     </template>
     <template #header-extra>
+      <n-tooltip>
+        <template #trigger>
+          <EditInPlayground
+            depth="3"
+            style="padding: 0; margin-right: 6px"
+            size="tiny"
+            :code="sfcTsCode"
+          />
+        </template>
+        {{ t('editInPlayground') }}
+      </n-tooltip>
       <n-tooltip>
         <template #trigger>
           <CopyCodeButton

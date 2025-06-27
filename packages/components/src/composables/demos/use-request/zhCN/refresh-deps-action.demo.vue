@@ -3,7 +3,6 @@
 </markdown>
 
 <script setup lang="tsx">
-import { isNumber } from 'lodash-es'
 import Mock from 'mockjs'
 import { useRequest } from 'pro-naive-ui'
 import { ref } from 'vue'
@@ -23,6 +22,10 @@ const { data, loading, run } = useRequest((id: number) => getUsername(id), {
     run(userId.value)
   },
 })
+
+function isNumber(value: any): value is number {
+  return typeof value === 'number'
+}
 
 function getUsername(id: number): Promise<string> {
   console.log('getUsername id:', id)
