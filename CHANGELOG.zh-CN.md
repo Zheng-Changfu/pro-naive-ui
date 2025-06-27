@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2.3.2
+
+### Fixes
+
+- 删除 `pro-form` 组件 `submit-on-press-enter` 属性
+
 ## 2.3.1
 
 ### Features
