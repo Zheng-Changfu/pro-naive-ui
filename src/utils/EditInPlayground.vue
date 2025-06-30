@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { PropType } from 'vue'
 import { strFromU8, strToU8, zlibSync } from 'fflate'
-import { computed, defineComponent } from 'vue'
+import { defineComponent } from 'vue'
 import { playgroundUrl } from './playground-url'
 import { appCode } from './sandbox'
 
@@ -12,8 +12,18 @@ function utoa(data: string): string {
   return btoa(binary)
 }
 
+function safeDecodeURIComponent(data: string): string {
+  try {
+    return decodeURIComponent(data)
+  }
+  catch (e) {
+    console.error('Error decoding URI component:', e)
+    return data
+  }
+}
+
 function serialized(data: string): string {
-  const code = decodeURIComponent(data)
+  const code = safeDecodeURIComponent(data)
   const originCode = {
     'App.vue': appCode,
     'Demo.vue': code,
@@ -37,10 +47,6 @@ export default defineComponent({
         const serializedState = serialized(props.code)
         window.open(`${playgroundUrl}/#${serializedState}`, '_blank')
       },
-      disabled: computed(() => {
-        return props.code.includes('@vicons/')
-          || props.code.includes('mockjs')
-      }),
     }
   },
 })
@@ -52,7 +58,6 @@ export default defineComponent({
     text
     :size="size"
     :depth="depth"
-    :disabled="disabled"
     @click="handleClick"
   >
     <template #icon>

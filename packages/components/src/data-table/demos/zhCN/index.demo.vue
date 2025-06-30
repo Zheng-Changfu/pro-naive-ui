@@ -21,7 +21,7 @@ const columns: ProDataTableColumns = [
     type: 'index',
     width: 140,
     render(index) {
-      return <span class="color-red">{index}</span>
+      return <span class="c-red">{index}</span>
     },
   },
   {

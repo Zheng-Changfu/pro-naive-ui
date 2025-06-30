@@ -10,7 +10,7 @@
   <pro-card title="卡片">
     卡片内容
     <template #collapse="{ expanded }">
-      <div v-if="expanded" class="color-red">
+      <div v-if="expanded" class="c-red">
         折叠
       </div>
       <div v-else class="color-blue">
