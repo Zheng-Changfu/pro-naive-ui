@@ -94,11 +94,9 @@ export function setupHorizontalLayoutStyle() {
         `),
       cM('hidden', `
           height: 0;
-          border-bottom: none;
           overflow: hidden;
-          transition:
-            height .3s var(--n-bezier),
-            border-bottom 0 var(--n-bezier);
+          border-bottom: none;
+          border-bottom-color: var(--pro-layout-border-color);
       `),
     ]),
     cB('pro-layout__tabbar', `
@@ -115,6 +113,7 @@ export function setupHorizontalLayoutStyle() {
           height: 0;
           overflow: hidden;
           border-bottom: none;
+          border-bottom-color: var(--pro-layout-border-color);
       `),
     ]),
     cB('pro-layout__main', `

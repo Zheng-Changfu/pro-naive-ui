@@ -28,11 +28,7 @@ export default defineComponent({
   setup(props) {
     const themeVars = useThemeVars()
     const mergedClsPrefix = useNaiveClsPrefix()
-
-    const overridedProps = useOverrideProps(
-      name,
-      props,
-    )
+    const overridedProps = useOverrideProps(name, props)
 
     const {
       mergedNav,
@@ -71,6 +67,15 @@ export default defineComponent({
     const twoColumnLayoutVars = useTwoColumnLayoutVars(calcLayoutVarsOptions)
     const horizontalLayoutVars = useHorizontalLayoutVars(calcLayoutVarsOptions)
     const fullContentLayoutVars = useFullContentLayoutVars(calcLayoutVarsOptions)
+
+    const builtinThemeVars = computed(() => {
+      return {
+        color: themeVars.value.bodyColor,
+        textColor: themeVars.value.textColor2,
+        borderColor: themeVars.value.borderColor,
+        ...(overridedProps.value.builtinThemeOverrides ?? {}),
+      }
+    })
 
     const vars = computed(() => {
       const mode = mergedMode.value
@@ -113,9 +118,11 @@ export default defineComponent({
         '--n-color': themeVars.value.bodyColor,
         '--n-text-color': themeVars.value.textColor2,
         '--n-bezier': themeVars.value.cubicBezierEaseInOut,
+        // 可覆盖的主题变量
+        '--pro-layout-color': builtinThemeVars.value.color,
+        '--pro-layout-text-color': builtinThemeVars.value.textColor,
+        '--pro-layout-border-color': builtinThemeVars.value.borderColor,
         // 给当前组件使用的变量
-        '--pro-layout-color': themeVars.value.bodyColor,
-        '--pro-layout-border-color': themeVars.value.borderColor,
         '--pro-layout-nav-height': `${mergedNav.value.height}px`,
         '--pro-layout-tabbar-height': `${mergedTabbar.value.height}px`,
         '--pro-layout-sidebar-width': `${mergedSidebar.value.width}px`,

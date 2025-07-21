@@ -117,6 +117,7 @@ export function setupTwoColumnLayoutStyle() {
           width: 0;
           overflow: hidden;
           border-right: none;
+          border-right-color: var(--pro-layout-border-color);
         `),
     ]),
     cB('pro-layout__scrollbar__inner', `
@@ -163,8 +164,9 @@ export function setupTwoColumnLayoutStyle() {
         `),
       cM('hidden', `
           height: 0;
-          border-bottom: none;
           overflow: hidden;
+          border-bottom: none;
+          border-bottom-color: var(--pro-layout-border-color);
       `),
     ]),
     cB('pro-layout__tabbar', `
@@ -181,6 +183,7 @@ export function setupTwoColumnLayoutStyle() {
           height: 0;
           overflow: hidden;
           border-bottom: none;
+          border-bottom-color: var(--pro-layout-border-color);
       `),
     ]),
     cB('pro-layout__main', `

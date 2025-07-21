@@ -1,6 +1,6 @@
 import type { ExtractPublicPropTypes, PropType } from 'vue'
 import type { MaybeArray } from '../_utils/call'
-import type { ProLayoutFooter, ProLayoutMode, ProLayoutNav, ProLayoutSidebar, ProLayoutTabbar } from './types'
+import type { BuiltinThemeOverrides, ProLayoutFooter, ProLayoutMode, ProLayoutNav, ProLayoutSidebar, ProLayoutTabbar } from './types'
 
 export const proLayoutProps = {
   /**
@@ -131,6 +131,10 @@ export const proLayoutProps = {
    * 底部 class
    */
   'footerClass': [Array, String] as PropType<string | any[]>,
+  /**
+   * 主题覆盖
+   */
+  'builtinThemeOverrides': Object as PropType<BuiltinThemeOverrides>,
 } as const
 
 export type ProLayoutProps = ExtractPublicPropTypes<typeof proLayoutProps>

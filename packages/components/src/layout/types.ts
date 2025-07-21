@@ -103,3 +103,9 @@ export interface CalcLayoutVarsOptions {
   mergedTabbar: ComputedRef<ProLayoutTabbar>
   mergedSidebar: ComputedRef<ProLayoutSidebar>
 }
+
+export interface BuiltinThemeOverrides {
+  color?: string
+  textColor?: string
+  borderColor?: string
+}

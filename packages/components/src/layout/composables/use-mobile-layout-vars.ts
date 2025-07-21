@@ -92,8 +92,9 @@ export function setupMobileLayoutStyle() {
         `),
       cM('hidden', `
           height: 0;
-          border-bottom: none;
           overflow: hidden;
+          border-bottom: none;
+          border-bottom-color: var(--pro-layout-border-color);
       `),
     ]),
     cB('pro-layout__tabbar', `
@@ -110,6 +111,7 @@ export function setupMobileLayoutStyle() {
           height: 0;
           overflow: hidden;
           border-bottom: none;
+          border-bottom-color: var(--pro-layout-border-color);
       `),
     ]),
     cB('pro-layout__main', `

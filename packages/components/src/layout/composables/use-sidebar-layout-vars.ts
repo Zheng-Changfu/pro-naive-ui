@@ -154,6 +154,7 @@ export function setupSidebarLayoutStyle() {
           width: 0;
           overflow: hidden;
           border-right: none;
+          border-right-color: var(--pro-layout-border-color);
         `),
     ]),
     cB('pro-layout__sidebar', `
@@ -235,6 +236,7 @@ export function setupSidebarLayoutStyle() {
           height: 0;
           overflow: hidden;
           border-bottom: none;
+          border-bottom-color: var(--pro-layout-border-color);
       `),
     ]),
     cB('pro-layout__main', `
