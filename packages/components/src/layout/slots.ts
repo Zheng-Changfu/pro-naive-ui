@@ -4,21 +4,6 @@ export interface ProLayoutSlots {
    */
   'logo': any
   /**
-   * 头部左侧
-   * @deprecated 请使用 'nav-left' 替代
-   */
-  'header-left': any
-  /**
-   * 头部中间
-   * @deprecated 请使用 'nav-center' 替代
-   */
-  'header-center': any
-  /**
-   * 头部右侧
-   * @deprecated 请使用 'nav-right' 替代
-   */
-  'header-right': any
-  /**
    * 顶栏左侧
    */
   'nav-left': any

@@ -33,13 +33,16 @@ export const proLayoutProps = {
     default: undefined,
   },
   /**
+   * 是否显示侧边栏额外区域，只在 two-column、mixed-two-column 布局下生效
+   */
+  'showSidebarExtra': {
+    type: Boolean as PropType<boolean | undefined>,
+    default: undefined,
+  },
+  /**
    * 侧边栏宽度
    */
   'sidebarWidth': Number as PropType<ProLayoutSidebar['width']>,
-  /**
-   * 侧边栏混合宽度
-   */
-  'sidebarMixedWidth': Number as PropType<ProLayoutSidebar['mixedWidth']>,
   /**
    * 侧边栏折叠后的宽度
    */

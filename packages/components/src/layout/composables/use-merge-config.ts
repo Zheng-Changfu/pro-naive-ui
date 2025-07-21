@@ -1,12 +1,9 @@
 import type { ComputedRef } from 'vue'
 import type { ProLayoutProps } from '../props'
 import { isString } from 'lodash-es'
-import { useThemeVars } from 'naive-ui'
 import { computed } from 'vue'
 
 export function useMergeConfig(props: ComputedRef<ProLayoutProps>) {
-  const themeVars = useThemeVars()
-
   const mergedMode = computed(() => {
     return props.value.mode ?? 'vertical'
   })
@@ -23,13 +20,13 @@ export function useMergeConfig(props: ComputedRef<ProLayoutProps>) {
     const {
       showSidebar,
       sidebarWidth,
-      sidebarMixedWidth,
+      showSidebarExtra,
       sidebarCollapsedWidth,
     } = props.value
     return {
-      show: showSidebar !== false,
       width: sidebarWidth ?? 224,
-      mixedWidth: sidebarMixedWidth ?? 80,
+      show: showSidebar !== false,
+      showExtra: showSidebarExtra !== false,
       collapsedWidth: sidebarCollapsedWidth ?? 58,
     }
   })
@@ -112,24 +109,6 @@ export function useMergeConfig(props: ComputedRef<ProLayoutProps>) {
     return isString(footerClass) ? [footerClass] : footerClass
   })
 
-  const mergedCssVars = computed(() => {
-    return {
-      // 支持主题切换
-      '--n-color': themeVars.value.bodyColor,
-      '--n-text-color': themeVars.value.textColor2,
-      '--n-bezier': themeVars.value.cubicBezierEaseInOut,
-      // 给当前组件使用的变量
-      '--pro-layout-color': themeVars.value.bodyColor,
-      '--pro-layout-nav-height': `${mergedNav.value.height}px`,
-      '--pro-layout-border-color': themeVars.value.borderColor,
-      '--pro-layout-footer-height': `${mergedFooter.value.height}px`,
-      '--pro-layout-tabbar-height': `${mergedTabbar.value.height}px`,
-      '--pro-layout-sidebar-width': `${mergedSidebar.value.width}px`,
-      '--pro-layout-sidebar-mixed-width': `${mergedSidebar.value.mixedWidth}px`,
-      '--pro-layout-sidebar-collapsed-width': `${mergedSidebar.value.collapsedWidth}px`,
-    }
-  })
-
   return {
     mergedNav,
     mergedMode,
@@ -138,7 +117,6 @@ export function useMergeConfig(props: ComputedRef<ProLayoutProps>) {
     mergedTabbar,
     mergedSidebar,
     mergedIsMobile,
-    mergedCssVars,
     mergedNavClass,
     mergedLogoClass,
     mergedMainClass,

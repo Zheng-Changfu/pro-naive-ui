@@ -1,55 +1,48 @@
-import type { CalcLayoutClsOptions } from '../types'
+import type { CalcLayoutVarsOptions } from '../types'
 import { cB, cE, cM } from 'naive-ui'
 import { computed } from 'vue'
 
-export function useMobileLayoutCls({
+export function useMobileLayoutVars({
   mergedNav,
-  mergedLogo,
   mergedTabbar,
   mergedFooter,
-  mergedClsPrefix,
-}: CalcLayoutClsOptions) {
+}: CalcLayoutVarsOptions) {
+  const mainPaddingTop = computed(() => {
+    const nav = mergedNav.value
+    const tabbar = mergedTabbar.value
+    if (nav.fixed && nav.show && !tabbar.show) {
+      return `${nav.height}px`
+    }
+    if (nav.fixed && tabbar.show && !nav.show) {
+      return `${tabbar.height}px`
+    }
+    if (nav.fixed && nav.show && tabbar.show) {
+      return `${nav.height + tabbar.height}px`
+    }
+    return '0px'
+  })
+
+  const mainPaddingBottom = computed(() => {
+    const footer = mergedFooter.value
+    if (footer.show && footer.fixed) {
+      return `${footer.height}px`
+    }
+    return '0px'
+  })
+
   return computed(() => {
     return {
-      layout: [
-        `${mergedClsPrefix.value}-pro-layout--mobile`,
-      ],
-      logo: [
-        { [`${mergedClsPrefix.value}-pro-layout__logo--hidden`]: !mergedLogo.value.show },
-      ],
-      aside: [
-        { [`${mergedClsPrefix.value}-pro-layout__aside--hidden`]: true },
-      ],
-      header: [
-        { [`${mergedClsPrefix.value}-pro-layout__header--fixed`]: mergedNav.value.fixed },
-      ],
-      nav: [
-        { [`${mergedClsPrefix.value}-pro-layout__nav--hidden`]: !mergedNav.value.show },
-      ],
-      tabbar: [
-        { [`${mergedClsPrefix.value}-pro-layout__tabbar--hidden`]: !mergedTabbar.value.show },
-      ],
-      main: [
-        { [`${mergedClsPrefix.value}-pro-layout__main--header-fixed-nav-only`]: mergedNav.value.fixed && mergedNav.value.show && !mergedTabbar.value.show },
-        { [`${mergedClsPrefix.value}-pro-layout__main--header-fixed-tabbar-only`]: mergedNav.value.fixed && mergedTabbar.value.show && !mergedNav.value.show },
-        { [`${mergedClsPrefix.value}-pro-layout__main--header-fixed-nav-tabbar`]: mergedNav.value.fixed && mergedNav.value.show && mergedTabbar.value.show },
-        { [`${mergedClsPrefix.value}-pro-layout__main--footer-fixed`]: mergedFooter.value.fixed && mergedFooter.value.show },
-      ],
-      footer: [
-        { [`${mergedClsPrefix.value}-pro-layout__footer--fixed`]: mergedFooter.value.fixed },
-        { [`${mergedClsPrefix.value}-pro-layout__footer--hidden`]: !mergedFooter.value.show },
-      ],
+      '--pro-layout-main-padding-top': mainPaddingTop.value,
+      '--pro-layout-main-padding-bottom': mainPaddingBottom.value,
     }
   })
 }
 
 export function setupMobileLayoutStyle() {
   return cM('mobile', [
-    cB('pro-layout__aside', [
-      cM('hidden', `
-          display: none;
-        `),
-    ]),
+    cB('pro-layout__aside', `
+      display: none;
+    `),
     cB('pro-layout__scrollbar__inner', `
         display: flex;
         min-height: 100%;
@@ -122,20 +115,9 @@ export function setupMobileLayoutStyle() {
     cB('pro-layout__main', `
         flex-grow: 1;
         flex-basis: 0;
-      `, [
-      cM('header-fixed-nav-only', `
-          padding-top: var(--pro-layout-nav-height);
-        `),
-      cM('header-fixed-tabbar-only', `
-          padding-top: var(--pro-layout-tabbar-height);
-        `),
-      cM('header-fixed-nav-tabbar', `
-          padding-top: calc(var(--pro-layout-nav-height) + var(--pro-layout-tabbar-height));
-        `),
-      cM('footer-fixed', `
-          padding-bottom: var(--pro-layout-footer-height);
-        `),
-    ]),
+        padding-top: var(--pro-layout-main-padding-top);
+        padding-bottom: var(--pro-layout-main-padding-bottom);
+      `),
     cB('pro-layout__footer', `
         height: var(--pro-layout-footer-height);
         flex-shrink: 0;

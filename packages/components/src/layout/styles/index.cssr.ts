@@ -1,12 +1,10 @@
 import { c, cB, cM } from 'naive-ui'
-import { setupFullContentLayoutStyle } from '../composables/use-full-content-layout-cls'
-import { setupHorizontalLayoutStyle } from '../composables/use-horizontal-layout-cls'
-import { setupMixedSidebarLayoutStyle } from '../composables/use-mixed-sidebar-cls'
-import { setupMixedTwoColumnLayoutStyle } from '../composables/use-mixed-two-column-layout-cls'
-import { setupMobileLayoutStyle } from '../composables/use-mobile-layout-cls'
-import { setupSidebarLayoutStyle } from '../composables/use-sidebar-layout-cls'
-import { setupTwoColumnLayoutStyle } from '../composables/use-two-column-layout-cls'
-import { setupVerticalLayoutStyle } from '../composables/use-vertical-layout-cls'
+import { setupFullContentLayoutStyle } from '../composables/use-full-content-layout-vars'
+import { setupHorizontalLayoutStyle } from '../composables/use-horizontal-layout-vars'
+import { setupMobileLayoutStyle } from '../composables/use-mobile-layout-vars'
+import { setupSidebarLayoutStyle } from '../composables/use-sidebar-layout-vars'
+import { setupTwoColumnLayoutStyle } from '../composables/use-two-column-layout-vars'
+import { setupVerticalLayoutStyle } from '../composables/use-vertical-layout-vars'
 
 export default cB('pro-layout', `
     position: relative;
@@ -30,6 +28,4 @@ export default cB('pro-layout', `
   setupTwoColumnLayoutStyle(),
   setupHorizontalLayoutStyle(),
   setupFullContentLayoutStyle(),
-  setupMixedSidebarLayoutStyle(),
-  setupMixedTwoColumnLayoutStyle(),
 ])

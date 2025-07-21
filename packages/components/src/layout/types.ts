@@ -1,4 +1,4 @@
-import type { ComputedRef, Ref } from 'vue'
+import type { ComputedRef } from 'vue'
 
 export interface ProLayoutLogo {
   /**
@@ -14,15 +14,14 @@ export interface ProLayoutSidebar {
    */
   show: boolean
   /**
+   * 是否显示额外区域
+   */
+  showExtra: boolean
+  /**
    * 侧边栏宽度
    * @default 224
    */
   width: number
-  /**
-   * 混合侧边栏宽度,仅在 two-column、mixed-two-column 布局下生效
-   * @default 80
-   */
-  mixedWidth: number
   /**
    * 折叠后的侧边栏宽度
    * @default 58
@@ -86,18 +85,17 @@ export interface ProLayoutTabbar {
  * two-column: 双栏布局
  * mixed-two-column: 混合双栏布局
  */
-export type ProLayoutMode =
-  | 'vertical'
-  | 'horizontal'
-  | 'sidebar'
-  | 'mixed-sidebar'
-  | 'full-content'
-  | 'two-column'
-  | 'mixed-two-column'
-  | ({} & string)
+export type ProLayoutMode
+  = | 'vertical'
+    | 'horizontal'
+    | 'sidebar'
+    | 'mixed-sidebar'
+    | 'full-content'
+    | 'two-column'
+    | 'mixed-two-column'
+    | ({} & string)
 
-export interface CalcLayoutClsOptions {
-  mergedClsPrefix: Ref<string>
+export interface CalcLayoutVarsOptions {
   mergedNav: ComputedRef<ProLayoutNav>
   mergedCollasped: ComputedRef<boolean>
   mergedLogo: ComputedRef<ProLayoutLogo>
