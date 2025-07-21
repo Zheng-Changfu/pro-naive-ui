@@ -97,7 +97,7 @@ export type ProLayoutMode
 
 export interface CalcLayoutVarsOptions {
   mergedNav: ComputedRef<ProLayoutNav>
-  mergedCollasped: ComputedRef<boolean>
+  mergedCollapsed: ComputedRef<boolean>
   mergedLogo: ComputedRef<ProLayoutLogo>
   mergedFooter: ComputedRef<ProLayoutFooter>
   mergedTabbar: ComputedRef<ProLayoutTabbar>

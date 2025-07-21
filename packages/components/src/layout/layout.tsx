@@ -38,7 +38,7 @@ export default defineComponent({
       mergedFooter,
       mergedSidebar,
       mergedIsMobile,
-      mergedCollasped,
+      mergedCollapsed,
       mergedNavClass,
       mergedLogoClass,
       mergedMainClass,
@@ -58,7 +58,7 @@ export default defineComponent({
       mergedTabbar,
       mergedFooter,
       mergedSidebar,
-      mergedCollasped,
+      mergedCollapsed,
     }
 
     const mobileLayoutVars = useMobileLayoutVars(calcLayoutVarsOptions)
@@ -156,7 +156,7 @@ export default defineComponent({
       mergedSidebar,
       mergedIsMobile,
       mergedClsPrefix,
-      mergedCollasped,
+      mergedCollapsed,
       mergedNavClass,
       mergedLogoClass,
       mergedMainClass,
@@ -244,7 +244,7 @@ export default defineComponent({
       >
         <aside class={[
           `${this.mergedClsPrefix}-pro-layout__aside`,
-          { [`${this.mergedClsPrefix}-pro-layout__aside--collapsed`]: this.mergedCollasped },
+          { [`${this.mergedClsPrefix}-pro-layout__aside--collapsed`]: this.mergedCollapsed },
           { [`${this.mergedClsPrefix}-pro-layout__aside--hidden`]: !this.mergedSidebar.show },
           ...this.mergedAsideClass,
         ]}

@@ -12,7 +12,7 @@ export function useMergeConfig(props: ComputedRef<ProLayoutProps>) {
     return props.value.isMobile ?? false
   })
 
-  const mergedCollasped = computed(() => {
+  const mergedCollapsed = computed(() => {
     return props.value.collapsed ?? false
   })
 
@@ -120,7 +120,7 @@ export function useMergeConfig(props: ComputedRef<ProLayoutProps>) {
     mergedNavClass,
     mergedLogoClass,
     mergedMainClass,
-    mergedCollasped,
+    mergedCollapsed,
     mergedAsideClass,
     mergedHeaderClass,
     mergedTabbarClass,

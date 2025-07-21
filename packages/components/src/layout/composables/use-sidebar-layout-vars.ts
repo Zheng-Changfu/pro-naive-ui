@@ -7,7 +7,7 @@ export function useSidebarLayoutVars({
   mergedTabbar,
   mergedFooter,
   mergedSidebar,
-  mergedCollasped,
+  mergedCollapsed,
 }: CalcLayoutVarsOptions) {
   const sidebarHeight = computed(() => {
     const nav = mergedNav.value
@@ -28,11 +28,11 @@ export function useSidebarLayoutVars({
   const navPaddingLeft = computed(() => {
     const nav = mergedNav.value
     const sidebar = mergedSidebar.value
-    const collasped = mergedCollasped.value
-    if (!nav.fixed && sidebar.show && !collasped) {
+    const collapsed = mergedCollapsed.value
+    if (!nav.fixed && sidebar.show && !collapsed) {
       return `${sidebar.width}px`
     }
-    if (!nav.fixed && sidebar.show && collasped) {
+    if (!nav.fixed && sidebar.show && collapsed) {
       return `${sidebar.collapsedWidth}px`
     }
     return '0px'
@@ -40,11 +40,11 @@ export function useSidebarLayoutVars({
 
   const tabbarPaddingLeft = computed(() => {
     const sidebar = mergedSidebar.value
-    const collasped = mergedCollasped.value
+    const collapsed = mergedCollapsed.value
     if (!sidebar.show) {
       return '0px'
     }
-    if (collasped) {
+    if (collapsed) {
       return `${sidebar.collapsedWidth}px`
     }
     return `${sidebar.width}px`
@@ -52,11 +52,11 @@ export function useSidebarLayoutVars({
 
   const mainPaddingLeft = computed(() => {
     const sidebar = mergedSidebar.value
-    const collasped = mergedCollasped.value
+    const collapsed = mergedCollapsed.value
     if (!sidebar.show) {
       return '0px'
     }
-    if (collasped) {
+    if (collapsed) {
       return `${sidebar.collapsedWidth}px`
     }
     return `${sidebar.width}px`
@@ -87,11 +87,11 @@ export function useSidebarLayoutVars({
 
   const footerPaddingLeft = computed(() => {
     const sidebar = mergedSidebar.value
-    const collasped = mergedCollasped.value
+    const collapsed = mergedCollapsed.value
     if (!sidebar.show) {
       return '0px'
     }
-    if (collasped) {
+    if (collapsed) {
       return `${sidebar.collapsedWidth}px`
     }
     return `${sidebar.width}px`
@@ -99,11 +99,11 @@ export function useSidebarLayoutVars({
 
   const footerWidth = computed(() => {
     const sidebar = mergedSidebar.value
-    const collasped = mergedCollasped.value
+    const collapsed = mergedCollapsed.value
     if (!sidebar.show) {
       return '100%'
     }
-    if (collasped) {
+    if (collapsed) {
       return `calc(100% - ${sidebar.collapsedWidth}px)`
     }
     return `calc(100% - ${sidebar.width}px)`

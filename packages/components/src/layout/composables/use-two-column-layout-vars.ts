@@ -8,11 +8,11 @@ export function useTwoColumnLayoutVars({
   mergedTabbar,
   mergedFooter,
   mergedSidebar,
-  mergedCollasped,
+  mergedCollapsed,
 }: CalcLayoutVarsOptions) {
   const sidebarWidth = computed(() => {
     const sidebar = mergedSidebar.value
-    const collapsed = mergedCollasped.value
+    const collapsed = mergedCollapsed.value
     if (!sidebar.show) {
       return '0px'
     }
