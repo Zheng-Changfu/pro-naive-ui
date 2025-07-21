@@ -1,5 +1,11 @@
 # pro-naive-ui
 
+## 2.4.0
+
+### Minor Changes
+
+- v2.4.0
+
 ## 2.3.2
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## 2.4.0
+
+### Features
+
+- `pro-layout` 新增 `show-sidebar-extra`、`builtin-theme-overrides` 属性
+
+### Fixes
+
+- 修复 `pro-layout` 在部分布局下的样式异常问题
+- 修复 `pro-date-picker`、`pro-time` 组件使用 `value-format` 属性无效问题
+
 ## 2.3.2
 
 ### Fixes
