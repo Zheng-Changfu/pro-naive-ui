@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest'
-import { ref } from 'vue'
 import { useLayoutMenu } from '../use-layout-menu'
 
 const menus = [
@@ -136,38 +135,18 @@ describe('v-model:value、autoActiveDetachedMenu、options', () => {
   })
 
   it('should work with `mixed-sidebar` layout', () => {
-    const autoActiveDetachedSubMenu = ref(true)
     const { layout, activeKey } = useLayoutMenu({
       menus,
-      autoActiveDetachedSubMenu,
       mode: 'mixed-sidebar',
     })
-    // value
-    activeKey.value = 'pinball-1973'
-    expect(layout.value.horizontalMenuProps.value).toBe('pinball-1973')
-    expect(layout.value.verticalMenuProps.value).toBe('rat')
-    activeKey.value = 'narrator'
-    expect(layout.value.horizontalMenuProps.value).toBe('dance-dance-dance')
-    expect(layout.value.verticalMenuProps.value).toBe('narrator')
-    autoActiveDetachedSubMenu.value = false
     activeKey.value = 'pinball-1973'
     expect(layout.value.horizontalMenuProps.value).toBe('pinball-1973')
     expect(layout.value.verticalMenuProps.value).toBe('pinball-1973')
     activeKey.value = 'narrator'
     expect(layout.value.horizontalMenuProps.value).toBe('dance-dance-dance')
     expect(layout.value.verticalMenuProps.value).toBe('narrator')
-
     // options
     activeKey.value = 'pinball-1973'
-    expect(layout.value.verticalExtraMenuProps).toStrictEqual({})
-    expect(layout.value.horizontalMenuProps.options).toStrictEqual(topLevelMenus)
-    expect(layout.value.verticalMenuProps.options).toStrictEqual([
-      {
-        label: '鼠',
-        key: 'rat',
-      },
-    ])
-    autoActiveDetachedSubMenu.value = true
     expect(layout.value.verticalExtraMenuProps).toStrictEqual({})
     expect(layout.value.horizontalMenuProps.options).toStrictEqual(topLevelMenus)
     expect(layout.value.verticalMenuProps.options).toStrictEqual([
@@ -179,21 +158,10 @@ describe('v-model:value、autoActiveDetachedMenu、options', () => {
   })
 
   it('should work with `two-column` layout', () => {
-    const autoActiveDetachedSubMenu = ref(true)
     const { layout, activeKey } = useLayoutMenu({
       menus,
-      autoActiveDetachedSubMenu,
       mode: 'two-column',
     })
-
-    // value
-    activeKey.value = 'pinball-1973'
-    expect(layout.value.verticalMenuProps.value).toBe('pinball-1973')
-    expect(layout.value.verticalExtraMenuProps.value).toBe('rat')
-    activeKey.value = 'narrator'
-    expect(layout.value.verticalMenuProps.value).toBe('dance-dance-dance')
-    expect(layout.value.verticalExtraMenuProps.value).toBe('narrator')
-    autoActiveDetachedSubMenu.value = false
     activeKey.value = 'pinball-1973'
     expect(layout.value.verticalMenuProps.value).toBe('pinball-1973')
     expect(layout.value.verticalExtraMenuProps.value).toBe('pinball-1973')
@@ -211,39 +179,13 @@ describe('v-model:value、autoActiveDetachedMenu、options', () => {
         key: 'rat',
       },
     ])
-    autoActiveDetachedSubMenu.value = true
-    expect(layout.value.horizontalMenuProps).toStrictEqual({})
-    expect(layout.value.verticalMenuProps.options).toStrictEqual(topLevelMenus)
-    expect(layout.value.verticalExtraMenuProps.options).toStrictEqual([
-      {
-        label: '鼠',
-        key: 'rat',
-      },
-    ])
   })
 
   it('should work with `mixed-two-column` layout', () => {
-    const autoActiveDetachedSubMenu = ref(true)
     const { layout, activeKey } = useLayoutMenu({
       menus,
-      autoActiveDetachedSubMenu,
       mode: 'mixed-two-column',
     })
-
-    // value
-    activeKey.value = 'dance-dance-dance'
-    expect(layout.value.horizontalMenuProps.value).toBe('dance-dance-dance')
-    expect(layout.value.verticalMenuProps.value).toBe('people')
-    expect(layout.value.verticalExtraMenuProps.value).toBe('narrator-1')
-    activeKey.value = 'people'
-    expect(layout.value.horizontalMenuProps.value).toBe('dance-dance-dance')
-    expect(layout.value.verticalMenuProps.value).toBe('people')
-    expect(layout.value.verticalExtraMenuProps.value).toBe('narrator-1')
-    activeKey.value = 'narrator-1'
-    expect(layout.value.horizontalMenuProps.value).toBe('dance-dance-dance')
-    expect(layout.value.verticalMenuProps.value).toBe('people')
-    expect(layout.value.verticalExtraMenuProps.value).toBe('narrator-1')
-    autoActiveDetachedSubMenu.value = false
     activeKey.value = 'dance-dance-dance'
     expect(layout.value.horizontalMenuProps.value).toBe('dance-dance-dance')
     expect(layout.value.verticalMenuProps.value).toBe('dance-dance-dance')
@@ -292,20 +234,6 @@ describe('v-model:value、autoActiveDetachedMenu、options', () => {
         key: 'sheep-man',
       },
     ]
-    autoActiveDetachedSubMenu.value = true
-    activeKey.value = 'dance-dance-dance'
-    expect(layout.value.horizontalMenuProps.options).toStrictEqual(topLevelMenus)
-    expect(layout.value.verticalMenuProps.options).toStrictEqual(danceNextLevelChildren)
-    expect(layout.value.verticalExtraMenuProps.options).toStrictEqual(danceChildrenWithoutNextLevel)
-    activeKey.value = 'people'
-    expect(layout.value.horizontalMenuProps.options).toStrictEqual(topLevelMenus)
-    expect(layout.value.verticalMenuProps.options).toStrictEqual(danceNextLevelChildren)
-    expect(layout.value.verticalExtraMenuProps.options).toStrictEqual(danceChildrenWithoutNextLevel)
-    activeKey.value = 'narrator-1'
-    expect(layout.value.horizontalMenuProps.options).toStrictEqual(topLevelMenus)
-    expect(layout.value.verticalMenuProps.options).toStrictEqual(danceNextLevelChildren)
-    expect(layout.value.verticalExtraMenuProps.options).toStrictEqual(danceChildrenWithoutNextLevel)
-    autoActiveDetachedSubMenu.value = false
     activeKey.value = 'dance-dance-dance'
     expect(layout.value.horizontalMenuProps.options).toStrictEqual(topLevelMenus)
     expect(layout.value.verticalMenuProps.options).toStrictEqual(danceNextLevelChildren)

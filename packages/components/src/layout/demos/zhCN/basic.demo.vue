@@ -19,7 +19,6 @@ const navHeight = ref(50)
 const sidebarWidth = ref(224)
 const tabbarHeight = ref(38)
 const footerHeight = ref(50)
-const sidebarMixedWidth = ref(58)
 const sidebarCollapsedWidth = ref(58)
 const mode = ref<ProLayoutMode>('vertical')
 
@@ -34,10 +33,6 @@ function updateMode(v: ProLayoutMode) {
     <div>
       <div>侧边栏宽度</div>
       <n-input-number v-model:value="sidebarWidth" />
-    </div>
-    <div>
-      <div>侧边栏混合宽度</div>
-      <n-input-number v-model:value="sidebarMixedWidth" />
     </div>
     <div>
       <div>侧边栏折叠后宽度</div>
@@ -121,7 +116,6 @@ function updateMode(v: ProLayoutMode) {
       :footer-height="footerHeight"
       :sidebar-width="sidebarWidth"
       :tabbar-height="tabbarHeight"
-      :sidebar-mixed-width="sidebarMixedWidth"
       :sidebar-collapsed-width="sidebarCollapsedWidth"
     >
       <template #logo>

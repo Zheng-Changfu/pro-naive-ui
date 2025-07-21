@@ -109,25 +109,24 @@ const showLogo = ref(true)
 const isMobile = ref(false)
 const showFooter = ref(true)
 const showTabbar = ref(true)
+const collapsed = ref(false)
 const showSidebar = ref(true)
 const footerFixed = ref(true)
 const navHeight = ref(50)
 const sidebarWidth = ref(224)
 const tabbarHeight = ref(38)
 const footerHeight = ref(50)
-const sidebarMixedWidth = ref(80)
 const sidebarCollapsedWidth = ref(58)
 const mode = ref<ProLayoutMode>('vertical')
+
 const {
   layout,
-  collapsed,
   verticalLayout,
 } = useLayoutMenu({
   mode,
   menus: menuOptions,
 })
 
-const isTwoColumnLayout = computed(() => ['two-column', 'mixed-two-two-column'].includes(mode.value))
 const hasHorizontalMenu = computed(() => ['horizontal', 'mixed-two-column', 'mixed-sidebar'].includes(mode.value))
 
 function updateMode(v: ProLayoutMode) {
@@ -141,10 +140,6 @@ function updateMode(v: ProLayoutMode) {
     <div>
       <div>侧边栏宽度</div>
       <n-input-number v-model:value="sidebarWidth" />
-    </div>
-    <div>
-      <div>侧边栏混合宽度</div>
-      <n-input-number v-model:value="sidebarMixedWidth" />
     </div>
     <div>
       <div>侧边栏折叠后宽度</div>
@@ -228,7 +223,6 @@ function updateMode(v: ProLayoutMode) {
       :footer-height="footerHeight"
       :sidebar-width="sidebarWidth"
       :tabbar-height="tabbarHeight"
-      :sidebar-mixed-width="sidebarMixedWidth"
       :sidebar-collapsed-width="sidebarCollapsedWidth"
       logo-class="flex justify-center"
     >
@@ -253,7 +247,7 @@ function updateMode(v: ProLayoutMode) {
       </template>
       <template #sidebar>
         <n-scrollbar class="flex-[1_0_0]">
-          <n-menu v-bind="layout.verticalMenuProps" :collapsed-width="isTwoColumnLayout ? sidebarMixedWidth : sidebarCollapsedWidth" />
+          <n-menu v-bind="layout.verticalMenuProps" :collapsed-width="sidebarCollapsedWidth" />
         </n-scrollbar>
         <n-divider />
         <n-avatar

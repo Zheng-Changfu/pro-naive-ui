@@ -15,7 +15,6 @@ const footerFixed = defineModel<boolean>('footerFixed')
 const sidebarWidth = defineModel<number>('sidebarWidth')
 const tabbarHeight = defineModel<number>('tabbarHeight')
 const footerHeight = defineModel<number>('footerHeight')
-const sidebarMixedWidth = defineModel<number>('sidebarMixedWidth')
 const sidebarCollapsedWidth = defineModel<number>('sidebarCollapsedWidth')
 
 function updateMode(v: ProLayoutMode) {
@@ -29,10 +28,6 @@ function updateMode(v: ProLayoutMode) {
     <div>
       <div>侧边栏宽度</div>
       <n-input-number v-model:value="sidebarWidth" />
-    </div>
-    <div>
-      <div>侧边栏混合宽度</div>
-      <n-input-number v-model:value="sidebarMixedWidth" />
     </div>
     <div>
       <div>侧边栏折叠后宽度</div>
