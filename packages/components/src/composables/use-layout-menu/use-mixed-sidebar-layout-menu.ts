@@ -1,17 +1,14 @@
 import type { MenuOption } from 'naive-ui'
-import type { ExpandedKey, MenuKey } from './types'
 import type { LayoutMenuReturn, SharedLayoutOptions } from './use-layout-menu'
 import { computed } from 'vue'
 import { splitMenuData } from './utils/split-menu-data'
 
 export function useMixedSidebarLayoutMenu({
   menus,
-  collapsed,
   activeKey,
   expandedKeys,
   childrenField,
   menuKeyToMetaMap,
-  autoActiveDetachedSubMenu,
   getMenuKeyFullPath,
 }: SharedLayoutOptions) {
   const horizontalMenuActiveKey = computed(() => {
@@ -35,55 +32,30 @@ export function useMixedSidebarLayoutMenu({
       horizontalMenuProps: {
         mode: 'horizontal',
         responsive: true,
+        collapsed: false,
         options: horizontalMenuData.value,
         value: horizontalMenuActiveKey.value,
-        onUpdateValue: activeRelatedMenuKey,
+        onUpdateValue: (key) => {
+          activeKey.value = key
+        },
       },
       verticalMenuProps: {
         mode: 'vertical',
         value: activeKey.value,
-        collapsed: collapsed.value,
         options: verticalMenuData.value,
         expandedKeys: expandedKeys.value,
-        onUpdateExpandedKeys: expand,
         onUpdateValue: (key) => {
           activeKey.value = key
+        },
+        onUpdateExpandedKeys: (keys) => {
+          expandedKeys.value = keys
         },
       },
       verticalExtraMenuProps: {},
     }
   })
 
-  function activeRelatedMenuKey(key: MenuKey) {
-    if (autoActiveDetachedSubMenu.value) {
-      const fullPath = getMenuKeyFullPath(key)
-      activeKey.value = fullPath[fullPath.length - 1]
-      return
-    }
-    activeKey.value = key
-  }
-
-  function active(key: MenuKey) {
-    const index = horizontalMenuData.value.findIndex(menu => menu.key === key)
-    if (~index) {
-      activeRelatedMenuKey(key)
-      return
-    }
-    activeKey.value = key
-  }
-
-  function expand(keys: ExpandedKey[]) {
-    expandedKeys.value = keys
-  }
-
-  function collapse(value: boolean) {
-    collapsed.value = value
-  }
-
   return {
     layout,
-    active,
-    expand,
-    collapse,
   }
 }

@@ -1,17 +1,14 @@
 import type { MenuOption } from 'naive-ui'
-import type { ExpandedKey, MenuKey } from './types'
 import type { LayoutMenuReturn, SharedLayoutOptions } from './use-layout-menu'
 import { computed } from 'vue'
 import { splitMenuData } from './utils/split-menu-data'
 
 export function useMixedTwoColumnLayoutMenu({
   menus,
-  collapsed,
   activeKey,
   expandedKeys,
   childrenField,
   menuKeyToMetaMap,
-  autoActiveDetachedSubMenu,
   getMenuKeyFullPath,
 }: SharedLayoutOptions) {
   const horizontalMenuActiveKey = computed(() => {
@@ -21,9 +18,6 @@ export function useMixedTwoColumnLayoutMenu({
   const verticalMenuActiveKey = computed(() => {
     const topLevelKey = horizontalMenuActiveKey.value
     const secondLevelKey = getMenuKeyFullPath(activeKey.value)[1] ?? null
-    if (autoActiveDetachedSubMenu.value) {
-      return secondLevelKey
-    }
     if (
       activeKey.value !== topLevelKey
       && activeKey.value !== secondLevelKey
@@ -63,64 +57,38 @@ export function useMixedTwoColumnLayoutMenu({
       horizontalMenuProps: {
         mode: 'horizontal',
         responsive: true,
+        collapsed: false,
         options: horizontalMenuData.value,
         value: horizontalMenuActiveKey.value,
-        onUpdateValue: activeRelatedMenuKey,
+        onUpdateValue: (key) => {
+          activeKey.value = key
+        },
       },
       verticalMenuProps: {
         mode: 'vertical',
         options: verticalMenuData.value,
         value: verticalMenuActiveKey.value,
         collapsed: true,
-        onUpdateValue: activeRelatedMenuKey,
+        onUpdateValue: (key) => {
+          activeKey.value = key
+        },
       },
       verticalExtraMenuProps: {
         mode: 'vertical',
         value: activeKey.value,
-        collapsed: collapsed.value,
         expandedKeys: expandedKeys.value,
         options: verticalExtraMenuData.value,
-        onUpdateExpandedKeys: expand,
         onUpdateValue: (key) => {
           activeKey.value = key
+        },
+        onUpdateExpandedKeys: (keys) => {
+          expandedKeys.value = keys
         },
       },
     }
   })
 
-  function activeRelatedMenuKey(key: MenuKey) {
-    if (autoActiveDetachedSubMenu.value) {
-      const fullPath = getMenuKeyFullPath(key)
-      activeKey.value = fullPath[fullPath.length - 1]
-      return
-    }
-    activeKey.value = key
-  }
-
-  function active(key: MenuKey) {
-    const index = [
-      ...verticalMenuData.value,
-      ...horizontalMenuData.value,
-    ].findIndex(menu => menu.key === key)
-    if (~index) {
-      activeRelatedMenuKey(key)
-      return
-    }
-    activeKey.value = key
-  }
-
-  function expand(keys: ExpandedKey[]) {
-    expandedKeys.value = keys
-  }
-
-  function collapse(value: boolean) {
-    collapsed.value = value
-  }
-
   return {
     layout,
-    active,
-    expand,
-    collapse,
   }
 }

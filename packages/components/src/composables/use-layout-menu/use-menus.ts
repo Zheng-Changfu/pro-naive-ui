@@ -19,10 +19,10 @@ export function useMenus(menus: MaybeRefOrGetter<MenuOption[]>, options: UseMenu
 
   const menuKeyToMetaMap = computed(() => {
     const childrenField = options.childrenField ?? 'children'
-    const map = new Map<Exclude<MenuKey, null>, {
+    const map = new Map<NonNullable<MenuKey>, {
       item: MenuOption
-      childrenKeys: Exclude<MenuKey, null>[]
       parentKey: MenuKey
+      childrenKeys: NonNullable<MenuKey>[]
     }>()
     eachTree(resolvedMenus.value, (item, _, { parent }) => {
       const menuKey = item.key
@@ -40,38 +40,55 @@ export function useMenus(menus: MaybeRefOrGetter<MenuOption[]>, options: UseMenu
   })
 
   /**
-   * 从任意一个 key 出发,获取该 key 的菜单完整路径
-   * 如果有多层级的孩子,只取每一个层级孩子的第一个,一直取到叶子节点
+   * 获取任意一个 key 的祖先 key 列表
    */
-  function getMenuKeyFullPath(key: MenuKey) {
-    const paths: Exclude<MenuKey, null>[] = []
-    // 收集所有的父级 key,包括自己
-    let currentKey = key
+  function getAncestorKeys(key: MenuKey) {
+    const keys: NonNullable<MenuKey>[] = []
+    let currentKey = menuKeyToMetaMap.value.get(key as any)?.parentKey
     while (!isNil(currentKey)) {
-      paths.unshift(currentKey)
+      keys.unshift(currentKey)
       const info = menuKeyToMetaMap.value.get(currentKey)
       if (!info) {
         break
       }
       currentKey = info.parentKey
     }
-    // 收集多层级孩子的每一个层级孩子的第一个key
-    currentKey = key
+    return keys
+  }
+
+  /**
+   * 获取任意一个 key 的子孙 key 列表
+   */
+  function getDescendantKeys(key: MenuKey) {
+    const keys: NonNullable<MenuKey>[] = []
+    let currentKey = menuKeyToMetaMap.value.get(key as any)?.childrenKeys?.[0]
     while (!isNil(currentKey)) {
+      keys.push(currentKey)
       const info = menuKeyToMetaMap.value.get(currentKey)
       if (!info) {
         break
       }
-      if (info.childrenKeys.length > 0) {
-        paths.push(info.childrenKeys[0])
-      }
-      currentKey = info.childrenKeys[0]
+      currentKey = info.childrenKeys?.[0]
     }
-    return paths
+    return keys
+  }
+
+  /**
+   * 从任意一个 key 出发,获取该 key 的菜单完整路径
+   * 如果有多层级的孩子,只取每一个层级孩子的第一个,一直取到叶子节点
+   */
+  function getMenuKeyFullPath(key: MenuKey) {
+    return [
+      ...getAncestorKeys(key),
+      key,
+      ...getDescendantKeys(key),
+    ].filter(k => !isNil(k)) as NonNullable<MenuKey>[]
   }
 
   return {
+    getAncestorKeys,
     menuKeyToMetaMap,
+    getDescendantKeys,
     getMenuKeyFullPath,
     menus: resolvedMenus,
   }
