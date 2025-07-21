@@ -1,9 +1,9 @@
 import type { TimePickerProps } from 'naive-ui'
 import type { PropType, SlotsType, VNodeChild } from 'vue'
 import type { ProTimePickerSlots } from '../slots'
-import { isString } from 'lodash-es'
 import { NTimePicker, timePickerProps } from 'naive-ui'
 import { computed, defineComponent } from 'vue'
+import { isEmptyValue } from '../../../../_utils/is-empty-value'
 import { stringifyDate } from '../../date-picker/components/utils/stringify-date'
 import { useFieldUtils } from '../../field'
 import { useInjectTimePickerInstStore } from '../inst'
@@ -37,7 +37,7 @@ export default defineComponent({
     const mergedFormat = useMergeFormat(props as any)
 
     /**
-     * 传递了 value-format 属性并且 value 是一个字符串 使用 v-model:formattedValue
+     * 传递了 value-format 使用 v-model:formattedValue
      * 默认使用 v-model:value
      */
     const vModelProps = computed<TimePickerProps>(() => {
@@ -47,16 +47,16 @@ export default defineComponent({
         onUpdateValue,
       } = props
 
-      if (valueFormat && isString(value)) {
+      if (valueFormat) {
         return {
-          formattedValue: value ?? null,
           onUpdateFormattedValue: onUpdateValue,
+          formattedValue: isEmptyValue(value) ? null : value,
         } as any
       }
 
       return {
-        value: value ?? null,
         onUpdateValue,
+        value: value ?? null,
       }
     })
 
