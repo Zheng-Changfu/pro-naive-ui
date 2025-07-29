@@ -256,6 +256,9 @@ export default defineComponent({
         <NScrollbar
           class={`${this.mergedClsPrefix}-pro-layout__scrollbar`}
           contentClass={`${this.mergedClsPrefix}-pro-layout__scrollbar__inner`}
+          builtinThemeOverrides={{
+            railInsetVerticalRight: '2px -10px 2px auto',
+          }}
         >
           <header class={[
             `${this.mergedClsPrefix}-pro-layout__header`,

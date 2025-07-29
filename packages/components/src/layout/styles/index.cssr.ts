@@ -22,6 +22,9 @@ export default cB('pro-layout', `
       transition: none !important;
     `),
   ]),
+  cB('scrollbar', `
+    overflow: visible;
+    `),
   setupMobileLayoutStyle(),
   setupSidebarLayoutStyle(),
   setupVerticalLayoutStyle(),
