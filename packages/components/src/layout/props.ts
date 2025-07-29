@@ -1,3 +1,4 @@
+import type { ScrollbarProps } from 'naive-ui'
 import type { ExtractPublicPropTypes, PropType } from 'vue'
 import type { MaybeArray } from '../_utils/call'
 import type { BuiltinThemeOverrides, ProLayoutFooter, ProLayoutMode, ProLayoutNav, ProLayoutSidebar, ProLayoutTabbar } from './types'
@@ -135,6 +136,10 @@ export const proLayoutProps = {
    * 主题覆盖
    */
   'builtinThemeOverrides': Object as PropType<BuiltinThemeOverrides>,
+  /**
+   * 透传给 n-scrollbar 的属性
+   */
+  'scrollbarProps': Object as PropType<ScrollbarProps>,
 } as const
 
 export type ProLayoutProps = ExtractPublicPropTypes<typeof proLayoutProps>

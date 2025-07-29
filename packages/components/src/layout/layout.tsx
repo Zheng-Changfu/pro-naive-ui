@@ -1,6 +1,8 @@
+import type { ScrollbarProps } from 'naive-ui'
 import type { SlotsType } from 'vue'
 import type { ProLayoutSlots } from './slots'
 import type { CalcLayoutVarsOptions } from './types'
+import { merge } from 'lodash-es'
 import { NScrollbar, useThemeVars } from 'naive-ui'
 import { computed, defineComponent, provide, toRef } from 'vue'
 import { useNaiveClsPrefix } from '../_internal/use-cls-prefix'
@@ -132,6 +134,14 @@ export default defineComponent({
       }
     })
 
+    const nScrollbarProps = computed<ScrollbarProps>(() => {
+      return merge({
+        builtinThemeOverrides: {
+          railInsetVerticalRight: '2px -10px 2px auto',
+        },
+      }, (overridedProps.value.scrollbarProps ?? {}))
+    })
+
     useMountStyle(
       name,
       'pro-layout',
@@ -159,6 +169,7 @@ export default defineComponent({
       mergedCollapsed,
       mergedNavClass,
       mergedLogoClass,
+      nScrollbarProps,
       mergedMainClass,
       mergedAsideClass,
       mergedHeaderClass,
@@ -256,9 +267,7 @@ export default defineComponent({
         <NScrollbar
           class={`${this.mergedClsPrefix}-pro-layout__scrollbar`}
           contentClass={`${this.mergedClsPrefix}-pro-layout__scrollbar__inner`}
-          builtinThemeOverrides={{
-            railInsetVerticalRight: '2px -10px 2px auto',
-          }}
+          {...this.nScrollbarProps}
         >
           <header class={[
             `${this.mergedClsPrefix}-pro-layout__header`,
