@@ -4,7 +4,7 @@ import type { ComputedRef, Ref } from 'vue'
 import type { ProLayoutMode } from '../../layout/types'
 import type { ExpandedKey, MenuKey } from './types'
 import { toValue } from '@vueuse/core'
-import { computed, ref, watchEffect } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useFullContentLayoutMenu } from './use-full-content-layout-menu'
 import { useHorizontalLayoutMenu } from './use-horizontal-layout-menu'
 import { useMenus } from './use-menus'
@@ -140,7 +140,7 @@ export function useLayoutMenu(options: UseLayoutMenuOptions) {
     }
   })
 
-  watchEffect(() => {
+  watch(activeKey, () => {
     const keys = accordion.value
       ? getAncestorKeys(activeKey.value)
       : [...expandedKeys.value, ...getAncestorKeys(activeKey.value)]
@@ -149,6 +149,7 @@ export function useLayoutMenu(options: UseLayoutMenuOptions) {
 
   return {
     activeKey,
+    getMenuKeyFullPath,
     layout: computed(() => {
       const privateLayout = layout.value
       return privateLayout.layout.value
