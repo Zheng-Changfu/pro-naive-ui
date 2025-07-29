@@ -59,6 +59,7 @@ export function setupHorizontalLayoutStyle() {
           top: 0;
           left: 0;
           width: 100%;
+          z-index: var(--pro-layout-z-index);
       `),
     ]),
     cB('pro-layout__nav', `
@@ -134,6 +135,7 @@ export function setupHorizontalLayoutStyle() {
           position: absolute;
           bottom: 0;
           left: 0;
+          z-index: var(--pro-layout-z-index);
         `),
       cM('hidden', `
           height: 0;

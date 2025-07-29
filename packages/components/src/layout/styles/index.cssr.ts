@@ -22,9 +22,9 @@ export default cB('pro-layout', `
       transition: none !important;
     `),
   ]),
-  cB('scrollbar', `
-    overflow: visible;
-    `),
+  cB('scrollbar-rail', `
+    z-index: calc(var(--pro-layout-z-index) + 1);
+  `),
   setupMobileLayoutStyle(),
   setupSidebarLayoutStyle(),
   setupVerticalLayoutStyle(),

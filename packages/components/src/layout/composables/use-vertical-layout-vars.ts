@@ -98,6 +98,7 @@ export function setupVerticalLayoutStyle() {
           top: 0;
           left: 0;
           width: 100%;
+          z-index: var(--pro-layout-z-index);
       `),
     ]),
     cB('pro-layout__nav', `
@@ -166,6 +167,7 @@ export function setupVerticalLayoutStyle() {
           position: absolute;
           bottom: 0;
           left: 0;
+          z-index: var(--pro-layout-z-index);
         `),
       cM('hidden', `
           height: 0;

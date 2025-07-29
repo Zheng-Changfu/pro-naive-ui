@@ -133,7 +133,7 @@ export function setupSidebarLayoutStyle() {
         position: absolute;
         left: 0;
         top: 0;
-        z-index: 1;
+        z-index: calc(var(--pro-layout-z-index) + 1);
         display: flex;
         flex-direction: column;
         box-sizing: border-box;
@@ -181,6 +181,7 @@ export function setupSidebarLayoutStyle() {
           top: 0;
           left: 0;
           width: 100%;
+          z-index: var(--pro-layout-z-index);
       `),
     ]),
     cB('pro-layout__nav', `
@@ -261,6 +262,7 @@ export function setupSidebarLayoutStyle() {
           position: absolute;
           bottom: 0;
           left: 0;
+          z-index: var(--pro-layout-z-index);
         `),
       cM('hidden', `
           height: 0;

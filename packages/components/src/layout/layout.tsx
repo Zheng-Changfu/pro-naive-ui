@@ -125,6 +125,7 @@ export default defineComponent({
         '--pro-layout-text-color': builtinThemeVars.value.textColor,
         '--pro-layout-border-color': builtinThemeVars.value.borderColor,
         // 给当前组件使用的变量
+        '--pro-layout-z-index': 1000,
         '--pro-layout-nav-height': `${mergedNav.value.height}px`,
         '--pro-layout-tabbar-height': `${mergedTabbar.value.height}px`,
         '--pro-layout-sidebar-width': `${mergedSidebar.value.width}px`,
@@ -137,7 +138,7 @@ export default defineComponent({
     const nScrollbarProps = computed<ScrollbarProps>(() => {
       return merge({
         builtinThemeOverrides: {
-          railInsetVerticalRight: '2px -10px 2px auto',
+          railInsetVerticalRight: '2px 0px 2px auto',
         },
       }, (overridedProps.value.scrollbarProps ?? {}))
     })
