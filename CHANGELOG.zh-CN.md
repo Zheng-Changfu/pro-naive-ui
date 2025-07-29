@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## 2.4.1
+
+### Features
+
+- `pro-layout` 新增 `scrollbar-props`、`content-class` 属性
+- `useLayoutMenu` 导出 `getMenuKeyFullPath` 方法
+
+### Fixes
+
+- 修复 `pro-layout` 滚动条阻挡页面元素问题
+- 修复 `useLayoutMenu` 展开后的子菜单无法折叠问题
+
 ## 2.4.0
 
 ### Features

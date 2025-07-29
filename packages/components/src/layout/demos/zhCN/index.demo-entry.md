@@ -40,7 +40,7 @@ menus.vue
 | contentClass          | `string \| any[]`                                                                                                    | `-`          | 内容区 class                                                             |              |
 | footerClass           | `string \| any[]`                                                                                                    | `-`          | 底部 class                                                               |              |
 | onUpdate:collapsed    | `(value: boolean) => void>`                                                                                          | `-`          | 侧边栏折叠时触发                                                         |              |
-| scrollbarProps        | `ScrollbarProps`                                                                                                     | `-`          | 透传给 n-scrollbar 的属性                                                | NEXT_VERSION |
+| scrollbarProps        | `ScrollbarProps`                                                                                                     | `-`          | 透传给 n-scrollbar 的属性                                                | 2.4.1 |
 
 ### ProLayout 插槽
 
