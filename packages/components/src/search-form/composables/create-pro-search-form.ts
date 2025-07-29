@@ -1,7 +1,7 @@
-import type { ComputedRef } from 'vue'
+import type { Ref } from 'vue'
 import type { CreateProFormOptions, ExtendProForm } from '../../form/composables/create-pro-form'
 import { isBoolean } from 'lodash-es'
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import { extendProForm, useInjectProForm } from '../../form/composables/create-pro-form'
 
 export type CreateProSearchFormReturn<Values = any> = ExtendProForm<
@@ -10,7 +10,7 @@ export type CreateProSearchFormReturn<Values = any> = ExtendProForm<
     /**
      * 是否收起
      */
-    collapsed: ComputedRef<boolean>
+    collapsed: Ref<boolean>
     /**
      * 切换收起
      * @param collapsed 传递了此参数，根据参数切换
@@ -31,9 +31,7 @@ export function createProSearchForm<Values = any>(options: CreateProSearchFormOp
   const collapsed = ref(options.defaultCollapsed ?? false)
 
   return extendProForm(options, {
-    collapsed: computed(() => {
-      return collapsed.value
-    }),
+    collapsed,
     toggleCollapse: (value?: boolean) => {
       collapsed.value = isBoolean(value)
         ? value
