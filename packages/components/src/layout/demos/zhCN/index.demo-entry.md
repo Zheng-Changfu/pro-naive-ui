@@ -21,7 +21,7 @@ menus.vue
 | collapsed             | `boolean`                                                                                                            | `false`      | 侧边栏是否折叠                                                           |              |
 | showLogo              | `boolean`                                                                                                            | `true`       | 是否显示 logo                                                            |              |
 | showSidebar           | `boolean`                                                                                                            | `true`       | 是否显示侧边栏                                                           |              |
-| showSidebarExtra      | `boolean`                                                                                                            | `true`       | 是否显示侧边栏额外区域，只在 'two-column'、'mixed-two-column' 布局下生效 | 2.4.0 |
+| showSidebarExtra      | `boolean`                                                                                                            | `true`       | 是否显示侧边栏额外区域，只在 'two-column'、'mixed-two-column' 布局下生效 | 2.4.0        |
 | showNav               | `boolean`                                                                                                            | `true`       | 是否显示顶栏                                                             |              |
 | showTabbar            | `boolean`                                                                                                            | `true`       | 是否显示标签栏                                                           |              |
 | showFooter            | `boolean`                                                                                                            | `true`       | 是否显示底部                                                             |              |
@@ -37,9 +37,10 @@ menus.vue
 | headerClass           | `string \| any[]`                                                                                                    | `-`          | 头部 class                                                               |              |
 | navClass              | `string \| any[]`                                                                                                    | `-`          | 顶栏 class                                                               |              |
 | tabbarClass           | `string \| any[]`                                                                                                    | `-`          | 标签栏 class                                                             |              |
-| mainClass             | `string \| any[]`                                                                                                    | `-`          | 内容区 class                                                             |              |
+| contentClass          | `string \| any[]`                                                                                                    | `-`          | 内容区 class                                                             |              |
 | footerClass           | `string \| any[]`                                                                                                    | `-`          | 底部 class                                                               |              |
 | onUpdate:collapsed    | `(value: boolean) => void>`                                                                                          | `-`          | 侧边栏折叠时触发                                                         |              |
+| scrollbarProps        | `ScrollbarProps`                                                                                                     | `-`          | 透传给 n-scrollbar 的属性                                                | NEXT_VERSION |
 
 ### ProLayout 插槽
 

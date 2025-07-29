@@ -51,7 +51,7 @@ import type { VNodeChild } from 'vue'
 
 | 名称                                              | 类型                            | 默认值 | 说明                                 | 版本 |
 | ------------------------------------------------- | ------------------------------- | ------ | ------------------------------------ | ---- |
-| collapsed                                         | `ComputedRef<boolean>`          | `-`    | 是否收起                             |      |
+| collapsed                                         | `Ref<boolean>`                  | `-`    | 是否收起                             |      |
 | toggleCollapse                                    | `(collapsed?: boolean) => void` | `-`    | 切换收起，传递了此参数，根据参数切换 |      |
 | [参考 createProform](form#createProForm-Returned) |                                 |        |                                      |      |
 

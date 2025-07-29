@@ -50,12 +50,12 @@ import type { VNodeChild } from 'vue'
 创建一个弹窗表单控制器，如果已经注册了控制器，想在后代组件中使用，无需透传，可以使用 `useInjectProModalForm` 方法直接注入，
 用法同 [createProForm](form#createProForm)，调用后的返回值增加了几个参数
 
-| 名称                                              | 类型                   | 默认值 | 说明             | 版本 |
-| ------------------------------------------------- | ---------------------- | ------ | ---------------- | ---- |
-| open                                              | `() => void`           | `-`    | 打开弹窗         |      |
-| close                                             | `() => void`           | `-`    | 关闭弹窗         |      |
-| show                                              | `ComputedRef<boolean>` | `-`    | 当前弹窗显示状态 |      |
-| [参考 createProform](form#createProForm-Returned) |                        |        |                  |      |
+| 名称                                              | 类型           | 默认值 | 说明             | 版本 |
+| ------------------------------------------------- | -------------- | ------ | ---------------- | ---- |
+| open                                              | `() => void`   | `-`    | 打开弹窗         |      |
+| close                                             | `() => void`   | `-`    | 关闭弹窗         |      |
+| show                                              | `Ref<boolean>` | `-`    | 当前弹窗显示状态 |      |
+| [参考 createProform](form#createProForm-Returned) |                |        |                  |      |
 
 ### 属性冲突
 因为组件同时支持 `ProForm` 和 `ProModal` 的所有属性，他们可能会有一些重名属性，这时候 `ProForm` 的属性优先级更高，如果你需要给 `ProModal`
