@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 2.4.2
+
+### Fixes
+- 修复 `pro-layout` 中相关元素绝对定位未设置 z-index 导致被盖住问题
+
 ## 2.4.1
 
 ### Features
