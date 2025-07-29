@@ -43,11 +43,11 @@ export default defineComponent({
       mergedCollapsed,
       mergedNavClass,
       mergedLogoClass,
-      mergedMainClass,
       mergedAsideClass,
       mergedHeaderClass,
       mergedTabbarClass,
       mergedFooterClass,
+      mergedContentClass,
     } = useMergeConfig(overridedProps)
 
     const {
@@ -170,11 +170,11 @@ export default defineComponent({
       mergedNavClass,
       mergedLogoClass,
       nScrollbarProps,
-      mergedMainClass,
       mergedAsideClass,
       mergedHeaderClass,
       mergedTabbarClass,
       mergedFooterClass,
+      mergedContentClass,
     }
   },
   render() {
@@ -297,7 +297,7 @@ export default defineComponent({
           </header>
           <main class={[
             `${this.mergedClsPrefix}-pro-layout__main`,
-            ...this.mergedMainClass,
+            ...this.mergedContentClass,
           ]}
           >
             {this.$slots.default?.()}

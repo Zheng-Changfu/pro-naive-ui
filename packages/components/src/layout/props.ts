@@ -127,7 +127,7 @@ export const proLayoutProps = {
   /**
    * 主内容区 class
    */
-  'mainClass': [Array, String] as PropType<string | any[]>,
+  'contentClass': [Array, String] as PropType<string | any[]>,
   /**
    * 底部 class
    */

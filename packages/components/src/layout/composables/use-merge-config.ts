@@ -99,9 +99,9 @@ export function useMergeConfig(props: ComputedRef<ProLayoutProps>) {
     return isString(tabbarClass) ? [tabbarClass] : tabbarClass
   })
 
-  const mergedMainClass = computed(() => {
-    const mainClass = props.value.mainClass ?? []
-    return isString(mainClass) ? [mainClass] : mainClass
+  const mergedContentClass = computed(() => {
+    const contentClass = props.value.contentClass ?? []
+    return isString(contentClass) ? [contentClass] : contentClass
   })
 
   const mergedFooterClass = computed(() => {
@@ -119,11 +119,11 @@ export function useMergeConfig(props: ComputedRef<ProLayoutProps>) {
     mergedIsMobile,
     mergedNavClass,
     mergedLogoClass,
-    mergedMainClass,
     mergedCollapsed,
     mergedAsideClass,
     mergedHeaderClass,
     mergedTabbarClass,
     mergedFooterClass,
+    mergedContentClass,
   }
 }
