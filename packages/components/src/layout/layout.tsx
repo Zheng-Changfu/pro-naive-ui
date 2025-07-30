@@ -299,7 +299,7 @@ export default defineComponent({
             </div>
           </header>
           <main class={[
-            `${this.mergedClsPrefix}-pro-layout__main`,
+            `${this.mergedClsPrefix}-pro-layout__content`,
             ...this.mergedContentClass,
           ]}
           >

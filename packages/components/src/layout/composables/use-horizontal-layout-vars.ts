@@ -116,7 +116,7 @@ export function setupHorizontalLayoutStyle() {
           border-bottom-color: var(--pro-layout-border-color);
       `),
     ]),
-    cB('pro-layout__main', `
+    cB('pro-layout__content', `
         flex-grow: 1;
         flex-basis: 0;
         background: var(--pro-layout-content-color);
