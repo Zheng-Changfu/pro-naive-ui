@@ -108,4 +108,5 @@ export interface BuiltinThemeOverrides {
   color?: string
   textColor?: string
   borderColor?: string
+  layoutColor?: string
 }

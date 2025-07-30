@@ -74,7 +74,8 @@ export default defineComponent({
       return {
         color: themeVars.value.bodyColor,
         textColor: themeVars.value.textColor2,
-        borderColor: themeVars.value.borderColor,
+        layoutColor: themeVars.value.cardColor,
+        borderColor: themeVars.value.dividerColor,
         ...(overridedProps.value.builtinThemeOverrides ?? {}),
       }
     })
@@ -121,7 +122,8 @@ export default defineComponent({
         '--n-text-color': themeVars.value.textColor2,
         '--n-bezier': themeVars.value.cubicBezierEaseInOut,
         // 可覆盖的主题变量
-        '--pro-layout-color': builtinThemeVars.value.color,
+        '--pro-layout-color': builtinThemeVars.value.layoutColor,
+        '--pro-layout-content-color': builtinThemeVars.value.color,
         '--pro-layout-text-color': builtinThemeVars.value.textColor,
         '--pro-layout-border-color': builtinThemeVars.value.borderColor,
         // 给当前组件使用的变量

@@ -192,6 +192,9 @@ export function setupSidebarLayoutStyle() {
         background: var(--pro-layout-color);
         padding-left: var(--pro-layout-nav-padding-left);
         border-bottom: 1px solid var(--pro-layout-border-color);
+        transition:
+          background .3s var(--n-bezier),
+          border-color .3s var(--n-bezier);
     `, [
       cB('pro-layout__logo', `
           height: 100%;
@@ -241,12 +244,14 @@ export function setupSidebarLayoutStyle() {
       `),
     ]),
     cB('pro-layout__main', `
-       padding-left: var(--pro-layout-main-padding-left);
-       padding-top: var(--pro-layout-main-padding-top);
-       padding-bottom: var(--pro-layout-main-padding-bottom);
        flex-grow: 1;
        flex-basis: 0;
+       background: var(--pro-layout-content-color);
+       padding-top: var(--pro-layout-main-padding-top);
+       padding-left: var(--pro-layout-main-padding-left);
+       padding-bottom: var(--pro-layout-main-padding-bottom);
        transition: 
+        background .3s var(--n-bezier),
         padding-left .3s var(--n-bezier);
     `),
     cB('pro-layout__footer', `

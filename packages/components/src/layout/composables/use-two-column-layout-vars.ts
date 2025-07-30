@@ -190,8 +190,11 @@ export function setupTwoColumnLayoutStyle() {
     cB('pro-layout__main', `
         flex-grow: 1;
         flex-basis: 0;
+        background: var(--pro-layout-content-color);
         padding-top: var(--pro-layout-main-padding-top);
         padding-bottom: var(--pro-layout-main-padding-bottom);
+        transition:
+          background .3s var(--n-bezier);
       `),
     cB('pro-layout__footer', `
         height: var(--pro-layout-footer-height);
