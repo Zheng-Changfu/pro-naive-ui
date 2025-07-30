@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 2.4.3
+
+### Fixes
+- 修复 `pro-layout` 非内容区背景色跟 `n-layout` 不一致问题
+
 ## 2.4.2
 
 ### Fixes
