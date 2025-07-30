@@ -25,7 +25,7 @@ export function useTwoColumnLayoutVars({
     return `${sidebar.collapsedWidth}px`
   })
 
-  const sidebarPaddingTop = computed(() => {
+  const sidebarMarginTop = computed(() => {
     const nav = mergedNav.value
     const logo = mergedLogo.value
     return logo.show
@@ -33,7 +33,7 @@ export function useTwoColumnLayoutVars({
       : '0px'
   })
 
-  const mainPaddingTop = computed(() => {
+  const contentMarginTop = computed(() => {
     const nav = mergedNav.value
     const tabbar = mergedTabbar.value
     if (nav.fixed && nav.show && !tabbar.show) {
@@ -48,7 +48,7 @@ export function useTwoColumnLayoutVars({
     return '0px'
   })
 
-  const mainPaddingBottom = computed(() => {
+  const contentMarginBottom = computed(() => {
     const footer = mergedFooter.value
     if (footer.fixed && footer.show) {
       return `${footer.height}px`
@@ -59,9 +59,9 @@ export function useTwoColumnLayoutVars({
   return computed(() => {
     return {
       '--pro-layout-sidebar-width': sidebarWidth.value,
-      '--pro-layout-sidebar-padding-top': sidebarPaddingTop.value,
-      '--pro-layout-main-padding-top': mainPaddingTop.value,
-      '--pro-layout-main-padding-bottom': mainPaddingBottom.value,
+      '--pro-layout-sidebar-margin-top': sidebarMarginTop.value,
+      '--pro-layout-content-margin-top': contentMarginTop.value,
+      '--pro-layout-content-margin-bottom': contentMarginBottom.value,
     }
   })
 }
@@ -98,7 +98,7 @@ export function setupTwoColumnLayoutStyle() {
         flex-shrink: 0;
         box-sizing: border-box;
         width: var(--pro-layout-sidebar-collapsed-width);
-        padding-top: var(--pro-layout-sidebar-padding-top);
+        margin-top: var(--pro-layout-sidebar-margin-top);
         border-right: 1px solid var(--pro-layout-border-color);
         transition:
           border-color .3s var(--n-bezier);
@@ -191,8 +191,8 @@ export function setupTwoColumnLayoutStyle() {
         flex-grow: 1;
         flex-basis: 0;
         background: var(--pro-layout-content-color);
-        padding-top: var(--pro-layout-main-padding-top);
-        padding-bottom: var(--pro-layout-main-padding-bottom);
+        margin-top: var(--pro-layout-content-margin-top);
+        margin-bottom: var(--pro-layout-content-margin-bottom);
         transition:
           background .3s var(--n-bezier);
       `),

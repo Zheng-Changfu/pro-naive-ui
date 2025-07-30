@@ -25,7 +25,7 @@ export function useSidebarLayoutVars({
     return '0px'
   })
 
-  const navPaddingLeft = computed(() => {
+  const navMarginLeft = computed(() => {
     const nav = mergedNav.value
     const sidebar = mergedSidebar.value
     const collapsed = mergedCollapsed.value
@@ -38,7 +38,7 @@ export function useSidebarLayoutVars({
     return '0px'
   })
 
-  const tabbarPaddingLeft = computed(() => {
+  const tabbarMarginLeft = computed(() => {
     const sidebar = mergedSidebar.value
     const collapsed = mergedCollapsed.value
     if (!sidebar.show) {
@@ -50,7 +50,7 @@ export function useSidebarLayoutVars({
     return `${sidebar.width}px`
   })
 
-  const mainPaddingLeft = computed(() => {
+  const contentMarginLeft = computed(() => {
     const sidebar = mergedSidebar.value
     const collapsed = mergedCollapsed.value
     if (!sidebar.show) {
@@ -62,7 +62,7 @@ export function useSidebarLayoutVars({
     return `${sidebar.width}px`
   })
 
-  const mainPaddingTop = computed(() => {
+  const contentMarginTop = computed(() => {
     const nav = mergedNav.value
     const tabbar = mergedTabbar.value
     if (nav.fixed && nav.show && !tabbar.show) {
@@ -77,7 +77,7 @@ export function useSidebarLayoutVars({
     return '0px'
   })
 
-  const mainPaddingBottom = computed(() => {
+  const contentMarginBottom = computed(() => {
     const footer = mergedFooter.value
     if (footer.fixed && footer.show) {
       return `${footer.height}px`
@@ -85,7 +85,7 @@ export function useSidebarLayoutVars({
     return '0px'
   })
 
-  const footerPaddingLeft = computed(() => {
+  const footerMarginLeft = computed(() => {
     const sidebar = mergedSidebar.value
     const collapsed = mergedCollapsed.value
     if (!sidebar.show) {
@@ -113,13 +113,13 @@ export function useSidebarLayoutVars({
     return {
       '--pro-layout-sidebar-height': sidebarHeight.value,
       '--pro-layout-sidebar-margin-top': sidebarMarginTop.value,
-      '--pro-layout-nav-padding-left': navPaddingLeft.value,
-      '--pro-layout-tabbar-padding-left': tabbarPaddingLeft.value,
-      '--pro-layout-main-padding-top': mainPaddingTop.value,
-      '--pro-layout-main-padding-left': mainPaddingLeft.value,
-      '--pro-layout-main-padding-bottom': mainPaddingBottom.value,
+      '--pro-layout-nav-margin-left': navMarginLeft.value,
+      '--pro-layout-tabbar-margin-left': tabbarMarginLeft.value,
+      '--pro-layout-content-margin-top': contentMarginTop.value,
+      '--pro-layout-content-margin-left': contentMarginLeft.value,
+      '--pro-layout-content-margin-bottom': contentMarginBottom.value,
       '--pro-layout-footer-width': footerWidth.value,
-      '--pro-layout-footer-padding-left': footerPaddingLeft.value,
+      '--pro-layout-footer-margin-left': footerMarginLeft.value,
     }
   })
 }
@@ -190,7 +190,7 @@ export function setupSidebarLayoutStyle() {
         align-items: center;
         box-sizing: border-box;
         background: var(--pro-layout-color);
-        padding-left: var(--pro-layout-nav-padding-left);
+        margin-left: var(--pro-layout-nav-margin-left);
         border-bottom: 1px solid var(--pro-layout-border-color);
         transition:
           background .3s var(--n-bezier),
@@ -229,11 +229,11 @@ export function setupSidebarLayoutStyle() {
         display: flex;
         box-sizing: border-box;
         background: var(--pro-layout-color);
-        padding-left: var(--pro-layout-tabbar-padding-left);
+        margin-left: var(--pro-layout-tabbar-margin-left);
         border-bottom: 1px solid var(--pro-layout-border-color);
         transition:
           background .3s var(--n-bezier),
-          padding-left .3s var(--n-bezier),
+          margin-left .3s var(--n-bezier),
           border-color .3s var(--n-bezier);
     `, [
       cM('hidden', `
@@ -247,20 +247,20 @@ export function setupSidebarLayoutStyle() {
        flex-grow: 1;
        flex-basis: 0;
        background: var(--pro-layout-content-color);
-       padding-top: var(--pro-layout-main-padding-top);
-       padding-left: var(--pro-layout-main-padding-left);
-       padding-bottom: var(--pro-layout-main-padding-bottom);
+       margin-top: var(--pro-layout-content-margin-top);
+       margin-left: var(--pro-layout-content-margin-left);
+       margin-bottom: var(--pro-layout-content-margin-bottom);
        transition: 
         background .3s var(--n-bezier),
-        padding-left .3s var(--n-bezier);
+        margin-left .3s var(--n-bezier);
     `),
     cB('pro-layout__footer', `
         width: var(--pro-layout-footer-width);
         height: var(--pro-layout-footer-height);
         background: var(--pro-layout-color);
-        padding-left: var(--pro-layout-footer-padding-left);
+        margin-left: var(--pro-layout-footer-margin-left);
         transition: 
-          padding-left .3s var(--n-bezier),
+          margin-left .3s var(--n-bezier),
           background .3s var(--n-bezier);
       `, [
       cM('fixed', `

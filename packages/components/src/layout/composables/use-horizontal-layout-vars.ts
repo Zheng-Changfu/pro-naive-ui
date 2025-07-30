@@ -7,7 +7,7 @@ export function useHorizontalLayoutVars({
   mergedTabbar,
   mergedFooter,
 }: CalcLayoutVarsOptions) {
-  const mainPaddingTop = computed(() => {
+  const contentMarginTop = computed(() => {
     const nav = mergedNav.value
     const tabbar = mergedTabbar.value
     if (nav.fixed && nav.show && !tabbar.show) {
@@ -22,7 +22,7 @@ export function useHorizontalLayoutVars({
     return '0px'
   })
 
-  const mainPaddingBottom = computed(() => {
+  const contentMarginBottom = computed(() => {
     const footer = mergedFooter.value
     if (footer.show && footer.fixed) {
       return `${footer.height}px`
@@ -32,8 +32,8 @@ export function useHorizontalLayoutVars({
 
   return computed(() => {
     return {
-      '--pro-layout-main-padding-top': mainPaddingTop.value,
-      '--pro-layout-main-padding-bottom': mainPaddingBottom.value,
+      '--pro-layout-content-margin-top': contentMarginTop.value,
+      '--pro-layout-content-margin-bottom': contentMarginBottom.value,
     }
   })
 }
@@ -69,7 +69,6 @@ export function setupHorizontalLayoutStyle() {
         box-sizing: border-box;
         border-bottom: 1px solid var(--pro-layout-border-color);
         transition:
-          height .3s var(--n-bezier),
           border-color .3s var(--n-bezier);
     `, [
       cB('pro-layout__logo', `
@@ -121,8 +120,8 @@ export function setupHorizontalLayoutStyle() {
         flex-grow: 1;
         flex-basis: 0;
         background: var(--pro-layout-content-color);
-        padding-top: var(--pro-layout-main-padding-top);
-        padding-bottom: var(--pro-layout-main-padding-bottom);
+        margin-top: var(--pro-layout-content-margin-top);
+        margin-bottom: var(--pro-layout-content-margin-bottom);
         transition:
           background .3s var(--n-bezier);
      `),
