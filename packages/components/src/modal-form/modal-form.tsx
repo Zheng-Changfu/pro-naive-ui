@@ -106,6 +106,7 @@ export default defineComponent({
       form,
       proFormProps,
       proModalProps,
+      overridedProps,
       mergedClsPrefix,
       footer: computed(() => overridedProps.value.footer),
       loading: computed(() => overridedProps.value.loading),
@@ -120,8 +121,8 @@ export default defineComponent({
           `${this.mergedClsPrefix}-pro-modal-form`,
         ]}
         style={{
-          width: this.width ?? '520px',
-          maxHeight: this.maxHeight ?? '80%',
+          width: this.overridedProps.width ?? '520px',
+          maxHeight: this.overridedProps.maxHeight ?? '80%',
         }}
         {...this.proModalProps}
       >
