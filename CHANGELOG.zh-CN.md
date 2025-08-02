@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 2.4.4
+
+### Features
+- `useNDataTable` 支持传递 `plugins` 选项
+
+### Fixes
+- 修复 `pro-search-form` 的 `column` 传递 `span`、`offset` 不生效问题
+- 修复 `pro-modal-form` 的 `width`、`maxHeight` 属性无法被 `pro-config-provider` 的 `prop-overrides` 覆盖问题
+
 ## 2.4.3
 
 ### Fixes
@@ -8,7 +17,7 @@
 ## 2.4.2
 
 ### Fixes
-- 修复 `pro-layout` 中相关元素绝对定位未设置 z-index 导致被盖住问题
+- 修复 `pro-layout` 中相关元素绝对定位未设置 `z-index` 导致被盖住问题
 
 ## 2.4.1
 
