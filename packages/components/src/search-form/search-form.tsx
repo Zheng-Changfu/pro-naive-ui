@@ -95,7 +95,15 @@ export default defineComponent({
           class={[`${mergedClsPrefix}-pro-search-form`]}
         >
           <NGrid {...nGridProps}>
-            {(columns ?? []).map(column => <GridFieldItem column={column} />)}
+            {(columns ?? []).map((column) => {
+              return (
+                <GridFieldItem
+                  column={column}
+                  span={column.span}
+                  offset={column.offset}
+                />
+              )
+            })}
             {showSuffixGridItem && (
               <NGi suffix={true}>
                 {{

@@ -1,4 +1,3 @@
-import type { GridItemProps } from 'naive-ui'
 import type { PropType } from 'vue'
 import type { ProFieldSharedProps } from '../../form'
 import type { ProSearchFormColumn } from '../types'
@@ -19,6 +18,8 @@ export default defineComponent({
       type: Object as PropType<ProSearchFormColumn>,
       required: true,
     },
+    span: [String, Number] as PropType<string | number>,
+    offset: [String, Number] as PropType<string | number>,
   },
   setup(props) {
     const proFieldProps = computed<ProFieldSharedProps>(() => {
@@ -35,14 +36,6 @@ export default defineComponent({
     const fieldProps = computed<Record<string, any>>(() => {
       const { fieldProps } = props.column
       return isFunction(fieldProps) ? fieldProps() : (fieldProps ?? {})
-    })
-
-    const nGiProps = computed<GridItemProps>(() => {
-      const { span, offset } = props.column
-      return {
-        span,
-        offset,
-      }
     })
 
     const columnVisible = computed(() => {
@@ -63,7 +56,6 @@ export default defineComponent({
     })
 
     return {
-      nGiProps,
       fieldProps,
       columnVisible,
       proFieldProps,
@@ -75,11 +67,13 @@ export default defineComponent({
     }
 
     const {
+      span,
+      offset,
       column,
     } = this.$props
 
     return (
-      <NGi {...this.nGiProps}>
+      <NGi span={span} offset={offset}>
         {{
           default: () => {
             return column.render
