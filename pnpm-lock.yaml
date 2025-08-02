@@ -142,8 +142,8 @@ importers:
         specifier: ^2.38.2
         version: 2.41.1(vue@3.4.27(typescript@5.8.2))
       pro-composables:
-        specifier: ^3.3.2
-        version: 3.3.2(vue@3.4.27(typescript@5.8.2))
+        specifier: ^3.3.3
+        version: 3.3.3(vue@3.4.27(typescript@5.8.2))
       sortablejs:
         specifier: ^1.15.6
         version: 1.15.6
@@ -3293,8 +3293,8 @@ packages:
     resolution: {integrity: sha512-Pdlw/oPxN+aXdmM9R00JVC9WVFoCLTKJvDVLgmJ+qAffBMxsV85l/Lu7sNx4zSzPyoL2euImuEwHhOXdEgNFZQ==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
 
-  pro-composables@3.3.2:
-    resolution: {integrity: sha512-wFlA7wSLfsQTNqeDiMhF2XuIer1MK/CijHYdbrzOe0jqIWDr+/W1BM8clxFyy3JenhjXnFuQtCAS9ct32AgHAw==}
+  pro-composables@3.3.3:
+    resolution: {integrity: sha512-1e7Od/pTdJyhBZOeWAAVuZW7MlOLSX7BCIJRSYnJyIX11MDusyVY5bCcKTGgsxo1Huau76ezxmpIXh1zgEpDhg==}
     peerDependencies:
       vue: '>= 3.3.0'
 
@@ -7544,7 +7544,7 @@ snapshots:
       ansi-styles: 5.2.0
       react-is: 18.3.1
 
-  pro-composables@3.3.2(vue@3.4.27(typescript@5.8.2)):
+  pro-composables@3.3.3(vue@3.4.27(typescript@5.8.2)):
     dependencies:
       '@types/lodash-es': 4.17.12
       '@vueuse/core': 11.3.0(vue@3.4.27(typescript@5.8.2))

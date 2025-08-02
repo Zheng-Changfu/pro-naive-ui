@@ -1,6 +1,6 @@
 import type { EventHookOn } from '@vueuse/core'
 import type { DataTableFilterState, DataTableProps, DataTableSortState } from 'naive-ui'
-import type { UsePaginationOptions, UsePaginationReturn } from 'pro-composables'
+import type { UsePaginationOptions, UsePaginationReturn, UseRequestPlugin } from 'pro-composables'
 import type { ComputedRef } from 'vue'
 import type { ProButtonProps } from '../button'
 import { isNil } from 'lodash-es'
@@ -104,6 +104,7 @@ export function useNDataTable<
 >(
   service: UseNDataTableService<Data, Params>,
   options: UseNDataTableOptions<Data, Params> = {},
+  plugins: UseRequestPlugin<Data, Params>[] = [],
 ): UseNDataTableReturn<Data, Params> {
   const {
     form,
@@ -125,7 +126,7 @@ export function useNDataTable<
       searchLoading.value = false
       onFinally && onFinally(...args)
     },
-  })
+  }, plugins)
 
   if (!isNil(refreshDeps)) {
     watch(refreshDeps, () => {
