@@ -1,53 +1,82 @@
-import type { SlotsType } from 'vue'
-import type { ProMentionProps } from './props'
+import type { MentionProps } from 'naive-ui'
+import type { SlotsType, VNodeChild } from 'vue'
 import type { ProMentionSlots } from './slots'
-import { defineComponent } from 'vue'
-import { useOverrideProps } from '../../../composables'
-import { ProField } from '../field'
-import { useMergePlaceholder } from '../field/composables/use-merge-placeholder'
-import Mention from './components/mention'
+import { NMention } from 'naive-ui'
+import { computed, defineComponent } from 'vue'
+import { useForwardRef } from '../../../composables/use-forward-ref'
+import { useFieldUtils, useProField } from '../field'
+import { ProFormItem } from '../form-item'
 import { provideMentionInstStore } from './inst'
 import { proMentionProps } from './props'
 
 const name = 'ProMention'
 export default defineComponent({
   name,
+  inheritAttrs: false,
   props: proMentionProps,
   slots: Object as SlotsType<ProMentionSlots>,
   setup(props, { expose }) {
+    const forwardRef = useForwardRef()
+
     const {
-      exposed,
-    } = provideMentionInstStore()
+      field,
+      mergedReadonly,
+      proFormItemProps,
+      mergedFieldProps,
+    } = useProField<MentionProps>(props, name)
 
-    const placeholder = useMergePlaceholder(
-      name,
-      props,
-    )
+    const {
+      readonlyText,
+    } = useFieldUtils(field)
 
-    const overridedProps = useOverrideProps<ProMentionProps>(
-      name,
-      props,
-    )
-
-    expose(exposed)
+    const nMentionProps = computed(() => {
+      return {
+        ...mergedFieldProps.value,
+        value: field.value.value ?? '',
+      }
+    })
     return {
-      placeholder,
-      overridedProps,
+      field,
+      forwardRef,
+      readonlyText,
+      mergedReadonly,
+      proFormItemProps,
+      nMentionProps,
     }
   },
   render() {
+    if (!this.field.show.value) {
+      return
+    }
     return (
-      <ProField
-        {...this.overridedProps}
-        placeholder={this.placeholder}
-      >
+      <ProFormItem {...this.proFormItemProps}>
         {{
           ...this.$slots,
-          input: ({ inputProps }: any) => {
-            return <Mention {...inputProps} v-slots={this.$slots}></Mention>
+          default: () => {
+            let dom: VNodeChild
+            if (this.mergedReadonly) {
+              dom = this.readonlyText
+            }
+            else {
+              dom = (
+                <NMention
+                  ref={this.forwardRef}
+                  {...this.nMentionProps}
+                  v-slots={this.$slots}
+                >
+                </NMention>
+              )
+            }
+            return this.$slots.input
+              ? this.$slots.input({
+                  inputDom: dom,
+                  readonly: this.mergedReadonly,
+                  inputProps: this.nMentionProps,
+                })
+              : dom
           },
         }}
-      </ProField>
+      </ProFormItem>
     )
   },
 })
