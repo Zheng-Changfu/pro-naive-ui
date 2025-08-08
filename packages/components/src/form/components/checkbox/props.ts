@@ -5,6 +5,10 @@ import { proFieldSharedProps } from '../field'
 
 export const proCheckboxProps = {
   ...proFieldSharedProps,
+  valueModelName: {
+    type: String,
+    default: 'checked',
+  },
   fieldProps: Object as PropType<BaseFieldProps<CheckboxProps>>,
 } as const
 

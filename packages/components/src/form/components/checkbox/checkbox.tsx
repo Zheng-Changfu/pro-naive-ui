@@ -1,54 +1,73 @@
+import type { CheckboxProps } from 'naive-ui'
 import type { SlotsType } from 'vue'
-import type { ProCheckboxProps } from './props'
 import type { ProCheckboxSlots } from './slots'
-import { defineComponent } from 'vue'
-import { useOverrideProps } from '../../../composables'
-import { ProField } from '../field'
-import { useMergePlaceholder } from '../field/composables/use-merge-placeholder'
-import Checkbox from './components/checkbox'
-import { provideCheckboxInstStore } from './inst'
+import { NCheckbox } from 'naive-ui'
+import { computed, defineComponent } from 'vue'
+import { useForwardRef } from '../../../composables/use-forward-ref'
+import { useProField } from '../field'
+import { ProFormItem } from '../form-item'
 import { proCheckboxProps } from './props'
 
 const name = 'ProCheckbox'
 export default defineComponent({
   name,
+  inheritAttrs: false,
   props: proCheckboxProps,
   slots: Object as SlotsType<ProCheckboxSlots>,
-  setup(props, { expose }) {
+  setup(props) {
+    const forwardRef = useForwardRef()
+
     const {
-      exposed,
-    } = provideCheckboxInstStore()
+      field,
+      mergedReadonly,
+      proFormItemProps,
+      mergedFieldProps,
+    } = useProField<CheckboxProps>(props, name)
 
-    const placeholder = useMergePlaceholder(
-      name,
-      props,
-    )
+    const nCheckboxProps = computed(() => {
+      return {
+        ...mergedFieldProps.value,
+        checked: field.value.value ?? false,
+        disabled: mergedReadonly.value || mergedFieldProps.value.disabled,
+      }
+    })
 
-    const overridedProps = useOverrideProps<ProCheckboxProps>(
-      name,
-      props,
-    )
-
-    expose(exposed)
     return {
-      placeholder,
-      overridedProps,
+      field,
+      forwardRef,
+      mergedReadonly,
+      nCheckboxProps,
+      proFormItemProps,
+      mergedFieldProps,
     }
   },
   render() {
+    if (!this.field.show.value) {
+      return
+    }
     return (
-      <ProField
-        {...this.overridedProps}
-        valueModelName="checked"
-        placeholder={this.placeholder}
-      >
+      <ProFormItem {...this.proFormItemProps}>
         {{
           ...this.$slots,
-          input: ({ inputProps }: any) => {
-            return <Checkbox {...inputProps} v-slots={this.$slots}></Checkbox>
+          default: () => {
+            const dom = (
+              <NCheckbox
+                ref={this.forwardRef}
+                {...this.nCheckboxProps}
+                v-slots={this.$slots}
+              >
+              </NCheckbox>
+            )
+            return this.$slots.input
+              ? this.$slots.input({
+                  inputDom: dom,
+                  readonly: this.mergedReadonly,
+                  inputProps: this.nCheckboxProps,
+                })
+              : dom
           },
         }}
-      </ProField>
+      </ProFormItem>
     )
   },
 })
