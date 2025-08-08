@@ -1,53 +1,134 @@
-import type { SlotsType } from 'vue'
-import type { ProSelectProps } from './props'
+import type { SelectProps } from 'naive-ui'
+import type { SlotsType, VNodeChild } from 'vue'
 import type { ProSelectSlots } from './slots'
-import { defineComponent } from 'vue'
-import { useOverrideProps } from '../../../composables'
-import { ProField } from '../field'
-import { useMergePlaceholder } from '../field/composables/use-merge-placeholder'
-import Select from './components/select'
+import { get, isArray, isFunction, noop } from 'lodash-es'
+import { NFlex, NSelect } from 'naive-ui'
+import { eachTree } from 'pro-composables'
+import { computed, defineComponent } from 'vue'
+import { useForwardRef } from '../../../composables/use-forward-ref'
+import { useFieldUtils, useProField } from '../field'
+import { ProFormItem } from '../form-item'
 import { provideSelectInstStore } from './inst'
 import { proSelectProps } from './props'
 
 const name = 'ProSelect'
 export default defineComponent({
   name,
+  inheritAttrs: false,
   props: proSelectProps,
   slots: Object as SlotsType<ProSelectSlots>,
   setup(props, { expose }) {
+    const forwardRef = useForwardRef()
+
     const {
       exposed,
     } = provideSelectInstStore()
 
-    const placeholder = useMergePlaceholder(
-      name,
-      props,
-    )
+    const {
+      field,
+      mergedReadonly,
+      proFormItemProps,
+      mergedFieldProps,
+    } = useProField<SelectProps>(props, name)
 
-    const overridedProps = useOverrideProps<ProSelectProps>(
-      name,
-      props,
-    )
+    const {
+      empty,
+      emptyDom,
+    } = useFieldUtils(field)
 
-    expose(exposed)
+    const selectedLabels = computed(() => {
+      const {
+        renderTag,
+        renderLabel,
+        options = [],
+        labelField = 'label',
+        valueField = 'value',
+        childrenField = 'children',
+      } = mergedFieldProps.value
+
+      const labels: VNodeChild[] = []
+      const selectedValue = isArray(field.value.value) ? field.value.value : [field.value.value]
+      eachTree(
+        options,
+        (item) => {
+          const value = get(item, valueField)
+          if (selectedValue.includes(value)) {
+            let label = get(item, labelField) as VNodeChild
+            if (renderTag) {
+              label = renderTag({ option: item as any, handleClose: noop })
+            }
+            if (renderLabel) {
+              label = renderLabel(item as any, true)
+            }
+            if (isFunction(label)) {
+              label = label(item, true)
+            }
+            if (label) {
+              labels.push(<span>{label}</span>)
+            }
+          }
+        },
+        childrenField,
+      )
+      return labels
+    })
+
+    const nSelectProps = computed(() => {
+      return {
+        ...mergedFieldProps.value,
+        value: field.value.value ?? null,
+      }
+    })
     return {
-      placeholder,
-      overridedProps,
+      field,
+      empty,
+      emptyDom,
+      forwardRef,
+      nSelectProps,
+      selectedLabels,
+      mergedReadonly,
+      proFormItemProps,
     }
   },
   render() {
+    if (!this.field.show.value) {
+      return
+    }
     return (
-      <ProField
-        {...this.overridedProps}
-        placeholder={this.placeholder}
-      >
+      <ProFormItem {...this.proFormItemProps}>
         {{
           ...this.$slots,
-          input: ({ inputProps }: any) => {
-            return <Select {...inputProps} v-slots={this.$slots}></Select>
+          default: () => {
+            let dom: VNodeChild
+            if (this.mergedReadonly) {
+              dom = this.empty
+                ? this.emptyDom
+                : (
+                    <NFlex size="small">
+                      {this.selectedLabels}
+                    </NFlex>
+                  )
+            }
+            else {
+              dom = (
+                <NSelect
+                  ref={this.forwardRef}
+                  {...this.nSelectProps}
+                  v-slots={this.$slots}
+                >
+                </NSelect>
+              )
+            }
+            return this.$slots.input
+              ? this.$slots.input({
+                  inputDom: dom,
+                  readonly: this.mergedReadonly,
+                  inputProps: this.nSelectProps,
+                })
+              : dom
           },
         }}
-      </ProField>
+      </ProFormItem>
     )
   },
 })
