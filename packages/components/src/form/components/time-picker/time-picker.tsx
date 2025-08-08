@@ -1,53 +1,125 @@
-import type { SlotsType } from 'vue'
-import type { ProTimePickerProps } from './props'
+import type { TimePickerInst, TimePickerProps } from 'naive-ui'
+import type { SlotsType, VNodeChild } from 'vue'
 import type { ProTimePickerSlots } from './slots'
-import { defineComponent } from 'vue'
-import { useOverrideProps } from '../../../composables'
-import { ProField } from '../field'
-import { useMergePlaceholder } from '../field/composables/use-merge-placeholder'
-import TimePicker from './components/time-picker'
-import { provideTimePickerInstStore } from './inst'
+import { NTimePicker } from 'naive-ui'
+import { computed, defineComponent } from 'vue'
+import { isEmptyValue } from '../../../_utils/is-empty-value'
+import { useForwardRef } from '../../../composables/use-forward-ref'
+import { stringifyDate } from '../date-picker/utils/stringify-date'
+import { useFieldUtils, useProField } from '../field'
+import { ProFormItem } from '../form-item'
+import { useMergeFormat } from './composables/use-merge-format'
 import { proTimePickerProps } from './props'
 
 const name = 'ProTime'
 export default defineComponent({
   name,
+  inheritAttrs: false,
   props: proTimePickerProps,
   slots: Object as SlotsType<ProTimePickerSlots>,
-  setup(props, { expose }) {
+  setup(props) {
+    const forwardRef = useForwardRef<TimePickerInst>()
+
     const {
-      exposed,
-    } = provideTimePickerInstStore()
+      field,
+      mergedReadonly,
+      proFormItemProps,
+      mergedFieldProps,
+    } = useProField<TimePickerProps>(props, name)
 
-    const placeholder = useMergePlaceholder(
-      name,
-      props,
-    )
+    const {
+      empty,
+      emptyDom,
+    } = useFieldUtils(field)
 
-    const overridedProps = useOverrideProps<ProTimePickerProps>(
-      name,
-      props,
-    )
+    const mergedFormat = useMergeFormat(mergedFieldProps.value)
 
-    expose(exposed)
+    const vModelProps = computed<TimePickerProps>(() => {
+      const {
+        valueFormat,
+        onUpdateValue,
+      } = mergedFieldProps.value
+
+      if (valueFormat) {
+        return {
+          onUpdateFormattedValue: onUpdateValue,
+          formattedValue: isEmptyValue(field.value.value) ? null : field.value.value,
+        } as any
+      }
+
+      return {
+        onUpdateValue,
+        value: field.value.value ?? null,
+      }
+    })
+
+    const nTimePickerProps = computed<TimePickerProps>(() => {
+      const {
+        value,
+        onUpdateValue,
+        formattedValue,
+        onUpdateFormattedValue,
+        ...rest
+      } = mergedFieldProps.value
+      return {
+        ...rest as any,
+        ...vModelProps.value,
+      }
+    })
+
+    const displayDateText = computed(() => {
+      return stringifyDate(
+        field.value.value,
+        mergedFormat.value,
+      )
+    })
+
     return {
-      placeholder,
-      overridedProps,
+      field,
+      empty,
+      emptyDom,
+      forwardRef,
+      mergedReadonly,
+      proFormItemProps,
+      nTimePickerProps,
+      displayDateText,
     }
   },
   render() {
+    if (!this.field.show.value) {
+      return
+    }
     return (
-      <ProField
-        {...this.overridedProps}
-        placeholder={this.placeholder}
-      >
+      <ProFormItem {...this.proFormItemProps}>
         {{
           ...this.$slots,
-          input: ({ inputProps }: any) => {
-            return <TimePicker {...inputProps} v-slots={this.$slots}></TimePicker>
+          default: () => {
+            let dom: VNodeChild
+            if (this.mergedReadonly) {
+              dom = this.empty
+                ? this.emptyDom
+                : <span>{this.displayDateText}</span>
+            }
+            else {
+              dom = (
+                <NTimePicker
+                  ref={this.forwardRef}
+                  {...this.nTimePickerProps}
+                  v-slots={this.$slots}
+                >
+                </NTimePicker>
+              )
+            }
+            return this.$slots.input
+              ? this.$slots.input({
+                  inputDom: dom,
+                  readonly: this.mergedReadonly,
+                  inputProps: this.nTimePickerProps,
+                })
+              : dom
           },
         }}
-      </ProField>
+      </ProFormItem>
     )
   },
 })
