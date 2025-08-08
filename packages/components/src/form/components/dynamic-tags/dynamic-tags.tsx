@@ -1,46 +1,85 @@
-import type { SlotsType } from 'vue'
-import type { ProDynamicTagsProps } from './props'
+import type { DynamicTagsProps } from 'naive-ui'
+import type { SlotsType, VNodeChild } from 'vue'
 import type { ProDynamicTagsSlots } from './slots'
-import { defineComponent } from 'vue'
-import { useOverrideProps } from '../../../composables'
-import { ProField } from '../field'
-import { useMergePlaceholder } from '../field/composables/use-merge-placeholder'
-import DynamicTags from './components/dynamic-tags'
+import { NDynamicTags } from 'naive-ui'
+import { computed, defineComponent } from 'vue'
+import { useFieldUtils, useProField } from '../field'
+import { ProFormItem } from '../form-item'
 import { proDynamicTagsProps } from './props'
 
 const name = 'ProDynamicTags'
 export default defineComponent({
   name,
+  inheritAttrs: false,
   props: proDynamicTagsProps,
   slots: Object as SlotsType<ProDynamicTagsSlots>,
   setup(props) {
-    const placeholder = useMergePlaceholder(
-      name,
-      props,
-    )
+    const {
+      field,
+      mergedReadonly,
+      proFormItemProps,
+      mergedFieldProps,
+    } = useProField<DynamicTagsProps>(props, name)
 
-    const overridedProps = useOverrideProps<ProDynamicTagsProps>(
-      name,
-      props,
-    )
+    const {
+      empty,
+      emptyDom,
+    } = useFieldUtils(field)
+
+    const nDynamicTagsProps = computed(() => {
+      return {
+        ...mergedFieldProps.value,
+        value: field.value.value ?? [],
+        disabled: mergedReadonly.value || mergedFieldProps.value.disabled,
+        closable: mergedReadonly.value ? false : mergedFieldProps.value.closable,
+      }
+    })
+
     return {
-      placeholder,
-      overridedProps,
+      field,
+      empty,
+      emptyDom,
+      mergedReadonly,
+      proFormItemProps,
+      nDynamicTagsProps,
     }
   },
   render() {
+    if (!this.field.show.value) {
+      return
+    }
     return (
-      <ProField
-        {...this.overridedProps}
-        placeholder={this.placeholder}
-      >
+      <ProFormItem {...this.proFormItemProps}>
         {{
           ...this.$slots,
-          input: ({ inputProps }: any) => {
-            return <DynamicTags {...inputProps} v-slots={this.$slots}></DynamicTags>
+          default: () => {
+            const slots = {
+              ...this.$slots,
+              input: this.$slots['tags-input'],
+            }
+            let dom: VNodeChild
+            if (this.mergedReadonly && this.empty) {
+              dom = this.emptyDom
+            }
+            else {
+              dom = (
+                <NDynamicTags
+                  {...this.nDynamicTagsProps}
+                  v-slots={slots}
+                >
+                </NDynamicTags>
+              )
+            }
+            return this.$slots.input
+              ? this.$slots.input({
+                  inputDom: dom,
+                  readonly: this.mergedReadonly,
+                  inputProps: this.nDynamicTagsProps,
+                })
+              : dom
           },
         }}
-      </ProField>
+      </ProFormItem>
     )
   },
 })
