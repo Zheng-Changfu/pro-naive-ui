@@ -1,50 +1,20 @@
+import { createDatePickerFactory } from './date-picker-factory'
+
 export {
   useMergeFormat,
-} from './components/composables/use-merge-format'
+} from './composables/use-merge-format'
 
-export {
-  default as ProDate,
-} from './date'
-
-export {
-  default as ProDateMonth,
-} from './date-month'
-
-export {
-  default as ProDateMonthRange,
-} from './date-month-range'
-
-export {
-  default as ProDateQuarter,
-} from './date-quarter'
-
-export {
-  default as ProDateQuarterRange,
-} from './date-quarter-range'
-
-export {
-  default as ProDateRange,
-} from './date-range'
-
-export {
-  default as ProDateTime,
-} from './date-time'
-
-export {
-  default as ProDateTimeRange,
-} from './date-time-range'
-
-export {
-  default as ProDateWeek,
-} from './date-week'
-
-export {
-  default as ProDateYear,
-} from './date-year'
-
-export {
-  default as ProDateYearRange,
-} from './date-year-range'
+export const ProDate = createDatePickerFactory('ProDate', 'date')
+export const ProDateWeek = createDatePickerFactory('ProDateWeek', 'week')
+export const ProDateYear = createDatePickerFactory('ProDateYear', 'year')
+export const ProDateMonth = createDatePickerFactory('ProDateMonth', 'month')
+export const ProDateTime = createDatePickerFactory('ProDateTime', 'datetime')
+export const ProDateRange = createDatePickerFactory('ProDateRange', 'daterange')
+export const ProDateQuarter = createDatePickerFactory('ProDateQuarter', 'quarter')
+export const ProDateYearRange = createDatePickerFactory('ProDateYearRange', 'yearrange')
+export const ProDateMonthRange = createDatePickerFactory('ProDateMonthRange', 'monthrange')
+export const ProDateTimeRange = createDatePickerFactory('ProDateTimeRange', 'datetimerange')
+export const ProDateQuarterRange = createDatePickerFactory('ProDateQuarterRange', 'quarterrange')
 
 export type {
   ProDatePickerInst,
