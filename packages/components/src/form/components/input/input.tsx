@@ -1,57 +1,93 @@
-import type { SlotsType } from 'vue'
-import type { ProInputProps } from './props'
+import type { InputInst, InputProps } from 'naive-ui'
+import type { SlotsType, VNodeChild } from 'vue'
 import type { ProInputSlots } from './slots'
-import { defineComponent } from 'vue'
-import { useOverrideProps } from '../../../composables'
-import { ProField } from '../field'
-import { useMergePlaceholder } from '../field/composables/use-merge-placeholder'
-import Input from './components/input'
-import { provideTextInstStore } from './inst'
+import { NFlex, NInput } from 'naive-ui'
+import { computed, defineComponent } from 'vue'
+import { useForwardRef } from '../../../composables/use-forward-ref'
+import { useFieldUtils, useProField } from '../field'
+import { ProFormItem } from '../form-item'
 import { proInputProps } from './props'
 
 const name = 'ProInput'
 export default defineComponent({
   name,
+  inheritAttrs: false,
   props: proInputProps,
   slots: Object as SlotsType<ProInputSlots>,
-  setup(props, { expose }) {
+  setup(props) {
+    const forwardRef = useForwardRef<InputInst>()
+
     const {
-      exposed,
-    } = provideTextInstStore()
+      field,
+      mergedReadonly,
+      proFormItemProps,
+      mergedFieldProps,
+    } = useProField<InputProps>(props, name)
 
-    const placeholder = useMergePlaceholder(
-      name,
-      props,
-    )
+    const {
+      empty,
+      emptyDom,
+    } = useFieldUtils(field)
 
-    const overridedProps = useOverrideProps<ProInputProps>(
-      name,
-      props,
-    )
+    const nInputProps = computed(() => {
+      return {
+        ...mergedFieldProps.value,
+        type: 'text' as const,
+        value: field.value.value ?? null,
+      }
+    })
 
-    expose(exposed)
     return {
-      placeholder,
-      overridedProps,
+      field,
+      empty,
+      emptyDom,
+      forwardRef,
+      nInputProps,
+      mergedReadonly,
+      proFormItemProps,
     }
   },
   render() {
+    if (!this.field.show.value) {
+      return
+    }
     return (
-      <ProField
-        {...this.overridedProps}
-        fieldProps={{
-          ...this.overridedProps.fieldProps,
-          type: 'text',
-        }}
-        placeholder={this.placeholder}
-      >
+      <ProFormItem {...this.proFormItemProps}>
         {{
           ...this.$slots,
-          input: ({ inputProps }: any) => {
-            return <Input {...inputProps} v-slots={this.$slots}></Input>
+          default: () => {
+            let dom: VNodeChild
+            if (this.mergedReadonly) {
+              dom = this.empty
+                ? this.emptyDom
+                : (
+                    <NFlex size="small">
+                      {this.$slots.prefix && <span>{this.$slots.prefix()}</span>}
+                      <span>{this.field.value.value}</span>
+                      {this.$slots.suffix && <span>{this.$slots.suffix()}</span>}
+                    </NFlex>
+                  )
+            }
+            else {
+              dom = (
+                <NInput
+                  ref={this.forwardRef}
+                  {...this.nInputProps}
+                  v-slots={this.$slots}
+                >
+                </NInput>
+              )
+            }
+            return this.$slots.input
+              ? this.$slots.input({
+                  inputDom: dom,
+                  readonly: this.mergedReadonly,
+                  inputProps: this.nInputProps,
+                })
+              : dom
           },
         }}
-      </ProField>
+      </ProFormItem>
     )
   },
 })
