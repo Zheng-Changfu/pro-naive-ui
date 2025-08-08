@@ -1,47 +1,67 @@
-import type { SlotsType } from 'vue'
-import type { ProRateProps } from './props'
+import type { RateProps } from 'naive-ui'
+import type { SlotsType, VNodeChild } from 'vue'
 import type { ProRateSlots } from './slots'
-import { defineComponent } from 'vue'
-import { useOverrideProps } from '../../../composables'
-import { ProField } from '../field'
-import { useMergePlaceholder } from '../field/composables/use-merge-placeholder'
-import Rate from './components/rate'
+import { NRate } from 'naive-ui'
+import { computed, defineComponent } from 'vue'
+import { useFieldUtils, useProField } from '../field'
+import { ProFormItem } from '../form-item'
 import { proRateProps } from './props'
 
 const name = 'ProRate'
 export default defineComponent({
   name,
+  inheritAttrs: false,
   props: proRateProps,
   slots: Object as SlotsType<ProRateSlots>,
   setup(props) {
-    const placeholder = useMergePlaceholder(
-      name,
-      props,
-    )
+    const {
+      field,
+      mergedReadonly,
+      proFormItemProps,
+      mergedFieldProps,
+    } = useProField<RateProps>(props, name)
 
-    const overridedProps = useOverrideProps<ProRateProps>(
-      name,
-      props,
-    )
+    const nRateProps = computed(() => {
+      return {
+        ...mergedFieldProps.value,
+        value: field.value.value ?? null as any,
+        readonly: mergedReadonly.value || mergedFieldProps.value.readonly,
+      }
+    })
 
     return {
-      placeholder,
-      overridedProps,
+      field,
+      nRateProps,
+      mergedReadonly,
+      proFormItemProps,
     }
   },
   render() {
+    if (!this.field.show.value) {
+      return
+    }
     return (
-      <ProField
-        {...this.overridedProps}
-        placeholder={this.placeholder}
-      >
+      <ProFormItem {...this.proFormItemProps}>
         {{
           ...this.$slots,
-          input: ({ inputProps }: any) => {
-            return <Rate {...inputProps} v-slots={this.$slots}></Rate>
+          default: () => {
+            const dom: VNodeChild = (
+              <NRate
+                {...this.nRateProps}
+                v-slots={this.$slots}
+              >
+              </NRate>
+            )
+            return this.$slots.input
+              ? this.$slots.input({
+                  inputDom: dom,
+                  readonly: this.mergedReadonly,
+                  inputProps: this.nRateProps,
+                })
+              : dom
           },
         }}
-      </ProField>
+      </ProFormItem>
     )
   },
 })
