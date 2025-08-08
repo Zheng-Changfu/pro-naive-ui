@@ -6,7 +6,6 @@ import { computed, defineComponent } from 'vue'
 import { useForwardRef } from '../../../composables/use-forward-ref'
 import { useFieldUtils, useProField } from '../field'
 import { ProFormItem } from '../form-item'
-import { provideDigitInstStore } from './inst'
 import { proDigitProps } from './props'
 
 const name = 'ProDigit'

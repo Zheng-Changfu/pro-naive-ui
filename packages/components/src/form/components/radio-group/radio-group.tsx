@@ -1,5 +1,5 @@
-import type { FlexProps, RadioGroupProps, RadioProps } from 'naive-ui'
-import type { PropType, SlotsType, VNodeChild } from 'vue'
+import type { RadioGroupProps } from 'naive-ui'
+import type { SlotsType, VNodeChild } from 'vue'
 import type { ProRadioGroupFieldProps } from './props'
 import type { ProRadioGroupSlots } from './slots'
 import { get, toPath } from 'lodash-es'

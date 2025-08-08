@@ -8,7 +8,6 @@ import { computed, defineComponent } from 'vue'
 import { useForwardRef } from '../../../composables/use-forward-ref'
 import { useFieldUtils, useProField } from '../field'
 import { ProFormItem } from '../form-item'
-import { provideSelectInstStore } from './inst'
 import { proSelectProps } from './props'
 
 const name = 'ProSelect'
@@ -17,12 +16,8 @@ export default defineComponent({
   inheritAttrs: false,
   props: proSelectProps,
   slots: Object as SlotsType<ProSelectSlots>,
-  setup(props, { expose }) {
+  setup(props) {
     const forwardRef = useForwardRef()
-
-    const {
-      exposed,
-    } = provideSelectInstStore()
 
     const {
       field,

@@ -4,7 +4,7 @@ import type { ProSwitchSlots } from './slots'
 import { NSwitch } from 'naive-ui'
 import { computed, defineComponent } from 'vue'
 import { useLocale } from '../../../locales'
-import { useFieldUtils, useProField } from '../field'
+import { useProField } from '../field'
 import { ProFormItem } from '../form-item'
 import { proSwitchProps } from './props'
 

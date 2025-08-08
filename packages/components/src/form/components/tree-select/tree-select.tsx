@@ -8,7 +8,6 @@ import { computed, defineComponent } from 'vue'
 import { useForwardRef } from '../../../composables/use-forward-ref'
 import { useFieldUtils, useProField } from '../field'
 import { ProFormItem } from '../form-item'
-import { provideTreeSelectInstStore } from './inst'
 import { proTreeSelectProps } from './props'
 
 type Key = string | number
@@ -19,12 +18,8 @@ export default defineComponent({
   inheritAttrs: false,
   props: proTreeSelectProps,
   slots: Object as SlotsType<ProTreeSelectSlots>,
-  setup(props, { expose }) {
+  setup(props) {
     const forwardRef = useForwardRef<TreeSelectInst>()
-
-    const {
-      exposed,
-    } = provideTreeSelectInstStore()
 
     const {
       field,

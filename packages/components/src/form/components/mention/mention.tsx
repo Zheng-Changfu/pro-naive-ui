@@ -6,7 +6,6 @@ import { computed, defineComponent } from 'vue'
 import { useForwardRef } from '../../../composables/use-forward-ref'
 import { useFieldUtils, useProField } from '../field'
 import { ProFormItem } from '../form-item'
-import { provideMentionInstStore } from './inst'
 import { proMentionProps } from './props'
 
 const name = 'ProMention'
@@ -15,7 +14,7 @@ export default defineComponent({
   inheritAttrs: false,
   props: proMentionProps,
   slots: Object as SlotsType<ProMentionSlots>,
-  setup(props, { expose }) {
+  setup(props) {
     const forwardRef = useForwardRef()
 
     const {

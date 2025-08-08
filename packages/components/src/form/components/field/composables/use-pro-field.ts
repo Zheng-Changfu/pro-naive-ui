@@ -110,13 +110,13 @@ export function useProField<FieldProps = any>(props: ProFieldProps, name: string
       return {
         ...fieldProps,
         ...vModelProps.value,
-      } as FieldProps
+      } as FieldProps & { placeholder?: any }
     }
     return {
       ...fieldProps,
       ...vModelProps.value,
       placeholder: mergedPlaceholder.value,
-    } as FieldProps
+    } as FieldProps & { placeholder?: any }
   })
 
   const proFormItemProps = computed<ProFormItemProps>(() => {

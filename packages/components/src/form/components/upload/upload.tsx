@@ -3,14 +3,13 @@ import type { SlotsType, VNodeChild } from 'vue'
 import type { ProUploadFieldProps } from './props'
 import type { ProUploadSlots } from './slots'
 import { NButton, NUpload } from 'naive-ui'
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 import { resolveSlot } from '../../../_utils/resolve-slot'
 import { useOmitProps } from '../../../composables'
 import { useForwardRef } from '../../../composables/use-forward-ref'
 import { useLocale } from '../../../locales'
 import { useFieldUtils, useProField } from '../field'
 import { ProFormItem } from '../form-item'
-import { provideUploadInstStore } from './inst'
 import { proUploadFieldProps, proUploadProps } from './props'
 
 const name = 'ProUpload'
@@ -19,7 +18,8 @@ export default defineComponent({
   inheritAttrs: false,
   props: proUploadProps,
   slots: Object as SlotsType<ProUploadSlots>,
-  setup(props, { expose }) {
+  setup(props) {
+    const instRef = ref<UploadInst>()
     const forwardRef = useForwardRef<UploadInst>()
 
     const {
@@ -97,7 +97,7 @@ export default defineComponent({
     function fixUploadDragger() {
       if (!mergedFieldProps.value.directory && !mergedFieldProps.value.directoryDnd)
         return
-      const inst = forwardRef.value as any
+      const inst = instRef.value as any
       if (inst?.$slots?.default) {
         const defaultSlot = inst.$slots.default()[0] as any
         if (defaultSlot.children?.[0]?.children?.[0]?.type?.name === 'UploadDragger') {
@@ -108,6 +108,7 @@ export default defineComponent({
     return {
       field,
       empty,
+      instRef,
       emptyDom,
       localeRef,
       forwardRef,
@@ -134,7 +135,10 @@ export default defineComponent({
             else {
               dom = (
                 <NUpload
-                  ref={this.forwardRef}
+                  ref={(inst: UploadInst | null) => {
+                    this.forwardRef(inst)
+                    this.instRef = inst ?? undefined
+                  }}
                   {...this.nUploadProps}
                 >
                   {{

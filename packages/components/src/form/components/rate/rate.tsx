@@ -3,7 +3,7 @@ import type { SlotsType, VNodeChild } from 'vue'
 import type { ProRateSlots } from './slots'
 import { NRate } from 'naive-ui'
 import { computed, defineComponent } from 'vue'
-import { useFieldUtils, useProField } from '../field'
+import { useProField } from '../field'
 import { ProFormItem } from '../form-item'
 import { proRateProps } from './props'
 
