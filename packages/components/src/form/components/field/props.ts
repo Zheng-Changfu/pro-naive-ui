@@ -70,7 +70,6 @@ export const proFieldProps = {
 const proFieldIgnoreKeys = [
   'isList',
   'fieldProps',
-  'valueModelName',
 ] as const
 
 /**

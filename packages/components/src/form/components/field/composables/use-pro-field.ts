@@ -1,0 +1,167 @@
+import type { FieldOptions } from 'pro-composables'
+import type { ComputedRef } from 'vue'
+import type { ProFormItemProps } from '../../form-item'
+import type { ProFieldProps } from '../props'
+import { createArrayField, createField } from 'pro-composables'
+import { computed, inject, unref, useAttrs } from 'vue'
+import { omitUndef } from '../../../../_utils/omit-undef'
+import { useOverrideProps } from '../../../../composables'
+import { useInjectProFormConfig } from '../../../context'
+import { proFieldConfigInjectionKey } from '../context'
+import { fieldExtraKey } from '../field-extra-info'
+import { useMergePlaceholder } from './use-merge-placeholder'
+
+function useField(props: ComputedRef<ProFieldProps>) {
+  const {
+    isList,
+    preserve,
+    onChange,
+    onUpdateValue,
+  } = props.value
+
+  const fieldOptions: FieldOptions = {
+    preserve,
+    path: computed(() => props.value.path),
+    hidden: computed(() => props.value.hidden),
+    visible: computed(() => props.value.visible),
+    onChange,
+    onUpdateValue,
+  }
+
+  return isList
+    ? createArrayField(fieldOptions)
+    : createField(fieldOptions)
+}
+
+function useMergeConfig(props: ComputedRef<ProFieldProps>) {
+  const {
+    readonly: formReadonlyRef,
+  } = useInjectProFormConfig()
+
+  const {
+    readonly: injectedReadonlyRef,
+    showLabel: injectedShowLabelRef,
+  } = inject(proFieldConfigInjectionKey, {})
+
+  const mergedTitle = computed(() => {
+    return props.value.title ?? props.value.label
+  })
+
+  const mergedReadonly = computed(() => {
+    if (props.value.readonly !== undefined) {
+      return !!props.value.readonly
+    }
+    const injectedReadonly = unref(injectedReadonlyRef)
+    if (injectedReadonly !== undefined) {
+      return injectedReadonly
+    }
+    const formReadonly = unref(formReadonlyRef)
+    if (formReadonly !== undefined) {
+      return formReadonly
+    }
+    return false
+  })
+
+  const mergedShowLabel = computed(() => {
+    if (props.value.showLabel !== undefined) {
+      return props.value.showLabel
+    }
+    const injectedShowLabel = unref(injectedShowLabelRef)
+    if (injectedShowLabel !== undefined) {
+      return injectedShowLabel
+    }
+  })
+
+  return {
+    mergedTitle,
+    mergedReadonly,
+    mergedShowLabel,
+  }
+}
+
+export function useProField<FieldProps = any>(props: ProFieldProps, name: string) {
+  const mergedPlaceholder = useMergePlaceholder(name, props)
+  const overridedProps = useOverrideProps<ProFieldProps>(name, props)
+
+  const attrs = useAttrs()
+  const field = useField(overridedProps)
+
+  const {
+    mergedTitle,
+    mergedReadonly,
+    mergedShowLabel,
+  } = useMergeConfig(overridedProps)
+
+  const vModelProps = computed(() => {
+    const { valueModelName } = overridedProps.value
+    if (valueModelName) {
+      const eventName = `onUpdate${valueModelName.slice(0, 1).toUpperCase()}${valueModelName.slice(1)}`
+      return {
+        [valueModelName]: field.value.value,
+        [eventName]: field.doUpdateValue,
+      }
+    }
+    return {}
+  })
+
+  const mergedFieldProps = computed(() => {
+    const fieldProps = overridedProps.value.fieldProps ?? {}
+    if (mergedPlaceholder.value === undefined) {
+      return {
+        ...fieldProps,
+        ...vModelProps.value,
+      } as FieldProps
+    }
+    return {
+      ...fieldProps,
+      ...vModelProps.value,
+      placeholder: mergedPlaceholder.value,
+    } as FieldProps
+  })
+
+  const proFormItemProps = computed<ProFormItemProps>(() => {
+    const props = overridedProps.value
+    const formItemProps: ProFormItemProps = {
+      size: props.size,
+      rule: props.rule,
+      first: props.first,
+      theme: props.theme,
+      tooltip: props.tooltip,
+      rulePath: props.rulePath,
+      feedback: props.feedback,
+      required: props.required,
+      title: mergedTitle.value,
+      labelWidth: props.labelWidth,
+      labelAlign: props.labelAlign,
+      labelProps: props.labelProps,
+      labelStyle: props.labelStyle,
+      path: field.stringPath.value,
+      showLabel: mergedShowLabel.value,
+      showFeedback: props.showFeedback,
+      feedbackClass: props.feedbackClass,
+      feedbackStyle: props.feedbackStyle,
+      labelPlacement: props.labelPlacement,
+      themeOverrides: props.themeOverrides,
+      showRequireMark: props.showRequireMark,
+      ignorePathChange: props.ignorePathChange,
+      validationStatus: props.validationStatus,
+      requireMarkPlacement: props.requireMarkPlacement,
+      builtinThemeOverrides: props.builtinThemeOverrides,
+    }
+    return {
+      ...attrs,
+      ...omitUndef(formItemProps),
+    }
+  })
+
+  field[fieldExtraKey] = {
+    readonly: mergedReadonly,
+  }
+
+  return {
+    field,
+    mergedReadonly,
+    proFormItemProps,
+    mergedFieldProps,
+  }
+}

@@ -30,7 +30,7 @@ export function useFieldUtils(field?: BaseField) {
   } = useInjectGlobalConfig()
 
   const empty = computed(() => {
-    return isEmptyValue(field.value.value)
+    return isEmptyValue(field?.value.value)
   })
 
   const emptyDom = computed(() => {
@@ -41,7 +41,7 @@ export function useFieldUtils(field?: BaseField) {
   const readonlyText = computed(() => {
     return empty.value
       ? emptyDom.value
-      : field.value.value
+      : field?.value.value
   })
 
   const fieldValidateResult = computed(() => {
