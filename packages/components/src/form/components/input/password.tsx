@@ -1,57 +1,103 @@
-import type { SlotsType } from 'vue'
-import type { ProInputProps } from './props'
-import type { ProInputSlots } from './slots'
-import { defineComponent } from 'vue'
-import { useOverrideProps } from '../../../composables'
-import { ProField } from '../field'
-import { useMergePlaceholder } from '../field/composables/use-merge-placeholder'
-import Password from './components/password'
-import { provideTextInstStore } from './inst'
+import type { InputInst, InputProps } from 'naive-ui'
+import type { SlotsType, VNodeChild } from 'vue'
+import type { ProPasswordSlots } from './slots'
+import { EyeInvisibleOutlined, EyeOutlined } from '@vicons/antd'
+import { NButton, NFlex, NIcon, NInput } from 'naive-ui'
+import { computed, defineComponent, ref } from 'vue'
+import { useForwardRef } from '../../../composables/use-forward-ref'
+import { useFieldUtils, useProField } from '../field'
+import { ProFormItem } from '../form-item'
 import { proInputProps } from './props'
 
 const name = 'ProPassword'
 export default defineComponent({
   name,
+  inheritAttrs: false,
   props: proInputProps,
-  slots: Object as SlotsType<ProInputSlots>,
-  setup(props, { expose }) {
+  slots: Object as SlotsType<ProPasswordSlots>,
+  setup(props) {
+    const open = ref(false)
+    const forwardRef = useForwardRef<InputInst>()
+
     const {
-      exposed,
-    } = provideTextInstStore()
+      field,
+      mergedReadonly,
+      proFormItemProps,
+      mergedFieldProps,
+    } = useProField<InputProps>(props, name)
 
-    const placeholder = useMergePlaceholder(
-      name,
-      props,
-    )
+    const {
+      empty,
+      emptyDom,
+    } = useFieldUtils(field)
 
-    const overridedProps = useOverrideProps<ProInputProps>(
-      name,
-      props,
-    )
+    const nInputProps = computed(() => {
+      return {
+        ...mergedFieldProps.value,
+        type: 'password' as const,
+        value: field.value.value ?? null,
+      }
+    })
 
-    expose(exposed)
+    function setOpen(v: boolean) {
+      open.value = v
+    }
     return {
-      placeholder,
-      overridedProps,
+      open,
+      field,
+      empty,
+      setOpen,
+      emptyDom,
+      forwardRef,
+      nInputProps,
+      mergedReadonly,
+      proFormItemProps,
     }
   },
   render() {
+    if (!this.field.show.value) {
+      return
+    }
     return (
-      <ProField
-        {...this.overridedProps}
-        fieldProps={{
-          ...this.overridedProps.fieldProps,
-          type: 'password',
-        }}
-        placeholder={this.placeholder}
-      >
+      <ProFormItem {...this.proFormItemProps}>
         {{
           ...this.$slots,
-          input: ({ inputProps }: any) => {
-            return <Password {...inputProps} v-slots={this.$slots}></Password>
+          default: () => {
+            let dom: VNodeChild
+            if (this.mergedReadonly) {
+              dom = this.empty
+                ? this.emptyDom
+                : (
+                    <NFlex align="center" wrap={false}>
+                      {this.open ? this.field.value.value : '********'}
+                      <NButton type="primary" text={true} onClick={() => this.setOpen(!this.open)}>
+                        <NIcon size={16}>
+                          {this.open ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+                        </NIcon>
+                      </NButton>
+                    </NFlex>
+                  )
+            }
+            else {
+              dom = (
+                <NInput
+                  ref={this.forwardRef}
+                  {...this.nInputProps}
+                  v-slots={this.$slots}
+                >
+                </NInput>
+              )
+            }
+            return this.$slots.input
+              ? this.$slots.input({
+                  inputDom: dom,
+                  readonly: this.mergedReadonly,
+                  inputProps: this.nInputProps,
+                })
+              : dom
           },
         }}
-      </ProField>
+      </ProFormItem>
     )
   },
 })
