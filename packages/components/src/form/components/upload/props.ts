@@ -67,6 +67,10 @@ export const proUploadFieldProps = {
 
 export const proUploadProps = {
   ...proFieldSharedProps,
+  valuesModelName: {
+    type: String,
+    default: 'fileList',
+  },
   fieldProps: Object as PropType<BaseFieldProps<ProUploadFieldProps>>,
 } as const
 
