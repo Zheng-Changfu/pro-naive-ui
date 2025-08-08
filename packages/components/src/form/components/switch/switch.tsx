@@ -1,47 +1,80 @@
-import type { SlotsType } from 'vue'
-import type { ProSwitchProps } from './props'
+import type { SwitchProps } from 'naive-ui'
+import type { SlotsType, VNodeChild } from 'vue'
 import type { ProSwitchSlots } from './slots'
-import { defineComponent } from 'vue'
-import { useOverrideProps } from '../../../composables'
-import { ProField } from '../field'
-import { useMergePlaceholder } from '../field/composables/use-merge-placeholder'
-import Switch from './components/switch'
+import { NSwitch } from 'naive-ui'
+import { computed, defineComponent } from 'vue'
+import { useLocale } from '../../../locales'
+import { useFieldUtils, useProField } from '../field'
+import { ProFormItem } from '../form-item'
 import { proSwitchProps } from './props'
 
 const name = 'ProSwitch'
 export default defineComponent({
   name,
+  inheritAttrs: false,
   props: proSwitchProps,
   slots: Object as SlotsType<ProSwitchSlots>,
   setup(props) {
-    const placeholder = useMergePlaceholder(
-      name,
-      props,
-    )
+    const {
+      field,
+      mergedReadonly,
+      proFormItemProps,
+      mergedFieldProps,
+    } = useProField<SwitchProps>(props, name)
 
-    const overridedProps = useOverrideProps<ProSwitchProps>(
-      name,
-      props,
-    )
+    const {
+      getMessage,
+    } = useLocale('ProSwitch')
+
+    const nSwitchProps = computed(() => {
+      return {
+        ...mergedFieldProps.value,
+        value: field.value.value ?? false,
+      }
+    })
 
     return {
-      placeholder,
-      overridedProps,
+      field,
+      getMessage,
+      nSwitchProps,
+      mergedReadonly,
+      proFormItemProps,
     }
   },
   render() {
+    if (!this.field.show.value) {
+      return
+    }
     return (
-      <ProField
-        {...this.overridedProps}
-        placeholder={this.placeholder}
-      >
+      <ProFormItem {...this.proFormItemProps}>
         {{
           ...this.$slots,
-          input: ({ inputProps }: any) => {
-            return <Switch {...inputProps} v-slots={this.$slots}></Switch>
+          default: () => {
+            let dom: VNodeChild
+            if (this.mergedReadonly) {
+              dom = this.field.value.value
+                ? this.$slots.checked?.() ?? this.getMessage('checked')
+                : this.$slots.unchecked?.() ?? this.getMessage('unchecked')
+            }
+            else {
+              dom = (
+                <NSwitch
+                  {...this.nSwitchProps}
+                  v-slots={this.$slots}
+                >
+                </NSwitch>
+              )
+            }
+            return this.$slots.input
+              ? this.$slots.input({
+                  inputDom: dom,
+                  readonly: this.mergedReadonly,
+                  inputProps: this.nSwitchProps,
+                })
+              : dom
           },
         }}
-      </ProField>
+      </ProFormItem>
     )
   },
 })
