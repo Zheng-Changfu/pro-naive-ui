@@ -10,7 +10,6 @@ import { ProDataTable } from '../../data-table'
 import { proDataTablePropKeys } from '../../data-table/props'
 import { useFieldUtils } from '../../form'
 import { editDataTableInjectionKey, provideProEditDataTableInst } from '../context'
-import { useInjectEditDataTableInstStore } from '../inst'
 import { internalEditDataTableProps } from '../props'
 import { useColumns } from './composables/use-columns'
 import { useEditable } from './composables/use-editable'
@@ -21,11 +20,7 @@ export default defineComponent({
   name: 'EditDataTable',
   props: internalEditDataTableProps,
   slots: Object as SlotsType<ProEditDataTableSlots>,
-  setup(props) {
-    const {
-      registerInst,
-    } = useInjectEditDataTableInstStore()!
-
+  setup(props, { expose }) {
     const {
       sort,
       page,
@@ -108,7 +103,7 @@ export default defineComponent({
       moveDown,
     }
 
-    registerInst(exposed)
+    expose(exposed)
     provideProEditDataTableInst(exposed)
     provide(editDataTableInjectionKey, {
       editableKeys,

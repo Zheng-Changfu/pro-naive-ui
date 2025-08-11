@@ -163,6 +163,7 @@ export function useProField<FieldProps = any>(props: ProFieldProps, name: string
 
   return {
     field,
+    overridedProps,
     mergedReadonly,
     proFormItemProps,
     mergedFieldProps,
@@ -172,7 +173,7 @@ export function useProField<FieldProps = any>(props: ProFieldProps, name: string
 export function useProListField<FieldProps = any>(props: ProFieldProps, name: string) {
   const attrs = useAttrs()
 
-  const overridedProps = useOverrideProps<ProFieldProps>(
+  const overridedProps = useOverrideProps<ProFieldProps & { [x: string]: any }>(
     name,
     props,
   )
@@ -237,6 +238,7 @@ export function useProListField<FieldProps = any>(props: ProFieldProps, name: st
   }
 
   return {
+    overridedProps,
     mergedReadonly,
     proFormItemProps,
     mergedFieldProps,

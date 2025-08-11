@@ -21,7 +21,7 @@ export default defineComponent({
       required: true,
     },
     rowKey: {
-      type: [String, Number],
+      type: [String, Number] as PropType<string | number>,
     },
     column: {
       type: Object as PropType<ProEditDataTableBaseColumn>,
