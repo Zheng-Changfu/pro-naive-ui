@@ -24,7 +24,7 @@ export default defineComponent({
   slots: Object as SlotsType<ProCardSlots>,
   setup(props, { slots }) {
     const {
-      getMessage,
+      t,
     } = useLocale('ProCard')
 
     const overridedProps = useOverrideProps<ProCardProps>(
@@ -56,7 +56,7 @@ export default defineComponent({
     })
 
     const collapseText = computed(() => {
-      return getMessage('collapse')(!show.value)
+      return t('collapse')(!show.value)
     })
 
     const resolvedTitle = computed(() => {

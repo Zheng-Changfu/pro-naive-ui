@@ -23,7 +23,7 @@ export default defineComponent({
     } = useProField<SwitchProps>(props, name)
 
     const {
-      getMessage,
+      t,
     } = useLocale('ProSwitch')
 
     const nSwitchProps = computed(() => {
@@ -34,8 +34,8 @@ export default defineComponent({
     })
 
     return {
+      t,
       field,
-      getMessage,
       nSwitchProps,
       mergedReadonly,
       proFormItemProps,
@@ -53,8 +53,8 @@ export default defineComponent({
             let dom: VNodeChild
             if (this.mergedReadonly) {
               dom = this.field.value.value
-                ? this.$slots.checked?.() ?? this.getMessage('checked')
-                : this.$slots.unchecked?.() ?? this.getMessage('unchecked')
+                ? this.$slots.checked?.() ?? this.t('checked')
+                : this.$slots.unchecked?.() ?? this.t('unchecked')
             }
             else {
               dom = (

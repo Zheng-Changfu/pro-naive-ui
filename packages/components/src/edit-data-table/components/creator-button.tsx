@@ -29,7 +29,7 @@ export default defineComponent({
     const mergedClsPrefix = useNaiveClsPrefix()
 
     const {
-      getMessage,
+      t,
     } = useLocale('ProEditDataTable')
 
     const {
@@ -58,8 +58,8 @@ export default defineComponent({
       return {
         block: true,
         dashed: true,
+        content: t('add'),
         loading: loading.value,
-        content: getMessage('add'),
         renderIcon: () => {
           return (
             <NIcon>

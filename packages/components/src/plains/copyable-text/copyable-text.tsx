@@ -35,7 +35,7 @@ const ProCopyableText = defineComponent({
     )
 
     const {
-      getMessage,
+      t,
     } = useLocale(name)
 
     const {
@@ -59,9 +59,9 @@ const ProCopyableText = defineComponent({
     }
 
     return {
+      t,
       copied,
       copyText,
-      getMessage,
       mergedEmpty,
       overridedProps,
       mergedClsPrefix,
@@ -91,7 +91,7 @@ const ProCopyableText = defineComponent({
             ),
             default: () => {
               const text = this.copied ? 'copied' : 'copy'
-              return this.getMessage(text)
+              return this.t(text)
             },
           }}
         </NTooltip>

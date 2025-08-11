@@ -4,7 +4,7 @@ import { useLocale } from '../../../../locales'
 
 export function useMergePlaceholder(componentName: string, props: Record<string, any>) {
   const {
-    getMessage,
+    t,
   } = useLocale('ProForm')
 
   const mergedTitle = computed<string>(() => {
@@ -15,7 +15,7 @@ export function useMergePlaceholder(componentName: string, props: Record<string,
     if (props.placeholder !== undefined) {
       return props.placeholder
     }
-    const localePlaceholder = getMessage('placeholder')
+    const localePlaceholder = t('placeholder')
     return localePlaceholder(toString(mergedTitle.value), componentName)
   })
 }

@@ -26,7 +26,7 @@ const CreatorButton = defineComponent({
   },
   setup(props) {
     const {
-      getMessage,
+      t,
     } = useLocale('ProFormList')
 
     const {
@@ -44,7 +44,7 @@ const CreatorButton = defineComponent({
       return {
         block: true,
         dashed: true,
-        content: getMessage('add'),
+        content: t('add'),
         loading: addRowLoading.value,
         renderIcon: () => {
           return (

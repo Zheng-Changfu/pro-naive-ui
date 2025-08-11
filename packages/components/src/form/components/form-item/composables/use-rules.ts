@@ -11,7 +11,7 @@ import { fieldExtraKey } from '../../field/field-extra-info'
 
 export function useRules(props: ComputedRef<ProFormItemProps>) {
   const {
-    getMessage,
+    t,
   } = useLocale('ProForm')
 
   const {
@@ -26,7 +26,7 @@ export function useRules(props: ComputedRef<ProFormItemProps>) {
   }
 
   function requiredMessage() {
-    const localeRequiredMessage = getMessage('validateMessages.required')
+    const localeRequiredMessage = t('validateMessages.required')
     const { title, label } = props.value
     return localeRequiredMessage(toString(title ?? label))
   }

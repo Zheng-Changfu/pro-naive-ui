@@ -27,7 +27,7 @@ export function useColumnRenderer(options: CreateColumnRendererOptions) {
   } = options
 
   const {
-    getMessage,
+    t,
   } = useLocale('ProDataTable')
 
   const {
@@ -94,7 +94,7 @@ export function useColumnRenderer(options: CreateColumnRendererOptions) {
       width: 60,
       align: 'center',
       key: indexColumnKey,
-      title: getMessage('indexColumn'),
+      title: t('indexColumn'),
       fixed: hasFixedLeftColumn.value ? 'left' : undefined,
       render(row, rowIndex) {
         if (props.value.pagination === false) {
@@ -128,7 +128,7 @@ export function useColumnRenderer(options: CreateColumnRendererOptions) {
       width: 60,
       align: 'center',
       key: sortColumnKey,
-      title: renderTooltipTitle(title ?? getMessage('sortColumn'), tooltip),
+      title: renderTooltipTitle(title ?? t('sortColumn'), tooltip),
       fixed: hasFixedLeftColumn.value ? 'left' : undefined,
       render(row, rowIndex) {
         return render

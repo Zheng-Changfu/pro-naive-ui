@@ -57,7 +57,6 @@ export default defineComponent({
     if (!this.field.show.value) {
       return null
     }
-    console.log(this.internalEditDataTableProps)
     return (
       <ProFormItem
         class={[

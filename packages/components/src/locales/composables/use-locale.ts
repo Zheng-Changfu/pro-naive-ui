@@ -12,13 +12,13 @@ export function useLocale(ns?: string) {
     return mergedLocaleRef?.value?.[ns as any] ?? (enUS as any)[ns as any]
   })
 
-  function getMessage(key: string, fallback?: string) {
+  function translate(key: string, fallback?: string) {
     const locale = localeRef.value
     return get(locale, key, fallback)
   }
 
   return {
     localeRef,
-    getMessage,
+    t: translate,
   }
 }

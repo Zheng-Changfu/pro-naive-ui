@@ -33,7 +33,7 @@ const Action = defineComponent({
   },
   setup(props) {
     const {
-      getMessage,
+      t,
     } = useLocale('ProFormList')
 
     const {
@@ -69,7 +69,7 @@ const Action = defineComponent({
       return {
         text: true,
         loading: copyLoading.value,
-        tooltip: getMessage('copyThisLine'),
+        tooltip: t('copyThisLine'),
         renderIcon: () => {
           return (
             <NIcon>
@@ -86,7 +86,7 @@ const Action = defineComponent({
       return {
         text: true,
         loading: removeLoading.value,
-        tooltip: getMessage('removeThisLine'),
+        tooltip: t('removeThisLine'),
         renderIcon: () => {
           return (
             <NIcon>

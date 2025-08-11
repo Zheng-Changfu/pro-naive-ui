@@ -32,7 +32,7 @@ export default defineComponent({
     const form = props.form
 
     const {
-      getMessage,
+      t,
     } = useLocale('ProSearchForm')
 
     const showResetButton = computed(() => {
@@ -51,8 +51,8 @@ export default defineComponent({
       return showResetButton.value
         ? {
             attrType: 'reset',
+            content: t('reset'),
             disabled: props.loading,
-            content: getMessage('reset'),
             ...(props.resetButtonProps ?? {}),
           }
         : {}
@@ -63,8 +63,8 @@ export default defineComponent({
         ? {
             type: 'primary',
             attrType: 'submit',
+            content: t('search'),
             loading: props.loading,
-            content: getMessage('search'),
             ...(props.searchButtonProps ?? {}),
           }
         : {}
@@ -77,7 +77,7 @@ export default defineComponent({
             type: 'primary',
             iconPlacement: 'right',
             disabled: props.loading,
-            content: getMessage('collapse')(form.collapsed.value),
+            content: t('collapse')(form.collapsed.value),
             renderIcon: () => {
               return (
                 <NIcon size={14}>

@@ -24,7 +24,7 @@ export default defineComponent({
   },
   setup(props) {
     const {
-      getMessage,
+      t,
     } = useLocale('ProModalForm')
 
     const showResetButton = computed(() => {
@@ -41,8 +41,8 @@ export default defineComponent({
             onClick: () => {
               props.form.close()
             },
+            content: t('reset'),
             disabled: props.loading,
-            content: getMessage('reset'),
             ...(props.resetButtonProps ?? {}),
           }
         : {}
@@ -55,8 +55,8 @@ export default defineComponent({
             onClick: () => {
               props.form.submit()
             },
+            content: t('submit'),
             loading: props.loading,
-            content: getMessage('submit'),
             ...(props.submitButtonProps ?? {}),
           }
         : {}
