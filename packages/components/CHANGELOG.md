@@ -1,5 +1,11 @@
 # pro-naive-ui
 
+## 3.0.0
+
+### Major Changes
+
+- v3.0.0
+
 ## 2.4.4
 
 ### Patch Changes

@@ -56,7 +56,7 @@ import type { Dependencie } from 'pro-naive-ui'
 | onChange                                                                                      | `(val: any) => void`                   | `-`    | 字段值发生变化后触发的回调函数，手动交互才会触发，`pro-form-list` 中不支持该属性                                         |              |
 | onUpdateValue                                                                                 | `(value: any, ...args: any[]) => void` | `-`    | 手动更新值，<n-a href="#input-value.vue">查看完整例子</n-a>，`pro-form-list` 中不支持该属性                              |              |
 | tooltip                                                                                       |
-| fieldInstance                                                                                 | `BaseField \| ArrayField`              | `-`    | 字段实例，，<n-a href="#custom-component-2.vue">请查看自定义组件</n-a>                                                   | NEXT_VERSION |
+| fieldInstance                                                                                 | `BaseField \| ArrayField`              | `-`    | 字段实例，，<n-a href="#custom-component-2.vue">请查看自定义组件</n-a>                                                   | 3.0.0 |
 | [参考 NFormItem Props](https://www.naiveui.com/zh-CN/os-theme/components/form#FormItem-Props) |                                        |        |                                                                                                                          |              |
 
 ### 通用的插槽

@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## 3.0.0
+
+### 此版本向下兼容，无缝升级
+
+### Features
+- `pro-field` 组件新增 `field-instance` prop
+- 导出 `useForwardRef`，用于二次封装组件时转发实例方法
+- 导出 `useProField`，用于二次封装组件时控制字段实例
+
+### Fixes
+- 修复 `useNDataTable` 中 `loading` 闪烁问题
+
+### Perf
+- 重构了所有表单组件，减少内存占用和提高性能
+- 优化 `pro-date` 相关组件，统一由 `factory` 组件创建
+- 优化二次封装组件的形式
+
 ## 2.4.4
 
 ### Features
