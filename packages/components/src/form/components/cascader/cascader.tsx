@@ -1,4 +1,4 @@
-import type { CascaderOption, CascaderProps } from 'naive-ui'
+import type { CascaderOption } from 'naive-ui'
 import type { SlotsType, VNodeChild } from 'vue'
 import type { ProCascaderSlots } from './slots'
 import { get, isArray } from 'lodash-es'
@@ -26,7 +26,7 @@ export default defineComponent({
       mergedReadonly,
       proFormItemProps,
       mergedFieldProps,
-    } = useProField<CascaderProps>(props, name)
+    } = useProField(props, name)
 
     const {
       empty,

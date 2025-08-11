@@ -51,7 +51,7 @@ function useMergeConfig(props: ComputedRef<ProFieldProps>) {
     showLabel: injectedShowLabelRef,
   } = inject(proFieldConfigInjectionKey, {})
 
-  const mergedTitle = computed(() => {
+  const mergedTitle = computed<string | undefined>(() => {
     return props.value.title ?? props.value.label
   })
 

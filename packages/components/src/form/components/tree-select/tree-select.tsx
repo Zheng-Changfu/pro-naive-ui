@@ -1,4 +1,4 @@
-import type { TreeSelectOption, TreeSelectProps } from 'naive-ui'
+import type { TreeSelectOption } from 'naive-ui'
 import type { SlotsType, VNodeChild } from 'vue'
 import type { ProTreeSelectSlots } from './slots'
 import { get, isArray, noop } from 'lodash-es'
@@ -16,7 +16,7 @@ const name = 'ProTreeSelect'
 export default defineComponent({
   name,
   inheritAttrs: false,
-  props: proTreeSelectProps,
+  props: proTreeSelectProps as any,
   slots: Object as SlotsType<ProTreeSelectSlots>,
   setup(props) {
     const forwardRef = useForwardRef()
@@ -26,7 +26,7 @@ export default defineComponent({
       mergedReadonly,
       proFormItemProps,
       mergedFieldProps,
-    } = useProField<TreeSelectProps>(props, name)
+    } = useProField(props, name)
 
     const {
       empty,
