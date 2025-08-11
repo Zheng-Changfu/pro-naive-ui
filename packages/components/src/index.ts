@@ -1,5 +1,6 @@
 export * from './components'
 export * from './composables/use-n-data-table'
+export { useForwardRef } from './composables/use-forward-ref'
 export { useOverrideProps } from './composables/use-override-props'
 export * from './composables/use-pagination'
 export * from './composables/use-request'
