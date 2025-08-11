@@ -1,4 +1,4 @@
-import type { InputInst, InputProps } from 'naive-ui'
+import type { InputProps } from 'naive-ui'
 import type { SlotsType, VNodeChild } from 'vue'
 import type { ProPasswordSlots } from './slots'
 import { EyeInvisibleOutlined, EyeOutlined } from '@vicons/antd'
@@ -17,7 +17,7 @@ export default defineComponent({
   slots: Object as SlotsType<ProPasswordSlots>,
   setup(props) {
     const open = ref(false)
-    const forwardRef = useForwardRef<InputInst>()
+    const forwardRef = useForwardRef()
 
     const {
       field,

@@ -1,4 +1,4 @@
-import type { InputInst, InputProps } from 'naive-ui'
+import type { InputProps } from 'naive-ui'
 import type { SlotsType, VNodeChild } from 'vue'
 import type { ProInputSlots } from './slots'
 import { NFlex, NInput } from 'naive-ui'
@@ -15,7 +15,7 @@ export default defineComponent({
   props: proInputProps,
   slots: Object as SlotsType<ProInputSlots>,
   setup(props) {
-    const forwardRef = useForwardRef<InputInst>()
+    const forwardRef = useForwardRef()
 
     const {
       field,

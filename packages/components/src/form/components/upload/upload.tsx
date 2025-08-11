@@ -20,7 +20,7 @@ export default defineComponent({
   slots: Object as SlotsType<ProUploadSlots>,
   setup(props) {
     const instRef = ref<UploadInst>()
-    const forwardRef = useForwardRef<UploadInst>()
+    const forwardRef = useForwardRef()
 
     const {
       field,

@@ -18,7 +18,7 @@ export default defineComponent({
   props: proTimePickerProps,
   slots: Object as SlotsType<ProTimePickerSlots>,
   setup(props) {
-    const forwardRef = useForwardRef<TimePickerInst>()
+    const forwardRef = useForwardRef()
 
     const {
       field,
