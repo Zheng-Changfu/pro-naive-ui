@@ -20,7 +20,12 @@ function useField(props: ComputedRef<ProFieldProps>) {
     preserve,
     onChange,
     onUpdateValue,
+    fieldInstance,
   } = props.value
+
+  if (fieldInstance) {
+    return fieldInstance
+  }
 
   const fieldOptions: FieldOptions = {
     preserve,
