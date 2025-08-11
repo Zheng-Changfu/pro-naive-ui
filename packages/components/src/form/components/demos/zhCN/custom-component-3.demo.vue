@@ -1,17 +1,15 @@
 <markdown>
-# 自定义组件接入 pro-search-form
+# 开发自定义组件
 
-如果想支持以 `field` 的形式在 `pro-search-form`、`pro-edit-data-table` 组件中使用，以 `pro-json-code` 组件为例，你需要做以下事情
-- 使用 `Vue` 注册 `pro-json-code` 组件
-- `Typescript` 类型提示扩展
+有的时候你可能想从 0 开发一个组件接入到各个表单形态中（如 pro-form、 pro-search-form、pro-modal-form 等），以下例子展示了封装 `pro-json-code` 组件
 </markdown>
 
 <script setup lang="tsx">
 import type { InputProps } from 'naive-ui'
 import type { BaseFieldProps, ProFieldSharedSlots, ProSearchFormColumns } from 'pro-naive-ui'
 import type { ExtractPublicPropTypes, PropType, SlotsType, VNodeChild } from 'vue'
-import { inputProps, NInput } from 'naive-ui'
-import { createProSearchForm, ProField, proFieldSharedProps, useFieldUtils, useOverrideProps } from 'pro-naive-ui'
+import { NInput } from 'naive-ui'
+import { createProSearchForm, proFieldSharedProps, ProFormItem, useFieldUtils, useProField } from 'pro-naive-ui'
 import { defineComponent, getCurrentInstance } from 'vue'
 
 const searchForm = createProSearchForm({
@@ -48,58 +46,9 @@ const columns: ProSearchFormColumns<{ code: string }> = [
   },
 ]
 
-const JsonCode = defineComponent({
-  name: 'JsonCode',
-  props: inputProps,
-  setup() {
-    /**
-     * 这个 composable 包含了一些你可能会用到的属性
-     */
-    const {
-      empty,
-      value,
-      readonly,
-      emptyDom,
-    } = useFieldUtils()
-
-    return {
-      value,
-      empty,
-      readonly,
-      emptyDom,
-    }
-  },
-  render() {
-    let dom: VNodeChild
-
-    if (this.readonly) {
-      dom = this.empty
-        ? this.emptyDom
-        : (
-            <pre class="p-16px bg-#ccc">
-              <code>{this.value}</code>
-            </pre>
-          )
-    }
-    else {
-      dom = <NInput {...this.$props} type="textarea" />
-    }
-    /**
-     * 这里将调用用户的 input 插槽(如果存在)，支持用户自定义
-     */
-    return this.$slots.input
-      ? this.$slots.input({
-          inputDom: dom,
-          readonly: this.readonly,
-          inputProps: this.$props,
-        })
-      : dom
-  },
-})
-
 const props = {
   /**
-   * 应该继承公共的属性
+   * 继承公共的属性
    */
   ...proFieldSharedProps,
   /**
@@ -113,46 +62,81 @@ type ProJsonCodeSlots = ProFieldSharedSlots<InputProps>
 
 const ProJsonCode = defineComponent({
   name: 'ProJsonCode',
+  inheritAttrs: false,
   props,
-  /**
-   * 这里你应该继承公共的插槽
-   */
-  slots: Object as SlotsType<ProJsonCodeSlots>,
+  slots: Object as SlotsType<ProJsonCodeSlots>, // 继承公共的插槽
   setup(props) {
-    /**
-     * 允许该组件的 props 可以被 pro-config-provider 重写
-     */
-    const overridedProps = useOverrideProps(
-      'ProJsonCode',
-      props,
-    )
+    const {
+      field, // 字段实例
+      mergedReadonly, // 是否为只读模式
+      proFormItemProps, // 传递给 pro-form-item 的 props
+      mergedFieldProps, // 传递给表单控件的 props，合并了 placeholder、v-model、外界传入的 field-props
+    } = useProField(props, 'ProJsonCode') // 该组件可以被 pro-config-provider 中的 prop-overrides 重写 props
+
+    const {
+      empty, // 值是否为空
+      emptyDom, // 值为空时的 dom
+    } = useFieldUtils(field) // 这是一个工具 composable
+
     return {
-      overridedProps,
+      field,
+      empty,
+      emptyDom,
+      mergedReadonly,
+      proFormItemProps,
+      mergedFieldProps,
     }
   },
   render() {
+    // 支持 visible、hidden 属性控制组件展示
+    if (!this.field.show.value) {
+      return
+    }
+    // pro-form-item 理解成 n-form-item 即可
     return (
-      <ProField {...this.overridedProps}>
+      <ProFormItem>
         {{
-          ...this.$slots, // 透传公共的插槽
-          input: (options: { inputProps: InputProps, readonly: boolean }) => {
-            return <JsonCode {...options.inputProps} v-slots={this.$slots}></JsonCode>
+          ...this.$slots,
+          default: () => {
+            let dom: VNodeChild
+            if (this.mergedReadonly) {
+              dom = this.empty
+                ? this.emptyDom
+                : (
+                    <pre class="p-16px bg-#ccc">
+                      <code>{this.field.value.value}</code>
+                    </pre>
+                  )
+            }
+            else {
+              dom = <NInput {...this.mergedFieldProps} type="textarea" />
+            }
+            /**
+             * 这里将调用用户的 input 插槽(如果存在)，支持用户自定义
+             */
+            return this.$slots.input
+              ? this.$slots.input({
+                  inputDom: dom,
+                  readonly: this.mergedReadonly,
+                  inputProps: this.mergedFieldProps,
+                })
+              : dom
           },
         }}
-      </ProField>
+      </ProFormItem>
     )
   },
 })
 
 /**
+ * 这里的代码作用是在 pro-search-form、pro-edit-data-table 编写 columns 具备完善的 ts 类型提示
+ * 实际应该在全局的 .d.ts 中编写，这里是为了演示效果
+ */
+/**
  * 实际应该在全局中注册该组件，这里是为了演示效果
  */
 const app = getCurrentInstance()?.appContext.app
 app?.component('ProJsonCode', ProJsonCode)
-
-/**
- * 实际应该在全局的 .d.ts 中编写，这里是为了演示效果
- */
 declare module 'pro-naive-ui'{
   interface ProFieldCustomColumn {
     /**

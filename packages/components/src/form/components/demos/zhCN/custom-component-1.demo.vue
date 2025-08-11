@@ -1,7 +1,7 @@
 <markdown>
 # 接入自定义组件
 
-有的时候你希望可以接入自定义组件，这时候可以使用 `pro-field` 组件。
+有的时候你希望以最简单的方式接入自定义组件，这时候可以使用 `pro-field` 组件。
 </markdown>
 
 <script setup lang="tsx">
