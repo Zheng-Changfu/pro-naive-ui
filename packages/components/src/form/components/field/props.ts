@@ -90,7 +90,7 @@ const proListFieldIgnoreKeys = [
   'onChange',
   'fieldProps',
   'placeholder',
-  'onInputValue',
+  'onUpdateValue',
   'valueModelName',
 ] as const
 
