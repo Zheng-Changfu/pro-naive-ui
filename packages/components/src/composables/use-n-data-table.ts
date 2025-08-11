@@ -256,11 +256,13 @@ export function useNDataTable<
         return {
           loading: fetchInst.loading.value,
           searchButtonProps: {
-            loading: searchLoading.value,
+            loading: false,
+            // loading: searchLoading.value,
             disabled: fetchInst.loading.value,
           },
           resetButtonProps: {
-            loading: resetLoading.value,
+            loading: false,
+            // loading: resetLoading.value,
           },
         }
       }),
