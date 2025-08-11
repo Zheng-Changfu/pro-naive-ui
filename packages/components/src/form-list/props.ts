@@ -119,3 +119,4 @@ export const proFormListProps = {
 
 export const internalFormListPropKeys = keysOf(internalFormListProps)
 export type ProFormListProps = ExtractPublicPropTypes<typeof proFormListProps>
+export type ProFormListInternalProps = ExtractPublicPropTypes<typeof internalFormListProps>

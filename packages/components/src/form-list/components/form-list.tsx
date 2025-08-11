@@ -13,7 +13,6 @@ import { useInjectProForm } from '../../form'
 import { useFieldUtils } from '../../form/components'
 import { useLocale } from '../../locales'
 import { provideProFormListInst } from '../context'
-import { useInjectFormListInstStore } from '../inst'
 import { internalFormListProps } from '../props'
 import FormListItem from './form-list-item'
 
@@ -110,11 +109,7 @@ export default defineComponent({
   name: 'FormList',
   props: internalFormListProps,
   slots: Object as SlotsType<ProFormListSlots>,
-  setup(props) {
-    const {
-      registerInst,
-    } = useInjectFormListInstStore()!
-
+  setup(props, { expose }) {
     const {
       readonly,
     } = useFieldUtils()
@@ -151,7 +146,7 @@ export default defineComponent({
       moveDown,
     }
 
-    registerInst(exposed)
+    expose(exposed)
     provideProFormListInst(exposed)
     return {
       list,

@@ -1,44 +1,32 @@
 import type { SlotsType } from 'vue'
-import type { ProFormListProps } from './props'
+import type { ProFormListInternalProps } from './props'
 import type { ProFormListSlots } from './slots'
-import { computed, defineComponent } from 'vue'
+import { defineComponent } from 'vue'
 import { useNaiveClsPrefix } from '../_internal/use-cls-prefix'
 import { useMountStyle } from '../_internal/use-mount-style'
-import { keep } from '../_utils/keep'
-import { useOverrideProps } from '../composables'
-import { pickProListFieldSharedProps, ProField } from '../form/components'
+import { useForwardRef } from '../composables/use-forward-ref'
+import { useProListField } from '../form/components/field'
+import { ProFormItem } from '../form/components/form-item'
 import FormList from './components/form-list'
-import { provideFormListInstStore } from './inst'
-import { internalFormListPropKeys, proFormListProps } from './props'
+import { proFormListProps } from './props'
 import style from './styles/index.cssr'
 
 const name = 'ProFormList'
 export default defineComponent({
   name,
+  inheritAttrs: false,
   props: proFormListProps,
   slots: Object as SlotsType<ProFormListSlots>,
-  setup(props, { expose }) {
-    const {
-      exposed,
-    } = provideFormListInstStore()
-
+  setup(props) {
+    const forwardRef = useForwardRef()
     const mergedClsPrefix = useNaiveClsPrefix()
 
-    const overridedProps = useOverrideProps<ProFormListProps>(
-      name,
-      props,
-    )
-
-    const proFieldProps = computed(() => {
-      return pickProListFieldSharedProps(overridedProps.value)
-    })
-
-    const internalFormListProps = computed(() => {
-      return keep(
-        overridedProps.value,
-        internalFormListPropKeys,
-      )
-    })
+    const {
+      field,
+      mergedReadonly,
+      proFormItemProps,
+      mergedFieldProps,
+    } = useProListField<ProFormListInternalProps>(props, name)
 
     useMountStyle(
       name,
@@ -47,31 +35,38 @@ export default defineComponent({
       mergedClsPrefix,
     )
 
-    expose(exposed)
     return {
-      proFieldProps,
+      field,
+      forwardRef,
+      mergedReadonly,
       mergedClsPrefix,
-      internalFormListProps,
+      proFormItemProps,
+      mergedFieldProps,
     }
   },
   render() {
-    const { mergedClsPrefix } = this
-
+    if (!this.field.show.value) {
+      return
+    }
     return (
-      <ProField
-        {...this.proFieldProps}
-        isList={true}
-        valueModelName=""
-        fieldProps={this.internalFormListProps}
-        class={[`${mergedClsPrefix}-pro-form-list-wrapper`]}
+      <ProFormItem
+        class={[`${this.mergedClsPrefix}-pro-form-list-wrapper`]}
+        {...this.proFormItemProps}
       >
         {{
           ...this.$slots,
-          input: ({ inputProps }: any) => {
-            return <FormList {...inputProps} v-slots={this.$slots}></FormList>
+          default: () => {
+            return (
+              <FormList
+                ref={this.forwardRef}
+                {...this.mergedFieldProps}
+                v-slots={this.$slots}
+              >
+              </FormList>
+            )
           },
         }}
-      </ProField>
+      </ProFormItem>
     )
   },
 })
