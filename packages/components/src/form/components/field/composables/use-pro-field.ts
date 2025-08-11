@@ -192,10 +192,13 @@ export function useProListField<FieldProps = any>(props: ProFieldProps, name: st
   } = useMergeConfig(overridedProps)
 
   const mergedFieldProps = computed(() => {
-    return omit(
-      overridedProps.value,
-      keysOf(proListFieldSharedProps),
-    ) as FieldProps
+    return {
+      ...omit(
+        overridedProps.value,
+        keysOf(proListFieldSharedProps),
+      ),
+      ...(overridedProps.value.fieldProps ?? {}),
+    } as FieldProps
   })
 
   const proFormItemProps = computed<ProFormItemProps>(() => {

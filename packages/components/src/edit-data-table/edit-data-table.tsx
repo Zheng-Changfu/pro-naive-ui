@@ -27,14 +27,7 @@ export default defineComponent({
       overridedProps,
       proFormItemProps,
       mergedFieldProps,
-    } = useProListField(props, name)
-
-    const internalEditDataTableProps = computed<InternalEditDataTableProps>(() => {
-      return {
-        ...mergedFieldProps.value,
-        fieldProps: overridedProps.value.fieldProps ?? {},
-      }
-    })
+    } = useProListField<InternalEditDataTableProps>(props, name)
 
     useMountStyle(
       name,
@@ -50,7 +43,6 @@ export default defineComponent({
       mergedClsPrefix,
       proFormItemProps,
       mergedFieldProps,
-      internalEditDataTableProps,
     }
   },
   render() {
@@ -74,7 +66,7 @@ export default defineComponent({
               <EditDataTable
                 ref={this.forwardRef}
                 class={[`${this.mergedClsPrefix}-pro-edit-data-table`]}
-                {...this.internalEditDataTableProps}
+                {...this.mergedFieldProps}
                 v-slots={this.$slots}
               />
             )
