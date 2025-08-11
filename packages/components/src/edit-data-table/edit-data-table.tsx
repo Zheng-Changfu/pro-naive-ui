@@ -1,7 +1,7 @@
 import type { SlotsType } from 'vue'
 import type { InternalEditDataTableProps } from './props'
 import type { ProEditDataTableSlots } from './slots'
-import { computed, defineComponent } from 'vue'
+import { defineComponent } from 'vue'
 import { useNaiveClsPrefix } from '../_internal/use-cls-prefix'
 import { useMountStyle } from '../_internal/use-mount-style'
 import { useForwardRef } from '../composables/use-forward-ref'

@@ -1,4 +1,4 @@
-import type { TimePickerInst, TimePickerProps } from 'naive-ui'
+import type { TimePickerProps } from 'naive-ui'
 import type { SlotsType, VNodeChild } from 'vue'
 import type { ProTimePickerSlots } from './slots'
 import { NTimePicker } from 'naive-ui'
