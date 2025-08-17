@@ -1,7 +1,7 @@
 import type { SlotsType } from 'vue'
 import type { InternalEditDataTableProps } from './props'
 import type { ProEditDataTableSlots } from './slots'
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
 import { useNaiveClsPrefix } from '../_internal/use-cls-prefix'
 import { useMountStyle } from '../_internal/use-mount-style'
 import { useForwardRef } from '../composables/use-forward-ref'
@@ -39,10 +39,10 @@ export default defineComponent({
       field,
       forwardRef,
       mergedReadonly,
-      overridedProps,
       mergedClsPrefix,
       proFormItemProps,
       mergedFieldProps,
+      flexHeight: computed(() => overridedProps.value.flexHeight),
     }
   },
   render() {
@@ -54,7 +54,7 @@ export default defineComponent({
         class={[
           `${this.mergedClsPrefix}-pro-edit-data-table-wrapper`,
           {
-            [`${this.mergedClsPrefix}-pro-edit-data-table-wrapper--flex-height`]: this.overridedProps.flexHeight,
+            [`${this.mergedClsPrefix}-pro-edit-data-table-wrapper--flex-height`]: this.flexHeight,
           },
         ]}
         {...this.proFormItemProps}
