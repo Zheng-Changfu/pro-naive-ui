@@ -131,6 +131,7 @@ export default defineComponent({
       nDataTableProps,
       nTableCardProps,
       mergedClsPrefix,
+      flexHeight: computed(() => overridedProps.value.flexHeight),
     }
   },
   render() {
