@@ -71,7 +71,7 @@ const ProJsonCode = defineComponent({
       mergedReadonly, // 是否为只读模式
       proFormItemProps, // 传递给 pro-form-item 的 props
       mergedFieldProps, // 传递给表单控件的 props，合并了 placeholder、v-model、外界传入的 field-props
-    } = useProField(props, 'ProJsonCode') // 该组件可以被 pro-config-provider 中的 prop-overrides 重写 props
+    } = useProField(props)
 
     const {
       empty, // 值是否为空

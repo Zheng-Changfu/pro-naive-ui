@@ -18,17 +18,16 @@ const form = createProForm({
 
 const XProInput = defineComponent({
   name: 'XProInput',
+  inheritAttrs: false,
   props: proInputProps,
   slots: Object as SlotsType<ProInputSlots>,
   setup(props) {
     // 透传 ref
     const forwardRef = useForwardRef()
-    /**
-     * 取 'ProInput' 是因为内部会根据该值创建 placeholder 以及 pro-config-provider 组件 prop-overrides 的 key
-     */
+
     const {
       field,
-    } = useProField(props, 'ProInput')
+    } = useProField(props)
 
     return {
       field,
