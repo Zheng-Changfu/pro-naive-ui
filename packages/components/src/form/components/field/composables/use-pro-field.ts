@@ -4,15 +4,24 @@ import type { ProFormItemProps } from '../../form-item'
 import type { ProFieldProps } from '../props'
 import { omit } from 'lodash-es'
 import { createArrayField, createField } from 'pro-composables'
-import { computed, inject, unref, useAttrs } from 'vue'
+import { computed, getCurrentInstance, inject, unref, useAttrs } from 'vue'
 import { keysOf } from '../../../../_utils/keys-of'
 import { omitUndef } from '../../../../_utils/omit-undef'
+import { warnOnce } from '../../../../_utils/warn'
 import { useOverrideProps } from '../../../../composables'
 import { useInjectProFormConfig } from '../../../context'
 import { proFieldConfigInjectionKey } from '../context'
 import { fieldExtraKey } from '../field-extra-info'
 import { proListFieldSharedProps } from '../props'
 import { useMergePlaceholder } from './use-merge-placeholder'
+
+function getComponentName() {
+  const inst = getCurrentInstance()
+  if (inst) {
+    // Do not use 'inst.type.__name' because it is automatically generated at compile time and is not trustworthy.
+    return inst.type.name ?? inst.type.displayName as string
+  }
+}
 
 function useField(props: ComputedRef<ProFieldProps>) {
   const {
@@ -87,7 +96,14 @@ function useMergeConfig(props: ComputedRef<ProFieldProps>) {
   }
 }
 
-export function useProField<FieldProps = any>(props: ProFieldProps, name: string) {
+export function useProField<FieldProps = any>(props: ProFieldProps, name?: string) {
+  name = name ?? getComponentName() ?? ''
+  if (!name && __DEV__) {
+    warnOnce(
+      'pro-field',
+      '`pro-field` missing name, this may cause the placeholder not to be generated correctly and not be overridden by `prop-overrides` in `pro-config-provider`.',
+    )
+  }
   const mergedPlaceholder = useMergePlaceholder(name, props)
   const overridedProps = useOverrideProps<ProFieldProps>(name, props)
 
@@ -175,7 +191,14 @@ export function useProField<FieldProps = any>(props: ProFieldProps, name: string
   }
 }
 
-export function useProListField<FieldProps = any>(props: ProFieldProps, name: string) {
+export function useProListField<FieldProps = any>(props: ProFieldProps, name?: string) {
+  name = name ?? getComponentName() ?? ''
+  if (!name && __DEV__) {
+    warnOnce(
+      'pro-list-field',
+      '`pro-list-field` missing name, this may cause not be overridden by `prop-overrides` in `pro-config-provider`.',
+    )
+  }
   const attrs = useAttrs()
 
   const overridedProps = useOverrideProps<ProFieldProps & { [x: string]: any }>(
