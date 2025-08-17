@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 3.0.1
+
+### Features
+- `useProField` 没传递第二个参数 `name` 时会自动获取当前组件名称，进一步简化二次封装组件流程
+  
+### Fixes
+- 修复 `pro-data-table` 的 `flex-height` 属性无法被 `prop-overrides` 覆盖问题
+
 ## 3.0.0
 
 ### 此版本向下兼容，无缝升级
