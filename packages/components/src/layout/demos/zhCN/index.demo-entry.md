@@ -110,7 +110,7 @@ interface LayoutMenuReturn {
 | 名称                 | 类型                            | 默认值 | 说明                                                     | 版本         |
 | -------------------- | ------------------------------- | ------ | -------------------------------------------------------- | ------------ |
 | activeKey            | `Ref<string \| number \| null>` | `-`    | 当前激活的菜单 `key`                                     |              |
-| fullKeys             | `ComputedRef<string \| number>` | `-`    | 所有的菜单 `key`                                         | NEXT_VERSION |
+| fullKeys             | `ComputedRef<string \| number>` | `-`    | 所有的菜单 `key`                                         | 3.0.2 |
 | layout               | `ComputedRef<LayoutMenuReturn>` | `-`    | 当前布局模式下需要的数据，会根据 `mode` 切换自动改变数据 |              |
 | verticalLayout       | `ComputedRef<LayoutMenuReturn>` | `-`    | `'vertical'` 布局时的数据                                |              |
 | horizontalLayout     | `ComputedRef<LayoutMenuReturn>` | `-`    | `'horizontal'` 布局时需要的数据                          |

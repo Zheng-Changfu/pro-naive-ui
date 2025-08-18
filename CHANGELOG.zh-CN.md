@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 3.0.2
+
+### Features
+- `useLayoutMenu` 导出 `fullKeys` 计算属性
+
 ## 3.0.1
 
 ### Features
