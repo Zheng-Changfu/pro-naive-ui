@@ -14,32 +14,32 @@ menus.vue
 
 ## API
 ### ProLayout 属性
-| 名称                  | 类型                                                                                                                 | 默认值       | 说明                                                                     | 版本         |
-| --------------------- | -------------------------------------------------------------------------------------------------------------------- | ------------ | ------------------------------------------------------------------------ | ------------ |
-| mode                  | `"vertical" \| "horizontal" \| "sidebar" \| "mixed-sidebar" \| "full-content" \| "two-column" \| "mixed-two-column"` | `'vertical'` | 布局模式                                                                 |              |
-| isMobile              | `boolean`                                                                                                            | `false`      | 是否启用移动端布局                                                       |              |
-| collapsed             | `boolean`                                                                                                            | `false`      | 侧边栏是否折叠                                                           |              |
-| showLogo              | `boolean`                                                                                                            | `true`       | 是否显示 logo                                                            |              |
-| showSidebar           | `boolean`                                                                                                            | `true`       | 是否显示侧边栏                                                           |              |
-| showSidebarExtra      | `boolean`                                                                                                            | `true`       | 是否显示侧边栏额外区域，只在 'two-column'、'mixed-two-column' 布局下生效 | 2.4.0        |
-| showNav               | `boolean`                                                                                                            | `true`       | 是否显示顶栏                                                             |              |
-| showTabbar            | `boolean`                                                                                                            | `true`       | 是否显示标签栏                                                           |              |
-| showFooter            | `boolean`                                                                                                            | `true`       | 是否显示底部                                                             |              |
-| sidebarWidth          | `number`                                                                                                             | `224`        | 侧边栏宽度                                                               |              |
-| sidebarCollapsedWidth | `number`                                                                                                             | `58`         | 侧边栏折叠后的宽度                                                       |              |
-| navHeight             | `number`                                                                                                             | `50`         | 顶栏高度                                                                 |              |
-| navFixed              | `boolean`                                                                                                            | `true`       | 顶栏是否固定                                                             |              |
-| footerHeight          | `number`                                                                                                             | `32`         | 底部高度                                                                 |              |
-| footerFixed           | `boolean`                                                                                                            | `false`      | 底部是否固定                                                             |              |
-| tabbarHeight          | `number`                                                                                                             | `38`         | 标签栏高度                                                               |              |
-| logoClass             | `string \| any[]`                                                                                                    | `-`          | logo 的 class                                                            |              |
-| asideClass            | `string \| any[]`                                                                                                    | `-`          | 整个侧边的 class                                                         |              |
-| headerClass           | `string \| any[]`                                                                                                    | `-`          | 头部 class                                                               |              |
-| navClass              | `string \| any[]`                                                                                                    | `-`          | 顶栏 class                                                               |              |
-| tabbarClass           | `string \| any[]`                                                                                                    | `-`          | 标签栏 class                                                             |              |
-| contentClass          | `string \| any[]`                                                                                                    | `-`          | 内容区 class                                                             |              |
-| footerClass           | `string \| any[]`                                                                                                    | `-`          | 底部 class                                                               |              |
-| onUpdate:collapsed    | `(value: boolean) => void>`                                                                                          | `-`          | 侧边栏折叠时触发                                                         |              |
+| 名称                  | 类型                                                                                                                 | 默认值       | 说明                                                                     | 版本  |
+| --------------------- | -------------------------------------------------------------------------------------------------------------------- | ------------ | ------------------------------------------------------------------------ | ----- |
+| mode                  | `"vertical" \| "horizontal" \| "sidebar" \| "mixed-sidebar" \| "full-content" \| "two-column" \| "mixed-two-column"` | `'vertical'` | 布局模式                                                                 |       |
+| isMobile              | `boolean`                                                                                                            | `false`      | 是否启用移动端布局                                                       |       |
+| collapsed             | `boolean`                                                                                                            | `false`      | 侧边栏是否折叠                                                           |       |
+| showLogo              | `boolean`                                                                                                            | `true`       | 是否显示 logo                                                            |       |
+| showSidebar           | `boolean`                                                                                                            | `true`       | 是否显示侧边栏                                                           |       |
+| showSidebarExtra      | `boolean`                                                                                                            | `true`       | 是否显示侧边栏额外区域，只在 'two-column'、'mixed-two-column' 布局下生效 | 2.4.0 |
+| showNav               | `boolean`                                                                                                            | `true`       | 是否显示顶栏                                                             |       |
+| showTabbar            | `boolean`                                                                                                            | `true`       | 是否显示标签栏                                                           |       |
+| showFooter            | `boolean`                                                                                                            | `true`       | 是否显示底部                                                             |       |
+| sidebarWidth          | `number`                                                                                                             | `224`        | 侧边栏宽度                                                               |       |
+| sidebarCollapsedWidth | `number`                                                                                                             | `58`         | 侧边栏折叠后的宽度                                                       |       |
+| navHeight             | `number`                                                                                                             | `50`         | 顶栏高度                                                                 |       |
+| navFixed              | `boolean`                                                                                                            | `true`       | 顶栏是否固定                                                             |       |
+| footerHeight          | `number`                                                                                                             | `32`         | 底部高度                                                                 |       |
+| footerFixed           | `boolean`                                                                                                            | `false`      | 底部是否固定                                                             |       |
+| tabbarHeight          | `number`                                                                                                             | `38`         | 标签栏高度                                                               |       |
+| logoClass             | `string \| any[]`                                                                                                    | `-`          | logo 的 class                                                            |       |
+| asideClass            | `string \| any[]`                                                                                                    | `-`          | 整个侧边的 class                                                         |       |
+| headerClass           | `string \| any[]`                                                                                                    | `-`          | 头部 class                                                               |       |
+| navClass              | `string \| any[]`                                                                                                    | `-`          | 顶栏 class                                                               |       |
+| tabbarClass           | `string \| any[]`                                                                                                    | `-`          | 标签栏 class                                                             |       |
+| contentClass          | `string \| any[]`                                                                                                    | `-`          | 内容区 class                                                             |       |
+| footerClass           | `string \| any[]`                                                                                                    | `-`          | 底部 class                                                               |       |
+| onUpdate:collapsed    | `(value: boolean) => void>`                                                                                          | `-`          | 侧边栏折叠时触发                                                         |       |
 | scrollbarProps        | `ScrollbarProps`                                                                                                     | `-`          | 透传给 n-scrollbar 的属性                                                | 2.4.1 |
 
 ### ProLayout 插槽
@@ -107,14 +107,15 @@ interface LayoutMenuReturn {
 
 ```
 
-| 名称                 | 类型                            | 默认值 | 说明                                                     | 版本 |
-| -------------------- | ------------------------------- | ------ | -------------------------------------------------------- | ---- |
-| activeKey            | `Ref<string \| number \| null>` | `-`    | 当前激活的菜单 `key`                                     |      |
-| layout               | `ComputedRef<LayoutMenuReturn>` | `-`    | 当前布局模式下需要的数据，会根据 `mode` 切换自动改变数据 |      |
-| verticalLayout       | `ComputedRef<LayoutMenuReturn>` | `-`    | `'vertical'` 布局时的数据                                |      |
+| 名称                 | 类型                            | 默认值 | 说明                                                     | 版本         |
+| -------------------- | ------------------------------- | ------ | -------------------------------------------------------- | ------------ |
+| activeKey            | `Ref<string \| number \| null>` | `-`    | 当前激活的菜单 `key`                                     |              |
+| fullKeys             | `ComputedRef<string \| number>` | `-`    | 所有的菜单 `key`                                         | NEXT_VERSION |
+| layout               | `ComputedRef<LayoutMenuReturn>` | `-`    | 当前布局模式下需要的数据，会根据 `mode` 切换自动改变数据 |              |
+| verticalLayout       | `ComputedRef<LayoutMenuReturn>` | `-`    | `'vertical'` 布局时的数据                                |              |
 | horizontalLayout     | `ComputedRef<LayoutMenuReturn>` | `-`    | `'horizontal'` 布局时需要的数据                          |
-| mixedSidebarLayout   | `ComputedRef<LayoutMenuReturn>` | `-`    | `'mixed-sidebar'` 布局时需要的数据                       |      |
-| fullContentLayout    | `ComputedRef<LayoutMenuReturn>` | `-`    | `'full-content'` 布局时需要的数据                        |      |
-| twoColumnLayout      | `ComputedRef<LayoutMenuReturn>` | `-`    | `'two-column'` 布局时需要的数据                          |      |
-| mixedTwoColumnLayout | `ComputedRef<LayoutMenuReturn>` | `-`    | `'mixed-two-column'` 布局时需要的数据                    |      |
+| mixedSidebarLayout   | `ComputedRef<LayoutMenuReturn>` | `-`    | `'mixed-sidebar'` 布局时需要的数据                       |              |
+| fullContentLayout    | `ComputedRef<LayoutMenuReturn>` | `-`    | `'full-content'` 布局时需要的数据                        |              |
+| twoColumnLayout      | `ComputedRef<LayoutMenuReturn>` | `-`    | `'two-column'` 布局时需要的数据                          |              |
+| mixedTwoColumnLayout | `ComputedRef<LayoutMenuReturn>` | `-`    | `'mixed-two-column'` 布局时需要的数据                    |              |
 

@@ -99,6 +99,7 @@ export function useLayoutMenu(options: UseLayoutMenuOptions) {
 
   const {
     menus,
+    fullKeys,
     getAncestorKeys,
     menuKeyToMetaMap,
     getMenuKeyFullPath,
@@ -148,6 +149,7 @@ export function useLayoutMenu(options: UseLayoutMenuOptions) {
   })
 
   return {
+    fullKeys,
     activeKey,
     getMenuKeyFullPath,
     layout: computed(() => {

@@ -39,6 +39,10 @@ export function useMenus(menus: MaybeRefOrGetter<MenuOption[]>, options: UseMenu
     return map
   })
 
+  const fullKeys = computed(() => {
+    return Array.from(menuKeyToMetaMap.value.keys())
+  })
+
   /**
    * 获取任意一个 key 的祖先 key 列表
    */
@@ -78,14 +82,16 @@ export function useMenus(menus: MaybeRefOrGetter<MenuOption[]>, options: UseMenu
    * 如果有多层级的孩子,只取每一个层级孩子的第一个,一直取到叶子节点
    */
   function getMenuKeyFullPath(key: MenuKey) {
+    const includeSelf = fullKeys.value.includes(key as any)
     return [
       ...getAncestorKeys(key),
-      key,
+      includeSelf ? key : undefined,
       ...getDescendantKeys(key),
     ].filter(k => !isNil(k)) as NonNullable<MenuKey>[]
   }
 
   return {
+    fullKeys,
     getAncestorKeys,
     menuKeyToMetaMap,
     getDescendantKeys,
