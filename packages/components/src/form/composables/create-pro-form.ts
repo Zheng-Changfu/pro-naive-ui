@@ -105,6 +105,7 @@ export function createProForm<Values = any>(
     onReset,
     onSubmit,
     initialValues,
+    omitEmptyString,
     onValueChange,
     onSubmitFailed,
   } = options
@@ -113,6 +114,7 @@ export function createProForm<Values = any>(
     omitNil,
     initialValues,
     onValueChange,
+    omitEmptyString,
   })
 
   const {
