@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 3.0.3
+
+### Fixes
+- 修复 `createProForm` 传递 `omitEmptyString` 为 false 时不生效问题
+
+### Styles
+- `renderProTags`、`renderProImages` 设置为 `inline-flex`，以适配给表格设置 align 属性时可以正确布局
+
 ## 3.0.2
 
 ### Features
