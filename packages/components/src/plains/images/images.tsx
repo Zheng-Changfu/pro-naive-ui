@@ -67,7 +67,11 @@ const ProImages = defineComponent({
     else {
       return (
         <NImageGroup {...imageGroupProps}>
-          <NFlex size="small">
+          <NFlex
+            size="small"
+            inline={true}
+            class={[`${this.mergedClsPrefix}-pro-images`]}
+          >
             {srcs.map(renderSingleImage)}
           </NFlex>
         </NImageGroup>

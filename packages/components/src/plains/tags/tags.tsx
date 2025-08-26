@@ -45,7 +45,10 @@ const ProTags = defineComponent({
       return toValue(this.mergedEmpty.tags)
     }
     return (
-      <NFlex class={[`${this.mergedClsPrefix}-pro-tags`]}>
+      <NFlex
+        class={[`${this.mergedClsPrefix}-pro-tags`]}
+        inline={true}
+      >
         {tags!.map((option, index) => {
           const { content, ...nTagProps } = option
           return (
