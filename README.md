@@ -36,14 +36,6 @@ Pro Naive UI 全量使用 TypeScript 编写，支持完整的类型推导，和�
 npm i pro-naive-ui
 ```
 
-## 捐赠
-
-如果你觉得这个项目帮助到了你，你可以请作者喝一杯咖啡☕️
-
-| 微信                                                | 支付宝                                               |
-| --------------------------------------------------- | ---------------------------------------------------- |
-| <img src="/public/wx.png" height="188" width="188"> | <img src="/public/zfb.png" height="188" width="188"> |
-
 ## 贡献
 
 请参考 [CONTRIBUTING.md](https://github.com/Zheng-Changfu/pro-naive-ui/blob/master/CONTRIBUTING.md)。
