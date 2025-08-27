@@ -84,8 +84,8 @@ export default defineComponent({
       <!-- 广告横幅 -->
       <AdBanner
         href="https://naive-ui-pro.pro-components.cn/"
-        title="🚀 Naive UI Pro"
-        subtitle="基于 Pro Naive UI 制作的后台管理模板"
+        title="Naive UI Pro"
+        subtitle="配套的中后台管理模板"
       />
       <n-menu
         :value="menuValue"
