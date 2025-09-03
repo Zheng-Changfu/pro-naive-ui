@@ -1,7 +1,7 @@
 import { cB, cE } from 'naive-ui'
 
 export default cB('pro-copyable-text', `
-  display: flex;
+  display: inline-flex;
   align-items: center;
   `, [
   cE('button', `
