@@ -127,7 +127,7 @@ export default defineComponent({
           ...this.$slots,
           default: () => {
             let dom: VNodeChild
-            if (this.readonly) {
+            if (this.mergedReadonly) {
               dom = this.empty
                 ? this.emptyDom
                 : (
