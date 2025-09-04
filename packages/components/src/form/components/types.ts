@@ -27,7 +27,7 @@ interface ProBaseFieldColumn<Values = any, ProFieldPropsParameters extends any[]
   /**
    * 字段路径
    */
-  path?: IsAny<Values> extends true ? string : Paths<Values>
+  path?: IsAny<Values> extends true ? string : Paths<Values, { leavesOnly: true }>
   /**
    * 透传给 ProField 组件的 props
    */
