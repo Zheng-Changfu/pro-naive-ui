@@ -1,7 +1,7 @@
 {
   "name": "pro-naive-ui",
   "type": "module",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "packageManager": "pnpm@9.0.6",
   "description": "基于 naive-ui 二次封装，让中后台开发更简单",
   "author": "zhengchangfu",

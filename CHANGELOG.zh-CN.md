@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 3.0.4
+
+### Fixes
+- 修复 `pro-form` 切换只读模式时 `pro-cascader`、`pro-checkbox-group` 无效问题
+
+### Styles
+- `renderCopyableText` 设置为 `inline-flex`，以适配给表格设置 align 属性时可以正确布局
+
 ## 3.0.3
 
 ### Fixes
