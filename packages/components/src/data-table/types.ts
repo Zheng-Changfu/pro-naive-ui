@@ -3,7 +3,7 @@ import type { SortableEvent, SortableOptions } from 'sortablejs'
 import type { Merge, Paths } from 'type-fest'
 import type { VNodeChild } from 'vue'
 
-type RowPath<RowData> = Paths<RowData, { leavesOnly: true }> | ({} & string)
+type RowPath<RowData> = Paths<RowData> | ({} & string)
 
 export interface ProDataTableBaseColumn<RowData = any> extends Omit<TableBaseColumn<RowData>, 'key'> {
   /**
