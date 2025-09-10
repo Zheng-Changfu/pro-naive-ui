@@ -75,6 +75,8 @@ export default defineComponent({
       searchButtonProps: computed(() => overridedProps.value.searchButtonProps),
       showSuffixGridItem: computed(() => overridedProps.value.showSuffixGridItem),
       collapseButtonProps: computed(() => overridedProps.value.collapseButtonProps),
+      suffixGridItemProps: computed(() => overridedProps.value.suffixGridItemProps),
+      suffixFormItemProps: computed(() => overridedProps.value.suffixFormItemProps),
     }
   },
 
@@ -105,7 +107,10 @@ export default defineComponent({
               )
             })}
             {showSuffixGridItem && (
-              <NGi suffix={true}>
+              <NGi
+                {...this.suffixGridItemProps}
+                suffix={true}
+              >
                 {{
                   default: ({ overflow }: any) => {
                     const suffixDom = (
@@ -118,7 +123,10 @@ export default defineComponent({
                       />
                     )
                     return (
-                      <NFormItem class={[`${mergedClsPrefix}-pro-search-form__suffix`]}>
+                      <NFormItem
+                        {...this.suffixFormItemProps}
+                        class={[`${mergedClsPrefix}-pro-search-form__suffix`]}
+                      >
                         {resolveSlotWithProps(this.$slots.suffix, {
                           overflow,
                           suffixDom,

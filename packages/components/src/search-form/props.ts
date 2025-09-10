@@ -1,4 +1,4 @@
-import type { GridProps } from 'naive-ui'
+import type { FormItemProps, GridItemProps, GridProps } from 'naive-ui'
 import type { Simplify } from 'type-fest'
 import type { ExtractPublicPropTypes, PropType } from 'vue'
 import type { ProButtonProps } from '../button'
@@ -50,6 +50,14 @@ export const proSearchFormExtendProps = {
     type: Boolean,
     default: true,
   },
+  /**
+   * 后缀(收起、重置、查询) GridItem 的属性
+   */
+  suffixGridItemProps: Object as PropType<Omit<GridItemProps, 'suffix'>>,
+  /**
+   * 后缀(收起、重置、查询) FormItem 的属性
+   */
+  suffixFormItemProps: Object as PropType<FormItemProps>,
 } as const
 
 export const proSearchFormProps = {

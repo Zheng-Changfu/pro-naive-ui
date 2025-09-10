@@ -20,20 +20,22 @@ custom-button.vue
 ### ProSearchForm 属性
 引用到的类型声明介绍如下
 ```typescript
-import type { GridProps } from 'naive-ui'
+import type { GridProps, GridItemProps, FormItemProps } from 'naive-ui'
 import type { ProButtonProps } from 'pro-naive-ui'
 ```
 
-| 名称                                                                            | 类型                                                         | 默认值 | 说明                                             | 版本 |
-| ------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------ | ------------------------------------------------ | ---- |
-| columns                                                                         | <n-a href="#ProSearchFormColumn">ProSearchFormColumn[]</n-a> | `-`    | 表单项集合                                       |      |
-| gridProps                                                                       | `GridProps`                                                  | `-`    | 透传给 `n-grid` 的属性，某些属性有冲突时可能有用 |      |
-| showSuffixGridItem                                                              | `boolean`                                                    | `true` | 是否显示后缀(收起、重置、查询)                   |      |
-| resetButtonProps                                                                | `ProButtonProps \| false`                                    | `-`    | 重置按钮的属性，`false` 不显示                   |      |
-| searchButtonProps                                                               | `ProButtonProps \| false`                                    | `-`    | 查询按钮的属性，`false` 不显示                   |      |
-| collapseButtonProps                                                             | `ProButtonProps \| false`                                    | `-`    | 展开收起按钮的属性，`false` 不显示               |      |
-| [参考 ProForm](form#ProForm-属性)                                               |                                                              |        |                                                  |      |
-| [参考 NGrid](https://www.naiveui.com/zh-CN/os-theme/components/grid#Grid-Props) |                                                              |        | 不支持 `collapsed` 属性                          |      |
+| 名称                                                                            | 类型                                                         | 默认值 | 说明                                                         | 版本         |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------ | ------------------------------------------------------------ | ------------ |
+| columns                                                                         | <n-a href="#ProSearchFormColumn">ProSearchFormColumn[]</n-a> | `-`    | 表单项集合                                                   |              |
+| gridProps                                                                       | `GridProps`                                                  | `-`    | 透传给 `n-grid` 的属性，某些属性有冲突时可能有用             |              |
+| showSuffixGridItem                                                              | `boolean`                                                    | `true` | 是否显示后缀(收起、重置、查询)                               |              |
+| resetButtonProps                                                                | `ProButtonProps \| false`                                    | `-`    | 重置按钮的属性，`false` 不显示                               |              |
+| searchButtonProps                                                               | `ProButtonProps \| false`                                    | `-`    | 查询按钮的属性，`false` 不显示                               |              |
+| collapseButtonProps                                                             | `ProButtonProps \| false`                                    | `-`    | 展开收起按钮的属性，`false` 不显示                           |              |
+| suffixGridItemProps                                                             | `GridItemProps`                                              | `-`    | 后缀(收起、重置、查询) GridItem 的属性，不支持 `suffix` 属性 | NEXT_VERSION |
+| suffixFormItemProps                                                             | `FormItemProps`                                              | `-`    | 后缀(收起、重置、查询) FormItem 的属性                       | NEXT_VERSION |
+| [参考 ProForm](form#ProForm-属性)                                               |                                                              |        |                                                              |              |
+| [参考 NGrid](https://www.naiveui.com/zh-CN/os-theme/components/grid#Grid-Props) |                                                              |        | 不支持 `collapsed` 属性                                      |              |
 
 ### ProSearchForm 插槽
 引用到的类型声明介绍如下
