@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 3.1.0
+
+### Features
+- `pro-search-form` 新增 `suffix-grid-item-props`、`suffix-form-item-props` 属性
+
+### Fixes
+- 修复表单项 `path` 类型推导错误问题
+
 ## 3.0.4
 
 ### Fixes
