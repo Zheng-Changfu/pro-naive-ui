@@ -19,6 +19,7 @@ custom-button.vue
 ## API
 ### ProSearchForm 属性
 <!--replace、pro-form、props、form#ProForm-属性-->
+<!--replace、n-form、props、https://www.naiveui.com/zh-CN/os-theme/components/form#Form-Props-->
 <!--replace、n-grid、props、https://www.naiveui.com/zh-CN/os-theme/components/grid#Grid-Props-->
 
 引用到的类型声明介绍如下
@@ -72,6 +73,7 @@ import type { VNodeChild } from 'vue'
 
 ### ProSearchFormColumn
 <!--replace、pro-field、props、field#通用的属性-->
+<!--replace、n-form、n-form-item-props、https://www.naiveui.com/zh-CN/os-theme/components/form#FormItem-Props-->
 <!--replace、n-grid、n-grid-item-props、https://www.naiveui.com/zh-CN/os-theme/components/grid#GridItem-Props-->
 
 它是用来定义每一个表单项的
@@ -80,15 +82,13 @@ import type { VNodeChild } from 'vue'
   不支持 suffix 属性，对于动态的属性，可以传递给 proFieldProps
 </n-alert>
 
-| 名称                                                                                    | 类型                                                     | 默认值    | 说明                                                                                                                     | 版本 |
-| --------------------------------------------------------------------------------------- | -------------------------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------ | ---- |
-| render                                                                                  | `() => VNodeChild`                                       | `-`       | 当 `field` 不满足需求时，可以自定义渲染                                                                                  |      |
-| field                                                                                   | <n-a href="#ProFieldColumnType">ProFieldColumnType</n-a> | `'input'` | 渲染哪个字段控件，默认是 `input`，因为支持按需加载，所以要保证使用的组件已经被 `Vue` 注册，否则会在开发期间抛出一个警告  |      |
-| fieldProps                                                                              | `object \| () => object`                                 | `-`       | 控件的 `props`，比如 `pro-input` 控件，这里就支持 `n-input` 的所有 `props`，其他控件同理，如果是动态属性可以写成一个函数 |      |
-| fieldSlots                                                                              | `object`                                                 | `-`       | 控件的 `slots`，比如 `pro-input` 控件，这里就支持 `n-input` 的所有 `slots` 和[通用插槽](field#通用的插槽) ，其他控件同理 |      |
-| proFieldProps                                                                           | `object \| () => object`                                 | `-`       | 如果是动态的[通用属性](field#通用的属性)，可以写在这里，不过你需要写成一个函数                                           |      |
-| [参考通用属性](field#通用的属性)                                                        |                                                          |           | 如果是动态的属性，可以写到 `proFieldProps` 属性上                                                                        |      |
-| [参考 NGridItem](https://www.naiveui.com/zh-CN/os-theme/components/grid#GridItem-Props) |                                                          |           | 不支持 `suffix` 属性                                                                                                     |      |
+| 名称          | 类型                                                     | 默认值    | 说明                                                                                                                     | 版本 |
+| ------------- | -------------------------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------ | ---- |
+| render        | `() => VNodeChild`                                       | `-`       | 当 `field` 不满足需求时，可以自定义渲染                                                                                  |      |
+| field         | <n-a href="#ProFieldColumnType">ProFieldColumnType</n-a> | `'input'` | 渲染哪个字段控件，默认是 `input`，因为支持按需加载，所以要保证使用的组件已经被 `Vue` 注册，否则会在开发期间抛出一个警告  |      |
+| fieldProps    | `object \| () => object`                                 | `-`       | 控件的 `props`，比如 `pro-input` 控件，这里就支持 `n-input` 的所有 `props`，其他控件同理，如果是动态属性可以写成一个函数 |      |
+| fieldSlots    | `object`                                                 | `-`       | 控件的 `slots`，比如 `pro-input` 控件，这里就支持 `n-input` 的所有 `slots` 和[通用插槽](field#通用的插槽) ，其他控件同理 |      |
+| proFieldProps | `object \| () => object`                                 | `-`       | 如果是动态的[通用属性](field#通用的属性)，可以写在这里，不过你需要写成一个函数                                           |      |
 
 ### ProFieldColumnType
 以下是 `field` 和组件的对照关系表

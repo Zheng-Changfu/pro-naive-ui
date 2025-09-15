@@ -15,6 +15,7 @@ edit-form.vue
 ## API
 ### ProDrawerForm 属性
 <!--replace、pro-form、props、form#ProForm-属性-->
+<!--replace、n-form、props、https://www.naiveui.com/zh-CN/os-theme/components/form#Form-Props-->
 <!--replace、n-drawer、props、https://www.naiveui.com/zh-CN/os-theme/components/drawer#Drawer-Props-->
 
 引用到的类型声明介绍如下

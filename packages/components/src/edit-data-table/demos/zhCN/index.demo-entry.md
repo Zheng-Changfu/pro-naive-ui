@@ -16,9 +16,12 @@ async.vue
 ```
 
 ## API
+
+### ProEditDataTable 属性
 <!--replace、pro-data-table、props、data-table#ProDataTable-属性-->
 <!--replace、pro-field、props、field#通用的属性-->
-### ProEditDataTable 属性
+<!--replace、n-form、n-form-item-props、https://www.naiveui.com/zh-CN/os-theme/components/form#FormItem-Props-->
+
 引用到的类型声明介绍如下
 ```typescript
 import type { ProEditDataTableRecordCreatorProps, ProEditDataTableActionGuard, ProEditDataTableColumns, ProDataTableProps } from 'pro-naive-ui'

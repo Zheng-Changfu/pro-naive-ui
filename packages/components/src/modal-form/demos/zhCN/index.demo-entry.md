@@ -16,6 +16,7 @@ edit-form.vue
 ### ProModalForm 属性
 <!--replace、pro-form、props、form#ProForm-属性-->
 <!--replace、pro-modal、props、modal#ProModal-属性-->
+<!--replace、n-form、props、https://www.naiveui.com/zh-CN/os-theme/components/form#Form-Props-->
 
 引用到的类型声明介绍如下
 ```typescript

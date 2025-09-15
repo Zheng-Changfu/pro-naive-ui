@@ -23,6 +23,7 @@ list-nest.vue
 ## API
 ### ProFormList 属性
 <!--replace、pro-field、props、field#通用的属性-->
+<!--replace、n-form、n-form-item-props、https://www.naiveui.com/zh-CN/os-theme/components/form#FormItem-Props-->
 
 List 本身也是一个表单项，支持这些[通用属性](field#通用的属性)外，还扩展了一些属性，引用到的类型声明介绍如下
 ```typescript
