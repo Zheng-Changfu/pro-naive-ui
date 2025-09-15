@@ -17,13 +17,19 @@ async-form.vue
 
 ## API
 ### ProForm 属性
-| 名称                                                                                  | 类型                                                      | 默认值    | 说明                              | 版本 |
-| ------------------------------------------------------------------------------------- | --------------------------------------------------------- | --------- | --------------------------------- | ---- |
-| form                                                                                  | 必填，参考 <n-a href="#createProForm">createProForm</n-a> | `-`       | 表单控制器                        |      |
-| readonly                                                                              | `boolean`                                                 | `-`       | 表单是否为只读状态                |      |
-| loading                                                                               | `boolean`                                                 | `false`   | 表单是否在提交中，防止重复提交    |      |
-| validationTrigger                                                                     | `ValidationTrigger \| ValidationTrigger[]`                | `'input'` | 表单验证时机                      |      |
-| [参考 NForm Props](https://www.naiveui.com/zh-CN/os-theme/components/form#Form-Props) |                                                           |           | 不支持 `model` 属性，内置数据管理 |      |
+<!--replace、n-form、props、https://www.naiveui.com/zh-CN/os-theme/components/form#Form-Props-->
+
+<n-alert type="warning" title="注意" :bordered="false">
+  不支持 model 属性，数据管理被 createProForm 接管。
+</n-alert>
+<br />
+
+| 名称              | 类型                                                      | 默认值    | 说明                           | 版本 |
+| ----------------- | --------------------------------------------------------- | --------- | ------------------------------ | ---- |
+| form              | 必填，参考 <n-a href="#createProForm">createProForm</n-a> | `-`       | 表单控制器                     |      |
+| readonly          | `boolean`                                                 | `-`       | 表单是否为只读状态             |      |
+| loading           | `boolean`                                                 | `false`   | 表单是否在提交中，防止重复提交 |      |
+| validationTrigger | `ValidationTrigger \| ValidationTrigger[]`                | `'input'` | 表单验证时机                   |      |
 
 ### createProForm
 创建一个表单控制器，如果已经注册了控制器，想在后代组件中使用，无需透传，可以使用 `useInjectProForm` 方法直接注入

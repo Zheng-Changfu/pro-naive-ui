@@ -22,23 +22,24 @@ list-nest.vue
 
 ## API
 ### ProFormList 属性
-List 本身也是一个表单项，支持这些 [通用属性](field#通用的属性) 外，还扩展了一些属性，引用到的类型声明介绍如下
+<!--replace、pro-field、props、field#通用的属性-->
+
+List 本身也是一个表单项，支持这些[通用属性](field#通用的属性)外，还扩展了一些属性，引用到的类型声明介绍如下
 ```typescript
 import type { ProButtonProps, ProFormListActionGuard } from 'pro-naive-ui'
 ```
 
-| 名称                             | 类型                      | 默认值     | 说明                                                                    | 版本 |
-| -------------------------------- | ------------------------- | ---------- | ----------------------------------------------------------------------- | ---- |
-| position                         | `'top' \| 'bottom'`       | `'bottom'` | 添加一行按钮显示在顶部还是底部，区别是添加数据的时候是追加到尾部还是头部 |      |
-| min                              | `number`                  | `-`        | 最少行数，删除时如果少于该数则无法删除                                   |      |
-| max                              | `number`                  | `-`        | 最多行数，新增或复制时多于该数则无法新增或复制                           |      |
-| onlyShowFirstItemLabel           | `boolean`                 | `false`    | 是否只显示第一行的 label                                                |      |
-| creatorInitialValue              | `() => object`            | `-`        | 新增一行的默认值                                                        |      |
-| creatorButtonProps               | `ProButtonProps \| false` | `-`        | 新增一行按钮的属性，false 不显示                                         |      |
-| copyButtonProps                  | `ProButtonProps \| false` | `-`        | 复制按钮的属性，false 不显示                                             |      |
-| removeButtonProps                | `ProButtonProps \| false` | `-`        | 删除按钮的属性，false 不显示                                             |      |
-| actionGuard                      | `ProFormListActionGuard`  | `-`        | 添加行和删除行的拦截器                                                  |      |
-| [参考通用属性](field#通用的属性) |                           |            |                                                                         |      |
+| 名称                   | 类型                      | 默认值     | 说明                                                                     | 版本 |
+| ---------------------- | ------------------------- | ---------- | ------------------------------------------------------------------------ | ---- |
+| position               | `'top' \| 'bottom'`       | `'bottom'` | 添加一行按钮显示在顶部还是底部，区别是添加数据的时候是追加到尾部还是头部 |      |
+| min                    | `number`                  | `-`        | 最少行数，删除时如果少于该数则无法删除                                   |      |
+| max                    | `number`                  | `-`        | 最多行数，新增或复制时多于该数则无法新增或复制                           |      |
+| onlyShowFirstItemLabel | `boolean`                 | `false`    | 是否只显示第一行的 label                                                 |      |
+| creatorInitialValue    | `() => object`            | `-`        | 新增一行的默认值                                                         |      |
+| creatorButtonProps     | `ProButtonProps \| false` | `-`        | 新增一行按钮的属性，false 不显示                                         |      |
+| copyButtonProps        | `ProButtonProps \| false` | `-`        | 复制按钮的属性，false 不显示                                             |      |
+| removeButtonProps      | `ProButtonProps \| false` | `-`        | 删除按钮的属性，false 不显示                                             |      |
+| actionGuard            | `ProFormListActionGuard`  | `-`        | 添加行和删除行的拦截器                                                   |      |
 
 ### ProFormList 实例方法
 引用到的类型声明介绍如下
@@ -88,12 +89,12 @@ interface ProFormListDefaultRender {
 }
 ```
 
-| 名称      | 参数                         | 说明                                                  | 版本 |
-| --------- | ---------------------------- | ----------------------------------------------------- | ---- |
-| default   | `ProFormListDefaultRender`   | 每一行渲染的内容                                      |      |
+| 名称      | 参数                         | 说明                                                   | 版本 |
+| --------- | ---------------------------- | ------------------------------------------------------ | ---- |
+| default   | `ProFormListDefaultRender`   | 每一行渲染的内容                                       |      |
 | item      | `ProFormListItemRender`      | 自定义渲染每一行的结构，主要就是将 action 放在别的地方 |      |
-| action    | `ProFormListActionRender`    | 自定义渲染操作按钮                                    |      |
-| container | `ProFormListContainerRender` | 自定义渲染列表容器                                    |      |
+| action    | `ProFormListActionRender`    | 自定义渲染操作按钮                                     |      |
+| container | `ProFormListContainerRender` | 自定义渲染列表容器                                     |      |
 
 ### ProFormList 的校验时机
 如果你给 `ProFormList` 配置了校验规则，它只会在 `添加一行数据`、`复制此项`、`删除此项` 动作发生后校验，调用实例的 `api` 方法不会进行校验处理，你需要手动触发校验

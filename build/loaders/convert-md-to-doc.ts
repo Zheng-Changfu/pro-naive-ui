@@ -3,9 +3,10 @@
 import path from 'node:path'
 import fse from 'fs-extra'
 import { camelCase } from 'lodash-es'
-import { marked } from 'marked'
+import { marked,Lexer } from 'marked'
 import createRenderer from './md-renderer'
 import projectPath from './project-path'
+import cachedApi from '../../scripts/cache/api.json'
 
 const mdRenderer = createRenderer()
 
@@ -213,6 +214,26 @@ async function convertMd2ComponentDocumentation(
       text: genDemosTemplate(demoInfos, colSpan),
     })
   }
+  // resolve spread api
+  for (let i = 0 ; i < tokens.length ; i ++) {
+    const token = tokens[i]
+    if (token.type === 'html' && token.text.startsWith('<!--replace')) {
+      const [, ns, type] = token.text.split('、')
+      if(!cachedApi[ns]){
+        continue;
+      }
+      if(!cachedApi[ns][type]){
+        continue;
+      }
+      for(let j = i + 1 ; j < tokens.length ; j ++){
+        if(tokens[j].type === 'table'){
+          tokens[j].rows.push(...toLinks(cachedApi[ns][type].children,cachedApi[ns][type].link))
+          break;
+        }
+      }
+    }
+  }
+
   const docMainTemplate = marked.parser(tokens, {
     gfm: true,
     renderer: mdRenderer,
@@ -238,6 +259,17 @@ async function convertMd2ComponentDocumentation(
 </template>`
   const docScript = await genScript(demoInfos, components, url, forceShowAnchor)
   return `${docTemplate}\n\n${docScript}`
+}
+
+function toLinks(children,href){
+  return children.map(row => {
+    const [firstColumn,...columns] = row
+    const [linkToken] =  Lexer.lex(`[${firstColumn.text}](${href})`)
+    return [
+      linkToken,
+      ...columns,
+    ]
+  })
 }
 
 export default convertMd2ComponentDocumentation

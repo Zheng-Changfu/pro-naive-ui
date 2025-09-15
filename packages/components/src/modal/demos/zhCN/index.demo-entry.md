@@ -9,12 +9,15 @@ draggable.vue
 
 ## API
 ### ProModal 属性
-| 名称                                                                               | 类型                           | 默认值             | 说明                                               | 版本 |
-| ---------------------------------------------------------------------------------- | ------------------------------ | ------------------ | -------------------------------------------------- | ---- |
-| draggable                                                                          | `boolean \| { bounds?: 'none' }` | `true` | 弹窗是否可拖拽，`bounds === 'none'` 控制拖拽可超出视口 |      |
-| [参考 NModal](https://www.naiveui.com/zh-CN/os-theme/components/modal#Modal-Props) |                                |                    |                                                    |      |
+<!--replace、n-modal、props、https://www.naiveui.com/zh-CN/os-theme/components/modal#Modal-Props-->
+
+| 名称      | 类型                             | 默认值 | 说明                                                   | 版本 |
+| --------- | -------------------------------- | ------ | ------------------------------------------------------ | ---- |
+| draggable | `boolean \| { bounds?: 'none' }` | `true` | 弹窗是否可拖拽，`bounds === 'none'` 控制拖拽可超出视口 |      |
+
 
 ### ProModal 插槽
+
 | 名称                                                                   | 参数 | 说明 | 版本 |
 | ---------------------------------------------------------------------- | ---- | ---- | ---- |
 | [参考 NModal](https://www.naiveui.com/zh-CN/os-theme/components/modal) |      |      |      |
