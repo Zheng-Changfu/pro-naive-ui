@@ -167,17 +167,17 @@ export function useColumnRenderer(options: CreateColumnRendererOptions) {
       ...rest
     } = column ?? {}
 
-    const columnKey = path ?? key ?? ''
+    const columnKey = path ?? key
     return {
-      key: columnKey,
+      key: columnKey as any,
       title: renderTooltipTitle(title, tooltip),
       render(row, rowIndex) {
         if (render) {
           return render(row, rowIndex)
         }
-        const value = get(row, columnKey)
+        const value = get(row, columnKey as any)
         if (isEmptyValue(value)) {
-          return toValue(unref(mergedEmpty).table)
+          return toValue(unref(mergedEmpty).table) as any
         }
         return value
       },

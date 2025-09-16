@@ -46,14 +46,14 @@ export function useColumns(props: ComputedRef<ProDataTableProps>, options: UseCo
         const { title, tooltip, path, key, ...rest } = column
         return {
           ...rest,
-          key: path ?? key ?? '',
+          key: path ?? key,
           title: renderTooltipTitle(title, tooltip),
         }
       }
       if (isDragSortColumn(column, dragSortColumnPath)) {
         return createDragSortColumn(column)
       }
-      return createBaseColumn(column)
+      return createBaseColumn(column) as any
     }, childrenKey as any)
   }
 
