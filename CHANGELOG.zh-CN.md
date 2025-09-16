@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 3.1.1
+
+### Features
+- `pro-form-item` 添加 `contentClass` 和 `contentStyle` 属性
+- `useProField`、`useProListField` 添加 `contentClass` 和 `contentStyle` 属性
+
+### Fixes
+- 修复 `pro-data-table` 固定列滚动时会出现多个阴影问题
+- 修复 `pro-config-provider` 的 `locale` 属性类型与 `naive-ui@2.43.0` 的 `n-config-provider` 不一致问题
+
 ## 3.1.0
 
 ### Features
