@@ -1,4 +1,5 @@
 import type { SelectProps } from 'naive-ui'
+import type { SelectMixedOption } from 'naive-ui/es/select/src/interface'
 import type { SlotsType, VNodeChild } from 'vue'
 import type { ProSelectSlots } from './slots'
 import { get, isArray, isFunction, noop } from 'lodash-es'
@@ -31,40 +32,51 @@ export default defineComponent({
       emptyDom,
     } = useFieldUtils(field)
 
+    const valueToOptionMap = computed(() => {
+      const {
+        options = [],
+        valueField = 'value',
+        childrenField = 'children',
+      } = mergedFieldProps.value
+      const map: Map<string | number, SelectMixedOption> = new Map()
+      eachTree(options, (item) => {
+        map.set(get(item, valueField) as string | number, item)
+      }, childrenField)
+      return map
+    })
+
     const selectedLabels = computed(() => {
       const {
         renderTag,
         renderLabel,
-        options = [],
         labelField = 'label',
         valueField = 'value',
-        childrenField = 'children',
       } = mergedFieldProps.value
 
       const labels: VNodeChild[] = []
-      const selectedValue = isArray(field.value.value) ? field.value.value : [field.value.value]
-      eachTree(
-        options,
-        (item) => {
-          const value = get(item, valueField)
-          if (selectedValue.includes(value)) {
-            let label = get(item, labelField) as VNodeChild
-            if (renderTag) {
-              label = renderTag({ option: item as any, handleClose: noop })
-            }
-            if (renderLabel) {
-              label = renderLabel(item as any, true)
-            }
-            if (isFunction(label)) {
-              label = label(item, true)
-            }
-            if (label) {
-              labels.push(<span>{label}</span>)
-            }
+      const selectedValues = isArray(field.value.value) ? field.value.value : [field.value.value]
+      selectedValues.forEach((v) => {
+        let option = valueToOptionMap.value.get(v)
+        if (!option) {
+          option = {
+            [valueField]: v,
+            [labelField]: v,
           }
-        },
-        childrenField,
-      )
+        }
+        let label = get(option, labelField) as VNodeChild
+        if (renderTag) {
+          label = renderTag({ option: option as any, handleClose: noop })
+        }
+        if (renderLabel) {
+          label = renderLabel(option as any, true)
+        }
+        if (isFunction(label)) {
+          label = label(option, true)
+        }
+        if (label) {
+          labels.push(<span>{label}</span>)
+        }
+      })
       return labels
     })
 
