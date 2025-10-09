@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 3.1.2
+
+### Fixes
+- 修复 `pro-select` 设置 `tag` 为 `true` 后在只读模式下无法显示问题
+- 修复 `pro-select` 在只读模式下显示顺序不正确问题
+
 ## 3.1.1
 
 ### Features
