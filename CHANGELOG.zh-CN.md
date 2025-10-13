@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 3.1.3
+
+### Fixes
+- 修复 `pro-date` 等相关日期组件设置 `value-format` 后在只读模式下显示错误问题
+
 ## 3.1.2
 
 ### Fixes
