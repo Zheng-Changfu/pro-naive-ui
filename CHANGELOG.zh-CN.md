@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 3.1.4
+- 修复 `pro-modal-form`、`pro-drawer-form`、`pro-search-form` 透传某些属性失败问题
+
 ## 3.1.3
 
 ### Fixes
