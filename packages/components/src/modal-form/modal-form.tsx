@@ -57,8 +57,8 @@ export default defineComponent({
       } = overridedProps.value
 
       return {
-        ...(proModalProps ?? {}),
         ...keep(restProps, keysOf(_proModalProps)),
+        ...(proModalProps ?? {}),
         'footer': undefined,
         'show': form.show.value,
         'onUpdateShow': undefined,

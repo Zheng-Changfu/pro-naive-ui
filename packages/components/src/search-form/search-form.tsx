@@ -52,8 +52,8 @@ export default defineComponent({
         ...restProps
       } = overridedProps.value
       return {
-        ...(gridProps ?? {}),
         ...keep(restProps, keysOf(_nGridProps)),
+        ...(gridProps ?? {}),
         collapsed: form.collapsed.value,
       }
     })
@@ -113,6 +113,7 @@ export default defineComponent({
               >
                 {{
                   default: ({ overflow }: any) => {
+                    console.log(overflow)
                     const suffixDom = (
                       <Suffix
                         form={this.form}

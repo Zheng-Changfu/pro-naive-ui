@@ -51,8 +51,8 @@ export default defineComponent({
       } = overridedProps.value
 
       return {
-        ...(drawerProps ?? {}),
         ...keep(restProps, keysOf(_nDrawerProps)),
+        ...(drawerProps ?? {}),
         'show': form.show.value,
         'onUpdateShow': undefined,
         'onAfterLeave': onAfterLeave,
