@@ -1,6 +1,15 @@
 # CHANGELOG
 
+## 3.2.0
+
+### Features
+- `create-pro-form` 返回的 `validate` 方法支持自定义校验时机和规则
+
+### Fixes
+- 修复 `pro-form` 组件 `rules` 属性中 `message` 属性无效问题
+
 ## 3.1.4
+
 - 修复 `pro-modal-form`、`pro-drawer-form`、`pro-search-form` 透传某些属性失败问题
 
 ## 3.1.3
