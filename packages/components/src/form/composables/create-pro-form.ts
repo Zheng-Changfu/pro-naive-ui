@@ -1,5 +1,5 @@
 import type { EventHookOn } from '@vueuse/core'
-import type { FormInst } from 'naive-ui'
+import type { FormInst, FormItemRule } from 'naive-ui'
 import type { BaseForm, FormOptions, InternalPath } from 'pro-composables'
 import type { Merge, Paths, Simplify } from 'type-fest'
 import type { FieldExtraInfo } from '../components/field/field-extra-info'
@@ -66,7 +66,7 @@ export type CreateProFormReturn<Values = any> = Simplify<Pick<
   /**
    * 校验
    */
-  validate: <T extends InternalPath = StringKeyof<Values>>(paths?: T) => ReturnType<FormInst['validate']> | undefined
+  validate: <T extends InternalPath = StringKeyof<Values>>(paths?: T, shouldRuleBeApplied?: (rule: FormItemRule) => boolean,) => ReturnType<FormInst['validate']> | undefined
   /**
    * 获取字段值的校验结果
    * @param path 路径
@@ -156,17 +156,28 @@ export function createProForm<Values = any>(
     proFormInst.value = form
   }
 
-  function validate(paths?: InternalPath) {
+  function validate(
+    paths?: InternalPath,
+    shouldRuleBeApplied?: (rule: FormItemRule) => boolean,
+  ) {
     if (!paths) {
       return proFormInst.value?.validate(addValidateResults, (rule) => {
-        return !(rule as any).readonly
+        const applied = !(rule as any).readonly
+        if (!shouldRuleBeApplied) {
+          return applied
+        }
+        return applied && shouldRuleBeApplied(rule)
       })
     }
     paths = (isString(paths) ? [paths] : paths).map(stringifyPath)
     return proFormInst.value?.validate(
       (errors, extra) => addValidateResults(errors, extra, false),
       (rule) => {
-        return paths.includes(rule.key!) && !(rule as any).readonly
+        const applied = paths.includes(rule.key!) && !(rule as any).readonly
+        if (!shouldRuleBeApplied) {
+          return applied
+        }
+        return applied && shouldRuleBeApplied(rule)
       },
     )
   }
