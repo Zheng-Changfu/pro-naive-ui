@@ -55,7 +55,7 @@ export function useRules(props: ComputedRef<ProFormItemProps>) {
   const finalRules = computed<FormItemRule[]>(() => {
     return mergedRules.value
       .map((rule) => {
-        const { required } = rule
+        const { required, message, validator } = rule
         if (required) {
           /**
            * 解决 naive-ui 需要在 rule 对象中设定 type 的问题
@@ -63,13 +63,13 @@ export function useRules(props: ComputedRef<ProFormItemProps>) {
           return {
             ...rule,
             /**
-             * 统一设置必填的提示信息
-             */
-            message: requiredMessage,
-            /**
              * 统一设置必填的校验方法
              */
-            validator: requiredValidator,
+            validator: validator ?? requiredValidator,
+            /**
+             * 统一设置必填的提示信息
+             */
+            message: message ?? (validator ? undefined : requiredMessage),
           }
         }
         return rule
