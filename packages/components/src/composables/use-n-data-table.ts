@@ -168,7 +168,7 @@ export function useNDataTable<
       const { params } = fetchInst
       params.value[1] = form.fieldsValue.value
     }
-    onTableChange({ page: 1 })
+    onTableChange({ page: rest.defaultCurrent ?? 1 })
   }
 
   function onUpdatePage(page: number) {
