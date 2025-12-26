@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 3.2.1
+
+### Fixes
+- 修复 `useNDataTable` 选项 `defaultCurrent` 参数无效问题
+
 ## 3.2.0
 
 ### Features
