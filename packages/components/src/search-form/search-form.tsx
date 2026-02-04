@@ -113,7 +113,6 @@ export default defineComponent({
               >
                 {{
                   default: ({ overflow }: any) => {
-                    console.log(overflow)
                     const suffixDom = (
                       <Suffix
                         form={this.form}
