@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 3.2.2
+
+### Fixes
+- 修复 `pro-layout` 组件 `logo` 插槽在部分布局模式中使用响应式变量失效问题
+
 ## 3.2.1
 
 ### Fixes
