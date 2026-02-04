@@ -181,22 +181,26 @@ export default defineComponent({
     }
   },
   render() {
-    const logoDom = resolveWrappedSlot(this.$slots.logo, (children) => {
-      if (!children) {
-        return null
-      }
-      return (
-        <div
-          class={[
-            `${this.mergedClsPrefix}-pro-layout__logo`,
-            { [`${this.mergedClsPrefix}-pro-layout__logo--hidden`]: !this.mergedLogo.show },
-            ...this.mergedLogoClass,
-          ]}
-        >
-          {children}
-        </div>
-      )
-    })
+    // 有 2 处共用了 logo，所以需要区分开 vnode，防止 vnode 被复用导致响应式不更新问题
+    const renderLogoDom = (key: string) => {
+      return resolveWrappedSlot(this.$slots.logo, (children) => {
+        if (!children) {
+          return null
+        }
+        return (
+          <div
+            key={key}
+            class={[
+              `${this.mergedClsPrefix}-pro-layout__logo`,
+              { [`${this.mergedClsPrefix}-pro-layout__logo--hidden`]: !this.mergedLogo.show },
+              ...this.mergedLogoClass,
+            ]}
+          >
+            {children}
+          </div>
+        )
+      })
+    }
 
     const navLeftDom = resolveWrappedSlot(this.$slots['nav-left'], (children) => {
       return (
@@ -244,6 +248,9 @@ export default defineComponent({
       )
     })
 
+    const logoDom = renderLogoDom('aside-logo')
+    const navLogoDom = renderLogoDom('nav-logo')
+
     return (
       <div
         {...this.$attrs}
@@ -284,7 +291,7 @@ export default defineComponent({
               ...this.mergedNavClass,
             ]}
             >
-              {logoDom}
+              {navLogoDom}
               {navLeftDom}
               {navCenterDom}
               {navRightDom}
