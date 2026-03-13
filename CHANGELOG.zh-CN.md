@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 3.2.3
+
+### Fixes
+- 修复 `pro-modal-form` 高度自适应问题，兼容 `naive-ui 2.44.0` 版本
+- 修复 `pro-data-table` 高度自适应问题，兼容 `naive-ui 2.44.0` 版本
+
 ## 3.2.2
 
 ### Fixes

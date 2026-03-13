@@ -1,5 +1,11 @@
 # pro-naive-ui
 
+## 3.2.3
+
+### Patch Changes
+
+- v3.2.3
+
 ## 3.2.2
 
 ### Patch Changes
